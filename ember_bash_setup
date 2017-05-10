@@ -1,6 +1,6 @@
 #!/bin/bash
 
-export emberSharedVersion='1_pre1'
+export emberSharedVersion='1_pre1.1'
 
 # More verbose debugging
 PS4='+($?) $BASH_SOURCE:$FUNCNAME:$LINENO:'
