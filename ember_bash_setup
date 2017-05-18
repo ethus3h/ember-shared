@@ -8,7 +8,7 @@ export PS4
 
 # These may not be available on non-Wreathe systems
 # shellcheck disable=SC1091
-source crystallize-bash_setup
+source crystallize-bash_setup &> /dev/null
 # shellcheck disable=SC1091
 source wreathe_bash_setup &> /dev/null
 # shellcheck disable=SC1091
@@ -56,12 +56,20 @@ function setVariableToCommandOutput() {
     eval "$save_traps"
 }
 
+function eescape() {
+    (
+        eescapeString="$1"
+        export eescapeString
+        print "$(perl -0777 -e 'print(quotemeta($ENV{eescapeString}))')"
+    )
+}
+
 function ereplace() {
     # Perl returns 0 even if it can't find the file (without extra perl code), so test first.
     if [[ ! -e "$3" ]]; then
         die "The target file does not exist."
     fi
-    ereplaceFrom="$1" ereplaceTo="$2" perl -0777 -p -i -e 's/$ENV{ereplaceFrom}/$ENV{ereplaceTo}/g' "$3"
+    ereplaceFrom="$(eescape $1)" ereplaceTo="$(eescape $2)" perl -0777 -p -i -e 's/$ENV{ereplaceFrom}/$ENV{ereplaceTo}/g' "$3"
 }
 
 function print() {
@@ -98,7 +106,7 @@ function ia () {
     # Retry wrapper for ia to work around https://github.com/jjjake/internetarchive/issues/183
     retryCount=0
     succeeded="false"
-    while [[ ! "$succeeded" == "true" && retryCount -lt 30 ]]; do
+    while [[ "$succeeded" != "true" && retryCount -lt 30 ]]; do
         "$(which ia)" "$@" && succeeded="true"
         retryCount=$(( retryCount + 1 ))
         if [[ "$retryCount" -gt 1 ]]; then
