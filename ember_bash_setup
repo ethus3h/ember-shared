@@ -1,6 +1,6 @@
 #!/bin/bash
 
-export emberSharedVersion='1'
+export emberSharedVersion='1.1_pre1'
 
 # More verbose debugging
 PS4='+($?) $BASH_SOURCE:$FUNCNAME:$LINENO:'
@@ -58,9 +58,7 @@ function setVariableToCommandOutput() {
 
 function eescape() {
     (
-        eescapeString="$1"
-        export eescapeString
-        print "$(perl -0777 -e 'print(quotemeta($ENV{eescapeString}))')"
+        eescapeString="$1" print "$(perl -0777 -e 'print(quotemeta($ENV{eescapeString}))')"
     )
 }
 
