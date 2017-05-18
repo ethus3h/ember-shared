@@ -1,6 +1,6 @@
 #!/bin/bash
 
-export emberSharedVersion='1_pre4'
+export emberSharedVersion='1'
 
 # More verbose debugging
 PS4='+($?) $BASH_SOURCE:$FUNCNAME:$LINENO:'
@@ -97,9 +97,9 @@ function preadconf() {
 function ia () {
     # Retry wrapper for ia to work around https://github.com/jjjake/internetarchive/issues/183
     retryCount=0
-    succeded="false"
-    while [[ ! "$succeded" == "true" && retryCount -lt 30 ]]; do
-        "$(which ia)" "$@" && succeded="true"
+    succeeded="false"
+    while [[ ! "$succeeded" == "true" && retryCount -lt 30 ]]; do
+        "$(which ia)" "$@" && succeeded="true"
         retryCount=$(( retryCount + 1 ))
         if [[ "$retryCount" -gt 1 ]]; then
             sleep 60
