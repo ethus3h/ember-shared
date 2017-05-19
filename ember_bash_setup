@@ -61,7 +61,10 @@ function print() {
 }
 
 function eescape() {
-    eescapeString="$1" perl -0777 -e 'print(quotemeta($ENV{eescapeString}))'
+    (
+        temp="$(awk '{printf "%s\\n", $0}' <<< "$1")"
+        eescapeString="$1" perl -0777 -e 'print(quotemeta($ENV{eescapeString}))'
+    )
 }
 
 function ereplace() {
@@ -99,17 +102,19 @@ function preadconf() {
 }
 
 function ia () {
-    # Retry wrapper for ia to work around https://github.com/jjjake/internetarchive/issues/183
-    retryCount=0
-    succeeded="false"
-    while [[ "$succeeded" != "true" && retryCount -lt 30 ]]; do
-        "$(which ia)" "$@" && succeeded="true"
-        retryCount=$(( retryCount + 1 ))
-        if [[ "$retryCount" -gt 1 ]]; then
-            sleep 60
+    (
+        # Retry wrapper for ia to work around https://github.com/jjjake/internetarchive/issues/183
+        retryCount=0
+        succeeded="false"
+        while [[ "$succeeded" != "true" && retryCount -lt 30 ]]; do
+            "$(which ia)" "$@" && succeeded="true"
+            retryCount=$(( retryCount + 1 ))
+            if [[ "$retryCount" -gt 1 ]]; then
+                sleep 60
+            fi
+        done
+        if [[ "$retryCount" -ge 30 ]]; then
+            exit 1
         fi
-    done
-    if [[ "$retryCount" -ge 30 ]]; then
-        exit 1
-    fi
+    )
 }
