@@ -62,9 +62,10 @@ function print() {
 
 function eescape() {
     (
-    temp="$(eescapeString="$1" perl -0777 -e 'print(quotemeta($ENV{eescapeString}))' | sed 's/\\$//')"
-    temp="${temp//$'\n'/'\n'}"
-    temp="${temp//$'\r'/'\r'}"
+        export eescapeString="$1"
+        setVariableToCommandOutput temp bash -c 'perl -0777 -e '\''print(quotemeta($ENV{eescapeString}))'\'' | sed '\''s/\\$//'\'
+        temp="${temp//$'\n'/'\n'}"
+        temp="${temp//$'\r'/'\r'}"
     )
 }
 
