@@ -70,11 +70,17 @@ function eescape() {
 }
 
 function ereplace() {
-    # Perl returns 0 even if it can't find the file (without extra perl code), so test first.
-    if [[ ! -e "$3" ]]; then
-        die "The target file does not exist."
-    fi
-    ereplaceFrom="$(eescape "$1")" ereplaceTo="$(eescape "$2")" perl -0777 -p -i -e 's/$ENV{ereplaceFrom}/$ENV{ereplaceTo}/g' "$3"
+    (
+        # Perl returns 0 even if it can't find the file (without extra perl code), so test first.
+        if [[ ! -e "$3" ]]; then
+            die "The target file does not exist."
+        fi
+        setVariableToCommandOutput ereplaceFrom eescape "$1"
+        export ereplaceFrom
+        setVariableToCommandOutput ereplaceTo eescape "$2"
+        export ereplaceTo
+        perl -0777 -p -i -e 's/$ENV{ereplaceFrom}/$ENV{ereplaceTo}/g' "$3"
+    )
 }
 
 function readconf() {
