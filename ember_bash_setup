@@ -61,10 +61,7 @@ function print() {
 }
 
 function eescape() {
-    (
-        temp="$(awk '{printf "%s\\n", $0}' <<< "$1")"
-        eescapeString="$1" perl -0777 -e 'print(quotemeta($ENV{eescapeString}))'
-    )
+    eescapeString="$(awk '{printf "%s\\n", $0}' <<< "$1")" perl -0777 -e 'print(quotemeta($ENV{eescapeString}))'
 }
 
 function ereplace() {
