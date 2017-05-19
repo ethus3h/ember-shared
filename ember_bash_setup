@@ -61,7 +61,11 @@ function print() {
 }
 
 function eescape() {
-    eescapeString="$1" perl -0777 -e 'print(quotemeta($ENV{eescapeString}))' | sed 's/\\$//' | awk '{printf "%s\\n", $0}'
+    (
+    temp="$(eescapeString="$1" perl -0777 -e 'print(quotemeta($ENV{eescapeString}))' | sed 's/\\$//')"
+    temp="${temp//$'\n'/'\n'}"
+    temp="${temp//$'\r'/'\r'}"
+    )
 }
 
 function ereplace() {
