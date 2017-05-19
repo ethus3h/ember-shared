@@ -1,6 +1,6 @@
 #!/bin/bash
 
-export emberSharedVersion='1.1_pre1'
+export emberSharedVersion='1.1_pre2'
 
 # More verbose debugging
 PS4='+($?) $BASH_SOURCE:$FUNCNAME:$LINENO:'
@@ -56,6 +56,10 @@ function setVariableToCommandOutput() {
     eval "$save_traps"
 }
 
+function print() {
+    printf "%s" "$1"
+}
+
 function eescape() {
     (
         eescapeString="$1" print "$(perl -0777 -e 'print(quotemeta($ENV{eescapeString}))')"
@@ -67,11 +71,7 @@ function ereplace() {
     if [[ ! -e "$3" ]]; then
         die "The target file does not exist."
     fi
-    ereplaceFrom="$(eescape $1)" ereplaceTo="$(eescape $2)" perl -0777 -p -i -e 's/$ENV{ereplaceFrom}/$ENV{ereplaceTo}/g' "$3"
-}
-
-function print() {
-    printf "%s" "$1"
+    ereplaceFrom="$(eescape "$1")" ereplaceTo="$(eescape "$2")" perl -0777 -p -i -e 's/$ENV{ereplaceFrom}/$ENV{ereplaceTo}/g' "$3"
 }
 
 function readconf() {
