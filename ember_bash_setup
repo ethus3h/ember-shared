@@ -61,8 +61,7 @@ function print() {
 }
 
 function eescape() {
-    temp="$(eescapeString="$1" perl -0777 -e 'print(quotemeta($ENV{eescapeString}))')"
-    sed 's/\$//'  > file.nocomma
+    eescapeString="$1" perl -0777 -e 'print(quotemeta($ENV{eescapeString}))' | sed 's/\$//' | awk '{printf "%s\\n", $0}'
 }
 
 function ereplace() {
