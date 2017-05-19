@@ -1,6 +1,6 @@
 #!/bin/bash
 
-export emberSharedVersion='1.1_pre5'
+export emberSharedVersion='1.1_pre6'
 
 # More verbose debugging
 PS4='+($?) $BASH_SOURCE:$FUNCNAME:$LINENO:'
@@ -61,7 +61,7 @@ function print() {
 }
 
 function eescape() {
-    eescapeString="$1" perl -0777 -e 'print(quotemeta($ENV{eescapeString}))' | sed 's/\$//' | awk '{printf "%s\\n", $0}'
+    eescapeString="$1" perl -0777 -e 'print(quotemeta($ENV{eescapeString}))' | sed 's/\\$//' | awk '{printf "%s\\n", $0}'
 }
 
 function ereplace() {
