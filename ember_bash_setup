@@ -1,6 +1,6 @@
 #!/bin/bash
 
-export emberSharedVersion='1.1_pre9'
+export emberSharedVersion='1.1_pre10'
 
 # More verbose debugging
 PS4='+($?) $BASH_SOURCE:$FUNCNAME:$LINENO:'
@@ -109,7 +109,7 @@ function preadconf() {
     print "${readconfValue[0]}"
 }
 
-function ia () {
+function ia() {
     (
         # Retry wrapper for ia to work around https://github.com/jjjake/internetarchive/issues/183
         retryCount=0
