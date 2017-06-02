@@ -5,4 +5,5 @@ source ember_bash_setup &> /dev/null
 
 trap 'die "A fatal error was reported on ${BASH_SOURCE[0]} line ${LINENO}."' ERR
 
-du -cb "$@" | tail -1 | cut -f 1
+temp="$(date +%Y-%m-%d-%H-%M-%S-%N)_$(xxd -pu <<< "$(date +%z)")-$(python -c 'import uuid; print str(uuid.uuid4())')"
+echo "${temp//-/}"
