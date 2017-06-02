@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 export emberSharedVersion='1.1_pre10'
 

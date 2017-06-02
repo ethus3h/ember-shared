@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # Warn the user and wait a bit
 
 time="$2"
