@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-export emberSharedVersion='1.1.1'
+export emberSharedVersion='1.1.2'
 
 # More verbose debugging
 PS4='+($?) $BASH_SOURCE:$FUNCNAME:$LINENO:'
@@ -78,7 +78,7 @@ function ereplace() {
         fi
         setVariableToCommandOutput ereplaceFrom eescape "$1"
         export ereplaceFrom
-        setVariableToCommandOutput ereplaceTo eescape "$2"
+        ereplaceTo="$2"
         export ereplaceTo
         perl -0777 -p -i -e 's/$ENV{ereplaceFrom}/$ENV{ereplaceTo}/g' "$3"
     )
