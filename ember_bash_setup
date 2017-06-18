@@ -3,7 +3,7 @@
 export emberSharedVersion='1.1.3'
 
 # Allow problems to be caught within pipelines
-set +o pipefail
+set -o pipefail
 
 # More verbose debugging
 PS4='+($?) $BASH_SOURCE:$FUNCNAME:$LINENO:'
