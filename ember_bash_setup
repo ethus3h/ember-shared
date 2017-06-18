@@ -131,7 +131,7 @@ function ia() {
     )
 }
 
-urlencode() {
+function urlencode() {
     old_lc_collate="$LC_COLLATE"
     LC_COLLATE=C
     
@@ -151,7 +151,7 @@ urlencode() {
     LC_COLLATE="$old_lc_collate"
 }
 
-urldecode() {
+function urldecode() {
     local url_encoded="${1//+/ }"
     printf '%b' "${url_encoded//%/\\x}"
 }
