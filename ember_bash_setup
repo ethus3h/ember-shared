@@ -132,7 +132,6 @@ function ia() {
 }
 
 urlencode() {
-    # urlencode <string>
     old_lc_collate="$LC_COLLATE"
     LC_COLLATE=C
     
@@ -153,8 +152,6 @@ urlencode() {
 }
 
 urldecode() {
-    # urldecode <string>
-
     local url_encoded="${1//+/ }"
     printf '%b' "${url_encoded//%/\\x}"
 }
