@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-export emberSharedVersion='1.1.4.1'
+export emberSharedVersion='1.1.4.2'
 
 # Allow problems to be caught within pipelines
 set -o pipefail
@@ -132,23 +132,14 @@ function ia() {
 }
 
 function urlencode() {
-    old_lc_collate="$LC_COLLATE"
-    LC_COLLATE=C
-    
-    local length="${#1}"
-    for (( i = 0; i < length; i++ )); do
-        local c="${1:i:1}"
-        case "$c" in
-            [a-zA-Z0-9.~_-])
-                printf "%s" "$c"
-                ;;
-            *)
-                printf '%%%02X' "'$c"
-                ;;
-        esac
+    local LANG=C
+    for ((i=0; i < ${#1}; i++)); do
+        if [[ ${1:$i:1} =~ ^[a-zA-Z0-9\.\~\_\-]$ ]]; then
+            printf "${1:$i:1}"
+        else
+            printf '%%%02X' "'${1:$i:1}"
+        fi
     done
-    
-    LC_COLLATE="$old_lc_collate"
 }
 
 function urldecode() {
