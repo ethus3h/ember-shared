@@ -1,9 +1,10 @@
 #!/usr/bin/env bash
 
-export emberSharedVersion='1.1.4.2'
+export emberSharedVersion='1.1.4.3'
 
 # Allow problems to be caught within pipelines
 set -o pipefail
+set -o nounset
 
 # More verbose debugging
 PS4='+($?) $BASH_SOURCE:$FUNCNAME:$LINENO:'
