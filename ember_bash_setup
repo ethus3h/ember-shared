@@ -1,9 +1,10 @@
 #!/usr/bin/env bash
 
-export emberSharedVersion='1.1.4.4'
+export emberSharedVersion='1.1.4.5'
 
 # Allow problems to be caught within pipelines
 set -o pipefail
+set -o errtrace
 #set -o nounset
 
 # More verbose debugging
