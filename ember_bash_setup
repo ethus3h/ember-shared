@@ -1,10 +1,13 @@
 #!/usr/bin/env bash
 
-export emberSharedVersion='1.1.4.5'
+export emberSharedVersion='1.1.4.6'
 
 # Allow problems to be caught within pipelines
 set -o pipefail
-set -o errtrace
+if [[ -z "$PS1" ]]; then
+    # Make ERR trap inherited, but only if the shell is non-interactive
+    set -o errtrace
+fi
 #set -o nounset
 
 # More verbose debugging
