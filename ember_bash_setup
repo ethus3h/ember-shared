@@ -24,13 +24,13 @@ source bash_math_functions &> /dev/null
 # shellcheck disable=SC1091
 source egup-env &> /dev/null
 
-function die() {
+die() {
     # shellcheck disable=SC1091
     source error-notify "$@"
     exit 1
 }
 
-function embasename() {
+embasename() {
     (
         path="$1"
         if [[ "$path" == "/" ]]; then
@@ -43,7 +43,7 @@ function embasename() {
     )
 }
 
-function emreadlink() {
+emreadlink() {
     (
         cd "$(dirname "$1")" || exit 1
         setVariableToCommandOutput "basename" "embasename" "$1"
@@ -51,7 +51,7 @@ function emreadlink() {
     )
 }
 
-function setVariableToCommandOutput() {
+setVariableToCommandOutput() {
     if [[ "$1" == "emSetVariableToCommandOutputVar" ]]; then
         exit 1
     fi
@@ -64,11 +64,11 @@ function setVariableToCommandOutput() {
     eval "$save_traps"
 }
 
-function print() {
+print() {
     printf "%s" "$1"
 }
 
-function eescape() {
+eescape() {
     (
         export eescapeString="$1"
         # shellcheck disable=SC2016
@@ -78,7 +78,7 @@ function eescape() {
     )
 }
 
-function ereplace() {
+ereplace() {
     (
         # Perl returns 0 even if it can't find the file (without extra perl code), so test first.
         if [[ ! -e "$3" ]]; then
@@ -92,7 +92,7 @@ function ereplace() {
     )
 }
 
-function readconf() {
+readconf() {
     local key="$1"
     local file="$2"
     if [[ -z "$file" ]]; then
@@ -113,12 +113,12 @@ function readconf() {
     done < "$2"
 }
 
-function preadconf() {
+preadconf() {
     readconf "$@"
     print "${readconfValue[0]}"
 }
 
-function ia() {
+ia() {
     (
         # Retry wrapper for ia to work around https://github.com/jjjake/internetarchive/issues/183
         retryCount=0
@@ -136,7 +136,7 @@ function ia() {
     )
 }
 
-function urlencode() {
+urlencode() {
     local LANG=C
     for ((i=0; i < ${#1}; i++)); do
         if [[ ${1:$i:1} =~ ^[a-zA-Z0-9\.\~\_\-]$ ]]; then
@@ -147,7 +147,7 @@ function urlencode() {
     done
 }
 
-function urldecode() {
+urldecode() {
     local url_encoded="${1//+/ }"
     printf '%b' "${url_encoded//%/\\x}"
 }
