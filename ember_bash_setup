@@ -121,6 +121,7 @@ preadconf() {
 ia() {
     (
         # Retry wrapper for ia to work around https://github.com/jjjake/internetarchive/issues/183
+        # Should strip delete option from ia arguments and implement it outside of the retry loop to prevent a hypothetical case (I think I might have just seen this) where ia deletes when it fails
         retryCount=0
         succeeded="false"
         while [[ "$succeeded" != "true" && retryCount -lt 30 ]]; do
