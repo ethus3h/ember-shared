@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-export emberSharedVersion='1.1.4.6'
+export emberSharedVersion='1.1.4.7'
 
 # Allow problems to be caught within pipelines
 set -o pipefail
@@ -126,7 +126,7 @@ ia() {
             retryCount=0
             succeeded="false"
             while [[ "$succeeded" != "true" && retryCount -lt 30 ]]; do
-                "$(which ia)" "$@" && succeeded="true"
+                ia "$@" && succeeded="true"
                 retryCount=$(( retryCount + 1 ))
                 if [[ "$retryCount" -gt 1 ]]; then
                     sleep 60
@@ -137,14 +137,14 @@ ia() {
             fi
         )
     else
-        "$(which ia)" "$@"
+        ia "$@"
     fi
 }
 
 urlencode() {
     local LANG=C
     for ((i=0; i < ${#1}; i++)); do
-        if [[ ${1:$i:1} =~ ^[a-zA-Z0-9\.\~\_\-]$ ]]; then
+        if [[ ${1:$i:1} =~ ^[a-zA-Z0-9\.\~_-]$ ]]; then
             printf "${1:$i:1}"
         else
             printf '%%%02X' "'${1:$i:1}"
