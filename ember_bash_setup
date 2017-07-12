@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-export emberSharedVersion='1.1.4.11'
+export emberSharedVersion='1.1.4.12'
 
 # Allow problems to be caught within pipelines
 set -o pipefail
@@ -126,7 +126,8 @@ ia() {
             retryCount=0
             succeeded="false"
             while [[ "$succeeded" != "true" && retryCount -lt 30 ]]; do
-                ia "$@" && succeeded="true"
+                # Use which to prevent calling this function again.
+                "$(which ia)" "$@" && succeeded="true"
                 retryCount=$(( retryCount + 1 ))
                 if [[ "$retryCount" -gt 1 ]]; then
                     sleep 60
