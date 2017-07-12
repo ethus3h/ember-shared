@@ -17,6 +17,7 @@ else
     ec="1"
 fi
 printf %b '\033[1;31m' "$(ps -o args= $PPID)" '\nfailed with the error:\n' "${@+$@$'\n'}" '\033[0m' >&2
-trap 'error-notify "A fatal error was reported on ${BASH_SOURCE[0]} line ${LINENO}."; exit 1' ERR
+save_traps="$(trap)"
+trap 'error-notify "A fatal error was reported on ${BASH_SOURCE[0]} line ${LINENO}."; eval "$save_traps"; false; exit 1' ERR
 ( exit "$ec" )
 exit "$ec"
