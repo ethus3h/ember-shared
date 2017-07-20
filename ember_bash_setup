@@ -123,6 +123,7 @@ ia() {
         (
             # Retry wrapper for ia to work around https://github.com/jjjake/internetarchive/issues/183
             # Should strip delete option from ia arguments and implement it outside of the retry loop to prevent a hypothetical case (I think I might have just seen this) where ia deletes when it fails
+            # TODO: Strip --delete option from the argument list passed to the real ia, and handle it here, to deal with the case where the file gets uploaded and deleted, and ia then crashes and exits with nonzero status despite having deleted the file, meaning it gets repeatedly called to upload a nonexistent file
             retryCount=0
             succeeded="false"
             while [[ "$succeeded" != "true" && retryCount -lt 30 ]]; do
