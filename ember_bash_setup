@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-export emberSharedVersion='1.1.4.14'
+export emberSharedVersion='1.1.4.15'
 
 # Allow problems to be caught within pipelines
 set -o pipefail
@@ -131,10 +131,10 @@ ia() {
                     wantsDelete="true"
                     break
                 fi
-                if [[ "$param" ~= $patternMatch ]]; then
-                    fileArgs+="$param"
+                if [[ "$param" =~ $patternMatch ]]; then
+                    fileArgs+=("$param")
                 fi
-                newParams+="$param"
+                newParams+=("$param")
             done
             retryCount=0
             succeeded="false"
@@ -149,7 +149,7 @@ ia() {
             if [[ "$retryCount" -ge 30 ]]; then
                 exit 1
             fi
-            if [[ "$succeeded" == "true" ]]; then
+            if [[ "$succeeded" == "true" ]] && [[ "$wantsDelete" == "true" ]]; then
                 for file in "${fileArgs[@]}"; do
                     rm "${file:?}"
                 done
