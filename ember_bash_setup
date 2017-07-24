@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-export emberSharedVersion='1.1.4.16'
+export emberSharedVersion='1.1.4.17'
 
 # Allow problems to be caught within pipelines
 set -o pipefail
@@ -126,13 +126,18 @@ ia() {
             patternMatch="^--"
             newParams=()
             fileArgs=()
+            iterCount=0
             for param in "$@"; do
                 if [[ "$param" == "--delete" ]]; then
                     wantsDelete="true"
                     break
                 fi
                 if ! [[ "$param" =~ $patternMatch ]]; then
-                    fileArgs+=("$param")
+                    if [[ "$iterCount" == "0" ]]; then
+                        iterCount=1
+                    else
+                        fileArgs+=("$param")
+                    fi
                 fi
                 newParams+=("$param")
             done
