@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-export emberSharedVersion='1.1.4.17'
+export emberSharedVersion='1.1.4.18'
 
 # Allow problems to be caught within pipelines
 set -o pipefail
@@ -133,8 +133,11 @@ ia() {
                     break
                 fi
                 if ! [[ "$param" =~ $patternMatch ]]; then
+                    # Skip first two arguments ("upload" and identifier)
                     if [[ "$iterCount" == "0" ]]; then
                         iterCount=1
+                    elif [[ "$iterCount" == "1" ]]; then
+                        iterCount=2
                     else
                         fileArgs+=("$param")
                     fi
