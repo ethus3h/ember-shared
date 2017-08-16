@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
-export emberSharedVersion='1.1.4.18'
+export emberSharedVersion='1.1.4.19'
 
-# ( sudo true; cd "/Ember Library/Ember satellite projects/crystallize"; eogup-single; git tag -a v3.1.2.5_pre194 -m "version"; egup-single .; sudo emerge crystallize; sudo dispatch-conf )
+# ( sudo true; newVersion="1.1.4.19"; cd "/Ember Library/Ember satellite projects/ember-shared"; eogup-single; git tag -a "v$newVersion" -m "version"; egup-single .; cd "/Ember Library/Ember satellite projects/wreathe-overlay"; eogup-single; mv app-misc/ember-shared/ember-shared-*.ebuild "app-misc/ember-shared-$newVersion"; sudo emerge ember-shared )
 
 # Allow problems to be caught within pipelines
 set -o pipefail
