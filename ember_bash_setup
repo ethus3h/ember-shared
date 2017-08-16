@@ -1,8 +1,9 @@
 #!/usr/bin/env bash
 
-export emberSharedVersion='1.1.4.23'
+export emberSharedVersion='1.1.4.24'
 
-# ( sudo true; newVersion="1.1.4.23"; cd "/Ember Library/Ember satellite projects/ember-shared"; eogup-single; git tag -a "v$newVersion" -m "version"; egup-single .; cd "/Ember Library/Ember satellite projects/wreathe-overlay"; eogup-single; mv app-misc/ember-shared/ember-shared-*.ebuild "app-misc/ember-shared/ember-shared-$newVersion.ebuild"; repoman manifest; egup-single; sudo layman -s wreathe-overlay; sudo emerge ember-shared )
+# The update script shown here requires there to be only one ebuild of ember-bash-setup in the wreathe-overlay overlay.
+# ( sudo true; newVersion="1.1.4.24"; cd "/Ember Library/Ember satellite projects/ember-shared"; eogup-single; git tag -a "v$newVersion" -m "version"; egup-single .; cd "/Ember Library/Ember satellite projects/wreathe-overlay"; eogup-single; mv app-misc/ember-shared/ember-shared-*.ebuild "app-misc/ember-shared/ember-shared-$newVersion.ebuild"; repoman manifest; egup-single; sudo layman -s wreathe-overlay; sudo emerge ember-shared )
 
 # Allow problems to be caught within pipelines
 set -o pipefail
