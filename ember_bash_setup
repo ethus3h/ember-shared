@@ -190,19 +190,9 @@ contains() {
     return 1
 }
 
-contains() {
-    # from https://stackoverflow.com/questions/3685970/check-if-a-bash-array-contains-a-value
-    local elem match="$1"
-    shift
-    for elem; do [[ "$elem" == "$match" ]] && return 0; done
-    return 1
-}
-
 allElementsEqual() {
-    # from https://stackoverflow.com/questions/3685970/check-if-a-bash-array-contains-a-value
-    local elem match="$1"
-    shift
-    for elem; do [[ "$elem" == "$match" ]] || return 1; done
+    local e
+    for e in "${@:2}"; do [[ "$e" == "$1" ]] || return 1; done
     return 0
 }
 
