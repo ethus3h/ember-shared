@@ -2,6 +2,8 @@
 
 export emberSharedVersion='1.1.4.18'
 
+# ( sudo true; cd "/Ember Library/Ember satellite projects/crystallize"; eogup-single; git tag -a v3.1.2.5_pre194 -m "version"; egup-single .; sudo emerge crystallize; sudo dispatch-conf )
+
 # Allow problems to be caught within pipelines
 set -o pipefail
 if [[ -z "$PS1" ]]; then
