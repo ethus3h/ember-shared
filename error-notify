@@ -16,10 +16,11 @@ else
     # The first argument is not an integer, so default to 1
     ec="1"
 fi
-printf '%b' '\033[1;31m'
-printf '%s\n' "$(ps -o args= $PPID)" 
-printf '%s\n' 'failed with the error on '"${BASH_SOURCE[0]} line ${LINENO}"':'
-printf '%s\n' "${@+$@$'\n'}" '\033[0m' >&2
+printf '%b' '\033[1;31m' >&2
+printf '%s\n' "$(ps -o args= $PPID)" >&2
+printf '%s\n' 'failed with the error on '"${BASH_SOURCE[0]} line ${LINENO}"':' >&2
+printf '%s' "${@+$@$'\n'}" >&2
+printf '%b' '\033[0m' >&2
 save_traps="$(trap)"
 save_traps="${save_traps//error-notify/true}"
 trap 'eval "$save_traps"; false; exit 1' ERR
