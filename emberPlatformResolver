@@ -5,7 +5,13 @@
 app="$1"
 shift
 
-[[ -z "$app" ]] && app="bash"
+if [[ -z "$app" ]]; then
+    [[ "$emberPlatformResolver" == "true" ]] && exit 0
+    [[ -z "$app" ]] && app="bash"
+fi
+
+emberPlatformResolver="true"
+export emberPlatformResolver
 
 if [[ "$OSTYPE" = darwin* ]]; then
     if ! [[ -e "$(which "g$app")" ]]; then
