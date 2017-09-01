@@ -7,8 +7,10 @@ shift
 
 if [[ "$OSTYPE" = darwin* ]]; then
     if ! [[ -e "$(which "g$app")" ]]; then
-        echo "Please run emberMacGNUInstall, and then restart your command."
-        sudo brew install coreutils findutils gnu-tar gnu-sed gawk gnutls gnu-indent gnu-getopt
+        printf '%b' '\033[1;31m' >&2
+        echo "Please run emberMacGNUInstall, and then restart your command." >&2
+        printf '%b' '\033[0m' >&2
+        exit 1
     else
         exec "g$app" "$@"
     fi
