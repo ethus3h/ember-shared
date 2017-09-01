@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+#set -x
+
+sudo brew install coreutils findutils gnu-tar gnu-sed gawk gnutls gnu-indent gnu-getopt
