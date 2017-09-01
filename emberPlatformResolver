@@ -5,6 +5,8 @@
 app="$1"
 shift
 
+[[ -z "$app" ]] && app="bash"
+
 if [[ "$OSTYPE" = darwin* ]]; then
     if ! [[ -e "$(which "g$app")" ]]; then
         printf '%b' '\033[1;31m' >&2
