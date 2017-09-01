@@ -1,0 +1,343 @@
+#!/usr/bin/env bash
+# shellcheck disable=SC1091
+source ember_bash_setup &> /dev/null
+#set -x
+
+((EUID)) && exec sudo -- "$0" "$@"
+
+sregDir=""
+if [[ "$1" == "--sreg-dir" ]]; then
+    shift
+    sregDir="$1"
+    shift
+fi
+sregDir="$(sregi_find_dir --sreg-dir "$sregDir" --full-check)"
+
+finish() {
+    rm -f "${dbDir:?}"/.LocalStore.lock
+    trap - ERR
+    (
+        cd "/${crystalWorkdir:?}/" || die
+        if [[ -e "/$crystalWorkdir/${streamId:?}" ]]; then
+            rm -r "/$crystalWorkdir/${streamId:?}"
+        fi
+    )
+    trap 'die "A fatal error was reported on ${BASH_SOURCE[0]} line ${LINENO} while finishing $hashFull."' ERR
+}
+trap 'error-notify "A fatal error was reported on ${BASH_SOURCE[0]} line ${LINENO}."; finish; exit 1' ERR
+trap finish EXIT
+
+if [[ "$1" == "--entry-path" ]]; then
+    shift
+    overrideEntryPath="$1"
+    shift
+fi
+if [[ "$1" == "--checksum" ]]; then
+    shift
+    knownChecksum="$1"
+    shift
+fi
+if [[ "--disallow-hash-pointer" == "$1" ]]; then
+    disallowHashPointer="true"
+    shift
+fi
+skipCache="false"
+if [[ "--skip-cache" == "$1" ]]; then
+    skipCache="true"
+    shift
+fi
+crystalWorkdir="$(crystallize-getconf WorkDirectory)"
+cd "$crystalWorkdir" || exit 1
+streamId="sreg_read_stream-$(date-uuid)"
+dbDir="$sregDir"
+# Basic sanity check to make sure it bombs out if the pointer is cached but is missing a necessary LocalStore entry
+if [[ -z "$overrideEntryPath" ]]; then
+    if [[ -n "$knownChecksum" ]]; then
+        sregi_available_by_hash --sreg-dir "$sregDir" "$knownChecksum" || die "sregi_available_by_hash failed on ${BASH_SOURCE[0]} line ${LINENO} while reading $knownChecksum."
+    fi
+fi
+# Set up cache directory
+cacheDbDir="$crystalWorkdir/.StreamCache/"
+if ! [[ -e "$cacheDbDir" ]]; then
+    mkdir -p "$cacheDbDir"
+    echo "5000000000" > "$cacheDbDir/.scache.limit"
+fi
+# Get stream
+mkdir "$streamId"
+(
+    trap 'die "A fatal error was reported on ${BASH_SOURCE[0]} line ${LINENO}."' ERR
+    cd "$streamId" || exit 1
+    sponge "$streamId.xz"
+    if [[ "$(wc -c < "$streamId.xz")" -lt 166 ]]; then
+        # Too short to be a pointer, since it doesn't even have enough bytes for a pointer type signature and a checksum, so just return it and exit
+        if [[ -n "$knownChecksum" ]]; then
+            [[ "$(sha512sum < "$streamId.xz" | awk '{print $1;}')" == "$knownChecksum" ]] || die "Checksum of non-pointer file does not match provided checksum."
+        fi
+        cat "$streamId.xz"
+        exit 0
+    fi
+    # 120 retries * 30 seconds = 1 hour
+    numRetries=120
+    numTotalRetries="$numRetries"
+    successfulRetrieval="0"
+    # Get the hash of the stream
+    hashFull="$(sregi_hash_from_file "$streamId.xz")"
+    if [[ -n "$knownChecksum" ]]; then
+        [[ "$knownChecksum" == "$hashFull" ]] || die "The checksum provided by the pointer does not match the provided checksum."
+    else 
+        knownChecksum="$hashFull"
+    fi
+    (
+        # Basic sanity check to make sure it bombs out if the pointer is cached but is missing a necessary LocalStore entry
+        sregi_available_by_hash --sreg-dir "$sregDir" "$knownChecksum" "$streamId.xz" || die "sregi_available_by_hash failed on ${BASH_SOURCE[0]} line ${LINENO} while reading $knownChecksum."
+    ) || die "sregi_available_by_hash failed on ${BASH_SOURCE[0]} line ${LINENO} while reading $knownChecksum."
+    hashA="${hashFull:0:1}"
+    hashB="${hashFull:1:1}"
+    hashC="${hashFull:2:1}"
+    # Set up this item's cache directory
+    hashSubdir="$hashA/$hashB/$hashC"
+    hashDir="$cacheDbDir/$hashSubdir"
+    mkdir -p "$hashDir"
+    dbLinkPath="$hashDir/$hashFull"
+
+    if [[ -e "$dbLinkPath.locked" ]]; then
+        warn "This stream cache entry is already in use. If the process using it has crashed, remove $dbLinkPath.locked manually."
+        warn "Waiting 30 minutes for process using it to finish..."
+
+        waitForLockTries=0
+        until [[ "$waitForLockTries" -ge 360 ]]; do
+            if [[ -e "$dbLinkPath.locked" ]]; then
+                warn "Still waiting..."
+            else
+                break
+            fi
+            waitForLockTries=$((waitForLockTries+1))
+            sleep 5
+        done
+
+        if [[ -e "$dbLinkPath.locked" ]]; then
+            die "This stream cache entry has been in use for 30 minutes so giving up. If the process using it has crashed, remove $dbLinkPath.locked manually."
+        fi
+    fi
+
+    trap 'warn "A nonfatal error was reported on ${BASH_SOURCE[0]} line ${LINENO} while reading $hashFull."' ERR
+    while [[ "$numRetries" -gt 0 ]] && [[ "$successfulRetrieval" -eq 0 ]]; do
+        trap 'warn "A nonfatal error was reported on ${BASH_SOURCE[0]} line ${LINENO} while reading $hashFull."; continue' ERR
+        if [[ "$numRetries" -lt "$numTotalRetries" ]]; then
+            sleep 30
+            echo "Beginning retry of reading stream $hashFull. $numRetries retries remaining."
+        fi
+        numRetries=$(( numRetries - 1 ))
+        if [[ -e "$dbFilePath" ]] && [[ "$(unxz --stdout - < "$dbFilePath" | sha512sum | awk '{print $1;}')" != "$knownChecksum" ]]; then
+            touch "$dbLinkPath.locked"
+            rm "$dbFilePath"
+        fi
+        if [[ ! -h "$dbLinkPath" ]] || [[ ! -f "$(readlink "$dbLinkPath")" ]] || [[ "$skipCache" == "true" ]] || [[ ! -f "$dbFilePath" ]]; then
+            # Only lock the cache entry while we're editing it
+            touch "$dbLinkPath.locked"
+
+            # Item is not in the cache (or --skip-cache was specified), so add it
+
+            # Figure out the requestCount for this stream's cache entry
+            gotRequestCount=""
+            if [[ "$skipCache" == "true" ]]; then
+                if [[ -h "$dbLinkPath" ]] && [[ -f "$(readlink "$dbLinkPath")" ]]; then
+                    # Get the requestCount. There are three path components after it. I suspect there's a better way to do this.
+                    dbFilePath="$(readlink -e "$dbLinkPath")"
+                    requestCount="$(basename "$(dirname "$(dirname "$(dirname "$(dirname "$dbFilePath")")")")")"
+                    if [[ -z "$requestCount" ]]; then
+                        requestCount="1"
+                    fi
+                    gotRequestCount="true"
+                fi
+            fi
+            if [[ "$skipCache" != "true" ]] || [[ "$gotRequestCount" != "true" ]]; then
+                if ! [[ -h "$dbLinkPath" ]]; then
+                    # Either we've never seen this item before or it's a regular file, so set the requestCount
+                    requestCount="1"
+                    [[ -f "$dbLinkPath" ]] && requestCount="$(<"$dbLinkPath")"
+                else
+                    # it's a broken link or the link target isn't a normal file
+                    rm "$dbLinkPath"
+                fi
+            fi
+            if [[ -z "$requestCount" ]]; then
+                requestCount="1"
+            fi
+            gotRequestCount="true" # gotRequestCount isn't used again, but the requestCount has been gotten.
+
+            dbFileDir="$cacheDbDir/ByCount/${requestCount:?}/$hashSubdir"
+            dbFilePath="$dbFileDir/$hashFull"
+            mkdir -p "$dbFileDir"
+            # Figure out what type of pointer it is
+            pointerTypeSignature="$(head -c 36 "$streamId.xz")"
+            if [[ "$pointerTypeSignature" == "a5e2f296-3085-49c0-8f48-24ea436b7a8b" ]]; then
+                # Standard remote pointer
+                tail -c +167 "$streamId.xz" | unxz --stdout - | tar -xf -
+                decrystallize-pointer --passphrase "$(sregi_get_passphrase "$sregDir")" ./*.crystal --here &> /dev/null
+                cp scache-*.tmp "$streamId.out"
+            elif [[ "$pointerTypeSignature" == "c39f8657-384b-438b-a5a2-eece17147589" ]]; then
+                # LocalStore pointer
+                trap 'warn "A fatal error was reported on ${BASH_SOURCE[0]} line ${LINENO} while attempting to read the LocalStore pointer $hashFull. Giving up now: retrying would likely not help in this situation."; numRetries=0; break' ERR
+                unxz --stdout - < "$dbDir/LocalStore/$hashA/$hashB/$hashC/$hashFull" > "$streamId.out"
+            elif [[ "$pointerTypeSignature" == "209fcfdf-d1ad-4345-8ef7-1fdc2d583d49" ]] || [[ "$pointerTypeSignature" == "2fae2004-94bb-4aa8-a01a-fc44298efc2c" ]]; then
+                # Remote pack pointer
+                if [[ "$pointerTypeSignature" == "209fcfdf-d1ad-4345-8ef7-1fdc2d583d49" ]]; then
+                    # Pack pointer data is in the pointer
+                    tail -c +167 "$streamId.xz" | unxz --stdout - | tar -xf -
+                else
+                    # Pack pointer name is in the pointer, so get the pack pointer data from the Packs directory
+                    packName="$(tail -c +167 "$streamId.xz")"
+                    unxz --stdout - < "$dbDir/Packs/$packName" | tar -xf -
+                fi
+                trap 'warn "A nonfatal error was reported on ${BASH_SOURCE[0]} line ${LINENO} while reading $hashFull."' ERR
+                if ! [[ -e "$crystalWorkdir/.LocalStoreCache/" ]]; then
+                    localstorecache_init "$crystalWorkdir/.LocalStoreCache/" 5000000000
+                fi
+                crystalFilePattern=".*.crystal-data"
+                crystalFilePatternMatches=( $crystalFilePattern )
+                localStoreCrystalName="${crystalFilePatternMatches[0]}"
+                if ! [[ -e "$localStoreCrystalName" ]]; then
+                    error-notify "Crystal info could not be found in the pointer $hashFull, so giving up immediately (retrying probably wouldn't help this)."
+                    numRetries="0"
+                    break
+                fi
+                localstoreErrorBreak() {
+                    warn "localstorecache_request failed for the pointer $hashFull, so stopping this attempt."
+                    break
+                }
+                localStoreCrystalIdentifier="$(<"$localStoreCrystalName"/identifier)"
+                localstoreLocation="$(localstorecache_request --sreg-dir "$sregDir" "$crystalWorkdir/.LocalStoreCache/" "$localStoreCrystalIdentifier")" || localstoreErrorBreak
+                trap 'warn "A fatal error was reported on ${BASH_SOURCE[0]} line ${LINENO} while attempting to read a remote pack pointer $hashFull (stream was not in the pack given). Giving up now: retrying would likely not help in this situation."; numRetries=0; break' ERR
+                localStoreMatchArray=("$localstoreLocation"/sreg_flush_localstore-*.LocalStore)
+                if ( ! [[ -e "${localStoreMatchArray[0]}" ]] ) || [[ -z "${localStoreMatchArray[0]}" ]]; then
+                    localStoreMatchArray=("$localstoreLocation"/scache-*.LocalStore)
+                    localStoreMatchedFolder="${localStoreMatchArray[0]}"
+                else
+                    localStoreMatchedFolder="${localStoreMatchArray[0]}/LocalStore"
+                fi
+                unxz --stdout - < "$localStoreMatchedFolder/$hashA/$hashB/$hashC/$hashFull" > "$streamId.out"
+                trap 'warn "A nonfatal error was reported on ${BASH_SOURCE[0]} line ${LINENO} while reading $hashFull."' ERR
+            elif [[ "$pointerTypeSignature" == "760fa662-89cf-4ebd-9664-150b7637ddd4" ]]; then
+                # Hash pointer
+                if [[ "true" == "$disallowHashPointer" ]]; then
+                    finish
+                    die "The provided pointer $hashFull is a hash pointer, and --disallow-hash-pointer was specified!"
+                fi
+                if ! [[ -e "$dbDir/$hashA/$hashB/$hashC/$hashFull" ]]; then
+                    finish
+                    die "The provided pointer $hashFull is a hash pointer, but the corresponding hash is not registered in the database! ($dbDir/$hashA/$hashB/$hashC/$hashFull does not exist.)"
+                fi
+                readStreamArgs=()
+                readStreamArgs+=("--sreg-dir")
+                readStreamArgs+=("$sregDir")
+                if [[ -n "$overrideEntryPath" ]]; then
+                    readStreamArgs+=("--entry-path" "$overrideEntryPath")
+                fi
+                readStreamArgs+=("--checksum" "$knownChecksum")
+                if [[ "$disallowHashPointer" == "true" ]]; then
+                    readStreamArgs+=("--disallow-hash-pointer")
+                fi
+                if [[ "$skipCache" == "true" ]]; then
+                    readStreamArgs+=("--skip-cache")
+                fi
+                sreg_read_stream "${readStreamArgs[@]}" < "$dbDir/$hashA/$hashB/$hashC/$hashFull" > "$streamId.out"
+            else
+                # The file isn't a stream pointer, so just return it and exit
+                if [[ -n "$knownChecksum" ]]; then
+                    [[ "$(sha512sum < "$streamId.xz" | awk '{print $1;}')" == "$knownChecksum" ]] || die "Checksum of non-pointer file does not match provided or known checksum."
+                fi
+                cat "$streamId.xz"
+                exit 0
+            fi
+            if [[ -e "$dbLinkPath" ]]; then
+                if ! ( [[ -f "$dbLinkPath" ]] || [[ -h "$dbLinkPath" ]] ); then
+                    # It can be a regular file when the stream has been dropped from the cache.
+                    die "Stream cache link file $dbLinkPath exists but is neither a link nor a regular file!"
+                fi
+            fi
+            [[ -e "$dbFilePath" ]] || xz --stdout -0 "$streamId.out" > "$dbFilePath"
+            rm "$streamId.out"
+            if [[ -e "$dbLinkPath" ]] || [[ -h "$dbLinkPath" ]]; then
+                rm "$dbLinkPath"
+            fi
+            ln -s "$dbFilePath" "$dbLinkPath"
+
+            # Done editing the cache entry, so release the lock
+            rm "$dbLinkPath.locked"
+        fi
+        dbFilePath="$(readlink -e "$dbLinkPath")"
+        # First, make sure the link is good and fix it up if it's not.
+        if ! [[ -f "$dbFilePath" ]]; then
+            find "$cacheDbDir/ByCount" -mindepth 5 -maxdepth 5 -type f -name "$hashFull" -exec ln -sf {} "$dbLinkPath" \;
+            dbFilePath="$(readlink -e "$dbLinkPath")"
+        fi
+        if ! [[ -e "$dbFilePath" ]]; then
+            die "Could not find the cache file, despite there being a link to it, and theoretically just having created it! This indicates a bug in sreg."
+        fi
+        dbFileOldPath="$dbFilePath"
+        dbFileDir="$(dirname "$dbFilePath")"
+        # Get the requestCount. There are three path components after it. I suspect there's a better way to do this.
+        oldCount="$(basename "$(dirname "$(dirname "$(dirname "$dbFileDir")")")")"
+        if ! [[ "$oldCount" =~ ^-?[0-9]+$ ]]; then
+            rm "$dbLinkPath"
+            oldCount="1"
+        fi
+        # Increment the item's requestCount.
+        requestCount=$(( oldCount + 1 ))
+        if [[ -z "$requestCount" ]]; then
+            requestCount=1
+        fi
+        # First, get the names of where the file should go.
+        dbFileDir="$cacheDbDir/ByCount/${requestCount:?}/$hashSubdir"
+        dbFilePath="$dbFileDir/$hashFull"
+        mkdir -p "$dbFileDir"
+        mv "$dbFileOldPath" "$dbFilePath"
+        ln -sf "$dbFilePath" "$dbLinkPath"
+        # Done cache cleanup
+        decompressedCacheEntry="$streamId.dat"
+        if ! [[ -f "$dbLinkPath" ]]; then
+            die "The cache entry could not be found. This indicates a bug in sreg."
+        fi
+        if ! unxz --stdout - < "$dbLinkPath" > "$decompressedCacheEntry"; then
+            # Probably the cache entry got truncated unexpectedly (e.g. xz was killed while writing to it), so remove the file and try again. If it fails *twice*, there's probably something weird going on.
+            if [[ "$decompressFailed" != "true" ]]; then
+                decompressFailed="true"
+                rm "$dbFilePath"
+                warn "Failed decompressing cache entry. Retrying retrieval..."
+                break
+            else
+                die "Failed decompressing cache entry twice. This probably indicates a bug in sreg."
+            fi
+        fi
+        retrievedHash="$(sha512sum < "$decompressedCacheEntry" | awk '{print $1;}')"
+        if [[ "$retrievedHash" != "$hashFull" ]]; then
+            rm "$dbFilePath" "$dbLinkPath"
+            echo "$oldCount" > "$dbLinkPath"
+            # mkdir -p "$cacheDbDir/Failed Checksum"
+            # mv "$dbFilePath" "$cacheDbDir/Failed Checksum/$(basename "$dbFilePath")"
+            # warn "Checksum mismatch when retrieving the requested stream!"
+            error-notify "Checksum mismatch when retrieving the requested stream!"
+            # if [[ "$pointerTypeSignature" == "c39f8657-384b-438b-a5a2-eece17147589" ]]; then
+            #     mkdir -p "$dbDir/LocalStore/Failed\ Fsck/"
+            #     mv "$dbDir/LocalStore/$hashA/$hashB/$hashC/$hashFull" "$dbDir/LocalStore/Failed\ Fsck/"
+            #     die "LocalStore entry was corrupted!"
+            # fi
+        else
+            successfulRetrieval="1"
+        fi
+    done
+    trap 'die "A fatal error was reported on ${BASH_SOURCE[0]} line ${LINENO} while reading $hashFull."' ERR
+    if [[ "$successfulRetrieval" != "1" ]]; then
+        die "Failed retrieving stream, and no retries left!"
+    fi
+
+    # Return the data to the caller
+    cat "$decompressedCacheEntry"
+
+    # Cache cleanup is expensive, so only do it occasionally
+    if [[ "$RANDOM" -lt 250 ]]; then
+        scache_gc "$cacheDbDir"
+    fi
+)
+finish
