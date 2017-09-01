@@ -2,5 +2,8 @@
 # shellcheck disable=SC1091
 
 #set -x
-[[ $OSTYPE = *inux* ]] && (( opt++ ))
-[[ $OSTYPE != *inux* ]] && (( optb++ ))
+
+if [[ "$OSTYPE" = darwin* ]]; then
+else
+    
+fiz
