@@ -6,4 +6,4 @@
 if [[ "$OSTYPE" = darwin* ]]; then
 else
     
-fiz
+fi
