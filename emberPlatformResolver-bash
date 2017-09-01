@@ -2,16 +2,7 @@
 
 #set -x
 
-app="$1"
-shift
-
-if [[ -z "$app" ]]; then
-    [[ "$emberPlatformResolver" == "true" ]] && exit 0
-    [[ -z "$app" ]] && app="bash"
-fi
-
-emberPlatformResolver="true"
-export emberPlatformResolver
+app="bash"
 
 if [[ "$OSTYPE" = darwin* ]]; then
     if ! [[ -e "$(which "g$app")" ]]; then
