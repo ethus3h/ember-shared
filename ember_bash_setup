@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bin/env emberPlatformResolver bash
 
 export emberSharedVersion='1.1.4.28'
 
