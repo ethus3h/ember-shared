@@ -215,6 +215,7 @@ pipecheck() {
 }
 
 findso() {
+    # based on https://unix.stackexchange.com/questions/22178/which-equivalent-for-shared-libraries
     local ldpath="${LD_LIBRARY_PATH:-"$(</etc/ld.so.conf)"}"
     local found="false"
     local IFS=:
