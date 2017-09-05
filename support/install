@@ -5,15 +5,9 @@ source ember_bash_setup &> /dev/null
 trap 'die "A fatal error was reported on ${BASH_SOURCE[0]} line ${LINENO}."' ERR
 # set -x
 
-skipConfigFile="false"
-if [[ "$1" == "--skip-config-file" ]]; then
-    skipConfigFile="true"
-    shift
-fi
-
 echo 1 "$1" 2 "$2" 3 "$3" 4 "$4" 5 "$5" 6 "$6" 7 "$7" 8 "$8" 9 "$9"
 if [[ -n "$1" ]]; then
-    crystallizeDestdir="$1"
+    emberSharedDestdir="$1"
     shift
 fi
 if [[ "$1" == "--skip-config-file" ]]; then
@@ -21,91 +15,77 @@ if [[ "$1" == "--skip-config-file" ]]; then
     shift
 fi
 if [[ -n "$1" ]]; then
-    crystallizePrefix="$1"
+    emberSharedPrefix="$1"
     shift
 fi
 if [[ -n "$1" ]]; then
-    crystallizeCapPrefix="$1"
+    emberSharedCapPrefix="$1"
     shift
 fi
 if [[ -n "$1" ]]; then
-    crystallizeExecPrefix="$1"
+    emberSharedExecPrefix="$1"
     shift
 fi
 if [[ -n "$1" ]]; then
-    crystallizeBindir="$1"
+    emberSharedBindir="$1"
     shift
 fi
 if [[ -n "$1" ]]; then
-    crystallizeDatarootdir="$1"
+    emberSharedDatarootdir="$1"
     shift
 fi
 if [[ -n "$1" ]]; then
-    crystallizeDatadir="$1"
+    emberSharedDatadir="$1"
     shift
 fi
 if [[ -n "$1" ]]; then
-    crystallizeSysconfdir="$1"
+    emberSharedSysconfdir="$1"
     shift
 fi
 if [[ -n "$1" ]]; then
-    crystallizeSharedstatedir="$1"
+    emberSharedSharedstatedir="$1"
     shift
 fi
-if ! [[ -n "$crystallizePrefix" ]]; then
-    if ! [[ -n "$crystallizeCapPrefix" ]]; then
-        crystallizePrefix="$crystallizeDestdir"/usr/local
+if ! [[ -n "$emberSharedPrefix" ]]; then
+    if ! [[ -n "$emberSharedCapPrefix" ]]; then
+        emberSharedPrefix="$emberSharedDestdir"/usr/local
     else
-        crystallizePrefix="$crystallizeCapPrefix"
+        emberSharedPrefix="$emberSharedCapPrefix"
     fi
 fi
-echo "crystallizePrefix: $crystallizePrefix"
-if ! [[ -n "$crystallizeExecPrefix" ]]; then
-    crystallizeExecPrefix="$crystallizePrefix"
+echo "emberSharedPrefix: $emberSharedPrefix"
+if ! [[ -n "$emberSharedExecPrefix" ]]; then
+    emberSharedExecPrefix="$emberSharedPrefix"
 fi
-echo "crystallizeExecPrefix: $crystallizeExecPrefix"
-if ! [[ -n "$crystallizeBindir" ]]; then
-    crystallizeBindir="$crystallizeExecPrefix"/bin
+echo "emberSharedExecPrefix: $emberSharedExecPrefix"
+if ! [[ -n "$emberSharedBindir" ]]; then
+    emberSharedBindir="$emberSharedExecPrefix"/bin
 fi
-echo "crystallizeBindir: $crystallizeBindir"
-if ! [[ -n "$crystallizeDatarootdir" ]]; then
-    crystallizeDatarootdir="$crystallizePrefix"/share
+echo "emberSharedBindir: $emberSharedBindir"
+if ! [[ -n "$emberSharedDatarootdir" ]]; then
+    emberSharedDatarootdir="$emberSharedPrefix"/share
 fi
-echo "crystallizeDatarootdir: $crystallizeDatarootdir"
-if ! [[ -n "$crystallizeDatadir" ]]; then
-    crystallizeDatadir="$crystallizeDatarootdir"
+echo "emberSharedDatarootdir: $emberSharedDatarootdir"
+if ! [[ -n "$emberSharedDatadir" ]]; then
+    emberSharedDatadir="$emberSharedDatarootdir"
 fi
-echo "crystallizeDatadir: $crystallizeDatadir"
-if ! [[ -n "$crystallizeSysconfdir" ]]; then
-    crystallizeSysconfdir="$crystallizePrefix"/etc
+echo "emberSharedDatadir: $emberSharedDatadir"
+if ! [[ -n "$emberSharedSysconfdir" ]]; then
+    emberSharedSysconfdir="$emberSharedPrefix"/etc
 fi
-echo "crystallizeSysconfdir: $crystallizeSysconfdir"
-if ! [[ -n "$crystallizeSharedstatedir" ]]; then
-    crystallizeSharedstatedir="$crystallizePrefix"/var
+echo "emberSharedSysconfdir: $emberSharedSysconfdir"
+if ! [[ -n "$emberSharedSharedstatedir" ]]; then
+    emberSharedSharedstatedir="$emberSharedPrefix"/var
 fi
-echo "crystallizeSharedstatedir: $crystallizeSharedstatedir"
-
-crystallizeEmberdir="$crystallizePrefix"/Ember\ Library
-
-ereplace "73FAB73B-EEE4-4992-8622-4F3FCEC9823A" "$(date-uuid)" support/crystallize.conf
-ereplace "/usr/local/var" "$crystallizeSharedstatedir" support/crystallize.conf
-ereplace "/Ember\ Library/" "$crystallizeEmberdir" support/crystallize.conf
-ereplace "/usr/local/etc" "$crystallizeSysconfdir" scripts/crystallize-getconf
-ereplace "/usr/local/etc" "$crystallizeSysconfdir" scripts/crystallize-logsession
+echo "emberSharedSharedstatedir: $emberSharedSharedstatedir"
 
 if [[ "$OSTYPE" = darwin* ]]; then
     if ! type "gbash"); then
-        emberMacGNUUpgrade
+        scripts/emberMacGNUUpgrade
     fi
     find scripts -type f -exec ereplace '#!/usr/bin/env bash' '#!/usr/bin/env gbash'
 fi
 
-
-mkdir -p "$crystallizeBindir"
+mkdir -p "$emberSharedBindir"
 chmod +x scripts/*
-cp scripts/* "$crystallizeBindir/"
-if [[ "$skipConfigFile" == "false" ]]; then
-    mkdir -p "$crystallizeSysconfdir"
-    cp -v support/crystallize.conf "$crystallizeSysconfdir/"
-fi
-mkdir -p "$crystallizeSharedstatedir"/crystallize
+cp scripts/* "$emberSharedBindir/"
