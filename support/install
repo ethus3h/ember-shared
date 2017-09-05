@@ -80,7 +80,7 @@ fi
 echo "emberSharedSharedstatedir: $emberSharedSharedstatedir"
 
 if [[ "$OSTYPE" = darwin* ]]; then
-    if ! type "gbash"); then
+    if ! type "gbash"; then
         scripts/emberMacGNUUpgrade
     fi
     find scripts -type f -exec ereplace '#!/usr/bin/env bash' '#!/usr/bin/env gbash'
