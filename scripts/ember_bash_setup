@@ -215,12 +215,12 @@ pipecheck() {
 }
 
 findso() {
-    ldpath="${LD_LIBRARY_PATH:-$(</etc/ld.so.conf)}"
+    ldpath="${LD_LIBRARY_PATH:-"$(</etc/ld.so.conf)"}"
     notfound=1
-    for libdir in ${ldpath//:/ }; do
-        (test -f "$libdir/lib${1}.so" && echo "$_") && notfound=0
+    for libdir in "${ldpath//:/ }"; do
+        { test -f "$libdir/lib${1}.so" && echo "$_" } && notfound=0
     done
-    [ "$notfound" -eq 0 ]
+    [[ "$notfound" -eq 0 ]]
 }
 
 trap 'error-notify "An error was reported on ${BASH_SOURCE[0]} line ${LINENO}."' ERR
