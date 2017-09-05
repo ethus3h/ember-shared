@@ -219,7 +219,7 @@ findso() {
     local ldpath="${LD_LIBRARY_PATH:-"$(</etc/ld.so.conf)"}"
     local found="false"
     local IFS=:
-    for libdir in "$ldpath"; do
+    for libdir in $ldpath; do
         if [[ -f "$libdir/lib${1}.so" ]]; then
             echo "$_"
             found="true"
