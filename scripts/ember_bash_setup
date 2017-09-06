@@ -216,6 +216,11 @@ pipecheck() {
 
 findso() {
     # based on https://unix.stackexchange.com/questions/22178/which-equivalent-for-shared-libraries
+    if [[ "$1" == "--plain" ]]; then
+        soname="$2"
+    else
+        soname="lib${1}.so"
+    fi
     local ldpath="$LD_LIBRARY_PATH"
     local found="false"
     if [[ -z "$ldpath" ]]; then
@@ -224,7 +229,7 @@ findso() {
         local IFS=:
     fi
     for libdir in $ldpath; do
-        if [[ -f "$libdir/lib${1}.so" ]]; then
+        if [[ -f "$libdir/$soname" ]]; then
             echo "$_"
             found="true"
             break
