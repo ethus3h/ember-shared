@@ -241,4 +241,19 @@ findso() {
     /sbin/ldconfig -p | awk -v needle="$1" '$1 == needle {sub(/.* => /, ""); print}'
 }
 
+assert() {
+    assertionTest="$1"
+    shift
+
+    case $assertionTest in
+    directoryEquals)
+        dirA="$1"
+        dirB="$2"
+        ;;
+    *)
+        die "Unknown test."
+        ;;
+    esac
+}
+
 trap 'error-notify "An error was reported on ${BASH_SOURCE[0]} line ${LINENO}."' ERR
