@@ -1,0 +1,61 @@
+#!/usr/bin/env bash
+# shellcheck disable=SC1091
+source ember_bash_setup &> /dev/null
+#set -x
+
+((EUID)) && exec sudo -- "$0" "$@"
+
+trap 'error-notify "A fatal error was reported on ${BASH_SOURCE[0]} line ${LINENO}."; exit 1' ERR
+
+action="--save"
+if [[ "$1" == "--save" ]]; then
+    shift
+elif [[ "$1" == "--check" ]]; then
+    action="--check"
+    shift
+fi
+
+dirToCheck="$1"
+if [[ -z "$dirToCheck" ]]; then
+    dirToCheck="."
+fi
+
+checksumFile="$2" # use stdin/stdout if this is empty
+
+case $action in
+--save)
+    setVariableToCommandOutput currentworkingdir pwd -P
+    currentworkingdir="${currentworkingdir:?}"
+    currentworkingdir="${currentworkingdir//$'\n'/'\n'}"
+    if [[ -z "$checksumFile" ]]; then
+        printf "%s\n" "${currentworkingdir//$'\r'/'\r'}"
+        hashdeep -c md5,sha1,sha256,tiger,whirlpool -j0 -e -o fbsd -r -l "$dirToCheck"
+    else
+        printf "%s\n" "${currentworkingdir//$'\r'/'\r'}" > "$checksumFile"
+        hashdeep -c md5,sha1,sha256,tiger,whirlpool -j0 -e -o fbsd -r -l "$dirToCheck" >> "$checksumFile"
+    fi
+    ;;
+--check)
+    streamId="csum-$(date-uuid)"
+
+    finish() {
+        if [[ -e "/tmp/${streamId:?}" ]]; then
+            rm "/tmp/${streamId:?}"
+        fi
+    }
+    trap 'error-notify "A fatal error was reported on ${BASH_SOURCE[0]} line ${LINENO}."; finish; exit 1' ERR
+    trap finish EXIT
+
+    if [[ -z "$checksumFile" ]]; then
+        sponge "/tmp/$streamId"
+    else
+        tail -n +2 "$checksumFile" > "/tmp/$streamId"
+    fi
+    hashdeep -k "/tmp/$streamId" -e -o fbsd -r -l -a -v -v "$dirToCheck"
+    finish
+    ;;
+*)
+    echo "Unknown action."
+    exit 1
+    ;;
+esac
