@@ -272,6 +272,7 @@ testFramework() {
     verboseTests=""
 
     runTest() {
+        # This assumes that the test is a function, an external program, or a folder containing "exec" script. To force using an external program, use ./
         local verbose="$verboseTests"
         if [[ "$1" == "-v" ]]; then
             verbose="true"
