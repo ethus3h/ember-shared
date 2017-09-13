@@ -355,7 +355,7 @@ tempFile() {
                 fi
             fi
          elif [[ "$testName" =~ $digitsRegex ]]; then
-            # The test is an anonymous function like runTest { assert blah }, so all we have to do here is check the status code
+            # The test is an inline function like runTest { assert blah }, so all we have to do here is check the status code
             if [[ "$testName" == "0" ]]; then
                 testPass
             else
