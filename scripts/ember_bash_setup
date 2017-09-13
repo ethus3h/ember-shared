@@ -312,7 +312,7 @@ testFramework() {
             fi
             popd > /dev/null || die
         elif [[ -f "$testName" ]]; then
-            # The test is a file to run. If you want to test a function but its name is also used by a file, use 
+            # The test is a file to run. If you want to test a function but its name is also used by a file, wrap it in braces (like: { foo }).
             chmod +x ./"$testName"
             if [[ "$verbose" == "true" ]]; then
                 if ./"$testName" "$@"; then
@@ -327,7 +327,7 @@ testFramework() {
                     testFail
                 fi
             fi
-        elif declare -f "$testName" > /dev/null; then
+        elif type -t "$testName" > /dev/null; then
             # The test is a function or command name.
             if [[ "$verbose" == "true" ]]; then
                 if "$testName" "$@"; then
