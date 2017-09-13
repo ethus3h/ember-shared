@@ -284,7 +284,7 @@ testFramework() {
         fi
         totalTests=$(( totalTests + 1 ))
         local testName="$1"
-        testpass() {
+        testPass() {
             echo "Test $testName passed."
             passedTests=$(( passedTests + 1 ))
         }
@@ -292,22 +292,26 @@ testFramework() {
             echo "Test $testName failed."
             failedTests=$(( failedTests + 1 ))
         }
+        local digitsRegex='^[0-9]+$'
         if [[ -d "$testName" ]]; then
             pushd "$testName" > /dev/null || die
             chmod +x ./exec
             if [[ "$verbose" == "true" ]]; then
                 ./exec && testpass || testFail
             else
-                ./exec &> /dev/null && testpass || testFail
+                ./exec &> /dev/null && testPass || testFail
             fi
             popd > /dev/null
         elif [[ -f "$testName" ]]; then
             chmod +x ./"$testName"
             if [[ "$verbose" == "true" ]]; then
-                ./"$testName" && testpass || testFail
+                ./"$testName" && testPass || testFail
             else
-                ./"$testName" &> /dev/null && testpass || testFail
+                ./"$testName" &> /dev/null && testPass || testFail
             fi
+        elif [[ "$testName" ~= $digitsRegex ]]; then
+            # the test was run as an anonymous function like runTest { assert blah }, so all we have to do here is check the status code
+            [[ "$testName" == "0" ]] && testPass || testFail
         else
             warn "Could not find the test $testName."
             testFail
