@@ -245,6 +245,12 @@ normalizeWhitespace() {
     xargs
 }
 
+tempDir() {
+    directoryId="/tmp/tempDir-$(date-uuid)/"
+    mkdir -p "$directoryId"
+    echo "$directoryId"
+}
+
 testFramework() {
     assert() {
         verbose=""
