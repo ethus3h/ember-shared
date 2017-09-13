@@ -2,10 +2,10 @@
 
 # set -x
 
-export emberSharedVersion='1.1.4.50'
+export emberSharedVersion='1.1.4.51'
 
 # The update script shown here requires there to be only one ebuild of ember-bash-setup in the wreathe-overlay overlay.
-# ( sudo true; newVersion="1.1.4.50"; cd "/Ember Library/Ember satellite projects/ember-shared"; eogup-single; git tag -a "v$newVersion" -m "version"; egup-single .; cd "/Ember Library/Ember satellite projects/wreathe-overlay"; eogup-single; mv app-misc/ember-shared/ember-shared-*.ebuild "app-misc/ember-shared/ember-shared-$newVersion.ebuild"; repoman manifest; egup-single; sudo layman -s wreathe-overlay; sudo emerge ember-shared )
+# ( sudo true; newVersion="1.1.4.51"; cd "/Ember Library/Ember satellite projects/ember-shared"; eogup-single; git tag -a "v$newVersion" -m "version"; egup-single .; cd "/Ember Library/Ember satellite projects/wreathe-overlay"; eogup-single; mv app-misc/ember-shared/ember-shared-*.ebuild "app-misc/ember-shared/ember-shared-$newVersion.ebuild"; repoman manifest; egup-single; sudo layman -s wreathe-overlay; sudo emerge ember-shared )
 
 # Allow problems to be caught within pipelines
 set -o pipefail
@@ -269,7 +269,7 @@ testFramework() {
         esac
     }
 
-    succeededTests="0"
+    passedTests="0"
     failedTests="0"
     totalTests="0"
 
@@ -284,9 +284,9 @@ testFramework() {
         fi
         totalTests=$(( totalTests + 1 ))
         local testName="$1"
-        testSucceed() {
-            echo "Test $testName succeeded."
-            succeededTests=$(( succeededTests + 1 ))
+        testpass() {
+            echo "Test $testName passed."
+            passedTests=$(( passedTests + 1 ))
         }
         testFail() {
             echo "Test $testName failed."
@@ -296,17 +296,17 @@ testFramework() {
             pushd "$testName" > /dev/null || die
             chmod +x ./exec
             if [[ "$verbose" == "true" ]]; then
-                ./exec && testSucceed || testFail
+                ./exec && testpass || testFail
             else
-                ./exec &> /dev/null && testSucceed || testFail
+                ./exec &> /dev/null && testpass || testFail
             fi
             popd > /dev/null
         elif [[ -f "$testName" ]]; then
             chmod +x ./"$testName"
             if [[ "$verbose" == "true" ]]; then
-                ./"$testName" && testSucceed || testFail
+                ./"$testName" && testpass || testFail
             else
-                ./"$testName" &> /dev/null && testSucceed || testFail
+                ./"$testName" &> /dev/null && testpass || testFail
             fi
         else
             warn "Could not find the test $testName."
@@ -315,9 +315,9 @@ testFramework() {
     }
 
     reportTests() {
-        local succeededWord="tests"
-        if [[ "$succeededTests" == 1 ]]; then
-            succeededWord="test"
+        local passedWord="tests"
+        if [[ "$passedTests" == 1 ]]; then
+            passedWord="test"
         fi
         local failedWord="tests"
         if [[ "$failedTests" == 1 ]]; then
@@ -327,9 +327,9 @@ testFramework() {
         if [[ "$totalTests" == 1 ]]; then
             totalWord="test"
         fi
-        succeededPercentage="$(printf "%.3f\\n" "$(bc -l <<< "($succeededTests / $totalTests) * 100")")"
+        passedPercentage="$(printf "%.3f\\n" "$(bc -l <<< "($passedTests / $totalTests) * 100")")"
         failedPercentage="$(printf "%.3f\\n" "$(bc -l <<< "($failedTests / $totalTests) * 100")")"
-        echo "$succeededTests $succeededWord ($succeededPercentage%) succeeded and $failedTests $failedWord ($failedPercentage%) failed out of a total of $totalTests $totalWord."
+        echo "$passedTests $passedWord ($passedPercentage%) passed and $failedTests $failedWord ($failedPercentage%) failed out of a total of $totalTests $totalWord."
         if [[ "$failedTests" != "0" ]]; then
             totalWord="Some tests"
             if [[ "$totalTests" == 1 ]]; then
@@ -337,7 +337,7 @@ testFramework() {
             fi
             error-notify "$totalWord ($failedPercentage%: $failedTests out of $totalTests) failed!"
         fi
-        [[ $(( totalTests - failedTests )) == "$succeededTests" ]] || die "There's a problem in the testing framework."
+        [[ $(( totalTests - failedTests )) == "$passedTests" ]] || die "There's a problem in the testing framework."
     }
 }
 testFramework
