@@ -241,9 +241,7 @@ findso() {
     /sbin/ldconfig -p | awk -v needle="$1" '$1 == needle {sub(/.* => /, ""); print}'
 }
 
-normalizeWhitespace() {
-    xargs
-}
+alias normalizeWhitespace=xargs
 
 tempDir() {
     directoryId="/tmp/tempDir-$(date-uuid)/"
@@ -251,7 +249,8 @@ tempDir() {
     echo "$directoryId"
 }
 
-testFramework() {
+# Test framework
+{
     assert() {
         verbose=""
         if [[ "$1" == "-v" ]]; then
@@ -387,6 +386,5 @@ testFramework() {
         [[ $(( totalTests - failedTests )) == "$passedTests" ]] || die "There's a problem in the testing framework."
     }
 }
-testFramework
 
 trap 'error-notify "An error was reported on ${BASH_SOURCE[0]} line ${LINENO}."' ERR
