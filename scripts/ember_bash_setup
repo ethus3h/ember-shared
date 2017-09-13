@@ -241,6 +241,10 @@ findso() {
     /sbin/ldconfig -p | awk -v needle="$1" '$1 == needle {sub(/.* => /, ""); print}'
 }
 
+normalizeWhitespace() {
+    tr "[:blank:]" " " | tr "[:space:]" " " | tr -s "[:blank:]" | sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//'
+}
+
 testFramework() {
     assert() {
         verbose=""
