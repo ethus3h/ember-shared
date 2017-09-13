@@ -284,6 +284,7 @@ testFramework() {
         fi
         totalTests=$(( totalTests + 1 ))
         local testName="$1"
+        shift
         testPass() {
             echo "Test $testName passed."
             passedTests=$(( passedTests + 1 ))
@@ -297,21 +298,57 @@ testFramework() {
             pushd "$testName" > /dev/null || die
             chmod +x ./exec
             if [[ "$verbose" == "true" ]]; then
-                ./exec && testpass || testFail
+                if ./exec "$@"; then
+                    testPass
+                else
+                    testFail
+                fi
             else
-                ./exec &> /dev/null && testPass || testFail
+                if ./exec "$@" &> /dev/null; then
+                    testPass
+                else
+                    testFail
+                fi
             fi
-            popd > /dev/null
+            popd > /dev/null || die
         elif [[ -f "$testName" ]]; then
+            # The test is a file to run. If you want to test a function but its name is also used by a file, use 
             chmod +x ./"$testName"
             if [[ "$verbose" == "true" ]]; then
-                ./"$testName" && testPass || testFail
+                if ./"$testName" "$@"; then
+                    testPass
+                else
+                    testFail
+                fi
             else
-                ./"$testName" &> /dev/null && testPass || testFail
+                if ./"$testName" "$@" &> /dev/null; then
+                    testPass
+                else
+                    testFail
+                fi
             fi
-        elif [[ "$testName" ~= $digitsRegex ]]; then
-            # the test was run as an anonymous function like runTest { assert blah }, so all we have to do here is check the status code
-            [[ "$testName" == "0" ]] && testPass || testFail
+        elif declare -f "$testName" > /dev/null; then
+            # The test is a function or command name.
+            if [[ "$verbose" == "true" ]]; then
+                if "$testName" "$@"; then
+                    testPass
+                else
+                    testFail
+                fi
+            else
+                if "$testName" "$@" &> /dev/null; then
+                    testPass
+                else
+                    testFail
+                fi
+            fi
+         elif [[ "$testName" =~ $digitsRegex ]]; then
+            # The test is an anonymous function like runTest { assert blah }, so all we have to do here is check the status code
+            if [[ "$testName" == "0" ]]; then
+                testPass
+            else
+                testFail
+            fi
         else
             warn "Could not find the test $testName."
             testFail
