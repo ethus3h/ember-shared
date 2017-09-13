@@ -244,9 +244,16 @@ findso() {
 alias normalizeWhitespace=xargs
 
 tempDir() {
-    local directoryId="/tmp/tempDir-$(date-uuid)/"
+    local directoryId
+    directoryId="/tmp/tempDir-$(date-uuid)/"
     mkdir -p "$directoryId"
     echo "$directoryId"
+}
+
+tempFile() {
+    local fileId
+    fileId="/tmp/tempDir-$(date-uuid)"
+    echo "$fileId"
 }
 
 # Test framework
