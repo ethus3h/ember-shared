@@ -276,6 +276,7 @@ checkedxz() {
 # Test framework
 {
     assert() {
+        trap "Assertion failed: "
         verbose=""
         if [[ "$1" == "-v" ]]; then
             verbose="true"
