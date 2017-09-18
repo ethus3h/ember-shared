@@ -257,6 +257,23 @@ tempFile() {
     echo "$fileId"
 }
 
+checkedxz() {
+    givenFileName="$1"
+    local output
+    output="$(tempFile)"
+    local input
+    if [[ -z "$givenFileName" ]]; then
+        input="$(tempFile)"
+        sponge "$input"
+        xz "$@" --stdout - < "$input" > "$output"
+    else
+        xz "$@" --stdout "$givenFileName" > "$output"
+    fi
+    assert fileEquals
+    cat "$output"
+    rm "$input"
+}
+
 # Test framework
 {
     assert() {
@@ -275,6 +292,9 @@ tempFile() {
             else
                 diff -uraN "$1" "$2" > /dev/null
             fi
+            ;;
+        fileEquals)
+            assert equals "$(sha512sum "$1" | awk '{print $1;}')" "$(sha512sum "$2" | awk '{print $1;}')"
             ;;
         *)
             die "Unknown test."
