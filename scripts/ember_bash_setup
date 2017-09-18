@@ -273,6 +273,7 @@ checkedxz() {
     if [[ -z "$input" ]] || [[ "$input" == "-" ]]; then
         if [[ "$input" == "-" ]]; then
             shift
+            useStdout="true"
         fi
         input="$(tempFile)"
         sponge "$input"
@@ -282,7 +283,12 @@ checkedxz() {
         xz "$@" --stdout "$input" > "$output"
     fi
     assert fileEquals "$input" "$output"
-    cat "$output"
+    if [[ "$useStdout" == "true" ]]; then
+        cat "$output"
+        rm "$output"
+    else
+        mv "$output" "$input.xz"
+    fi
     rm "$input"
 }
 
