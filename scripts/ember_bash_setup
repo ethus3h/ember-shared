@@ -259,6 +259,14 @@ tempFile() {
 
 checkedxz() {
     local input="$1"
+    [[ -n "$input" ]]
+
+    local useStdout=""
+    if [[ "$2" == "--stdout" ]]; then
+        useStdout="true"
+        shift
+    fi
+
     local output
     output="$(tempFile)"
     if [[ -z "$input" ]] || [[ "$input" == "-" ]]; then
