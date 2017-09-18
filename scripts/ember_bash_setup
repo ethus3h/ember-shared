@@ -259,13 +259,13 @@ tempFile() {
 
 checkedxz() {
     local input="$1"
-    local useStdout=""
     if [[ -n "$input" ]]; then
         shift
-        if [[ "$1" == "--stdout" ]]; then
-            useStdout="true"
-            shift
-        fi
+    fi
+    local useStdout=""
+    if [[ "$1" == "--stdout" ]]; then
+        useStdout="true"
+        shift
     fi
 
     local output
