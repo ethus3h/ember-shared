@@ -258,18 +258,17 @@ tempFile() {
 }
 
 checkedxz() {
-    givenFileName="$1"
+    local input="$1"
     local output
     output="$(tempFile)"
-    local input
-    if [[ -z "$givenFileName" ]]; then
+    if [[ -z "$input" ]]; then
         input="$(tempFile)"
         sponge "$input"
         xz "$@" --stdout - < "$input" > "$output"
     else
-        xz "$@" --stdout "$givenFileName" > "$output"
+        xz "$@" --stdout "$input" > "$output"
     fi
-    assert fileEquals
+    assert fileEquals "$input" "$output"
     cat "$output"
     rm "$input"
 }
@@ -295,6 +294,9 @@ checkedxz() {
             ;;
         fileEquals)
             assert equals "$(sha512sum "$1" | awk '{print $1;}')" "$(sha512sum "$2" | awk '{print $1;}')"
+            ;;
+        equals)
+            [[ "${1:?}" == "${2:?}" ]]
             ;;
         *)
             die "Unknown test."
