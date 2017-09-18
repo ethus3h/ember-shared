@@ -266,6 +266,7 @@ checkedxz() {
         sponge "$input"
         xz "$@" --stdout - < "$input" > "$output"
     else
+        shift
         xz "$@" --stdout "$input" > "$output"
     fi
     assert fileEquals "$input" "$output"
