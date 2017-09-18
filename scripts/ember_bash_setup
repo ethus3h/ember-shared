@@ -282,7 +282,10 @@ checkedxz() {
         shift
         xz "$@" --stdout "$input" > "$output"
     fi
-    assert fileEquals "$input" "$output"
+    local testOutput
+    testOutput="$(tempFile)"
+    unxz --stdout - < "$output" > "$testOutput"
+    assert fileEquals "$input" "$testOutput"
     if [[ "$useStdout" == "true" ]]; then
         cat "$output"
         rm "$output"
