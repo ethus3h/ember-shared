@@ -323,13 +323,13 @@ checkedxz() (
         case $assertionTest in
         directoryEquals)
             if [[ "$verbose" == "true" ]]; then
-                diff -uraN "$1" "$2"
+                diff -uraN "${1:?}" "${2:?}"
             else
-                diff -uraN "$1" "$2" > /dev/null
+                diff -uraN "${1:?}" "${2:?}" > /dev/null
             fi
             ;;
         fileEquals)
-            assert equals "$(sha512sum "$1" | awk '{print $1;}')" "$(sha512sum "$2" | awk '{print $1;}')"
+            assert equals "$(sha512sum "${1:?}" | awk '{print $1;}')" "$(sha512sum "${2:?}" | awk '{print $1;}')"
             ;;
         equals)
             [[ "${1:?}" == "${2:?}" ]]
