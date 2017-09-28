@@ -322,7 +322,7 @@ checkedxz() (
 
         case $assertionTest in
         directoryEquals)
-            if [[ -z "$1" ]] || [[ -z "$2"]]; then
+            if [[ -z "$1" ]] || [[ -z "$2" ]]; then
                 die "Both values must be non-empty."
             fi
             if [[ "$verbose" == "true" ]]; then
