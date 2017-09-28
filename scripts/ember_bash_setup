@@ -322,20 +322,24 @@ checkedxz() (
 
         case $assertionTest in
         directoryEquals)
-            if [[ -z "$1" ]] || [[ -z "$2" ]]; then
+            firstDir="$1"
+            secondDir="$2"
+            if [[ -z "$firstDir" ]] || [[ -z "$secondDir" ]]; then
                 die "Both values must be non-empty."
             fi
             if [[ "$verbose" == "true" ]]; then
-                diff -uraN "$1" "$2"
+                diff -uraN "$firstFile" "$2"
             else
-                diff -uraN "$1" "$2" > /dev/null
+                diff -uraN "$firstDir" "$secondDir" > /dev/null
             fi
             ;;
         fileEquals)
-            if [[ -z "$1" ]] || [[ -z "$2" ]]; then
+            firstFile="$1"
+            secondFile="$2"
+            if [[ -z "$firstFile" ]] || [[ -z "$secondFile" ]]; then
                 die "Both values must be non-empty."
             fi
-            assert equals "$(sha512sum "$1" | awk '{print $1;}')" "$(sha512sum "$2" | awk '{print $1;}')"
+            assert equals "$(sha512sum "$firstFile" | awk '{print $1;}')" "$(sha512sum "$secondFile" | awk '{print $1;}')"
             ;;
         equals)
             [[ "${1:?}" == "${2:?}" ]]
