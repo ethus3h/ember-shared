@@ -332,7 +332,7 @@ checkedxz() (
             fi
             ;;
         fileEquals)
-            if [[ -z "$1" ]] || [[ -z "$2"]]; then
+            if [[ -z "$1" || -z "$2"]]; then
                 die "Both values must be non-empty."
             fi
             assert equals "$(sha512sum "$1" | awk '{print $1;}')" "$(sha512sum "$2" | awk '{print $1;}')"
