@@ -265,7 +265,7 @@ sponge() (
 checkedxz() (
     checkedxzErr() {
         rm -f "$output"
-        rm -f "$intput"
+        rm -f "$testOutput"
     }
     trap 'checkedxzErr' ERR
     local input="$1"
@@ -290,7 +290,7 @@ checkedxz() (
         sponge "$input"
         xz "$@" --stdout - < "$input" > "$output"
     else
-        xz "$@" --stdout "$input" > "$output"
+        xz -k "$@" --stdout "$input" > "$output"
     fi
     local testOutput
     testOutput="$(tempFile)"
@@ -311,7 +311,7 @@ checkedxz() (
     assert() {
         local save_traps
         save_traps="$(trap)"
-        trap 'echo "Assertion failed: $(join_by ", " "$@") "'"on ${BASH_SOURCE[0]} line ${LINENO}." ERR
+        trap 'die "Assertion failed: $(join_by ", " "$@") "'"on ${BASH_SOURCE[0]} line ${LINENO}." ERR
         local verbose=""
         if [[ "$1" == "-v" ]]; then
             verbose="true"
