@@ -261,7 +261,7 @@ sponge() (
     TMPDIR="$(crystallize-getconf WorkDirectory)"
     export TMPDIR
     spongeLocation="$(which sponge)"
-    "$spongeLocation"
+    "$spongeLocation" "$@"
 )
 
 checkedxz() (
