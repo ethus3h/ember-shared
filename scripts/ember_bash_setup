@@ -296,6 +296,7 @@ checkedxz() (
     fi
     local testOutput
     testOutput="$(tempFile)"
+    xxd "$output"
     unxz --stdout - < "$output" > "$testOutput"
     assert fileEquals "$input" "$testOutput" || die
     rm "$testOutput"
