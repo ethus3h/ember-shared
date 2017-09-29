@@ -282,7 +282,6 @@ checkedxz() (
         useStdout="true"
     fi
 
-    xxd "$output"
     local output
     output="$(tempFile)"
     if [[ -z "$input" ]] || [[ "$input" == "-" ]]; then
@@ -290,6 +289,7 @@ checkedxz() (
             useStdout="true"
         fi
         input="$(tempFile)"
+        xxd "$output"
         sponge "$input"
         xz "$@" --stdout - < "$input" > "$output"
     else
