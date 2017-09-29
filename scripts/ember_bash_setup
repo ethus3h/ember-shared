@@ -289,7 +289,7 @@ checkedxz() (
             useStdout="true"
         fi
         input="$(tempFile)"
-        xxd "$input" && echo "beocmit"
+        xxd "$input" && echo "beocmit$input"
         sponge "${input:?}"
         xxd "$input" && echo "aceocrum"
         xz "$@" --stdout - < "$input" > "$output"
