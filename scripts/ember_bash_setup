@@ -288,8 +288,8 @@ checkedxz() (
         if [[ "$input" == "-" ]]; then
             useStdout="true"
         fi
-        input="$(tempFile)"
         xxd "$output"
+        input="$(tempFile)"
         sponge "$input"
         xz "$@" --stdout - < "$input" > "$output"
     else
