@@ -282,6 +282,7 @@ checkedxz() (
         useStdout="true"
     fi
 
+    xxd "$output"
     local output
     output="$(tempFile)"
     if [[ -z "$input" ]] || [[ "$input" == "-" ]]; then
@@ -296,7 +297,6 @@ checkedxz() (
     fi
     local testOutput
     testOutput="$(tempFile)"
-    xxd "$output"
     unxz --stdout - < "$output" > "$testOutput"
     assert fileEquals "$input" "$testOutput" || die
     rm "$testOutput"
