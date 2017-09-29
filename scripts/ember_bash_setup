@@ -321,7 +321,6 @@ checkedxz() (
         fi
         local assertionTest="$1"
         shift
-        echo "${save_traps:?}"
 
         case $assertionTest in
         directoryEquals)
@@ -351,7 +350,7 @@ checkedxz() (
             die "Unknown test."
             ;;
         esac
-        eval "${save_traps:?}"
+        eval "$save_traps"
     }
 
     passedTests="0"
