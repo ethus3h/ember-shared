@@ -258,8 +258,10 @@ tempFile() {
 }
 
 sponge() (
-    export TMPDIR="$(crystallize-getconf WorkDirectory)"
-    "$(which sponge)"
+    TMPDIR="$(crystallize-getconf WorkDirectory)"
+    export TMPDIR
+    spongeLocation="$(which sponge)"
+    "$spongeLocation"
 )
 
 checkedxz() (
