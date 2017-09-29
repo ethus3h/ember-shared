@@ -350,7 +350,7 @@ checkedxz() (
             die "Unknown test."
             ;;
         esac
-        eval "$save_traps"
+        eval "${save_traps:?}"
     }
 
     passedTests="0"
