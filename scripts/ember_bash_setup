@@ -289,8 +289,8 @@ checkedxz() (
             useStdout="true"
         fi
         input="$(tempFile)"
-        xxd "$output" && echo "aceocrum"
         sponge "$input"
+        xxd "$output" && echo "aceocrum"
         xz "$@" --stdout - < "$input" > "$output"
     else
         xz -k "$@" --stdout "$input" > "$output"
