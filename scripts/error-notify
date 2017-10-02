@@ -21,8 +21,13 @@ printf '%s\n' "$(ps -o args= $PPID)" >&2
 printf '%s\n' 'failed with the error on '"${BASH_SOURCE[0]} line ${LINENO}"':' >&2
 printf '%s' "${@+$@$'\n'}" >&2
 printf '%b' '\033[0m' >&2
+
+# Make error-notify a no-op, and then trigger any traps that are set for processes exiting with the error code this script has computed and chosen to exit with
+error-notify() {
+    true
+}
 save_traps="$(trap)"
-save_traps="${save_traps//error-notify/true}"
 trap 'eval "$save_traps"; false; exit 1' ERR
 ( exit "$ec" )
+
 exit "$ec"
