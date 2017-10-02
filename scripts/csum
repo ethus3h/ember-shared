@@ -27,12 +27,24 @@ case $action in
     setVariableToCommandOutput currentworkingdir pwd -P
     currentworkingdir="${currentworkingdir:?}"
     currentworkingdir="${currentworkingdir//$'\n'/'\n'}"
-    if [[ -z "$checksumFile" ]]; then
+    # Do two passes to make sure nothing changed while reading and there weren't other errors
+    # First pass
+    firstPass="$(tempFile)"
+    {
         printf "%s\n" "${currentworkingdir//$'\r'/'\r'}"
         hashdeep -c md5,sha1,sha256,tiger,whirlpool -j0 -e -o fbsd -r -l "$dirToCheck"
+    } > "$firstPass"
+    # Second pass
+    secondPass="$(tempFile)"
+    {
+        printf "%s\n" "${currentworkingdir//$'\r'/'\r'}"
+        hashdeep -c md5,sha1,sha256,tiger,whirlpool -j0 -e -o fbsd -r -l "$dirToCheck"
+    } > "$secondPass"
+    assert fileEquals "$firstPass" "$secondPass" || die
+    if [[ -z "$checksumFile" ]]; then
+        cat "$firstPass"
     else
-        printf "%s\n" "${currentworkingdir//$'\r'/'\r'}" > "$checksumFile"
-        hashdeep -c md5,sha1,sha256,tiger,whirlpool -j0 -e -o fbsd -r -l "$dirToCheck" >> "$checksumFile"
+        mv "$firstPass" "$checksumFile"
     fi
     ;;
 --check)
