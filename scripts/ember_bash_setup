@@ -2,16 +2,17 @@
 
 # set -x
 
-export emberSharedVersion='1.1.4.67'
+export emberSharedVersion='1.1.4.68'
 
 # The update script shown here requires there to be only one ebuild of ember-bash-setup in the wreathe-overlay overlay.
-# ( sudo true; newVersion="1.1.4.67"; cd "/Ember Library/Ember satellite projects/ember-shared"; eogup-single; git tag -a "v$newVersion" -m "version"; egup-single .; cd "/Ember Library/Ember satellite projects/wreathe-overlay"; eogup-single; mv app-misc/ember-shared/ember-shared-*.ebuild "app-misc/ember-shared/ember-shared-$newVersion.ebuild"; repoman manifest; egup-single; sudo layman -s wreathe-overlay; sudo emerge ember-shared )
+# ( sudo true; newVersion="1.1.4.68"; cd "/Ember Library/Ember satellite projects/ember-shared"; eogup-single; git tag -a "v$newVersion" -m "version"; egup-single .; cd "/Ember Library/Ember satellite projects/wreathe-overlay"; eogup-single; mv app-misc/ember-shared/ember-shared-*.ebuild "app-misc/ember-shared/ember-shared-$newVersion.ebuild"; repoman manifest; egup-single; sudo layman -s wreathe-overlay; sudo emerge ember-shared )
 
 # Allow problems to be caught within pipelines
 set -o pipefail
 if [[ -z "$PS1" ]]; then
-    # Make ERR trap inherited, but only if the shell is non-interactive
+    # Make traps inherited, but only if the shell is non-interactive
     set -o errtrace
+    set -o functrace
 fi
 #set -o nounset
 
@@ -32,6 +33,17 @@ source egup-env &> /dev/null
 die() {
     # shellcheck disable=SC1091
     source error-notify "$@"
+    # Make error-notify and die no-ops (error-notify already should be from having sourced error-notify), and then trigger any traps that are set for ERR
+    # I'm not sure why error-notify isn't inheriting the calling script's traps.
+    error-notify() {
+        true
+    }
+    die() {
+        true
+    }
+    save_traps="$(trap)"
+    trap 'eval "$save_traps"; false; exit 1' ERR
+    ( exit 1 )
     exit 1
 }
 
