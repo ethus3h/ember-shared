@@ -2,4 +2,4 @@
 
 #set -x
 
-brew install coreutils findutils gnu-tar gnu-sed gawk gnutls gnu-indent gnu-getopt wdiff wget gawk bash gpatch less
+brew install coreutils findutils gnu-tar gnu-sed gawk gnutls gnu-indent gnu-getopt wdiff wget gawk bash less
