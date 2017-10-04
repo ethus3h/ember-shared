@@ -2,5 +2,4 @@
 
 #set -x
 
-sudo chown root "$(which brew)"
-sudo brew install coreutils findutils gnu-tar gnu-sed gawk gnutls gnu-indent gnu-getopt
+brew install coreutils findutils gnu-tar gnu-sed gawk gnutls gnu-indent gnu-getopt
