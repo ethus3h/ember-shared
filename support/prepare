@@ -6,10 +6,10 @@ trap 'die "A fatal error was reported on ${BASH_SOURCE[0]} line ${LINENO}."' ERR
 # set -x
 
 if [[ "$OSTYPE" = darwin* ]]; then
-    if ! type "gbash"; then
+    if ! type "greadlink"; then
         scripts/emberMacGNUUpgrade
     fi
-    find scripts -type f -exec ereplace '#!/usr/bin/env bash' '#!/usr/bin/env gbash' \;
+    #find scripts -type f -exec ereplace '#!/usr/bin/env bash' '#!/usr/bin/env gbash' \;
     find scripts -type f -exec ereplace 'readlink ' 'greadlink ' \;
     find scripts -type f -exec ereplace 'sort ' 'gsort ' \;
 fi
