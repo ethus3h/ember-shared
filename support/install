@@ -79,15 +79,6 @@ if ! [[ -n "$emberSharedSharedstatedir" ]]; then
 fi
 echo "emberSharedSharedstatedir: $emberSharedSharedstatedir"
 
-if [[ "$OSTYPE" = darwin* ]]; then
-    if ! type "gbash"; then
-        scripts/emberMacGNUUpgrade
-    fi
-    find scripts -type f -exec ereplace '#!/usr/bin/env bash' '#!/usr/bin/env gbash'
-    find scripts -type f -exec ereplace 'readlink ' 'greadlink '
-    find scripts -type f -exec ereplace 'sort ' 'gsort '
-fi
-
 mkdir -p "$emberSharedBindir"
 chmod +x scripts/*
 cp scripts/* "$emberSharedBindir/"

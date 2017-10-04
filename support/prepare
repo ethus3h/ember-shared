@@ -7,7 +7,7 @@ trap 'die "A fatal error was reported on ${BASH_SOURCE[0]} line ${LINENO}."' ERR
 
 if [[ "$OSTYPE" = darwin* ]]; then
     if ! type "gbash"; then
-        emberMacGNUUpgrade
+        scripts/emberMacGNUUpgrade
     fi
     find scripts -type f -exec ereplace '#!/usr/bin/env bash' '#!/usr/bin/env gbash'
     find scripts -type f -exec ereplace 'readlink ' 'greadlink '
