@@ -2,4 +2,5 @@
 
 #set -x
 
+trap 'warn "A nonfatal error was reported on ${BASH_SOURCE[0]} line ${LINENO}."' ERR
 brew install coreutils findutils gnu-tar gnu-sed gawk gnutls gnu-indent gnu-getopt wdiff wget gawk bash
