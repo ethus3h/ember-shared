@@ -296,13 +296,16 @@ checkedxz() (
 
     local output
     output="$(tempFile)"
+    local fileSize
     if [[ -z "$input" ]] || [[ "$input" == "-" ]]; then
         if [[ "$input" == "-" ]]; then
             useStdout="true"
         fi
         input="$(tempFile)"
         sponge "${input:?}"
-        xz "$@" --stdout - < "$input" > "$output"
+        fileSize="$(disk-size-in-bytes "$input")"
+        pv -tparbIfei 0.1 -s "$crystalFilesSize"
+        pv -tparbIfei 0.1 -s "$fileSize" < "$input" | xz "$@" --stdout - > "$output"
     else
         xz -k "$@" --stdout "$input" > "$output"
     fi
