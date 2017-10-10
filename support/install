@@ -10,10 +10,6 @@ if [[ -n "$1" ]]; then
     emberSharedDestdir="$1"
     shift
 fi
-if [[ "$1" == "--skip-config-file" ]]; then
-    skipConfigFile="true"
-    shift
-fi
 if [[ -n "$1" ]]; then
     emberSharedPrefix="$1"
     shift
