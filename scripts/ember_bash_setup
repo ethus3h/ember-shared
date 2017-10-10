@@ -2,10 +2,10 @@
 
 # set -x
 
-export emberSharedVersion='1.1.4.70'
+export emberSharedVersion='1.1.4.72'
 
 # The update script shown here requires there to be only one ebuild of ember-bash-setup in the wreathe-overlay overlay.
-# ( sudo true; newVersion="1.1.4.70"; cd "/Ember Library/Ember satellite projects/ember-shared"; eogup-single; git tag -a "v$newVersion" -m "version"; egup-single .; cd "/Ember Library/Ember satellite projects/wreathe-overlay"; eogup-single; mv app-misc/ember-shared/ember-shared-*.ebuild "app-misc/ember-shared/ember-shared-$newVersion.ebuild"; repoman manifest; egup-single; sudo layman -s wreathe-overlay; sudo emerge ember-shared )
+# ( sudo true; newVersion="1.1.4.72"; cd "/Ember Library/Ember satellite projects/ember-shared"; eogup-single; git tag -a "v$newVersion" -m "version"; egup-single .; cd "/Ember Library/Ember satellite projects/wreathe-overlay"; eogup-single; mv app-misc/ember-shared/ember-shared-*.ebuild "app-misc/ember-shared/ember-shared-$newVersion.ebuild"; repoman manifest; egup-single; sudo layman -s wreathe-overlay; sudo emerge ember-shared )
 
 # Allow problems to be caught within pipelines
 set -o pipefail
@@ -297,6 +297,7 @@ checkedxz() (
     local output
     output="$(tempFile)"
     local fileSize
+    echo "Packing..." &>2
     if [[ -z "$input" ]] || [[ "$input" == "-" ]]; then
         if [[ "$input" == "-" ]]; then
             useStdout="true"
@@ -304,14 +305,16 @@ checkedxz() (
         input="$(tempFile)"
         sponge "${input:?}"
         fileSize="$(disk-size-in-bytes "$input")"
-        pv -tparbIfei 0.1 -s "$crystalFilesSize"
         pv -tparbIfei 0.1 -s "$fileSize" < "$input" | xz "$@" --stdout - > "$output"
     else
-        xz -k "$@" --stdout "$input" > "$output"
+        fileSize="$(disk-size-in-bytes "$input")"
+        xz -k "$@" --stdout "$input" | pv -tparbIfei 0.1 -s "$fileSize" > "$output"
     fi
     local testOutput
     testOutput="$(tempFile)"
-    unxz --stdout - < "$output" > "$testOutput"
+    fileSize="$(disk-size-in-bytes "$output")"
+    echo "Checking..." &>2
+    pv -tparbIfei 0.1 -s "$fileSize" < "$output" | unxz --stdout - > "$testOutput"
     assert fileEquals "$input" "$testOutput" || die
     rm "$testOutput"
     if [[ "$useStdout" == "true" ]]; then
