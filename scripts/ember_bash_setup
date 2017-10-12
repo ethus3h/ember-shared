@@ -2,10 +2,10 @@
 
 # set -x
 
-export emberSharedVersion='1.1.4.80'
+export emberSharedVersion='1.1.4.81'
 
 # The update script shown here requires there to be only one ebuild of ember-bash-setup in the wreathe-overlay overlay.
-# ( sudo true; newVersion="1.1.4.80"; cd "/Ember Library/Ember satellite projects/ember-shared"; eogup-single; git tag -a "v$newVersion" -m "version"; egup-single .; cd "/Ember Library/Ember satellite projects/wreathe-overlay"; eogup-single; mv app-misc/ember-shared/ember-shared-*.ebuild "app-misc/ember-shared/ember-shared-$newVersion.ebuild"; repoman manifest; egup-single; sudo layman -s wreathe-overlay; sudo emerge ember-shared )
+# ( sudo true; newVersion="1.1.4.81"; cd "/Ember Library/Ember satellite projects/ember-shared"; eogup-single; git tag -a "v$newVersion" -m "version"; egup-single .; cd "/Ember Library/Ember satellite projects/wreathe-overlay"; eogup-single; mv app-misc/ember-shared/ember-shared-*.ebuild "app-misc/ember-shared/ember-shared-$newVersion.ebuild"; repoman manifest; egup-single; sudo layman -s wreathe-overlay; sudo emerge ember-shared )
 
 if [[ "$1" == "--version" ]]; then
     esVersionA="$(sed '6q;d' "$(which ember_bash_setup)")"
@@ -289,7 +289,9 @@ checkedxz() (
         rm -f "$testOutput"
     }
     trap 'checkedxzErr' ERR
+    local quiet="false"
     if [[ "$1" == "--quiet" ]]; then
+        quiet="true"
         pv() {
             cat
         }
@@ -310,7 +312,7 @@ checkedxz() (
     local output
     output="$(tempFile)"
     local fileSize
-    echo "Packing..." >&2
+    [[ "$quiet" != "true" ]] && echo "Packing..." >&2
     if [[ -z "$input" ]] || [[ "$input" == "-" ]]; then
         if [[ "$input" == "-" ]]; then
             useStdout="true"
@@ -326,7 +328,7 @@ checkedxz() (
     local testOutput
     testOutput="$(tempFile)"
     fileSize="$(disk-size-in-bytes "$output")"
-    echo "Checking..." >&2
+    [[ "$quiet" != "true" ]] && echo "Checking..." >&2
     pv -tparbIfei 0.1 -s "$fileSize" < "$output" | unxz --stdout - > "$testOutput"
     assert fileEquals "$input" "$testOutput" || die
     rm "$testOutput"
