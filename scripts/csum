@@ -5,7 +5,7 @@ source ember_bash_setup &> /dev/null
 
 ((EUID)) && exec sudo -- "$0" "$@"
 
-trap 'error-notify "A fatal error was reported on ${BASH_SOURCE[0]} line ${LINENO}."; exit 1' ERR
+trap 'error-notify "A fatal error was reported on ${BASH_SOURCE[0]} line ${LINENO} at $(emdate)."; exit 1' ERR
 
 action="--save"
 if [[ "$1" == "--save" ]]; then
@@ -55,7 +55,7 @@ case $action in
             rm "/tmp/${streamId:?}"
         fi
     }
-    trap 'error-notify "A fatal error was reported on ${BASH_SOURCE[0]} line ${LINENO}."; finish; exit 1' ERR
+    trap 'error-notify "A fatal error was reported on ${BASH_SOURCE[0]} line ${LINENO} at $(emdate)."; finish; exit 1' ERR
     trap finish EXIT
 
     if [[ -z "$checksumFile" ]]; then

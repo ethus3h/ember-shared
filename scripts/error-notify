@@ -18,7 +18,7 @@ else
 fi
 printf '%b' '\033[1;31m' >&2
 printf '%s\n' "$(ps -o args= $PPID)" >&2
-printf '%s\n' 'failed with the error on '"${BASH_SOURCE[0]} line ${LINENO}"':' >&2
+printf '%s\n' 'failed with the error on '"${BASH_SOURCE[0]} line ${LINENO} at $(emdate)"':' >&2
 printf '%s' "${@+$@$'\n'}" >&2
 printf '%b' '\033[0m' >&2
 
