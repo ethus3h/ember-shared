@@ -92,6 +92,20 @@ print() {
     printf "%s" "$@"
 }
 
+emdate() (
+    trap 'die "A fatal error was reported on ${BASH_SOURCE[0]} line ${LINENO}."' ERR
+
+    temp="$(date +%Y-%m-%d-%H-%M-%S-%N)_$(xxd -pu <<< "$(date +%z)")"
+    echo "${temp//-/}"
+)
+
+date-uuid() (
+    trap 'die "A fatal error was reported on ${BASH_SOURCE[0]} line ${LINENO}."' ERR
+
+    temp="$(emdate)-$(python -c 'import uuid; print str(uuid.uuid4())')"
+    echo "${temp//-/}"
+)
+
 eescape() {
     (
         export eescapeString="$1"
