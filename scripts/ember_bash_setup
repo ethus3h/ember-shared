@@ -84,7 +84,7 @@ setVariableToCommandOutput() {
     save_traps="$(trap)"
     trap - ERR
     IFS= read -rd '' "$emSetVariableToCommandOutputVar" < <( "$@" )
-    trap 'die "A fatal error was reported on ${BASH_SOURCE[0]} line ${LINENO} at $(emdate)."' ERR
+    trap 'die "A fatal error was reported on ${BASH_SOURCE[0]} line ${LINENO} in $(pwd) at $(emdate)."' ERR
     eval "$save_traps"
 }
 
@@ -94,14 +94,14 @@ print() {
 
 emdate() (
     # If changing this, also change the copy in the error-notify script.
-    trap 'die "A fatal error was reported on ${BASH_SOURCE[0]} line ${LINENO}."' ERR
+    trap 'die "A fatal error was reported on ${BASH_SOURCE[0]} line ${LINENO} in $(pwd)."' ERR
 
     temp="$(date +%Y-%m-%d-%H-%M-%S-%N)_$(xxd -pu <<< "$(date +%z)")"
     echo "${temp//-/}"
 )
 
 date-uuid() (
-    trap 'die "A fatal error was reported on ${BASH_SOURCE[0]} line ${LINENO} at $(emdate)."' ERR
+    trap 'die "A fatal error was reported on ${BASH_SOURCE[0]} line ${LINENO} in $(pwd) at $(emdate)."' ERR
 
     temp="$(emdate)-$(python -c 'import uuid; print str(uuid.uuid4())')"
     echo "${temp//-/}"
@@ -361,7 +361,7 @@ checkedxz() (
     assert() {
         local save_traps
         save_traps="$(trap)"
-        trap 'die "Assertion failed: $(join_by ", " "$@") "'"on ${BASH_SOURCE[0]} line ${LINENO} at $(emdate)." ERR
+        trap 'die "Assertion failed: $(join_by ", " "$@") "'"on ${BASH_SOURCE[0]} line ${LINENO} in $(pwd) at $(emdate)." ERR
         local verbose=""
         if [[ "$1" == "-v" ]]; then
             verbose="true"
@@ -514,4 +514,4 @@ checkedxz() (
     }
 }
 
-trap 'error-notify "An error was reported on ${BASH_SOURCE[0]} line ${LINENO} at $(emdate)."' ERR
+trap 'error-notify "An error was reported on ${BASH_SOURCE[0]} line ${LINENO} in $(pwd) at $(emdate)."' ERR
