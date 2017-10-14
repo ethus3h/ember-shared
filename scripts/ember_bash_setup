@@ -7,7 +7,8 @@ export emberSharedVersion='1.1.4.87'
 # The update script shown here requires there to be only one ebuild of ember-shared in the wreathe-overlay overlay.
 # ( sudo true; newVersion="1.1.4.87"; cd "/Ember Library/Ember satellite projects/ember-shared"; eogup-single; git tag -a "v$newVersion" -m "version"; egup-single .; cd "/Ember Library/Ember satellite projects/wreathe-overlay"; eogup-single; mv app-misc/ember-shared/ember-shared-*.ebuild "app-misc/ember-shared/ember-shared-$newVersion.ebuild"; repoman manifest; egup-single; sudo layman -s wreathe-overlay; sudo emerge ember-shared )
 
-if [[ "$1" == "--version" ]]; then
+# Only show version information if it's an interactive shell, to avoid conflicting with scripts that have a --version argument that source this script (this does, however, preclude scripts sourcing this script that are run in interactive shells from having a --version argument but that could be fixed by having them set a variable before they source this, testing it here, and not running this code unless it's present)
+if [[ "$-" == *i* ]] && [[ "$1" == "--version" ]]; then
     esVersionA="$(sed '5q;d' "$(which ember_bash_setup)")"
     esVersionB="${esVersionA%\'*}"
     echo "${esVersionB##*\'}"
