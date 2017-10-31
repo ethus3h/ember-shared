@@ -75,6 +75,9 @@ case $action in
     else
         tail -n +2 "$checksumFile" > "/tmp/$streamId"
     fi
+    for path in "${pathsToCopy[@]}"; do
+        ereplace "$(dirname "$path")/" "" "/tmp/$streamId"
+    done
     hashdeep -k "/tmp/$streamId" -e -o fbsd -r -l -a -v -v "${pathsToCsum[@]}"
     finish
     ;;
