@@ -218,9 +218,22 @@ ia() {
                 done
             fi
         )
-    elif [[ "$1" == "downloadstreaming" ]]; then
-        # Wrapper around ia download. Provides ability to use local copies, and to get the result as a stream
-        
+    elif [[ "$1" == "downloadAsStream" ]]; then
+        # Wrapper around ia download. Provides ability to use local copies, and to get the result as a stream. Expects a URL rather than the ia download syntax, so it can act as a drop-in replacement for wgetting a file.
+        (
+            trap 'rm -r ${tempDir:?}; die "A fatal error was reported on ${BASH_SOURCE[0]} line ${LINENO} in $(pwd) at $(emdate)."' ERR
+            tempDir="$(tempDir)"
+            (
+                cd "$tempDir" || die
+                requestUrl="$2"
+                path="${requestUrl#https:\/\/archive.org\/download\/}"
+                identifier="${path%%\/*}"
+                fileName="${path#*\/}" # Should work with files in subdirectories
+                ia download "$identifier" "$fileName"
+                cat "$identifier/$filename"
+            )
+            rm -r "$tempDir"
+        )
     else
         "$(which ia)" ia "$@"
     fi
