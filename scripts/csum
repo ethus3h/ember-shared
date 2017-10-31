@@ -15,9 +15,16 @@ elif [[ "$1" == "--check" ]]; then
     shift
 fi
 
-dirToCheck="$1"
-if [[ -z "$dirToCheck" ]]; then
-    dirToCheck="."
+# No arguments: Csum current dir to stdout. One argument: Csum to stdout. Two arguments: second is csum file. Three+ arguments: last is csum file.
+
+if [[ "$#" == "0" ]]; then
+    pathsToCsum=(".")
+    checksumFile=""
+elif [[ "$#" == "1" ]]; then
+    pathsToCsum=("$1")
+    checksumFile=""
+else
+    pathsToCsum=("${@:1:$(($#-1))}") # all but last argument
 fi
 
 checksumFile="$2" # use stdin/stdout if this is empty

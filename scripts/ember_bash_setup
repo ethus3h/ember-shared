@@ -173,7 +173,8 @@ preadconf() {
     print "${readconfValue[0]}"
 }
 
-ia() {
+ia() (
+    trap 'die "A fatal error was reported on ${BASH_SOURCE[0]} line ${LINENO} in $(pwd) at $(emdate)."' ERR
     if [[ "$1" == "upload" ]]; then
         (
             # Retry wrapper for ia to work around https://github.com/jjjake/internetarchive/issues/183
@@ -249,7 +250,7 @@ ia() {
     else
         "$(which ia)" "$@"
     fi
-}
+)
 
 urlencode() {
     local LANG=C
