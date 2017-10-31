@@ -47,6 +47,7 @@ case $action in
     # Second pass
     secondPass="$(tempFile)"
     {
+        uuidgen -r
         printf "%s\n" "${currentworkingdir//$'\r'/'\r'}"
         hashdeep -c md5,sha1,sha256,tiger,whirlpool -j0 -e -o fbsd -r -l "${pathsToCsum[@]}"
     } > "$secondPass"
