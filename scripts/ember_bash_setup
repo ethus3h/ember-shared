@@ -218,8 +218,11 @@ ia() {
                 done
             fi
         )
+    elif [[ "$1" == "downloadstreaming" ]]; then
+        # Wrapper around ia download. Provides ability to use local copies, and to get the result as a stream
+        
     else
-        ia "$@"
+        "$(which ia)" ia "$@"
     fi
 }
 
