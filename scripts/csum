@@ -15,7 +15,7 @@ elif [[ "$1" == "--check" ]]; then
     shift
 fi
 
-# No arguments: Csum current dir to stdout. One argument: Csum to stdout. Two arguments: second is csum file. Three+ arguments: last is csum file.
+# No arguments: Csum current dir to stdout. One argument: Csum to stdout. Two+ arguments: last is csum file.
 
 if [[ "$#" == "0" ]]; then
     pathsToCsum=(".")
@@ -25,9 +25,12 @@ elif [[ "$#" == "1" ]]; then
     checksumFile=""
 else
     pathsToCsum=("${@:1:$(($#-1))}") # all but last argument
+    checksumFile="${!#}" # last argument
 fi
 
-checksumFile="$2" # use stdin/stdout if this is empty
+if [[ "$checksumFile" == "-" ]]; then
+    checksumFile=""
+fi
 
 case $action in
 --save)
@@ -39,20 +42,22 @@ case $action in
     firstPass="$(tempFile)"
     {
         printf "%s\n" "${currentworkingdir//$'\r'/'\r'}"
-        hashdeep -c md5,sha1,sha256,tiger,whirlpool -j0 -e -o fbsd -r -l "$dirToCheck"
+        hashdeep -c md5,sha1,sha256,tiger,whirlpool -j0 -e -o fbsd -r -l "${pathsToCsum[@]}"
     } > "$firstPass"
     # Second pass
     secondPass="$(tempFile)"
     {
         printf "%s\n" "${currentworkingdir//$'\r'/'\r'}"
-        hashdeep -c md5,sha1,sha256,tiger,whirlpool -j0 -e -o fbsd -r -l "$dirToCheck"
+        hashdeep -c md5,sha1,sha256,tiger,whirlpool -j0 -e -o fbsd -r -l "${pathsToCsum[@]}"
     } > "$secondPass"
     assert fileEquals "$firstPass" "$secondPass" || die
     if [[ -z "$checksumFile" ]]; then
         cat "$firstPass"
+        rm "$firstPass"
     else
         mv "$firstPass" "$checksumFile"
     fi
+    rm "$secondPass"
     ;;
 --check)
     streamId="csum-$(date-uuid)"
@@ -70,7 +75,7 @@ case $action in
     else
         tail -n +2 "$checksumFile" > "/tmp/$streamId"
     fi
-    hashdeep -k "/tmp/$streamId" -e -o fbsd -r -l -a -v -v "$dirToCheck"
+    hashdeep -k "/tmp/$streamId" -e -o fbsd -r -l -a -v -v "${pathsToCsum[@]}"
     finish
     ;;
 *)
