@@ -45,7 +45,7 @@ case $action in
         echo "ac21539a-427e-499e-9f6b-eb079ca528f1"
         printf '%s\n' "${currentworkingdir//$'\r'/'\r'}"
         for arg in "${myArguments[@]}"; do
-            printf '%s`' "$(base64 <<< "$path")"
+            printf '%s`' "$(base64 <<< "$arg")"
         done
         printf '\n'
         temp="$(tempFile)"
@@ -75,7 +75,7 @@ case $action in
         done
         rm "$temp"
     } > "$secondPass"
-    { cat "$firstPass"; cat "$secondPass"; die; }
+    assert fileEquals "$firstPass" "$secondPass" || die
     if [[ -z "$checksumFile" ]]; then
         cat "$firstPass"
         rm "$firstPass"
