@@ -37,23 +37,28 @@ case $action in
     setVariableToCommandOutput currentworkingdir pwd -P
     currentworkingdir="${currentworkingdir:?}"
     currentworkingdir="${currentworkingdir//$'\n'/'\n'}"
-    myArguments=( "${pathsToCsum[@]}" )
-    
+    argsRelativeToRoot=()
+    for arg in "${pathsToCsum[@]}"; do
+        argsRelativeToRoot+=(".$(abspath "$arg")")
+    done
     # Do two passes to make sure nothing changed while reading and there weren't other errors
     # First pass
     firstPass="$(tempFile)"
     {
         printf '%s\n' "${currentworkingdir//$'\r'/'\r'}"
         (
-            cd /
-            hashdeep -c md5,sha1,sha256,tiger,whirlpool -j0 -e -o fbsd -r -l "${pathsToCsum[@]}"
-        )
+            cd / || die
+            hashdeep -c md5,sha1,sha256,tiger,whirlpool -j0 -e -o fbsd -r -l "${argsRelativeToRoot[@]}"
+        ) || die
     } > "$firstPass"
     # Second pass
     secondPass="$(tempFile)"
     {
         printf '%s\n' "${currentworkingdir//$'\r'/'\r'}"
-        hashdeep -c md5,sha1,sha256,tiger,whirlpool -j0 -e -o fbsd -r -l "${pathsToCsum[@]}"
+        (
+            cd / || die
+            hashdeep -c md5,sha1,sha256,tiger,whirlpool -j0 -e -o fbsd -r -l "${argsRelativeToRoot[@]}"
+        ) || die
     } > "$secondPass"
     assert fileEquals "$firstPass" "$secondPass" || die
     if [[ -z "$checksumFile" ]]; then
