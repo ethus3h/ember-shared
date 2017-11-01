@@ -97,12 +97,11 @@ case $action in
 
     if [[ -z "$checksumFile" ]]; then
         sponge "/tmp/$streamId"
+        tail -n +2 < "/tmp/$streamId" | sponge "/tmp/$streamId"
     else
         tail -n +2 "$checksumFile" > "/tmp/$streamId"
     fi
-    for path in "${pathsToCsum[@]}"; do
-        ereplace "$(dirname "$path")/" "" "/tmp/$streamId"
-    done
+
     hashdeep -k "/tmp/$streamId" -e -o fbsd -r -l -a -v -v "${pathsToCsum[@]}"
     finish
     ;;
