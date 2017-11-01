@@ -47,12 +47,12 @@ case $action in
         for arg in "${myArguments[@]}"; do
             printf '%s`' "$(base64 <<< "$path")"
         done
-        printf '%s\n'
+        printf '\n'
         temp="$(tempFile)"
         for path in "${pathsToCsum[@]}"; do
             hashdeep -c md5,sha1,sha256,tiger,whirlpool -j0 -e -o fbsd -r -l "$path" > "$temp"
             setVariableToCommandOutput tempDirname eescape "$(dirname "$path")/"
-            ereplaceRegEx "(\d+,([a-f\d]+,){5})${tempDirname:?}" "\1" "$temp"
+            ereplaceRegEx "(\\d+,([a-f\\d]+,){5})${tempDirname:?}" "\\1" "$temp"
             cat "$temp"
         done
         rm "$temp"
@@ -65,12 +65,12 @@ case $action in
         for arg in "${myArguments[@]}"; do
             printf '%s`' "$(base64 <<< "$path")"
         done
-        printf '%s\n'
+        printf '\n'
         temp="$(tempFile)"
         for path in "${pathsToCsum[@]}"; do
             hashdeep -c md5,sha1,sha256,tiger,whirlpool -j0 -e -o fbsd -r -l "$path" > "$temp"
             setVariableToCommandOutput tempDirname eescape "$(dirname "$path")/"
-            ereplaceRegEx "(\d+,([a-f\d]+,){5})${tempDirname:?}" "\1" "$temp"
+            ereplaceRegEx "(\\d+,([a-f\\d]+,){5})${tempDirname:?}" "\\1" "$temp"
             cat "$temp"
         done
         rm "$temp"
@@ -100,7 +100,7 @@ case $action in
     else
         tail -n +2 "$checksumFile" > "/tmp/$streamId"
     fi
-    for path in "${pathsToCopy[@]}"; do
+    for path in "${pathsToCsum[@]}"; do
         ereplace "$(dirname "$path")/" "" "/tmp/$streamId"
     done
     hashdeep -k "/tmp/$streamId" -e -o fbsd -r -l -a -v -v "${pathsToCsum[@]}"
