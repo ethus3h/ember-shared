@@ -422,7 +422,7 @@ checkedxz() (
 
 # Test framework
 {
-    assert() (
+    assert() {
         local save_traps
         save_traps="$(trap)"
         #trap 'die "Assertion failed: $(join_by ", " "$@") '"on ${BASH_SOURCE[0]} line ${LINENO} in $(pwd) at $(emdate)."'"' ERR
@@ -468,7 +468,7 @@ checkedxz() (
             ;;
         esac
         eval "$save_traps"
-    )
+    }
 
     passedTests="0"
     failedTests="0"
