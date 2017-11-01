@@ -75,7 +75,7 @@ case $action in
         done
         rm "$temp"
     } > "$secondPass"
-    { cat "$firstPass"; cat "$secondPass"; die }
+    { cat "$firstPass"; cat "$secondPass"; die; }
     if [[ -z "$checksumFile" ]]; then
         cat "$firstPass"
         rm "$firstPass"
