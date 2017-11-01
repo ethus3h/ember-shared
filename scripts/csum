@@ -75,7 +75,7 @@ case $action in
         done
         rm "$temp"
     } > "$secondPass"
-    assert fileEquals "$firstPass" "$secondPass" || die
+    assert fileEquals "$firstPass" "$secondPass" || { cat "$firstPass"; cat "$secondPass"; die }
     if [[ -z "$checksumFile" ]]; then
         cat "$firstPass"
         rm "$firstPass"
