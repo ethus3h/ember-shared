@@ -60,7 +60,7 @@ case $action in
     # Second pass
     secondPass="$(tempFile)"
     {
-        #uuidgen -r
+        uuidgen -r
         printf '%s\n' "${currentworkingdir//$'\r'/'\r'}"
         for arg in "${myArguments[@]}"; do
             printf '%s`' "$(base64 <<< "$arg")"
