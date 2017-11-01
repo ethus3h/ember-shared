@@ -37,18 +37,31 @@ case $action in
     setVariableToCommandOutput currentworkingdir pwd -P
     currentworkingdir="${currentworkingdir:?}"
     currentworkingdir="${currentworkingdir//$'\n'/'\n'}"
+    myArguments=( "$@" )
     # Do two passes to make sure nothing changed while reading and there weren't other errors
     # First pass
     firstPass="$(tempFile)"
     {
-        printf "%s\n" "${currentworkingdir//$'\r'/'\r'}"
+        uuidgen -r
+        printf '%s\n' "${currentworkingdir//$'\r'/'\r'}"
+        for arg in "${myArguments[@]}"; do
+            printf '%s`' "$(base64 <<< "$path")"
+        done
+        printf '%s\n'
+        for path in "${pathsToCsum[@]}"; do
+            hashdeep -c md5,sha1,sha256,tiger,whirlpool -j0 -e -o fbsd -r -l "$path"
+        done
         hashdeep -c md5,sha1,sha256,tiger,whirlpool -j0 -e -o fbsd -r -l "${pathsToCsum[@]}"
     } > "$firstPass"
     # Second pass
     secondPass="$(tempFile)"
     {
         uuidgen -r
-        printf "%s\n" "${currentworkingdir//$'\r'/'\r'}"
+        printf '%s\n' "${currentworkingdir//$'\r'/'\r'}"
+        for arg in "${myArguments[@]}"; do
+            printf '%s`' "$(base64 <<< "$path")"
+        done
+        printf '%s\n'
         hashdeep -c md5,sha1,sha256,tiger,whirlpool -j0 -e -o fbsd -r -l "${pathsToCsum[@]}"
     } > "$secondPass"
     assert fileEquals "$firstPass" "$secondPass" || die
