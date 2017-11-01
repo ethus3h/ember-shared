@@ -37,12 +37,17 @@ case $action in
     setVariableToCommandOutput currentworkingdir pwd -P
     currentworkingdir="${currentworkingdir:?}"
     currentworkingdir="${currentworkingdir//$'\n'/'\n'}"
+    myArguments=( "${pathsToCsum[@]}" )
+    
     # Do two passes to make sure nothing changed while reading and there weren't other errors
     # First pass
     firstPass="$(tempFile)"
     {
         printf '%s\n' "${currentworkingdir//$'\r'/'\r'}"
-        hashdeep -c md5,sha1,sha256,tiger,whirlpool -j0 -e -o fbsd -r -l "${pathsToCsum[@]}"
+        (
+            cd /
+            hashdeep -c md5,sha1,sha256,tiger,whirlpool -j0 -e -o fbsd -r -l "${pathsToCsum[@]}"
+        )
     } > "$firstPass"
     # Second pass
     secondPass="$(tempFile)"
