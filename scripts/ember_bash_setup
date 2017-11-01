@@ -425,7 +425,8 @@ checkedxz() (
     assert() (
         local save_traps
         save_traps="$(trap)"
-        trap 'die "Assertion failed: $(join_by ", " "$@") '"on ${BASH_SOURCE[0]} line ${LINENO} in $(pwd) at $(emdate)."'"' ERR
+        #trap 'die "Assertion failed: $(join_by ", " "$@") '"on ${BASH_SOURCE[0]} line ${LINENO} in $(pwd) at $(emdate)."'"' ERR
+        trap 'exit 1' ERR
         local verbose=""
         if [[ "$1" == "-v" ]]; then
             verbose="true"
