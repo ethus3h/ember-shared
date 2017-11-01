@@ -52,7 +52,7 @@ case $action in
         for path in "${pathsToCsum[@]}"; do
             hashdeep -c md5,sha1,sha256,tiger,whirlpool -j0 -e -o fbsd -r -l "$path" > "$temp"
             setVariableToCommandOutput tempDirname eescape "$(dirname "$path")/"
-            ereplaceRegEx "(\\d+,([a-f\\d]+,){5})${tempDirname:?}" "$1" "$temp"
+            ereplaceRegEx "(\\d+,([a-f\\d]+,){5})${tempDirname:?}" '$1' "$temp"
             cat "$temp"
         done
         rm "$temp"
