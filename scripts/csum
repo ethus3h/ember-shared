@@ -87,7 +87,9 @@ case $action in
         tail -n +2 "$checksumFile" > "/tmp/$streamId"
     fi
 
-    hashdeep -k "/tmp/$streamId" -e -o fbsd -r -l -a -v -v "${pathsToCsum[@]}"
+    hashdeep -k "/tmp/$streamId" -e -o fbsd -r -l -a -v -v "${pathsToCsum[@]}" || {
+            die "Hashdeep failed checksum verification! Reported on ${BASH_SOURCE[0]} line ${LINENO} in $(pwd) at $(emdate). Hashdeep version: $(hashdeep -V). Hashdeep help: $(hashdeep -h). Checskum file: $(<"/tmp/$streamId")"
+        }
     finish
     ;;
 *)
