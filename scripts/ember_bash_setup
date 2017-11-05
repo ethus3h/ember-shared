@@ -2,10 +2,10 @@
 
 # set -x
 
-export emberSharedVersion='1.1.4.125'
+export emberSharedVersion='1.1.4.126'
 
 # The update script shown here requires there to be only one ebuild of ember-shared in the wreathe-overlay overlay.
-# ( sudo true; newVersion="1.1.4.125"; cd "/Ember Library/Ember satellite projects/ember-shared"; eogup-single; git tag -a "v$newVersion" -m "version"; egup-single .; cd "/Ember Library/Ember satellite projects/wreathe-overlay"; eogup-single; mv app-misc/ember-shared/ember-shared-*.ebuild "app-misc/ember-shared/ember-shared-$newVersion.ebuild"; repoman manifest; egup-single; sudo layman -s wreathe-overlay; sudo emerge ember-shared )
+# ( sudo true; newVersion="1.1.4.126"; cd "/Ember Library/Ember satellite projects/ember-shared"; eogup-single; git tag -a "v$newVersion" -m "version"; egup-single .; cd "/Ember Library/Ember satellite projects/wreathe-overlay"; eogup-single; mv app-misc/ember-shared/ember-shared-*.ebuild "app-misc/ember-shared/ember-shared-$newVersion.ebuild"; repoman manifest; egup-single; sudo layman -s wreathe-overlay; sudo emerge ember-shared )
 
 # To use the --version option of ember_bash_setup, it is necessary to have e8787d06e61943a6874e94985b53bc0a="2dee41bf-53fb-4f65-997f-33bf50bfbb4d" and run ember_bash_setup --version. It may be important to run unset e8787d06e61943a6874e94985b53bc0a afterwards.
 d1875509777f46809ff940e0aad970f0=""
@@ -312,32 +312,37 @@ pipecheck() {
 }
 
 networkRetryUntilSuccess() {
-    getChecksumOuterRetries=0
-    getChecksumRetries=0
-    retryOuterDelayTime=5
-    retryDelayTime=5
-    until [[ "$getChecksumOuterRetries" -ge 15 ]]; do
-        until [[ "$getChecksumRetries" -ge 100 ]]; do
-            if checksumLine="$(ia downloadAsStream https://archive.org/download/"$CrystalID/$CrystalID"_files.xml | grep -F -A 6 "<file name=\"$CrystalID.coal5\" source=\"original\">" | grep "<sha1>" | head -n 1)"; then
-                postUploadCheckFailHandler
-                break
-            fi
-            getChecksumRetries=$((getChecksumRetries+1))
-            sleep "$retryDelayTime"
-            if [[ "$retryDelayTime" -lt 30 ]]; then
-                retryDelayTime=$((retryDelayTime + 5))
-            fi
-        done
-        checksumLine="${checksumLine/    <sha1>/}"
-        checksumLine="${checksumLine/<\/sha1>/}"
-        if [[ "$checksumLine" == "$knownChecksum" ]]; then
+    local numberRegex='^[0-9]+$'
+    local maximumRetries=0
+    if [[ "$1" =~ $numberRegex ]]; then
+        maximumRetries="$1"
+        shift
+    fi
+    local maximumDelayTime=30
+    if [[ "$1" =~ $numberRegex ]]; then
+        maximumDelayTime="$1"
+        shift
+    fi
+    local delayTimeBackoffIncrement=1
+    if [[ "$1" =~ $numberRegex ]]; then
+        delayTimeBackoffIncrement="$1"
+        shift
+    fi
+    local retryDelayTime=0
+    if [[ "$1" =~ $numberRegex ]]; then
+        # This sets the initial delay time
+        retryDelayTime="$1"
+        shift
+    fi
+    local currentRetries=0
+    until [[ "$currentRetries" -ge "$maximumRetries" ]]; do
+        if "$@"; then
             break
-        else
-            getChecksumOuterRetries=$((getChecksumOuterRetries+1))
         fi
-        sleep "$retryOuterDelayTime"
-        if [[ "$retryOuterDelayTime" -lt 30 ]]; then
-            retryOuterDelayTime=$((retryOuterDelayTime + 5))
+        currentRetries=$((currentRetries+1))
+        sleep "$retryDelayTime"
+        if [[ "$retryDelayTime" -lt "$maximumDelayTime" ]]; then
+            retryDelayTime=$((retryDelayTime + delayTimeBackoffIncrement))
         fi
     done
 }
