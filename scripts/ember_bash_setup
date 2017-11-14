@@ -163,9 +163,7 @@ ereplaceRegEx() {
 }
 
 perl_ere_quote() {
-    set -u extglob
     sed 's/[]\.|$(){}?@+\/*^]/\\&/g' <<< "$*"
-    set -s extglob
 }
 
 ereplaceRegExUnesc() {
@@ -174,7 +172,7 @@ ereplaceRegExUnesc() {
         if [[ ! -e "$3" ]]; then
             die "The target file does not exist."
         fi
-        ereplaceFrom="$1"
+        ereplaceFrom="$(perl_ere_quote "$1")"
         export ereplaceFrom
         ereplaceTo="$2"
         perl -0777 -p -i -e 's/$ENV{ereplaceFrom}/'"$ereplaceTo"'/g' "$3"
