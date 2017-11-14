@@ -160,9 +160,8 @@ ereplaceRegEx() {
             die "The target file does not exist."
         fi
         ereplaceFrom="$1"
-        export ereplaceFrom
         ereplaceTo="$2"
-        perl -0777 -p -i -e 's/$ENV{ereplaceFrom}/'"$ereplaceTo"'/g' "$3"
+        perl -0777 -p -i -e 's/'"$ereplaceFrom"'/'"$ereplaceTo"'/g' "$3"
     )
 }
 
