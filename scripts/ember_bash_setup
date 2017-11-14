@@ -279,7 +279,7 @@ ia() (
     fi
 )
 
-iaid() {
+iaident() {
     local fullPath="${1#https:\/\/archive.org\/download\/}"
     local res="${fullPath%%\/*}"
     [[ -n "$res" ]] || die "Invalid input $1 to iaid"
@@ -298,11 +298,13 @@ iafilename() {
 }
 
 iasha1() {
-    basename "$(iapath "$@")"
+    local field="sha1"
+    ia metadata "$(iaident "$@")" | jq -r '.files[] | select(.name=="'"$(iafilename "$@")"'").'"$field"
 }
 
 iamd5() {
-    basename "$(iapath "$@")"
+    local field="md5"
+    ia metadata "$(iaident "$@")" | jq -r '.files[] | select(.name=="'"$(iafilename "$@")"'").'"$field"
 }
 
 urlencode() {
