@@ -162,6 +162,25 @@ ereplaceRegEx() {
     )
 }
 
+perl_ere_quote() {
+    set -u extglob
+    sed 's/[]\.|$(){}?@+\/*^]/\\&/g' <<< "$*"
+    set -s extglob
+}
+
+ereplaceRegExUnesc() {
+    (
+        # Perl returns 0 even if it can't find the file (without extra perl code), so test first.
+        if [[ ! -e "$3" ]]; then
+            die "The target file does not exist."
+        fi
+        ereplaceFrom="$1"
+        export ereplaceFrom
+        ereplaceTo="$2"
+        perl -0777 -p -i -e 's/$ENV{ereplaceFrom}/'"$ereplaceTo"'/g' "$3"
+    )
+}
+
 version_gt() {
     # from https://stackoverflow.com/questions/16989598/bash-comparing-version-numbers
     test "$(printf '%s\n' "$@" | sort -V | head -n 1)" != "$1"
