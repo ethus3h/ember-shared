@@ -288,9 +288,7 @@ iaident() {
 
 iapath() {
     local fullPath="${1#https:\/\/archive.org\/download\/}"
-    local res="${fullPath#*\/}"
-    [[ -n "$res" ]] || die "Invalid input $1 to iafilename"
-    print "$res"
+    print "${fullPath#*\/}"
 }
 
 iafilename() {
