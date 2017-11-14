@@ -143,7 +143,7 @@ ereplace() {
         fi
         setVariableToCommandOutput ereplaceFrom eescape "$1"
         export ereplaceFrom
-        ereplaceTo="$2"
+        setVariableToCommandOutput ereplaceTo eescape "$2"
         export ereplaceTo
         perl -0777 -p -i -e 's/$ENV{ereplaceFrom}/$ENV{ereplaceTo}/g' "$3"
     )
@@ -172,9 +172,9 @@ ereplaceRegExUnesc() {
         if [[ ! -e "$3" ]]; then
             die "The target file does not exist."
         fi
-        ereplaceFrom="$(perl_ere_quote "$1")"
+        ereplaceFrom="$1"
         export ereplaceFrom
-        ereplaceTo="$2"
+        ereplaceTo="$(perl_ere_quote "$2")"
         perl -0777 -p -i -e 's/$ENV{ereplaceFrom}/'"$ereplaceTo"'/g' "$3"
     )
 }
