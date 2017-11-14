@@ -279,6 +279,16 @@ ia() (
     fi
 )
 
+iaid() {
+    path="${1#https:\/\/archive.org\/download\/}"
+    print "${path%%\/*}"
+}
+
+iafilename() {
+    path="${1#https:\/\/archive.org\/download\/}"
+    print "${path#*\/}"
+}
+
 urlencode() {
     local LANG=C
     for ((i=0; i < ${#1}; i++)); do
