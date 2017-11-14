@@ -294,24 +294,36 @@ iapath() {
 }
 
 iafilename() {
-    basename "$(iapath "$@")"
+    basename "$(iapath "$1")"
 }
 
 iasha1() {
     local field="sha1"
-    ia metadata "$(iaident "$@")" | jq -r '.files[] | select(.name=="'"$(iafilename "$@")"'").'"$field"
+    result="$(ia metadata "$(iaident "$1")" | jq -r '.files[] | select(.name=="'"$(iafilename "$1")"'").'"$field")"
+    [[ -z "$result" ]] && die "An error was encountered while trying to get the $field for $1."
+    print "$result"
 }
 
 iamd5() {
     local field="md5"
-    ia metadata "$(iaident "$@")" | jq -r '.files[] | select(.name=="'"$(iafilename "$@")"'").'"$field"
+    result="$(ia metadata "$(iaident "$1")" | jq -r '.files[] | select(.name=="'"$(iafilename "$1")"'").'"$field")"
+    [[ -z "$result" ]] && die "An error was encountered while trying to get the $field for $1."
+    print "$result"
 }
 
 iaurl() {
     print "https://archive.org/download/"
-    iaident "$@"
+    iaident "$1"
     print "/"
-    iapath "$@"
+    iapath "$1"
+}
+
+isIaUrl() {
+    local regex='^https:\/\/archive.org\/download\/.+$'
+    if [[ "$1" =~ $regex ]]; then
+        exit 0
+    fi
+    exit 1
 }
 
 urlencode() {
