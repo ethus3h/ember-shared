@@ -280,13 +280,29 @@ ia() (
 )
 
 iaid() {
-    path="${1#https:\/\/archive.org\/download\/}"
-    print "${path%%\/*}"
+    local fullPath="${1#https:\/\/archive.org\/download\/}"
+    local res="${fullPath%%\/*}"
+    [[ -n "$res" ]] || die "Invalid input $1 to iaid"
+    print "$res"
+}
+
+iapath() {
+    local fullPath="${1#https:\/\/archive.org\/download\/}"
+    local res="${fullPath#*\/}"
+    [[ -n "$res" ]] || die "Invalid input $1 to iafilename"
+    print "$res"
 }
 
 iafilename() {
-    path="${1#https:\/\/archive.org\/download\/}"
-    print "${path#*\/}"
+    basename "$(iapath "$@")"
+}
+
+iasha1() {
+    basename "$(iapath "$@")"
+}
+
+iamd5() {
+    basename "$(iapath "$@")"
 }
 
 urlencode() {
