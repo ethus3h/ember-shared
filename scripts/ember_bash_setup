@@ -2,10 +2,10 @@
 
 # set -x
 
-export emberSharedVersion='1.1.4.140'
+export emberSharedVersion='1.1.4.141'
 
 # The update script shown here requires there to be only one ebuild of ember-shared in the wreathe-overlay overlay.
-# ( sudo true; newVersion="1.1.4.140"; cd "/Ember Library/Ember satellite projects/ember-shared"; eogup-single; git tag -a "v$newVersion" -m "version"; egup-single .; cd "/Ember Library/Ember satellite projects/wreathe-overlay"; eogup-single; mv app-misc/ember-shared/ember-shared-*.ebuild "app-misc/ember-shared/ember-shared-$newVersion.ebuild"; repoman manifest; egup-single; sudo layman -s wreathe-overlay; sudo emerge ember-shared )
+# ( sudo true; newVersion="1.1.4.141"; cd "/Ember Library/Ember satellite projects/ember-shared"; eogup-single; git tag -a "v$newVersion" -m "version"; egup-single .; cd "/Ember Library/Ember satellite projects/wreathe-overlay"; eogup-single; mv app-misc/ember-shared/ember-shared-*.ebuild "app-misc/ember-shared/ember-shared-$newVersion.ebuild"; repoman manifest; egup-single; sudo layman -s wreathe-overlay; sudo emerge ember-shared )
 
 # To use the --version option of ember_bash_setup, it is necessary to have e8787d06e61943a6874e94985b53bc0a="2dee41bf-53fb-4f65-997f-33bf50bfbb4d" and run ember_bash_setup --version. It may be important to run unset e8787d06e61943a6874e94985b53bc0a afterwards.
 d1875509777f46809ff940e0aad970f0=""
@@ -367,7 +367,7 @@ pipecheck() {
     allElementsEqual "0" "$@" || die "A failure status was reported by a call to pipecheck, with the reported exit statuses $(join_by ", " "$@")"
 }
 
-retryUntilSuccess() {
+retryUntilSuccess() (
     local numberRegex='^[0-9]+$'
     local maximumRetries=-1
     if [[ "$1" =~ $numberRegex ]]; then
@@ -391,8 +391,17 @@ retryUntilSuccess() {
         shift
     fi
     local currentRetries="$maximumRetries"
+    local postExecCheckSuccess=""
+    postExecCheckFailHandler() {
+        if [[ -z "$postExecCheckSuccess" ]] || [[ "$postExecCheckSuccess" == "1" ]]; then
+            postExecCheckSuccess=1
+        else
+            postExecCheckSuccess=0
+        fi
+    }
     until [[ "$currentRetries" -eq "0" ]]; do
         if "$@"; then
+            postExecCheckFailHandler
             break
         fi
         if [[ "$currentRetries" != "0" ]]; then
@@ -403,7 +412,8 @@ retryUntilSuccess() {
             retryDelayTime=$((retryDelayTime + delayTimeBackoffIncrement))
         fi
     done
-}
+    [[ "$postExecCheckSuccess" != "0" ]] && die "Number of allowed retries exceeded without success."
+)
 
 findso() {
     # based on https://unix.stackexchange.com/questions/22178/which-equivalent-for-shared-libraries
