@@ -412,7 +412,7 @@ retryUntilSuccess() (
             retryDelayTime=$((retryDelayTime + delayTimeBackoffIncrement))
         fi
     done
-    [[ "$postExecCheckSuccess" != "0" ]] && die "Number of allowed retries exceeded without success."
+    [[ "$postExecCheckSuccess" != "1" ]] && die "Number of allowed retries exceeded without success."
 )
 
 findso() {
