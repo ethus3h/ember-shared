@@ -210,6 +210,7 @@ ia() (
             newParams=()
             fileArgs=()
             iterCount=0
+            identifier=""
             for param in "$@"; do
                 if [[ "$param" == "--delete" ]]; then
                     wantsDelete="true"
@@ -220,6 +221,7 @@ ia() (
                     if [[ "$iterCount" == "0" ]]; then
                         iterCount=1
                     elif [[ "$iterCount" == "1" ]]; then
+                        identifier="$param"
                         iterCount=2
                     else
                         fileArgs+=("$param")
@@ -232,6 +234,18 @@ ia() (
             while [[ "$succeeded" != "true" && "$retryCount" -lt 30 ]]; do
                 # Use which to prevent calling this function again.
                 "$(which ia)" "${newParams[@]}" && succeeded="true"
+
+                # Iterate through the uploaded files and check their checksums
+                for file in "${fileArgs[@]}"; do
+                    local knownChecksum
+                    knownChecksum="$(sha1sum "$file" | awk '{print $1;}')"
+                    retryUntilSuccess 100 30 5 5 iasha1 "$identifier/$file" || die "Could not get checksum for uploaded file $file."
+                    checksumLine="$(iasha1 "$identifier/$file")"
+                    if [[ "$checksumLine" != "$knownChecksum" ]]; then
+                        die "ERROR! Checksum known by Internet Archive $checksumLine does not match saved checksum known locally $knownChecksum."
+                    fi
+                done
+
                 retryCount=$(( retryCount + 1 ))
                 if [[ "$retryCount" -gt 1 ]]; then
                     sleep 60
