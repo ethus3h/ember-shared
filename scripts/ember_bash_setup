@@ -259,8 +259,8 @@ ia() (
                     else
                         fileToQuery="$remoteNameOverride"
                     fi
-                    retryUntilSuccess 100 30 5 5 iasha1 "$identifier/$fileToQuery" || die "Could not get checksum for uploaded file $identifier/$fileToQuery."
-                    checksumLine="$(iasha1 "$identifier/$fileToQuery")"
+                    retryUntilSuccess 100 30 5 5 iasha1 "$identifier/$fileToQuery" > /dev/null 2>/dev/null || die "Could not get checksum for uploaded file $identifier/$fileToQuery."
+                    checksumLine="$(iasha1 "$identifier/$fileToQuery")" 2>/dev/null
                     if [[ "$checksumLine" != "$knownChecksum" ]]; then
                         die "ERROR! Checksum known by Internet Archive $checksumLine does not match saved checksum known locally $knownChecksum."
                     fi
