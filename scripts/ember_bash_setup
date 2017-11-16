@@ -334,6 +334,7 @@ iafilename() {
 iasha1() {
     local field="sha1"
     result="$(ia metadata "$(iaident "$1")" | jq -r '.files[] | select(.name=="'"$(iafilename "$1")"'").'"$field")"
+    # jq seems to exit 0 on at least some errors
     [[ -z "$result" ]] && die "An error was encountered while trying to get the $field for $1."
     print "$result"
 }
@@ -341,6 +342,7 @@ iasha1() {
 iamd5() {
     local field="md5"
     result="$(ia metadata "$(iaident "$1")" | jq -r '.files[] | select(.name=="'"$(iafilename "$1")"'").'"$field")"
+    # jq seems to exit 0 on at least some errors
     [[ -z "$result" ]] && die "An error was encountered while trying to get the $field for $1."
     print "$result"
 }
