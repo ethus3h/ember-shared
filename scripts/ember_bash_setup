@@ -259,8 +259,8 @@ ia() (
                     else
                         fileToQuery="$remoteNameOverride"
                     fi
-                    retryUntilSuccess 100 30 5 5 iasha1 "$identifier/$fileToQuery" > /dev/null 2>/dev/null || die "Could not get checksum for uploaded file $identifier/$fileToQuery."
-                    checksumLine="$(iasha1 "$identifier/$fileToQuery")" 2>/dev/null
+                    retryUntilSuccess 100 30 5 5 iasha1 "$identifier/$fileToQuery" > /dev/null || die "Could not get checksum for uploaded file $identifier/$fileToQuery."
+                    checksumLine="$(iasha1 "$identifier/$fileToQuery")"
                     if [[ "$checksumLine" != "$knownChecksum" ]]; then
                         die "ERROR! Checksum known by Internet Archive $checksumLine does not match saved checksum known locally $knownChecksum."
                     fi
@@ -317,14 +317,14 @@ ia() (
 iaident() (
     local fullPath="${1#https:\/\/archive.org\/download\/}"
     local res="${fullPath%%\/*}"
-    [[ -n "$res" ]] || die "Invalid input $1 to iaident"
+    [[ -n "$res" ]] || exit 1
     print "$res"
 )
 
 iapath() (
     local fullPath="${1#https:\/\/archive.org\/download\/}"
     local res="${fullPath#*\/}"
-    [[ -n "$res" ]] || die "Invalid input $1 to iapath"
+    [[ -n "$res" ]] || exit 1
     print "$res"
 )
 
@@ -336,7 +336,7 @@ iasha1() (
     local field="sha1"
     result="$(ia metadata "$(iaident "$1")" | jq -r '.files[] | select(.name=="'"$(iafilename "$1")"'").'"$field")"
     # jq seems to exit 0 on at least some errors
-    [[ -z "$result" ]] && die "An error was encountered while trying to get the $field for $1."
+    [[ -z "$result" ]] && exit 1
     print "$result"
 )
 
@@ -344,7 +344,7 @@ iamd5() (
     local field="md5"
     result="$(ia metadata "$(iaident "$1")" | jq -r '.files[] | select(.name=="'"$(iafilename "$1")"'").'"$field")"
     # jq seems to exit 0 on at least some errors
-    [[ -z "$result" ]] && die "An error was encountered while trying to get the $field for $1."
+    [[ -z "$result" ]] && exit 1
     print "$result"
 )
 
