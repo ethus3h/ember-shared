@@ -213,7 +213,7 @@ ia() (
             iterCount=0
             identifier=""
             remoteNameOverride=""
-            remoteNameOverrideFound="false" # Set to true when waiting for the second half of a two-part --remote-name option
+            remoteNameOverrideFound="false" # Is set to true when waiting for the second half of a two-part --remote-name option
             for param in "$@"; do
                 if [[ "$remoteNameOverrideFound" == "true" ]]; then
                     # The previous argument was --remote-name, so this one is the remote name to use. Because ia only allows a single file when using --remote-name, this doesn't try to handle the case of multiple --remote-name options.
