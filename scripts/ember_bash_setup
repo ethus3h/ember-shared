@@ -224,7 +224,9 @@ ia() (
                         identifier="$param"
                         iterCount=2
                     else
-                        fileArgs+=("$param")
+                        if [[ "$param" != "-" ]]; then
+                            fileArgs+=("$param")
+                        fi
                     fi
                 fi
                 newParams+=("$param")
