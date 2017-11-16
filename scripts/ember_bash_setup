@@ -253,8 +253,14 @@ ia() (
                 for file in "${fileArgs[@]}"; do
                     local knownChecksum
                     knownChecksum="$(sha1sum "$file" | awk '{print $1;}')"
-                    retryUntilSuccess 100 30 5 5 iasha1 "$identifier/$file" || die "Could not get checksum for uploaded file $file."
-                    checksumLine="$(iasha1 "$identifier/$file")"
+                    fileToQuery=""
+                    if [[ -z "$remoteNameOverride" ]]; then
+                        fileToQuery="$(basename "$file")"
+                    else
+                        fileToQuery="$remoteNameOverride"
+                    fi
+                    retryUntilSuccess 100 30 5 5 iasha1 "$identifier/$fileToQuery" || die "Could not get checksum for uploaded file $identifier/$fileToQuery."
+                    checksumLine="$(iasha1 "$identifier/$fileToQuery")"
                     if [[ "$checksumLine" != "$knownChecksum" ]]; then
                         die "ERROR! Checksum known by Internet Archive $checksumLine does not match saved checksum known locally $knownChecksum."
                     fi
