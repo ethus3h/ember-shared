@@ -207,25 +207,26 @@ ia() (
             # Retry wrapper for ia to work around https://github.com/jjjake/internetarchive/issues/183
             wantsDelete="false"
             optionArgumentPattern="^--"
-            remoteNameTwopartArgumentPattern=""
+            remoteNameTwopartArgumentPattern="^--remote-name="
             newParams=()
             fileArgs=()
             iterCount=0
             identifier=""
             remoteNameOverride=""
-            remoteNameOverrideState="0"
+            remoteNameOverrideFound="false" # Set to true when waiting for the second half of a two-part --remote-name option
             for param in "$@"; do
-                if [[ "$remoteNameOverrideState" == "1" ]]; then
+                if [[ "$remoteNameOverrideFound" == "true" ]]; then
                     # The previous argument was --remote-name, so this one is the remote name to use. Because ia only allows a single file when using --remote-name, this doesn't try to handle the case of multiple --remote-name options.
                     remoteNameOverride="$param"
-                    remoteNameOverrideState="2"
-                fi
-                if [[ "$param" == "--delete" ]]; then
+                    remoteNameOverrideFound="false"
+                elif [[ "$param" == "--delete" ]]; then
                     wantsDelete="true"
-                    continue
-                fi
-                if [[ "$param" == "--remote-name" ]]; then
-                    remoteNameOverrideState="1"
+                    continue # Don't pass the --delete argument to ia, since this wrapper should handle it instead
+                elif [[ "$param" == "--remote-name" ]]; then
+                    remoteNameOverrideFound="true"
+                elif [[ "$param" =~ $remoteNameTwopartArgumentPattern ]]; then
+                    # This is a --remote-name argument that looks like --remote-name=blah. So, remove the prefix and set the remote name.
+                    remoteNameOverride="${param#--remote-name=*}"
                 fi
                 if ! [[ "$param" =~ $optionArgumentPattern ]]; then
                     # Skip first two arguments ("upload" and identifier). iterCount variable is needed to figure out where we are in the argument list.
