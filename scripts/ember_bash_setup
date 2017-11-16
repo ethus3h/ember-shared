@@ -206,18 +206,29 @@ ia() (
         (
             # Retry wrapper for ia to work around https://github.com/jjjake/internetarchive/issues/183
             wantsDelete="false"
-            patternMatch="^--"
+            optionArgumentPattern="^--"
+            remoteNameTwopartArgumentPattern=""
             newParams=()
             fileArgs=()
             iterCount=0
             identifier=""
+            remoteNameOverride=""
+            remoteNameOverrideState="0"
             for param in "$@"; do
+                if [[ "$remoteNameOverrideState" == "1" ]]; then
+                    # The previous argument was --remote-name, so this one is the remote name to use. Because ia only allows a single file when using --remote-name, this doesn't try to handle the case of multiple --remote-name options.
+                    remoteNameOverride="$param"
+                    remoteNameOverrideState="2"
+                fi
                 if [[ "$param" == "--delete" ]]; then
                     wantsDelete="true"
                     continue
                 fi
-                if ! [[ "$param" =~ $patternMatch ]]; then
-                    # Skip first two arguments ("upload" and identifier)
+                if [[ "$param" == "--remote-name" ]]; then
+                    remoteNameOverrideState="1"
+                fi
+                if ! [[ "$param" =~ $optionArgumentPattern ]]; then
+                    # Skip first two arguments ("upload" and identifier). iterCount variable is needed to figure out where we are in the argument list.
                     if [[ "$iterCount" == "0" ]]; then
                         iterCount=1
                     elif [[ "$iterCount" == "1" ]]; then
