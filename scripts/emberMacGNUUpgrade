@@ -3,4 +3,4 @@
 #set -x
 
 trap 'warn "A nonfatal error was reported on ${BASH_SOURCE[0]} line ${LINENO} in $(pwd) at $(emdate)."' ERR
-brew install coreutils findutils gnu-tar gnu-sed gawk gnutls gnu-indent gnu-getopt wdiff wget gawk md5sha1sum bash
+brew install coreutils findutils gnu-tar gnu-sed gawk gnutls gnu-indent gnu-getopt wdiff wget gawk md5sha1sum jq bash
