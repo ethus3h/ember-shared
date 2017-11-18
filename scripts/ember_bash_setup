@@ -125,6 +125,14 @@ say() {
     printf '%s\n' "$@"
 }
 
+getDefaultEditor() {
+    print "${FCEDIT:-${VISUAL:-${EDITOR:-nano}}}"
+}
+
+getDefaultEditor() {
+    print "${FCEDIT:-${VISUAL:-${EDITOR:-nano}}}"
+}
+
 emdate() (
     # If changing this, also change the copy in the error-notify script.
     trap 'die "A fatal error was reported on ${BASH_SOURCE[0]} line ${LINENO} in $(pwd)."' ERR
