@@ -30,12 +30,18 @@ unset d1875509777f46809ff940e0aad970f0 a9c9efb644e24ef5b9cb1ec95e279c02
 # Allow problems to be caught within pipelines
 set -o pipefail
 if [[ -z "$PS1" ]]; then
+    # The shell is not interactive
     # Make traps inherited, but only if the shell is non-interactive
     set -o errtrace
     set -o functrace
     # Fail if glob doesn't match. Breaks bash completions for emerge, so non-interactive only.
     shopt -s failglob
 fi
+if [[ "$-" != *i* ]]; then
+    # The shell is interactive (FIXME: why is this not just the inverse of the previous if statement?)
+    nano() { if [[ -w "${@:(-1)}" ]]; then /usr/bin/nano -wLN "$@"; else sudo -k /usr/bin/nano -wLN "$@"; fi; }
+fi
+
 #set -o nounset
 
 # More verbose debugging
