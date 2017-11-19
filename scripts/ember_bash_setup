@@ -459,9 +459,9 @@ retryUntilSuccess() (
     local postExecCheckSuccess=""
     postExecCheckFailHandler() {
         if [[ -z "$postExecCheckSuccess" ]] || [[ "$postExecCheckSuccess" == "1" ]]; then
-            postExecCheckSuccess=1
+            postExecCheckSuccess="1"
         else
-            postExecCheckSuccess=0
+            postExecCheckSuccess="0"
         fi
     }
     until [[ "$currentRetries" -eq "0" ]]; do
