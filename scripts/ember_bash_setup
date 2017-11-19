@@ -129,8 +129,12 @@ getDefaultEditor() {
     print "${FCEDIT:-${VISUAL:-${EDITOR:-nano}}}"
 }
 
-getDefaultEditor() {
-    print "${FCEDIT:-${VISUAL:-${EDITOR:-nano}}}"
+getDefaultEditorPath() {
+    which "$(getDefaultEditor)"
+}
+
+runDefaultEditor() {
+    "$(getDefaultEditorPath)" "$@"
 }
 
 emdate() (
