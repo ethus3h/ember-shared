@@ -6,9 +6,7 @@ trap 'die "A fatal error was reported on ${BASH_SOURCE[0]} line ${LINENO} in $(p
 #set -x
 
 if [[ "$OSTYPE" = darwin* ]]; then
-    if ! type "greadlink"; then
-        scripts/emberMacGNUUpgrade
-    fi
+    scripts/emberMacGNUUpgrade
     find scripts -type f -exec perl -0777 -p -i -e 's/readlink /greadlink /g' {} \;
     find scripts -type f -exec perl -0777 -p -i -e 's/sort /gsort /g' {} \;
     find scripts -type f -exec perl -0777 -p -i -e 's/ncdu /8731d097a5ed41149c7ffb67756c310e /g' {} \;
