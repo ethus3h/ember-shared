@@ -81,7 +81,7 @@ case $action in
     trap finish EXIT
 
     if [[ -z "$checksumFile" ]]; then
-        cat "/tmp/$streamId"
+        cat > "/tmp/$streamId"
         tail -n +2 < "/tmp/$streamId" | sponge "/tmp/$streamId"
     else
         tail -n +2 "$checksumFile" > "/tmp/$streamId"
