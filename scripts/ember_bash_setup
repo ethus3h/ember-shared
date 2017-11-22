@@ -2,10 +2,10 @@
 
 #set -x
 
-export emberSharedVersion='1.1.4.171'
+export emberSharedVersion='1.1.4.172'
 
 # The update script shown here requires there to be only one ebuild of ember-shared in the wreathe-overlay overlay.
-# ( sudo true; newVersion="1.1.4.171"; cd "/Ember Library/Ember satellite projects/ember-shared"; eogup-single; git tag -a "v$newVersion" -m "version"; egup-single .; cd "/Ember Library/Ember satellite projects/wreathe-overlay"; eogup-single; mv app-misc/ember-shared/ember-shared-*.ebuild "app-misc/ember-shared/ember-shared-$newVersion.ebuild"; repoman manifest; egup-single; sudo layman -s wreathe-overlay; sudo emerge ember-shared )
+# ( sudo true; newVersion="1.1.4.172"; cd "/Ember Library/Ember satellite projects/ember-shared"; eogup-single; git tag -a "v$newVersion" -m "version"; egup-single .; cd "/Ember Library/Ember satellite projects/wreathe-overlay"; eogup-single; mv app-misc/ember-shared/ember-shared-*.ebuild "app-misc/ember-shared/ember-shared-$newVersion.ebuild"; repoman manifest; egup-single; sudo layman -s wreathe-overlay; sudo emerge ember-shared )
 
 # To use the --version option of ember_bash_setup, it is necessary to have e8787d06e61943a6874e94985b53bc0a="2dee41bf-53fb-4f65-997f-33bf50bfbb4d" and run ember_bash_setup --version. It may be important to run unset e8787d06e61943a6874e94985b53bc0a afterwards.
 d1875509777f46809ff940e0aad970f0=""
@@ -274,6 +274,19 @@ ia() (
                 # Use command to prevent calling this function again.
                 command ia "${newParams[@]}" && succeeded="true"
 
+                retryCount=$(( retryCount + 1 ))
+                if [[ "$retryCount" -gt 1 ]]; then
+                    warn "Something went wrong: retrying upload."
+                    sleep 60
+                fi
+            done
+            if [[ "$retryCount" -ge 30 ]]; then
+                exit 1
+            fi
+
+            retryCount=0
+            succeeded="false"
+            while [[ "$succeeded" != "true" && "$retryCount" -lt 5 ]]; do
                 # Iterate through the uploaded files and check their checksums
                 echo "Please wait: confirming upload integrity..."
                 for file in "${fileArgs[@]}"; do
@@ -285,22 +298,23 @@ ia() (
                     else
                         fileToQuery="$remoteNameOverride"
                     fi
-                    retryUntilSuccess 1000 30 5 5 iasha1 "$identifier/$fileToQuery" > /dev/null || die "Could not get checksum for uploaded file $identifier/$fileToQuery."
+                    retryUntilSuccess 100 30 5 5 iasha1 "$identifier/$fileToQuery" > /dev/null || die "Could not get checksum for uploaded file $identifier/$fileToQuery."
                     checksumLine="$(iasha1 "$identifier/$fileToQuery")"
                     if [[ "$checksumLine" != "$knownChecksum" ]]; then
                         die "ERROR! Checksum known by Internet Archive $checksumLine does not match saved checksum known locally $knownChecksum."
                     fi
-                done
+                done && succeeded="true"
 
                 retryCount=$(( retryCount + 1 ))
                 if [[ "$retryCount" -gt 1 ]]; then
-                    warn "Something went wrong: retrying upload."
+                    warn "Something went wrong: retrying upload integrity check."
                     sleep 60
                 fi
             done
-            if [[ "$retryCount" -ge 30 ]]; then
+            if [[ "$retryCount" -ge 5 ]]; then
                 exit 1
             fi
+
             if [[ "$succeeded" == "true" ]] && [[ "$wantsDelete" == "true" ]]; then
                 for file in "${fileArgs[@]}"; do
                     rm "${file:?}"
