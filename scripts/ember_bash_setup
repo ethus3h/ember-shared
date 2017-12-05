@@ -330,14 +330,21 @@ ia() (
                 ident=""
                 ident="$(iaident "$param")"
                 while [[ "$succeeded" != "true" && "$retryCount" -lt 30 ]]; do
-                    # Use command to prevent calling this function again.
-                    command ia download "$ident" -C
-
                     retryCount=$(( retryCount + 1 ))
                     if [[ "$retryCount" -gt 1 ]]; then
                         warn "Something went wrong: retrying upload."
                         sleep 60
                     fi
+
+                    # Use command to prevent calling this function again.
+                    command ia download "$ident" -C
+
+                    # Now, check the downloaded files
+                    shopt -s dotglob
+                    shopt -s globstar
+                    for file in "$ident"/**; do
+                        [[ "$(sha1sum "$file")" == "$(iasha1 "$file")" ]] && succeeded="true"
+                    done
                 done
         ) || die
     elif [[ "$1" == "downloadAsStream" ]]; then
