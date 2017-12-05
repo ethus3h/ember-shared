@@ -339,7 +339,6 @@ ia() (
                         sleep 60
                     fi
                 done
-            command ia "$@" || die
         ) || die
     elif [[ "$1" == "downloadAsStream" ]]; then
         # Wrapper around ia download. Provides the ability to get the result as a stream. Expects a URL rather than the ia download syntax, so it can act as a drop-in replacement for wgetting a file.
