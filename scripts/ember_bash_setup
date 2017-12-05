@@ -323,7 +323,21 @@ ia() (
         ) || die
     elif [[ "$1" == "download" ]]; then
         # Wrapper around ia download. TODO: Provide the ability to use local copies (not yet implemented)
-        command ia "$@" || die
+        (
+            retryCount=0
+            succeeded="false"
+            while [[ "$succeeded" != "true" && "$retryCount" -lt 30 ]]; do
+                # Use command to prevent calling this function again.
+                command ia "${newParams[@]}" && succeeded="true"
+
+                retryCount=$(( retryCount + 1 ))
+                if [[ "$retryCount" -gt 1 ]]; then
+                    warn "Something went wrong: retrying upload."
+                    sleep 60
+                fi
+            done
+            command ia "$@" || die
+        ) || die
     elif [[ "$1" == "downloadAsStream" ]]; then
         # Wrapper around ia download. Provides the ability to get the result as a stream. Expects a URL rather than the ia download syntax, so it can act as a drop-in replacement for wgetting a file.
         (
