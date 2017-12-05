@@ -346,6 +346,7 @@ ia() (
                         [[ "$(sha1sum "$file")" == "$(iasha1 "$file")" ]] && succeeded="true"
                     done
                 done
+                [[ "$succeeded" == "true" ]] || die
             done
         ) || die
     elif [[ "$1" == "downloadAsStream" ]]; then
