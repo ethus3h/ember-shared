@@ -321,21 +321,24 @@ ia() (
                 done
             fi
         ) || die
-    elif [[ "$1" == "download" ]]; then
+    elif [[ "$1" == "checkeddl" ]]; then
         # Wrapper around ia download. TODO: Provide the ability to use local copies (not yet implemented)
         (
-            retryCount=0
-            succeeded="false"
-            while [[ "$succeeded" != "true" && "$retryCount" -lt 30 ]]; do
-                # Use command to prevent calling this function again.
-                command ia "${newParams[@]}" && succeeded="true"
+            for param in "$@"; do
+                retryCount=0
+                succeeded="false"
+                ident=""
+                ident="$(iaident "$param")"
+                while [[ "$succeeded" != "true" && "$retryCount" -lt 30 ]]; do
+                    # Use command to prevent calling this function again.
+                    command ia download "$ident" -C
 
-                retryCount=$(( retryCount + 1 ))
-                if [[ "$retryCount" -gt 1 ]]; then
-                    warn "Something went wrong: retrying upload."
-                    sleep 60
-                fi
-            done
+                    retryCount=$(( retryCount + 1 ))
+                    if [[ "$retryCount" -gt 1 ]]; then
+                        warn "Something went wrong: retrying upload."
+                        sleep 60
+                    fi
+                done
             command ia "$@" || die
         ) || die
     elif [[ "$1" == "downloadAsStream" ]]; then
