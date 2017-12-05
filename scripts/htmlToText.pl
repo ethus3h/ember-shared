@@ -1,3 +1,5 @@
+#!/usr/bin/env perl
+
 my $file = 'data.txt';
 open my $fh, '<', $file or die;
 $/ = undef;
