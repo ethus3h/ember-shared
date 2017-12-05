@@ -271,14 +271,14 @@ ia() (
             retryCount=0
             succeeded="false"
             while [[ "$succeeded" != "true" && "$retryCount" -lt 30 ]]; do
-                # Use command to prevent calling this function again.
-                command ia "${newParams[@]}" && succeeded="true"
-
                 retryCount=$(( retryCount + 1 ))
                 if [[ "$retryCount" -gt 1 ]]; then
                     warn "Something went wrong: retrying upload."
                     sleep 60
                 fi
+
+                # Use command to prevent calling this function again.
+                command ia "${newParams[@]}" && succeeded="true"
             done
             if [[ "$retryCount" -ge 30 ]]; then
                 exit 1
@@ -287,6 +287,12 @@ ia() (
             retryCount=0
             succeeded="false"
             while [[ "$succeeded" != "true" && "$retryCount" -lt 5 ]]; do
+                retryCount=$(( retryCount + 1 ))
+                if [[ "$retryCount" -gt 1 ]]; then
+                    warn "Something went wrong: retrying upload integrity check."
+                    sleep 60
+                fi
+
                 # Iterate through the uploaded files and check their checksums
                 echo "Please wait: confirming upload integrity..."
                 for file in "${fileArgs[@]}"; do
@@ -304,12 +310,6 @@ ia() (
                         die "ERROR! Checksum known by Internet Archive $checksumLine does not match saved checksum known locally $knownChecksum."
                     fi
                 done && succeeded="true"
-
-                retryCount=$(( retryCount + 1 ))
-                if [[ "$retryCount" -gt 1 ]]; then
-                    warn "Something went wrong: retrying upload integrity check."
-                    sleep 60
-                fi
             done
             if [[ "$retryCount" -ge 5 ]]; then
                 exit 1
