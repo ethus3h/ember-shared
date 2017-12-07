@@ -669,7 +669,7 @@ checkedxz() (
         save_traps="$(trap)"
         trap 'die "Assertion failed: $(join_by ", " "$@") '"on ${BASH_SOURCE[0]} line ${LINENO} in $(pwd) at $(emdate)."'"' ERR
         local verbose=""
-        if [[ "$1" == "-v" ]]; then
+        if [[ "$1" == "-v" ]] || [[ "$emberSharedAssertInheritVerbose" == "true" ]]; then
             verbose="true"
             shift
         fi
@@ -729,6 +729,12 @@ checkedxz() (
         local verbose="$verboseTests"
         if [[ "$1" == "-v" ]]; then
             verbose="true"
+            shift
+        fi
+        if [[ "$1" == "-vv" ]]; then
+            verbose="true"
+            emberSharedAssertInheritVerbose="true"
+            export emberSharedAssertInheritVerbose
             shift
         fi
         totalTests=$(( totalTests + 1 ))
