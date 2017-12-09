@@ -228,7 +228,7 @@ preadconf() {
 ia() (
     trap 'die "A fatal error was reported on ${BASH_SOURCE[0]} line ${LINENO} in $(pwd) at $(emdate)."' ERR
     if [[ "$1" == "upload" ]]; then
-        uploadRetryInner() (
+        (
             # Retry wrapper for ia to work around https://github.com/jjjake/internetarchive/issues/183
             wantsDelete="false"
             optionArgumentPattern="^--"
@@ -268,64 +268,66 @@ ia() (
                 fi
                 newParams+=("$param")
             done
-            retryCount=0
-            succeeded="false"
-            while [[ "$succeeded" != "true" && "$retryCount" -lt 30 ]]; do
-                retryCount=$(( retryCount + 1 ))
-                if [[ "$retryCount" -gt 1 ]]; then
-                    warn "Something went wrong: retrying upload."
-                    sleep 60
+            uploadRetryInner() (
+                retryCount=0
+                succeeded="false"
+                while [[ "$succeeded" != "true" && "$retryCount" -lt 30 ]]; do
+                    retryCount=$(( retryCount + 1 ))
+                    if [[ "$retryCount" -gt 1 ]]; then
+                        warn "Something went wrong: retrying upload."
+                        sleep 60
+                    fi
+
+                    # Use command to prevent calling this function again.
+                    command ia "${newParams[@]}" && succeeded="true"
+                done
+                if [[ "$retryCount" -ge 30 ]]; then
+                    exit 1
                 fi
 
-                # Use command to prevent calling this function again.
-                command ia "${newParams[@]}" && succeeded="true"
-            done
-            if [[ "$retryCount" -ge 30 ]]; then
-                exit 1
-            fi
+                retryCount=0
+                succeeded="false"
+                while [[ "$succeeded" != "true" && "$retryCount" -lt 5 ]]; do
+                    retryCount=$(( retryCount + 1 ))
+                    if [[ "$retryCount" -gt 1 ]]; then
+                        warn "Something went wrong: retrying upload integrity check."
+                        sleep 60
+                    fi
 
-            retryCount=0
-            succeeded="false"
-            while [[ "$succeeded" != "true" && "$retryCount" -lt 5 ]]; do
-                retryCount=$(( retryCount + 1 ))
-                if [[ "$retryCount" -gt 1 ]]; then
-                    warn "Something went wrong: retrying upload integrity check."
-                    sleep 60
+                    # Iterate through the uploaded files and check their checksums
+                    echo "Please wait: confirming upload integrity..."
+                    for file in "${fileArgs[@]}"; do
+                        local knownChecksum
+                        knownChecksum="$(sha1sum "$file" | awk '{print $1;}')"
+                        fileToQuery=""
+                        if [[ -z "$remoteNameOverride" ]]; then
+                            fileToQuery="$(basename "$file")"
+                        else
+                            fileToQuery="$remoteNameOverride"
+                        fi
+                        retryUntilSuccess 100 30 5 5 iasha1 "$identifier/$fileToQuery" > /dev/null || die "Could not get checksum for uploaded file $identifier/$fileToQuery."
+                        checksumLine="$(iasha1 "$identifier/$fileToQuery")"
+                        if [[ "$checksumLine" != "$knownChecksum" ]]; then
+                            die "ERROR! Checksum known by Internet Archive $checksumLine does not match saved checksum known locally $knownChecksum."
+                        fi
+                        knownChecksumNew="$(sha1sum "$file" | awk '{print $1;}')"
+                        if [[ "$checksumLine" != "$knownChecksumNew" ]]; then
+                            die "ERROR! Checksum known by the Internet Archive $checksumLine does not match new checksum known locally $knownChecksumNew."
+                        fi
+                    done && succeeded="true"
+                done
+                if [[ "$retryCount" -ge 5 ]]; then
+                    exit 1
                 fi
-
-                # Iterate through the uploaded files and check their checksums
-                echo "Please wait: confirming upload integrity..."
-                for file in "${fileArgs[@]}"; do
-                    local knownChecksum
-                    knownChecksum="$(sha1sum "$file" | awk '{print $1;}')"
-                    fileToQuery=""
-                    if [[ -z "$remoteNameOverride" ]]; then
-                        fileToQuery="$(basename "$file")"
-                    else
-                        fileToQuery="$remoteNameOverride"
-                    fi
-                    retryUntilSuccess 100 30 5 5 iasha1 "$identifier/$fileToQuery" > /dev/null || die "Could not get checksum for uploaded file $identifier/$fileToQuery."
-                    checksumLine="$(iasha1 "$identifier/$fileToQuery")"
-                    if [[ "$checksumLine" != "$knownChecksum" ]]; then
-                        die "ERROR! Checksum known by Internet Archive $checksumLine does not match saved checksum known locally $knownChecksum."
-                    fi
-                    knownChecksumNew="$(sha1sum "$file" | awk '{print $1;}')"
-                    if [[ "$checksumLine" != "$knownChecksumNew" ]]; then
-                        die "ERROR! Checksum known by the Internet Archive $checksumLine does not match new checksum known locally $knownChecksumNew."
-                    fi
-                done && succeeded="true"
-            done
-            if [[ "$retryCount" -ge 5 ]]; then
-                exit 1
-            fi
-
+            )
+            retryUntilSuccess 100 30 5 5 uploadRetryInner "$@" && succeeded="true"
+            [[ "$succeeded" == "true" ]] || die "Error uploading!"
             if [[ "$succeeded" == "true" ]] && [[ "$wantsDelete" == "true" ]]; then
                 for file in "${fileArgs[@]}"; do
                     rm "${file:?}"
                 done
             fi
         )
-        retryUntilSuccess 100 30 5 5 uploadRetryInner "$@" || die "Upload failed."
     elif [[ "$1" == "checkeddl" ]]; then
         # Wrapper around ia download. TODO: Provide the ability to use local copies (not yet implemented)
         (
