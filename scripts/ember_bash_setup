@@ -556,7 +556,7 @@ findso() {
 }
 
 normalizeWhitespace() {
-    stdbuf -o0 tr '\n' '\0' | xargs -0
+    stdbuf -o0 tr "\n" " " | stdbuf -o0 tr "\r" " " | stdbuf -o0 tr -s "[:blank:]" | awk '{$1=$1};1'
 }
 
 tempDir() {
