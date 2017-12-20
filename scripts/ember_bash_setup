@@ -95,8 +95,10 @@ embasename() (
 
 abspath() (
     setVariableToCommandOutput "enclosingDirectory" dirname "$1"
-    setVariableToCommandOutput "canonicalEnclosingDirectory" readlink -f "${enclosingDirectory:?}"
-    cd "${canonicalEnclosingDirectory:?}" || exit 1
+    if [[ "$2" == "--resolve-symlinks-in-enclosing-directory-path" ]]; then
+        setVariableToCommandOutput "enclosingDirectory" readlink -f "${enclosingDirectory:?}"
+    fi
+    cd "${enclosingDirectory:?}" || exit 1
     setVariableToCommandOutput "basename" embasename "$1"
     if [[ "$PWD" == "/" ]]; then
         # Avoid doubled slash
@@ -107,7 +109,7 @@ abspath() (
 )
 
 emreadlink() {
-    abspath "$@"
+    abspath "$@" "--resolve-symlinks-in-enclosing-directory-path"
 }
 
 setVariableToCommandOutput() {
