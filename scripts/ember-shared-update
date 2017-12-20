@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+# shellcheck disable=SC1091
+source ember_bash_setup &> /dev/null
+#set -x
+
+trap 'die "A fatal error was reported on ${BASH_SOURCE[0]} line ${LINENO} in $(pwd) at $(emdate)."' ERR
+
+sudo echo
+
+installDir="$(tempDir)"
+cd "$installDir" || die "cd failed"
+
+git clone https://github.com/ethus3h/ember-shared.git
+(
+    cd ember-shared || die "cd failed"
+    make
+    sudo make install
+)
