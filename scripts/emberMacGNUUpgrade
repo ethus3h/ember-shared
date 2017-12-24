@@ -7,6 +7,6 @@ temp="$(date +%Y-%m-%d-%H-%M-%S-%N)_$(xxd -pu <<< "$(date +%z)")"
 # We can't use emdate because this is needed to install it... :P
 trap 'warn "A nonfatal error was reported on ${BASH_SOURCE[0]} line ${LINENO} in $(pwd) at ${temp//-/}."' ERR
 brew update
-brew install coreutils moreutils findutils gnu-tar gnu-sed gawk gnutls gnu-indent gnu-getopt wdiff rsync wget tmux gawk md5sha1sum hashdeep git jq pv ncdu bash xz
+brew install coreutils moreutils findutils gnu-tar gnu-sed gawk gnutls gnu-indent gnu-getopt wdiff rsync wget tmux gawk md5sha1sum hashdeep git jq pv ncdu bash xz gnupg
 brew upgrade
 sudo pip install --upgrade internetarchive
