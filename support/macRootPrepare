@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
 
-if [[ "$OSTYPE" = darwin* ]]; then
-    {
-        echo '#!/usr/bin/env bash'
-        echo 'PATH="${PATH}:/usr/local/bin/"'
-        echo 'source ember_bash_setup'
-        echo '# eval $(thefuck --alias)'
-    } >> /etc/bashrc
-fi
+{
+    echo '#!/usr/bin/env bash'
+    echo 'PATH="${PATH}:/usr/local/bin/"'
+    echo 'source ember_bash_setup'
+    echo '# eval $(thefuck --alias)'
+} >> /etc/bashrc
+echo "/usr/local/bin/bash" >> /etc/shells
+chsh -s /usr/local/bin/bash "$USER"
