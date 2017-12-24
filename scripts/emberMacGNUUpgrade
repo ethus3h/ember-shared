@@ -8,5 +8,5 @@ temp="$(date +%Y-%m-%d-%H-%M-%S-%N)_$(xxd -pu <<< "$(date +%z)")"
 trap 'warn "A nonfatal error was reported on ${BASH_SOURCE[0]} line ${LINENO} in $(pwd) at ${temp//-/}."' ERR
 brew update
 brew install coreutils moreutils findutils gnu-tar gnu-sed gawk gnutls gnu-indent gnu-getopt wdiff rsync tmux gawk md5sha1sum hashdeep git jq pv ncdu bash
-brew upgrade
+brew upgrade # FIXME: I removed wget from the previous line til I have macos 10.11 update installed because openssl fails on 10.10.
 sudo pip install --upgrade internetarchive
