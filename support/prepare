@@ -20,10 +20,5 @@ fi
 rm scripts/emberMacGNUUpgrade
 
 if [[ "$OSTYPE" = darwin* ]]; then
-    {
-        echo '#!/usr/bin/env bash'
-        echo 'PATH="${PATH}:/usr/local/bin/"'
-        echo 'source ember_bash_setup'
-        echo '# eval $(thefuck --alias)'
-    } >> /etc/bashrc
+    sudo ./macRootPrepare
 fi
