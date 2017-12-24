@@ -6,5 +6,5 @@
     echo 'source ember_bash_setup'
     echo '# eval $(thefuck --alias)'
 } >> /etc/bashrc
-[[ grep -q "/usr/local/bin/bash" /etc/shells ]] || echo "/usr/local/bin/bash" >> /etc/shells
+echo "/usr/local/bin/bash" >> /etc/shells
 chsh -s /usr/local/bin/bash "$USER"
