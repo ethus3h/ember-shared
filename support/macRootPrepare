@@ -4,7 +4,9 @@ if ! grep -q "ember_bash_setup" /etc/bashrc; then
     {
         echo '#!/usr/bin/env bash'
         echo 'PATH="${PATH}:/usr/local/bin/"'
-        echo 'source ember_bash_setup'
+        echo 'if [[ "${BASH_VERSINFO:-0}" -ge 4 ]]; then'
+        echo '    source ember_bash_setup'
+        echo 'fi'
         echo '# eval $(thefuck --alias)'
     } >> /etc/bashrc
 fi
