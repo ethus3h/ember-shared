@@ -2,10 +2,10 @@
 
 #set -x
 
-export emberSharedVersion='1.1.4.214'
+export emberSharedVersion='1.1.4.215'
 
 # The update script shown here requires there to be only one ebuild of ember-shared in the wreathe-overlay overlay.
-# ( sudo true; newVersion="1.1.4.214"; cd "/Ember Library/Ember satellite projects/ember-shared"; eogup-single; git tag -a "v$newVersion" -m "version"; egup-single .; cd "/Ember Library/Ember satellite projects/wreathe-overlay"; eogup-single; mv app-misc/ember-shared/ember-shared-*.ebuild "app-misc/ember-shared/ember-shared-$newVersion.ebuild"; repoman manifest; egup-single; sudo layman -s wreathe-overlay; sudo emerge ember-shared )
+# ( sudo true; newVersion="1.1.4.215"; cd "/Ember Library/Ember satellite projects/ember-shared"; eogup-single; git tag -a "v$newVersion" -m "version"; egup-single .; cd "/Ember Library/Ember satellite projects/wreathe-overlay"; eogup-single; mv app-misc/ember-shared/ember-shared-*.ebuild "app-misc/ember-shared/ember-shared-$newVersion.ebuild"; repoman manifest; egup-single; sudo layman -s wreathe-overlay; sudo emerge ember-shared )
 
 # To use the --version option of ember_bash_setup, it is necessary to have e8787d06e61943a6874e94985b53bc0a="2dee41bf-53fb-4f65-997f-33bf50bfbb4d" and run ember_bash_setup --version. It may be important to run unset e8787d06e61943a6874e94985b53bc0a afterwards.
 d1875509777f46809ff940e0aad970f0=""
@@ -700,7 +700,7 @@ checkedxz() (
     assert() {
         local save_traps
         save_traps="$(trap)"
-        trap 'die "Assertion failed: $(join_by ", " "$@") '"on ${BASH_SOURCE[0]} line ${LINENO} in $(pwd) at $(emdate)."'"' ERR
+        trap 'die "Error during assertion test: $(join_by ", " "$@") '"on ${BASH_SOURCE[0]} line ${LINENO} in $(pwd) at $(emdate)."'"' ERR
         local verbose=""
         if [[ "$1" == "-v" ]]; then
             verbose="true"
@@ -714,7 +714,7 @@ checkedxz() (
         case $assertionTest in
         directoryEquals)
             # trap is workaround for what I think is https://lists.gnu.org/archive/html/bug-bash/2016-02/msg00140.html
-            trap 'die "Assertion failed: $(join_by ", " "$@") '"on ${BASH_SOURCE[0]} line ${LINENO} in $(pwd) at $(emdate)."'"' ERR
+            trap 'die "Error during assertion test: $(join_by ", " "$@") '"on ${BASH_SOURCE[0]} line ${LINENO} in $(pwd) at $(emdate)."'"' ERR
             firstDir="$1"
             secondDir="$2"
             if [[ -z "$firstDir" ]] || [[ -z "$secondDir" ]]; then
@@ -730,7 +730,7 @@ checkedxz() (
             ;;
         fileEquals)
             # trap is workaround for what I think is https://lists.gnu.org/archive/html/bug-bash/2016-02/msg00140.html
-            trap 'die "Assertion failed: $(join_by ", " "$@") '"on ${BASH_SOURCE[0]} line ${LINENO} in $(pwd) at $(emdate)."'"' ERR
+            trap 'die "Error during assertion test: $(join_by ", " "$@") '"on ${BASH_SOURCE[0]} line ${LINENO} in $(pwd) at $(emdate)."'"' ERR
             firstFile="$1"
             secondFile="$2"
             if [[ -z "$firstFile" ]] || [[ -z "$secondFile" ]]; then
@@ -741,9 +741,27 @@ checkedxz() (
             ;;
         equals)
             # trap is workaround for what I think is https://lists.gnu.org/archive/html/bug-bash/2016-02/msg00140.html
-            trap 'die "Assertion failed: $(join_by ", " "$@") '"on ${BASH_SOURCE[0]} line ${LINENO} in $(pwd) at $(emdate)."'"' ERR
+            trap 'die "Error during assertion test: $(join_by ", " "$@") '"on ${BASH_SOURCE[0]} line ${LINENO} in $(pwd) at $(emdate)."'"' ERR
             # || die is workaround for what I think is https://lists.gnu.org/archive/html/bug-bash/2016-02/msg00140.html
             [[ "${1:?}" == "${2:?}" ]] || die "Assertion failed: $(join_by ", " "$@") on ${BASH_SOURCE[0]} line ${LINENO} in $(pwd) at $(emdate)."
+            ;;
+        true)
+            trap 'die "Error during assertion test: $(join_by ", " "$@") '"on ${BASH_SOURCE[0]} line ${LINENO} in $(pwd) at $(emdate)."'"' ERR
+            shift
+            if "$@"; then
+                return 0
+            else
+                return 1
+            fi
+            ;;
+        false)
+            trap 'die "Error during assertion test: $(join_by ", " "$@") '"on ${BASH_SOURCE[0]} line ${LINENO} in $(pwd) at $(emdate)."'"' ERR
+            shift
+            if "$@"; then
+                return 1
+            else
+                return 0
+            fi
             ;;
         *)
             trap 'error-notify "An error was reported on ${BASH_SOURCE[0]} line ${LINENO} in $(pwd) at $(emdate)."' ERR
