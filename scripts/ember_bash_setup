@@ -183,6 +183,11 @@ perl_ere_quote() {
     eescape "$@"
 }
 
+print_r() {
+    local arr=("$@")
+    declare -p arr
+}
+
 ereplace() {
     (
         # Perl returns 0 even if it can't find the file (without extra perl code), so test first.
@@ -747,8 +752,7 @@ checkedxz() (
             ;;
         true)
             trap 'die "Error during assertion test: $(join_by ", " "$@") '"on ${BASH_SOURCE[0]} line ${LINENO} in $(pwd) at $(emdate)."'"' ERR
-            shift
-            if "$@"; then
+            if bash -c "$(join_by ' ' "$@")"; then
                 return 0
             else
                 return 1
@@ -756,13 +760,14 @@ checkedxz() (
             ;;
         false)
             trap 'die "Error during assertion test: $(join_by ", " "$@") '"on ${BASH_SOURCE[0]} line ${LINENO} in $(pwd) at $(emdate)."'"' ERR
-            shift
-            if "$@"; then
+            if bash -c "$(join_by ' ' "$@")"; then
                 return 1
             else
                 return 0
             fi
             ;;
+        regex_matches)
+            
         *)
             trap 'error-notify "An error was reported on ${BASH_SOURCE[0]} line ${LINENO} in $(pwd) at $(emdate)."' ERR
             die "Unknown test."
