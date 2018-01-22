@@ -2,10 +2,10 @@
 
 #set -x
 
-export emberSharedVersion='1.1.4.217'
+export emberSharedVersion='1.1.4.218'
 
 # The update script shown here requires there to be only one ebuild of ember-shared in the wreathe-overlay overlay.
-# ( sudo true; newVersion="1.1.4.217"; cd "/Ember Library/Ember satellite projects/ember-shared"; eogup-single; git tag -a "v$newVersion" -m "version"; egup-single .; cd "/Ember Library/Ember satellite projects/wreathe-overlay"; eogup-single; mv app-misc/ember-shared/ember-shared-*.ebuild "app-misc/ember-shared/ember-shared-$newVersion.ebuild"; repoman manifest; egup-single; sudo layman -s wreathe-overlay; sudo emerge ember-shared )
+# ( sudo true; newVersion="1.1.4.218"; cd "/Ember Library/Ember satellite projects/ember-shared"; eogup-single; git tag -a "v$newVersion" -m "version"; egup-single .; cd "/Ember Library/Ember satellite projects/wreathe-overlay"; eogup-single; mv app-misc/ember-shared/ember-shared-*.ebuild "app-misc/ember-shared/ember-shared-$newVersion.ebuild"; repoman manifest; egup-single; sudo layman -s wreathe-overlay; sudo emerge ember-shared )
 
 # To use the --version option of ember_bash_setup, it is necessary to have e8787d06e61943a6874e94985b53bc0a="2dee41bf-53fb-4f65-997f-33bf50bfbb4d" and run ember_bash_setup --version. It may be important to run unset e8787d06e61943a6874e94985b53bc0a afterwards.
 d1875509777f46809ff940e0aad970f0=""
@@ -621,9 +621,14 @@ tempFile() {
 }
 
 sponge() (
-    TMPDIR="$(crystallize-getconf WorkDirectory)" || error-notify "An error was reported in the sponge wrapper with the arguments $* on ${BASH_SOURCE[0]} line ${LINENO} in $(pwd) at $(emdate)."
-    export TMPDIR || error-notify "An error was reported in the sponge wrapper with the arguments $* on ${BASH_SOURCE[0]} line ${LINENO} in $(pwd) at $(emdate)."
-    command sponge "$@" || error-notify "An error was reported in the sponge wrapper with the arguments $* on ${BASH_SOURCE[0]} line ${LINENO} in $(pwd) at $(emdate)."
+    local save_traps
+    save_traps="$(trap)"
+    trap 'error-notify "An error was reported in the sponge wrapper with the arguments $* on ${BASH_SOURCE[0]} line ${LINENO} in $(pwd) at $(emdate)."' ERR
+    trap - EXIT
+    TMPDIR="$(crystallize-getconf WorkDirectory)"
+    export TMPDIR
+    command sponge "$@"
+    eval "$save_traps"
 )
 
 checkedxz() (
@@ -634,6 +639,7 @@ checkedxz() (
     local save_traps
     save_traps="$(trap)"
     trap 'checkedxzErr; die "A fatal error was reported on ${BASH_SOURCE[0]} line ${LINENO} in $(pwd) at $(emdate)."' ERR
+    trap - EXIT
     local quiet="false"
     local requestWaitAfter="false"
     if [[ "$1" == "--quiet" ]]; then
