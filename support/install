@@ -144,12 +144,10 @@ echo "emberSharedSharedstatedir: $emberSharedSharedstatedir"
 
 emberSharedEmberdir="$emberSharedPrefix"/Ember\ Library
 
-
 ereplace "73FAB73B-EEE4-4992-8622-4F3FCEC9823A" "$(date-uuid)" support/ember.conf
 ereplace "/usr/local/var" "$emberSharedSharedstatedir" support/ember.conf
 ereplace '/Ember\ Library/' "$emberSharedEmberdir" support/ember.conf
 ereplace "/usr/local/etc" "$emberSharedSysconfdir" scripts/ember-getconf
-ereplace "/usr/local/etc" "$emberSharedSysconfdir" scripts/ember-logsession
 
 mkdir -p "$emberSharedEmberdir"
 mkdir -p "$emberSharedBindir"
