@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 #set -x
 
-# Should work without ember-shared, just in case, so don't set traps or source ember_bash_setup
+# Should work without ember-shared or crystallize, just in case, so don't set traps or source ember_bash_setup
 # Because of that, we need to inline getDefaultEditorPath here (tweaked to replace the call to print with printf) because it is normally provided by ember_bash_setup.
 
 getDefaultEditor() {
