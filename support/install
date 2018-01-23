@@ -122,6 +122,18 @@ if ! [[ -n "$emberSharedSharedstatedir" ]]; then
 fi
 echo "emberSharedSharedstatedir: $emberSharedSharedstatedir"
 
+crystallizeEmberdir="$crystallizePrefix"/Ember\ Library
+
+ereplace "73FAB73B-EEE4-4992-8622-4F3FCEC9823A" "$(date-uuid)" support/crystallize.conf
+ereplace "/usr/local/var" "$crystallizeSharedstatedir" support/crystallize.conf
+ereplace "/Ember\ Library/" "$crystallizeEmberdir" support/crystallize.conf
+ereplace "/usr/local/etc" "$crystallizeSysconfdir" scripts/crystallize-getconf
+ereplace "/usr/local/etc" "$crystallizeSysconfdir" scripts/crystallize-logsession
+
 mkdir -p "$emberSharedBindir"
 chmod +x scripts/*
 cp scripts/* "$emberSharedBindir/"
+if [[ "$skipConfigFile" == "false" ]]; then
+    mkdir -p "$emberSharedSysconfdir"
+    cp -v support/ember.conf "$emberSharedSysconfdir/"
+fi
