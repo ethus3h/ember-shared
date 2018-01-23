@@ -13,7 +13,7 @@ getDefaultEditorPath() {
 }
 
 defaultEditor="$(getDefaultEditorPath)"
-configLocation="$(crystallize-getconf ConfigLocation)"
+configLocation="$(ember-getconf ConfigLocation)"
 if [[ -w "$configLocation" ]]; then
     "$defaultEditor" -wLN "$configLocation"
 else
