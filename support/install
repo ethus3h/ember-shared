@@ -7,6 +7,25 @@
 trap 'printf '\''%b'\'' '\''\033[1;31m'\'' >&2; echo "A fatal error was reported on ${BASH_SOURCE[0]} line ${LINENO} in $(pwd)." >&2; printf '\''%b'\'' '\''\033[0m'\'' >&2; exit 1' ERR
 
 # NOTE: MAINTENANCE: Inlined function from ember_bash_setup
+emdate() (
+    # If changing this, also change the copy in the error-notify script and possibly also the copy in the emberMacGNUUpgrade script.
+    trap 'die "A fatal error was reported on ${BASH_SOURCE[0]} line ${LINENO} in $(pwd)."' ERR
+
+    local temp
+    temp="$(date +%Y-%m-%d-%H-%M-%S-%N)_$(xxd -pu <<< "$(date +%z)")"
+    echo "${temp//-/}"
+)
+
+# NOTE: MAINTENANCE: Inlined function from ember_bash_setup
+date-uuid() (
+    trap 'die "A fatal error was reported on ${BASH_SOURCE[0]} line ${LINENO} in $(pwd) at $(emdate)."' ERR
+
+    local temp
+    temp="$(emdate)-$(python -c 'import uuid; print str(uuid.uuid4())')"
+    echo "${temp//-/}"
+)
+
+# NOTE: MAINTENANCE: Inlined function from ember_bash_setup
 setVariableToCommandOutput() {
     if [[ "$1" == "emSetVariableToCommandOutputVar" ]]; then
         return 1
@@ -134,7 +153,7 @@ ereplace "/usr/local/etc" "$emberSharedSysconfdir" scripts/ember-logsession
 
 mkdir -p "$emberSharedEmberdir"
 mkdir -p "$emberSharedBindir"
-mkdir -p "$crystallizeSharedstatedir"/ember
+mkdir -p "$emberSharedSharedstatedir"/ember
 chmod +x scripts/*
 cp scripts/* "$emberSharedBindir/"
 if [[ "$skipConfigFile" == "false" ]]; then
@@ -142,12 +161,12 @@ if [[ "$skipConfigFile" == "false" ]]; then
     cp -v support/ember.conf "$emberSharedSysconfdir/"
 fi
 
-if [[ ! -h "$crystallizeSharedstatedir/crystallize" ]] && [[ -d "$crystallizeSharedstatedir/crystallize" ]]; then
-    mv "$crystallizeSharedstatedir/crystallize" "$crystallizeSharedstatedir/ember"
-    ln -s "$crystallizeSharedstatedir/ember" "$crystallizeSharedstatedir/crystallize"
+if [[ ! -h "$emberSharedSharedstatedir/crystallize" ]] && [[ -d "$emberSharedSharedstatedir/crystallize" ]]; then
+    mv "$emberSharedSharedstatedir/crystallize" "$emberSharedSharedstatedir/ember"
+    ln -s "$emberSharedSharedstatedir/ember" "$emberSharedSharedstatedir/crystallize"
 fi
 
-if [[ ! -h "$crystallizeSysconfdir/crystallize.conf" ]] && [[ -f "$crystallizeSysconfdir/crystallize.conf" ]]; then
-    mv "$crystallizeSysconfdir/crystallize.conf" "$crystallizeSysconfdir/ember.conf"
-    ln -s "$crystallizeSysconfdir/ember.conf" "$crystallizeSysconfdir/crystallize.conf"
+if [[ ! -h "$emberSharedSysconfdir/crystallize.conf" ]] && [[ -f "$emberSharedSysconfdir/crystallize.conf" ]]; then
+    mv "$emberSharedSysconfdir/crystallize.conf" "$emberSharedSysconfdir/ember.conf"
+    ln -s "$emberSharedSysconfdir/ember.conf" "$emberSharedSysconfdir/crystallize.conf"
 fi
