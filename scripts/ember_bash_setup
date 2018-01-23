@@ -621,7 +621,7 @@ tempFile() {
 }
 
 tempFile() {
-    [[ -n "$CrystalWorkdirOverride54ae685dc782437c99bc46c7a1211377" ]] && export CrystalWorkdirOverride54ae685dc782437c99bc46c7a1211377
+    [[ -n "$EmberWorkdirOverride54ae685dc782437c99bc46c7a1211377" ]] && export EmberWorkdirOverride54ae685dc782437c99bc46c7a1211377
     command crystallize-getconf "$@"
 }
 
