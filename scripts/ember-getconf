@@ -22,11 +22,16 @@ if [[ "$1" == "crystallizeVersion" ]]; then
     exit
 fi
 
+if [[ "$1" == "emberSharedVersion" ]]; then
+    e8787d06e61943a6874e94985b53bc0a="2dee41bf-53fb-4f65-997f-33bf50bfbb4d"; ember_bash_setup --version
+    exit
+fi
+
 if [[ "$1" == "WorkDirectory" ]]; then
     if [[ -v CrystalWorkdirOverride54ae685dc782437c99bc46c7a1211377 ]]; then
         if [[ -n "${CrystalWorkdirOverride54ae685dc782437c99bc46c7a1211377:?}" ]]; then
             printf '%s' "$CrystalWorkdirOverride54ae685dc782437c99bc46c7a1211377"
-            exit 0
+            exit
         fi
     fi
 fi
