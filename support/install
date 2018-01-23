@@ -5,6 +5,7 @@
 
 trap 'printf '\''%b'\'' '\''\033[1;31m'\'' >&2; echo "A fatal error was reported on ${BASH_SOURCE[0]} line ${LINENO} in $(pwd)." >&2; printf '\''%b'\'' '\''\033[0m'\'' >&2; exit 1' ERR
 
+# NOTE: MAINTENANCE: Inlined function from ember_bash_setup
 setVariableToCommandOutput() {
     if [[ "$1" == "emSetVariableToCommandOutputVar" ]]; then
         return 1
@@ -18,6 +19,7 @@ setVariableToCommandOutput() {
     eval "$save_traps"
 }
 
+# NOTE: MAINTENANCE: Inlined function from ember_bash_setup
 eescape() {
     (
         export eescapeString="$1"
@@ -29,6 +31,7 @@ eescape() {
     )
 }
 
+# NOTE: MAINTENANCE: Inlined function from ember_bash_setup
 ereplace() {
     (
         # Perl returns 0 even if it can't find the file (without extra perl code), so test first.
