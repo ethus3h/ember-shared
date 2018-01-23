@@ -1,7 +1,9 @@
 #!/usr/bin/env bash
+#set -x
+
+# Should work without ember-shared or crystallize, just in case, so don't set traps or source ember_bash_setup
 
 trap 'printf '\''%b'\'' '\''\033[1;31m'\'' >&2; echo "A fatal error was reported on ${BASH_SOURCE[0]} line ${LINENO} in $(pwd)." >&2; printf '\''%b'\'' '\''\033[0m'\'' >&2; exit 1' ERR
-# set -x
 
 echo 1 "$1" 2 "$2" 3 "$3" 4 "$4" 5 "$5" 6 "$6" 7 "$7" 8 "$8" 9 "$9"
 if [[ -n "$1" ]]; then
