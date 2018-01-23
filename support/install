@@ -134,6 +134,7 @@ ereplace "/usr/local/etc" "$emberSharedSysconfdir" scripts/ember-logsession
 
 mkdir -p "$emberSharedEmberdir"
 mkdir -p "$emberSharedBindir"
+mkdir -p "$crystallizeSharedstatedir"/ember
 chmod +x scripts/*
 cp scripts/* "$emberSharedBindir/"
 if [[ "$skipConfigFile" == "false" ]]; then
