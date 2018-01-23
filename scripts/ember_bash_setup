@@ -621,16 +621,11 @@ tempFile() {
 }
 
 crystallize-getconf() (
-    local save_traps
-    save_traps="$(trap)"
-    trap 'error-notify "An error was reported in the sponge wrapper with the arguments $* on ${BASH_SOURCE[0]} line ${LINENO} in $(pwd) at $(emdate)."' ERR
-    trap - EXIT
-    [[ -n "$CrystalWorkdirOverride54ae685dc782437c99bc46c7a1211377" ]] && echo 
-    local oldTmpdir="$TMPDIR"
-    TMPDIR="$(crystallize-getconf WorkDirectory)" || TMPDIR="$oldTmpdir"
-    export TMPDIR
-    command sponge "$@"
-    eval "$save_traps"
+    if [[ "$1" == "ConfigLocation" ]]; then
+        [[ -n "$CrystalWorkdirOverride54ae685dc782437c99bc46c7a1211377" ]] && print "$CrystalWorkdirOverride54ae685dc782437c99bc46c7a1211377"
+        exit 0
+    fi
+    command crystallize-getconf "$@"
 )
 
 sponge() (
