@@ -14,5 +14,5 @@ git clone https://github.com/ethus3h/ember-shared.git
 (
     cd ember-shared || die "cd failed"
     make
-    sudo make install
+    sudo make noconf
 )
