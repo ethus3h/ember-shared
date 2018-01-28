@@ -23,5 +23,5 @@ rm scripts/emberMacGNUUpgrade
 
 if [[ "$OSTYPE" = darwin* ]]; then
     sudo ./support/macRootPrepare
-    chsh -s /usr/local/bin/bash "$USER"
+    sudo -u "$USER" chsh -s /usr/local/bin/bash "$USER"
 fi
