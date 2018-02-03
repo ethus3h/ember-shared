@@ -72,7 +72,7 @@ if [[ "$1" == "--skip-config-file" ]]; then
     shift
 fi
 
-echo 1 "$1" 2 "$2" 3 "$3" 4 "$4" 5 "$5" 6 "$6" 7 "$7" 8 "$8" 9 "$9"
+#echo 1 "$1" 2 "$2" 3 "$3" 4 "$4" 5 "$5" 6 "$6" 7 "$7" 8 "$8" 9 "$9"
 if [[ -n "$1" ]]; then
     emberSharedDestdir="$1"
     shift
@@ -116,31 +116,31 @@ if ! [[ -n "$emberSharedPrefix" ]]; then
         emberSharedPrefix="$emberSharedCapPrefix"
     fi
 fi
-echo "emberSharedPrefix: $emberSharedPrefix"
+#echo "emberSharedPrefix: $emberSharedPrefix"
 if ! [[ -n "$emberSharedExecPrefix" ]]; then
     emberSharedExecPrefix="$emberSharedPrefix"
 fi
-echo "emberSharedExecPrefix: $emberSharedExecPrefix"
+#echo "emberSharedExecPrefix: $emberSharedExecPrefix"
 if ! [[ -n "$emberSharedBindir" ]]; then
     emberSharedBindir="$emberSharedExecPrefix"/bin
 fi
-echo "emberSharedBindir: $emberSharedBindir"
+#echo "emberSharedBindir: $emberSharedBindir"
 if ! [[ -n "$emberSharedDatarootdir" ]]; then
     emberSharedDatarootdir="$emberSharedPrefix"/share
 fi
-echo "emberSharedDatarootdir: $emberSharedDatarootdir"
+#echo "emberSharedDatarootdir: $emberSharedDatarootdir"
 if ! [[ -n "$emberSharedDatadir" ]]; then
     emberSharedDatadir="$emberSharedDatarootdir"
 fi
-echo "emberSharedDatadir: $emberSharedDatadir"
+#echo "emberSharedDatadir: $emberSharedDatadir"
 if ! [[ -n "$emberSharedSysconfdir" ]]; then
     emberSharedSysconfdir="$emberSharedPrefix"/etc
 fi
-echo "emberSharedSysconfdir: $emberSharedSysconfdir"
+#echo "emberSharedSysconfdir: $emberSharedSysconfdir"
 if ! [[ -n "$emberSharedSharedstatedir" ]]; then
     emberSharedSharedstatedir="$emberSharedPrefix"/var
 fi
-echo "emberSharedSharedstatedir: $emberSharedSharedstatedir"
+#echo "emberSharedSharedstatedir: $emberSharedSharedstatedir"
 
 emberSharedEmberdir="$emberSharedPrefix"/Ember\ Library
 
