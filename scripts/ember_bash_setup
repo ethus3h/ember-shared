@@ -371,7 +371,7 @@ ia() (
                 while [[ "$succeeded" != "true" && "$retryCount" -lt 30 ]]; do
                     retryCount=$(( retryCount + 1 ))
                     if [[ "$retryCount" -gt 1 ]]; then
-                        warn "Something went wrong: retrying upload."
+                        warn "Something went wrong: retrying download."
                         sleep 60
                     fi
 
