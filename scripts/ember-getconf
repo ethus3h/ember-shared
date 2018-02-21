@@ -43,6 +43,8 @@ if [[ "$1" == "BackupLocation" ]]; then
     else
         backupLocation="$(ember-getconf RelativeBackupLocation)"
     fi
+    printf '%s\n' "$backupLocation"
+    exit
 fi
 
 grep -n ^"$1", "$configFileLocation" | cut -f2 -d: | tail -1 | cut -f2 -d,
