@@ -38,10 +38,10 @@ if [[ "$1" == "WorkDirectory" ]]; then
 fi
 
 if [[ "$1" == "BackupLocation" ]]; then
-    if [[ "$(crystallize-getconf BackupInWorkdir)" == "true" ]]; then
-        backupLocation="$(crystallize-getconf WorkDirectory)/$(crystallize-getconf BackupLocation)"
+    if [[ "$(ember-getconf BackupInWorkdir)" == "true" ]]; then
+        backupLocation="$(ember-getconf WorkDirectory)/$(ember-getconf RelativeBackupLocation)"
     else
-        backupLocation="$(crystallize-getconf BackupLocation)"
+        backupLocation="$(ember-getconf RelativeBackupLocation)"
     fi
 fi
 
