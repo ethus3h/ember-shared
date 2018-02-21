@@ -448,6 +448,7 @@ iasha1() (
     local field="sha1"
     local result
     if [[ "$(iapath "$1")" == "$(iaident "$1")"_files.xml ]]; then
+        # TODO: Decide whether this is the right way to go about this. Right now, because item files xmls don't have checksums available for them from IA (since they're where the checksums are kept), this is retrieving it and 
         metadataPath="$(tempFile)"
         wget -O "$metadataPath" "https://archive.org/download/$(iaident "$1")"_files.xml || die "Could not retrieve item files xml!"
         result="$(sha1sum "$metadataPath" | awk '{print $1;}')"
