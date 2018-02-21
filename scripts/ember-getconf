@@ -37,4 +37,13 @@ if [[ "$1" == "WorkDirectory" ]]; then
     fi
 fi
 
+if [[ "$1" == "WorkDirectory" ]]; then
+    if [[ -v EmberWorkdirOverride54ae685dc782437c99bc46c7a1211377 ]]; then
+        if [[ -n "${EmberWorkdirOverride54ae685dc782437c99bc46c7a1211377:?}" ]]; then
+            printf '%s' "$EmberWorkdirOverride54ae685dc782437c99bc46c7a1211377"
+            exit
+        fi
+    fi
+fi
+
 grep -n ^"$1", "$configFileLocation" | cut -f2 -d: | tail -1 | cut -f2 -d,
