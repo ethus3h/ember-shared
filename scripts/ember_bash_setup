@@ -187,7 +187,7 @@ removeDuplicateLines() {
     awk '!seen[$0]++' "$@"
 }
 
-isEmpty() {
+isEmpty() { # based on https://superuser.com/questions/352289/bash-scripting-test-for-empty-directory
     if [[ -d "$1" ]]; then
         if "$(find "$1" -maxdepth 0 -type d -empty 2>/dev/null)"; then
             exit 0
