@@ -191,8 +191,6 @@ isEmpty() {
     if [[ -d "$1" ]]; then
         if "$(find "$1" -maxdepth 0 -type d -empty 2>/dev/null)"; then
             exit 0
-        else
-            exit 1
         fi
     fi
     exit 1
