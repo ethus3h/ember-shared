@@ -183,6 +183,10 @@ perl_ere_quote() {
     eescape "$@"
 }
 
+removeDuplicateLines() {
+    awk '!seen[$0]++' "$@"
+}
+
 print_r() {
     local arr=("$@")
     declare -p arr
