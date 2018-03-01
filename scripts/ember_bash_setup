@@ -187,6 +187,19 @@ removeDuplicateLines() {
     awk '!seen[$0]++' "$@"
 }
 
+isEmpty() {
+    if [[ -d "$1" ]]; then
+        if "$(find "$1" -maxdepth 0 -type d -empty 2>/dev/null)"; then
+            exit 0
+        else
+            exit 1
+        fi
+    else
+        exit 1
+    fi
+    exit 1
+}
+
 print_r() {
     local arr=("$@")
     declare -p arr
