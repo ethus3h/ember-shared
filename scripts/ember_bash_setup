@@ -395,20 +395,13 @@ ia() (
                     shopt -s dotglob
                     shopt -s globstar
                     while read -r file; do
-                        if [[ -f "$file" ]]; then
-                            if [[ "$(sha1sum "$file" | awk '{print $1;}')" == "$(iasha1 "$file")" ]] && ( [[ "$succeeded" == "true" ]] || [[ -z "$succeeded" ]] ); then
-                                    succeeded="true"
-                            else
-                                succeeded="false"
-                                continue
-                            fi
+                        if [[ -f "$file" ]] && [[ "$(sha1sum "$file" | awk '{print $1;}')" == "$(iasha1 "$file")" ]] && ( [[ "$succeeded" == "true" ]] || [[ -z "$succeeded" ]] ); then
+                                succeeded="true"
                         else
                             succeeded="false"
                             continue
                         fi
-                    done <ia list "$ident"
-                    for file in "$ident"/**; do
-                    done
+                    done < <(ia list "$ident")
                 done
                 [[ "$succeeded" == "true" ]] || die
             done
