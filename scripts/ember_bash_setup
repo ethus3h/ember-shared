@@ -2,10 +2,10 @@
 
 #set -x
 
-export emberSharedVersion='1.1.4.258'
+export emberSharedVersion='1.1.4.259'
 
 # The update script shown here requires there to be only one ebuild of ember-shared in the wreathe-overlay overlay.
-# ( sudo true; newVersion="1.1.4.258"; cd "/Ember Library/Ember satellite projects/ember-shared"; eogup-single; git tag -a "v$newVersion" -m "version"; egup-single .; cd "/Ember Library/Ember satellite projects/wreathe-overlay"; eogup-single; mv app-misc/ember-shared/ember-shared-*.ebuild "app-misc/ember-shared/ember-shared-$newVersion.ebuild"; repoman manifest; egup-single; sudo layman -s wreathe-overlay; sudo emerge ember-shared; sudo dispatch-conf )
+# ( sudo true; newVersion="1.1.4.259"; cd "/Ember Library/Ember satellite projects/ember-shared"; eogup-single; git tag -a "v$newVersion" -m "version"; egup-single .; cd "/Ember Library/Ember satellite projects/wreathe-overlay"; eogup-single; mv app-misc/ember-shared/ember-shared-*.ebuild "app-misc/ember-shared/ember-shared-$newVersion.ebuild"; repoman manifest; egup-single; sudo layman -s wreathe-overlay; sudo emerge ember-shared; sudo dispatch-conf )
 
 # To use the --version option of ember_bash_setup, it is necessary to have e8787d06e61943a6874e94985b53bc0a="2dee41bf-53fb-4f65-997f-33bf50bfbb4d" and run ember_bash_setup --version. It may be important to run unset e8787d06e61943a6874e94985b53bc0a afterwards.
 d1875509777f46809ff940e0aad970f0=""
@@ -17,7 +17,7 @@ fi
 a9c9efb644e24ef5b9cb1ec95e279c02="$e8787d06e61943a6874e94985b53bc0a"
 
 if [[ "$1" == "--version" ]] && [[ "$a9c9efb644e24ef5b9cb1ec95e279c02" != "2dee41bf-53fb-4f65-997f-33bf50bfbb4d" ]]; then
-    esVersionA="$(sed '5q;d' "$(type -p ember_bash_setup)")"
+    esVersionA="$(sed '5q;d' "$(type -P ember_bash_setup)")"
     esVersionB="${esVersionA%\'*}"
     echo "${esVersionB##*\'}"
     exit 0
@@ -39,7 +39,7 @@ if [[ -z "$PS1" ]]; then
 else
     # The shell is interactive
     nano() {
-        nanoLocation="$(type -p nano)"
+        nanoLocation="$(type -P nano)"
         nanoFileToEdit="${!#}"
         if [[ -w "$nanoFileToEdit" ]]; then
             "$nanoLocation" -wLN "$@"
@@ -144,7 +144,7 @@ getDefaultEditor() {
 }
 
 getDefaultEditorPath() {
-    type -p "$(getDefaultEditor)"
+    type -P "$(getDefaultEditor)"
 }
 
 defaultEditor() {
