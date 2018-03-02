@@ -394,17 +394,7 @@ ia() (
                     # Now, check the downloaded files
                     shopt -s dotglob
                     shopt -s globstar
-                    while read -r crystal; do
-                        if [[ -n "$crystal" ]]; then
-                            if [[ -e "$crystal" ]]; then
-                                if [[ "$check" == "false" ]]; then
-                                    continue
-                                fi
-                            fi
-                            crystallize-backup "$crystal"
-                        fi
-                    done <<< "$cbbCrystals"
-                    for file in "$ident"/**; do
+                    while read -r file; do
                         if [[ -f "$file" ]]; then
                             if [[ "$(sha1sum "$file" | awk '{print $1;}')" == "$(iasha1 "$file")" ]] && ( [[ "$succeeded" == "true" ]] || [[ -z "$succeeded" ]] ); then
                                     succeeded="true"
@@ -412,7 +402,12 @@ ia() (
                                 succeeded="false"
                                 continue
                             fi
+                        else
+                            succeeded="false"
+                            continue
                         fi
+                    done <ia list "$ident"
+                    for file in "$ident"/**; do
                     done
                 done
                 [[ "$succeeded" == "true" ]] || die
