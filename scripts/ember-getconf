@@ -16,12 +16,13 @@ if [[ "$1" == "ConfigDir" ]]; then
 fi
 
 if [[ "$1" == "DataDir" ]]; then
-    echo ""$(dirname "$(ember-getconf ConfigLocation)")"/../share/ember/"
+    cd "$(dirname "$(ember-getconf ConfigLocation)")/../share/ember/" || exit 1
+    readlink -f "$PWD"
     exit
 fi
 
 if [[ "$1" == "crystallizeVersion" ]]; then
-    crystallizeVersionA="$(sed '18q;d' "$(which crystallize)")" || exit 1
+    crystallizeVersionA="$(sed '18q;d' "$(type -P crystallize)")" || exit 1
     crystallizeVersionB="${crystallizeVersionA%\'*}"
     echo "${crystallizeVersionB##*\'}"
     exit
