@@ -686,9 +686,6 @@ git-sync() {
     fi
 }
 
-ember-git-bulk-sync() {
-}
-
 git-bulk-sync() {
     while read -r repo; do
         ember-git-clone "$repo"
