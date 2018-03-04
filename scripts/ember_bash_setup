@@ -189,10 +189,11 @@ removeDuplicateLines() {
 
 isEmptyDir() (
     if [[ -d "$1" ]]; then
-        if find "$1" -maxdepth 0 -type d -empty | egrep '.*' 2>/dev/null; then
-            exit 1
+        # shellcheck disable=SC2063
+        if find "$1" -maxdepth 0 -type d -empty | grep -E '.*' 2>/dev/null; then
+            exit 0
         fi
-        exit 0
+        exit 1
     fi
     exit 1
 )
@@ -675,8 +676,9 @@ git-sync() {
     repoName="${repoName%.*}"
     if [[ -n "$repoName" ]]; then
         if [[ -e "$repoName.git" ]]; then
+            [[ -d "$repoName.git" ]] || die "$(pwd)/$repoName.git does not seem to be a directory."
             (
-                cd "$repoName.git"
+                cd "$repoName.git" || die "Could not cd to repository directory $(pwd)/$repoName.git."
                 echo "Updating clone of the \"$repoName\" git repository..."
                 git fetch --all || die
             )
