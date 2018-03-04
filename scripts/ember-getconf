@@ -16,7 +16,7 @@ if [[ "$1" == "ConfigDir" ]]; then
 fi
 
 if [[ "$1" == "DataDir" ]]; then
-    dirname "$(readlink -f "$(ember-getconf ConfigLocation)"/../share/ember/)"
+    echo ""$(dirname "$(ember-getconf ConfigLocation)")"/../share/ember/"
     exit
 fi
 
