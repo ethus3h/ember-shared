@@ -1,39 +1,39 @@
-ember</dt><dd>Core project repository (pulls in all other core repositories as submodules)</dd>
-ember-information-technology-environment</dt><dd><a href="/information-technology">Information technology environment</a></dd>
-ember-library</dt><dd><a href="/library">Library</a></dd>
-ember-web-site</dt><dd>This Web site</dd>
-BeHeMMOth</dt><dd><a href="/ancillary/wreathe/">Wreathe</a>: bullet hell MMO computer game</dd>
-compiz-extra-snowflake-textures</dt><dd><a href="/ancillary/w
-compiz-plugins-community</dt><dd><a href="/ancillary/wreathe/">Wreathe</a>: Additional plugins for the Compiz-Reloaded window manager</dd>
-compiz-reloaded-overlay</dt><dd><a href="/ancillary/wreathe/">Wreathe</a>: Code used to build the Compiz-Reloaded window manager</dd>
-crystallize</dt><dd><a href="/ancillary/crystallize/">Crystallize</a></dd>
-curl-phpmyadmin</dt><dd><a href="/ancillary/wreathe/">Wreathe</a>: Tool to export MySQL data from PHPMyAdmin using curl</dd>
-ember-meta</dt><dd>Ember meta-repository (pulls in all other repositories as submodules)</dd>
-ember-history</dt><dd><a href="/ancillary/ember-history/">Ember Hi
-ember-satellite-projects</dt><dd>Satellite projects meta-repository (pulls in all other satellite repositories as submodules)</dd>
-ember-shared</dt><dd>Code shared between various Ember software</dd>
-ember-web-site-snapshots</dt><dd>Snapshots of the contents of the Ember Web site, as retrieved from the server</dd>
-futuramerlin-web-toolkit</dt><dd><a href="/ancillary/futuramerlin-web-toolkit/">Futuramerlin Web Toolkit</a></dd>
-gentoo-wreathe-state</dt><dd><a href="/ancillary/wreathe/">Wreathe</a>: Copy of the Gentoo Portage tree as synced by Wreathe</dd>
-gunmetal-gray</dt><dd><a href="/ancillary/wreathe/">Wreathe</a>: Platformer computer game</dd>
-jdownloader</dt><dd><a href="/ancillary/wreathe/">Wreathe</a>: JDownloader (mirror of code to facilitate packaging)</dd>
-jorgan</dt><dd><a href="/ancillary/wreathe/">Wreathe</a>: JDownloader (forked from discontinued code)</dd>
-moon-1</dt><dd><a href="/ancillary/wreathe/">Wreathe</a>: Moonlight (forked from discontinued code)</dd>
-unicode-reports</dt><dd><a href="/ancillary/wreathe/">Wreathe</a>: Unicode reports (mirror of documents to facilitate packaging)</dd>
-warcdealer</dt><dd><a href="/ancillary/warcdealer/">Warcdealer</a></dd>
-wreathe-base</dt><dd><a href="/ancillary/wreathe/">Wreathe</a> core repository</dd>
-wreathe-backgrounds</dt><dd><a href="/ancillary/wreathe/">Wreathe</a>: background images</dd>
-wreathe-charselect</dt><dd><a href="/ancillary/wreathe/">Wreathe</a>: Character selection tool (forked from kcharselect)</dd>
-wreathe-conf</dt><dd><a href="/ancillary/wreathe/">Wreathe</a>: Configuration files</dd>
-wreathe-file-manager</dt><dd><a href="/ancillary/wreathe/">Wreathe</a>: File manager (forked from discontinued code)</dd>
-wreathe-icons</dt><dd><a href="/ancillary/wreathe/">Wreathe</a>: Icons</dd>
-wreathe-media-resources</dt><dd><a href="/ancillary/wreathe/">Wreathe</a>: Resources for media production</dd>
-wreathe-office-resources</dt><dd><a href="/ancillary/wreathe/">Wreathe</a>: Resources for office work</dd>
-wreathe-overlay</dt><dd><a href="/ancillary/wreathe/">Wreathe</a>: Code used to build some packages in Wreathe</dd>
-wreathe-overlays-redist</dt><dd><a href="/ancillary/wreathe/">Wreathe</a>: Redistributed code used to build some packages in Wreathe</dd>
-wreathe-package-db</dt><dd><a href="/ancillary/wreathe/">Wreathe</a>: P
-wreathe-packages</dt><dd><a href="/ancillary/wreathe/">Wreathe</a>: Packages (forked from discontinued code)</dd>
-wreathe-typeface-family</dt><dd><a href="/ancillary/wreathe/">Wreathe</a>: Typefaces used in Wreathe</dd>
-wreathe-typefaces-redist</dt><dd><a href="/ancillary/wreathe/">Wreathe</a>: Redistributed typefaces used in Wreathe</dd>
-wreathe-web-filters</dt><dd><a href="/ancillary/wreathe/">Wreathe</a>: Web filters</dd>
-xulrunner</dt><dd><a href="/ancillary/wreathe/">Wreathe</a>: XULRunner (forked from discontinued code)</dd>
+ember
+ember-information-technology-environment
+ember-library
+ember-web-site
+BeHeMMOth
+compiz-extra-snowflake-textures
+compiz-plugins-community
+compiz-reloaded-overlay
+crystallize
+curl-phpmyadmin
+ember-meta
+ember-history
+ember-satellite-projects
+ember-shared
+ember-web-site-snapshots
+futuramerlin-web-toolkit
+gentoo-wreathe-state
+gunmetal-gray
+jdownloader
+jorgan
+moon-1
+unicode-reports
+warcdealer
+wreathe-base
+wreathe-backgrounds
+wreathe-charselect
+wreathe-conf
+wreathe-file-manager
+wreathe-icons
+wreathe-media-resources
+wreathe-office-resources
+wreathe-overlay
+wreathe-overlays-redist
+wreathe-package-db
+wreathe-packages
+wreathe-typeface-family
+wreathe-typefaces-redist
+wreathe-web-filters
+xulrunner
