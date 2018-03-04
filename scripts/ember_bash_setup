@@ -669,7 +669,7 @@ crystallize-getconf() {
     command crystallize-getconf "$@"
 }
 
-ember-git-clone() {
+git-sync() {
     repo="$1"
     repoName="$(basename "$repo")"
     repoName="${repoName%.*}"
@@ -686,10 +686,10 @@ ember-git-clone() {
     fi
 }
 
-ember-git-bulk-clone() {
+ember-git-bulk-sync() {
 }
 
-git-bulk-clone() {
+git-bulk-sync() {
     while read -r repo; do
         ember-git-clone "$repo"
     done
