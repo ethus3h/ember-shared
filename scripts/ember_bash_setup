@@ -670,6 +670,7 @@ crystallize-getconf() {
 }
 
 ember-git-clone() {
+    repo="$1"
 }
 
 ember-git-bulk-clone() {
