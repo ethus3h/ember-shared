@@ -670,12 +670,6 @@ crystallize-getconf() {
 }
 
 ember-git-clone() {
-    repo="$1"
-}
-
-ember-git-bulk-clone() {
-    git-sync
-    while read -r repo; do
         repoName="$(basename "$repo")"
         repoName="${repoName%.*}"
         if [[ -n "$repoName" ]]; then
@@ -689,24 +683,13 @@ ember-git-bulk-clone() {
                 git clone --mirror "$repo" || die
             fi
         fi
-    done
+}
+
+ember-git-bulk-clone() {
 }
 
 git-bulk-clone() {
     while read -r repo; do
-        repoName="$(basename "$repo")"
-        repoName="${repoName%.*}"
-        if [[ -n "$repoName" ]]; then
-            if [[ -e "$repoName.git" ]]; then
-                (
-                    cd "$repoName.git"
-                    echo "Updating clone of the \"$repoName\" git repository..."
-                    git fetch --all || die
-                )
-            else
-                git clone --mirror "$repo" || die
-            fi
-        fi
     done
 }
 
