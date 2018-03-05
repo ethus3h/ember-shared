@@ -6,3 +6,115 @@ https://github.com/gerddie/gentoo-imaging.git
 https://github.com/gentoo-mirror/R_Overlay.git
 https://github.com/stintel/gentoo-overlay.git
 https://github.com/ethus3h/wreathe-overlay.git
+[submodule "MailKit"]                                                                               
+        path = MailKit                                                                              
+        url = https://github.com/jstedfast/MailKit.git
+[submodule "MimeKit"]
+        path = MimeKit
+        url = https://github.com/jstedfast/MimeKit.git
+[submodule "submodules/MimeKit"]
+        path = submodules/MimeKit
+        url = https://github.com/jstedfast/MimeKit.git
+[submodule "submodules/Portable.Text.Encoding"]
+        path = submodules/Portable.Text.Encoding
+        url = https://github.com/jstedfast/Portable.Text.Encoding.git
+[submodule "submodules/bc-csharp"]
+        path = submodules/bc-csharp
+        url = https://github.com/jstedfast/bc-csharp.git
+        branch = build-fix
+[submodule "ember-web-site-wordpress"]
+        path = ember-web-site-wordpress
+        url = https://github.com/ethus3h/ember-web-site-wordpress.git
+[submodule "rubberfs"]
+        path = rubberfs
+        url = https://github.com/ethus3h/rubberfs.git
+[submodule "internetarchive"]
+        path = internetarchive
+        url = https://github.com/ethus3h/internetarchive.git
+[submodule "app-configs"]
+        path = app-configs
+        url = https://github.com/ethus3h/app-configs.git
+[submodule "arcmaj3"]
+        path = arcmaj3
+        url = https://github.com/ethus3h/arcmaj3.git
+[submodule "arcmaj3-client"]
+        path = arcmaj3-client
+        url = https://github.com/ethus3h/arcmaj3-client.git
+[submodule "ember-old-moved-2016apr24a25"]
+        path = ember-old-moved-2016apr24a25
+        url = https://github.com/ethus3h/ember-old-moved-2016apr24a25.git
+[submodule "ember-repositories"]
+        path = ember-repositories
+        url = https://github.com/ethus3h/ember-repositories.git
+[submodule "build/onscreen-keyboard/onboard-emoji"]
+        path = build/onscreen-keyboard/onboard-emoji
+        url = https://github.com/qnub/onboard-emoji.git
+[submodule "ember-web-site-wordpress"]
+        path = ember-web-site-wordpress
+        url = https://github.com/ethus3h/ember-web-site-wordpress.git
+[submodule "rubberfs"]
+        path = rubberfs
+        url = https://github.com/ethus3h/rubberfs.git
+[submodule "internetarchive"]
+        path = internetarchive
+        url = https://github.com/ethus3h/internetarchive.git
+[submodule "app-configs"]
+        path = app-configs
+        url = https://github.com/ethus3h/app-configs.git
+[submodule "arcmaj3"]
+        path = arcmaj3
+        url = https://github.com/ethus3h/arcmaj3.git
+[submodule "arcmaj3-client"]
+        path = arcmaj3-client
+        url = https://github.com/ethus3h/arcmaj3-client.git
+[submodule "ember-old-moved-2016apr24a25"]
+        path = ember-old-moved-2016apr24a25
+        url = https://github.com/ethus3h/ember-old-moved-2016apr24a25.git
+[submodule "ember-repositories"]
+        path = ember-repositories
+        url = https://github.com/ethus3h/ember-repositories.git
+[submodule "ember-retired-repositories-old-renamed-2017feb07"]
+        path = ember-retired-repositories-old-renamed-2017feb07
+        url = https://github.com/ethus3h/ember-retired-repositories-old-renamed-2017feb07.git
+[submodule "wreathe-old-renamed-2017feb07"]
+        path = wreathe-old-renamed-2017feb07
+        url = https://github.com/ethus3h/wreathe-old-renamed-2017feb07.git
+[submodule "wreathe-kernel"]
+        path = wreathe-kernel
+        url = https://github.com/ethus3h/wreathe-kernel.git
+[submodule "crystal-metadata"]
+        path = crystal-metadata
+        url = https://github.com/ethus3h/crystal-metadata.git
+[submodule "MailKit-meta"]
+        path = MailKit-meta
+        url = https://github.com/ethus3h/MailKit-meta.git
+[submodule "node-spotify-downloader-"]
+        path = node-spotify-downloader-
+        url = https://github.com/ethus3h/node-spotify-downloader-.git
+[submodule "node-spotify-web-"]
+        path = node-spotify-web-
+        url = https://github.com/ethus3h/node-spotify-web-.git
+[submodule "futuramerlin-record-label"]
+        path = futuramerlin-record-label
+        url = https://github.com/ethus3h/futuramerlin-record-label.git
+[submodule "breeze-icons"]
+        path = breeze-icons
+        url = https://github.com/KDE/breeze-icons.git
+[submodule "mono"]
+        path = mono
+        url = git://github.com/mono/mono.git
+[submodule "mesa"]
+        path = mesa
+        url = git://anongit.freedesktop.org/mesa/mesa
+[submodule "mono-basic"]
+        path = mono-basic
+        url = git://github.com/mono/mono-basic.git
+760fa662-89cf-4ebd-9664-150b7637ddd4
+27ec12390b865bd8d92225a68cf8f878755653bb50dc4f29ef2268edf7b5cce7331d6fb7ee8aac41c6e2ca27a99a1417f5685e192e5fe5b5ecb1d036aa839276
+118
+[submodule "ember-information-technology-environment"]
+        path = ember-information-technology-environment
+        url = https://github.com/ethus3h/ember-information-technology-environment.git
+[submodule "build/onscreen-keyboard/onboard-emoji"]
+        path = build/onscreen-keyboard/onboard-emoji
+        url = https://github.com/qnub/onboard-emoji.git
