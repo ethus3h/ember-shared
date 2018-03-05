@@ -6,14 +6,3 @@ https://github.com/gerddie/gentoo-imaging.git
 https://github.com/gentoo-mirror/R_Overlay.git
 https://github.com/stintel/gentoo-overlay.git
 https://github.com/ethus3h/wreathe-overlay.git
-./ember-history/MailKit-meta/.gitmodules
-./ember-history/MailKit-meta/MailKit/.gitmodules
-./ember-history/MailKit-meta/MimeKit/.gitmodules
-./ember-history/ember-retired-repositories-old-renamed-2017feb07/.gitmodules
-./ember-history/wreathe-old-renamed-2017feb07/.gitmodules
-./ember-history/.gitmodules
-./wreathe-icons/.gitmodules
-./moon-1/.gitmodules
-./personal-private/iphone-backup-2017jan12/private/var/root/w/KeyboardActivator/.gitmodules
-./ember-web-site-snapshots/futuramerlin-web-backup/.gitmodules
-./wreathe-base/.gitmodules
