@@ -202,12 +202,11 @@ print_r() {
     local arr=("$@")
     declare -p arr
 }
- # from https://stackoverflow.com/questions/25288194/dont-display-pushd-popd-stack-across-several-bash-scripts-quiet-pushd-popd
-pushd () {
+pushd () { # don't print directory by default
     command pushd "$@" > /dev/null
 }
 
-popd () {
+popd () { # don't print directory by default
     command popd "$@" > /dev/null
 }
 
