@@ -1,0 +1,3 @@
+echo $'\n'"ember-library-2/Futuramerlin Projects/Data/Stream Registry" >> "crystal-backup-meta/cbb-index/stream-registries"
+echo $'\n'"ember-history/.sreg" >> "crystal-backup-meta/cbb-index/stream-registries"
+echo $'\n'"wreathe-packages/.sreg" >> "crystal-backup-meta/cbb-index/stream-registries"
