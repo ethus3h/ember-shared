@@ -11,4 +11,4 @@ packages=( coreutils moreutils findutils gnu-tar gnu-sed gawk gnutls gnu-indent 
 brew install "${packages[@]}"
 brew link "${packages[@]}"
 brew upgrade
-sudo pip install --upgrade internetarchive --ignore-installed six
+sudo -H pip install --upgrade internetarchive --ignore-installed six
