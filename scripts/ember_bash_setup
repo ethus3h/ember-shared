@@ -656,6 +656,7 @@ findso() {
 }
 
 normalizeWhitespace() {
+    # BROKEN: doesn't exit (when run with blah as its string)
     stdbuf -o0 tr '\n' ' ' | stdbuf -o0 tr '\r' ' ' | stdbuf -o0 tr -s '[:blank:]' | awk '{$1=$1};1'
 }
 
