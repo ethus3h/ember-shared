@@ -665,10 +665,14 @@ flacToWaveform() {
     destinationFile="$1.png"
     tempWavFile="$(tempFile)"
     tempPngFile="$(tempFile)"
-    ffmpeg -v 0 -analyzeduration 900000000000 -probesize 200M  -threads 2  -i "$1" -ac 1 -ar 44100 -y /t/_IndustrySapphireIndustryFuturamerlinID10457/tmp.wav > /dev/null 2>&1
-    wav2png.py /t/_IndustrySapphireIndustryFuturamerlinID10457/tmp.wav > /dev/null 2>&1
-    convert -background black tmp.png   -gravity center -extent 800x200  -background black -fuzz 50%   -transparent white  tmp2.png
-    mv tmp2.png "$destinationFile"
+    tempWorkDirectory="$(tempDir)"
+    ffmpeg -v 0 -analyzeduration 900000000000 -probesize 200M  -threads 2 -i "$1" -ac 1 -ar 44100 -y "$tempWavFile" > /dev/null 2>&1
+    (
+        cd "$tempWorkDirectory" || die
+        wav2png.py "$tempWavFile" > /dev/null 2>&1
+    )
+    convert -background black "$tempWorkDirectory"/tmp.png -gravity center -extent 800x200 -background black -fuzz 50% -transparent white "$tempPngFile"
+    mv "$tempPngFile" "$destinationFile"
 }
 
 invertReturnValue() {
