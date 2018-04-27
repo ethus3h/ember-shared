@@ -661,14 +661,10 @@ normalizeWhitespace() {
 }
 
 
-[ PST: 2017-11-30 18:25:40 ] Executing: rm -rf '/t/_IndustrySapphireIndustryFuturamerlinID10457/' '/f/_IndustrySapphireIndustryFuturamerlinID10457/'
-[ PST: 2017-11-30 18:25:40 ] Executing: mkdir '/t/_IndustrySapphireIndustryFuturamerlinID10457/' '/f/_IndustrySapphireIndustryFuturamerlinID10457/'
-[ PST: 2017-11-30 18:25:40 ] Executing: /petabox/sw/bin/timeout -s 9 7200 /var/cache/petabox/petabox/sw/bin/ffmpeg -v 0 -analyzeduration 900000000000 -probesize 200M  -threads 2  -i '/var/tmp/autoclean/derive/IndustrySapphireIndustryFuturamerlinID10457/1. industry _ sapphire _ industry.flac' -ac 1 -ar 44100 -y /t/_IndustrySapphireIndustryFuturamerlinID10457/tmp.wav > /dev/null 2>&1
-[ PST: 2017-11-30 18:25:42 ] Executing: /petabox/sw/bin/timeout -s 9 7200 /var/cache/petabox/petabox/sw/bin/wav2png.py /t/_IndustrySapphireIndustryFuturamerlinID10457/tmp.wav > /dev/null 2>&1
-[ PST: 2017-11-30 18:25:58 ] Executing: /usr/bin/convert -background black tmp.png   -gravity center -extent 800x200  -background black -fuzz 50%   -transparent white  tmp2.png
-[ PST: 2017-11-30 18:25:58 ] Executing: mv tmp2.png '/var/tmp/autoclean/derive/IndustrySapphireIndustryFuturamerlinID10457/1. industry _ sapphire _ industry.png'
-[ PST: 2017-11-30 18:25:58 ] Executing: rm -rf '/t/_IndustrySapphireIndustryFuturamerlinID10457/' '/f/_IndustrySapphireIndustryFuturamerlinID10457/'
-
+/petabox/sw/bin/timeout -s 9 7200 /var/cache/petabox/petabox/sw/bin/ffmpeg -v 0 -analyzeduration 900000000000 -probesize 200M  -threads 2  -i '/var/tmp/autoclean/derive/IndustrySapphireIndustryFuturamerlinID10457/1. industry _ sapphire _ industry.flac' -ac 1 -ar 44100 -y /t/_IndustrySapphireIndustryFuturamerlinID10457/tmp.wav > /dev/null 2>&1
+/petabox/sw/bin/timeout -s 9 7200 /var/cache/petabox/petabox/sw/bin/wav2png.py /t/_IndustrySapphireIndustryFuturamerlinID10457/tmp.wav > /dev/null 2>&1
+/usr/bin/convert -background black tmp.png   -gravity center -extent 800x200  -background black -fuzz 50%   -transparent white  tmp2.png
+mv tmp2.png '/var/tmp/autoclean/derive/IndustrySapphireIndustryFuturamerlinID10457/1. industry _ sapphire _ industry.png'
 
 invertReturnValue() {
     if bash -c "$(join_by ' ' "$@")"; then
