@@ -1,5 +1,6 @@
 #!/usr/bin/env python2
 
+# Retrieved from http://archive.org/~tracey/downloads/wav2png.py on 2018 Apr. 27
 # Initial tip and start of code from:
 #
 # http://jaganadhg.freeflux.net/blog/speech-processing/
