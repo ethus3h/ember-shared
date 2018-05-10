@@ -9,8 +9,11 @@ trap 'die "A fatal error was reported on ${BASH_SOURCE[0]} line ${LINENO} in $(p
 
 # Basic packages
 
-if ! apt install coreutils moreutils findutils tar sed gawk gnutls-bin indent wdiff rsync wget tmux hashdeep git jq pv ncdu bash xz-utils gnupg &> /dev/null; then
-    apt-get install coreutils moreutils findutils tar sed gawk gnutls-bin indent wdiff rsync wget tmux hashdeep git jq pv ncdu bash xz-utils gnupg &> /dev/null
+if ! emerge_loc="$(type -P "emerge")" || [[ -z $emerge_loc ]]; then
+    # If we have emerge, should just use the ebuild.
+    if ! apt install coreutils moreutils findutils tar sed gawk gnutls-bin indent wdiff rsync wget tmux hashdeep git jq pv ncdu bash xz-utils gnupg &> /dev/null; then
+        apt-get install coreutils moreutils findutils tar sed gawk gnutls-bin indent wdiff rsync wget tmux hashdeep git jq pv ncdu bash xz-utils gnupg &> /dev/null
+    fi
 fi
 
 # Install pip
