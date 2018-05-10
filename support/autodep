@@ -7,6 +7,8 @@ trap 'die "A fatal error was reported on ${BASH_SOURCE[0]} line ${LINENO} in $(p
 
 ((EUID)) && exec sudo -- "$0" "$@"
 
+# Install pip
+
 pip_command=""
 pip_needed="true"
 if ! pip_loc="$(type -p "pip3")" || [[ -z $pip_loc ]]; then
@@ -115,3 +117,12 @@ if [[ "$pip_needed" == "true" ]]; then
         pip_needed="false"
     fi
 fi
+
+if [[ "$pip_needed" == "true" ]]; then
+    echo "ERROR: Could not find or install pip."
+    exit 1
+fi
+
+# Install internetarchive
+
+sudo -H "$pip_command" install internetarchive
