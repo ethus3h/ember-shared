@@ -7,6 +7,35 @@ trap 'die "A fatal error was reported on ${BASH_SOURCE[0]} line ${LINENO} in $(p
 
 ((EUID)) && exec sudo -- "$0" "$@"
 
-if ! pip_loc="$(type -p "pip")" || [[ -z $pip_loc ]]; then
-    
+pip_command=""
+pip_needed="true"
+if ! pip_loc="$(type -p "pip3")" || [[ -z $pip_loc ]]; then
+    pip_needed="true"
+else
+    pip_command="pip3"
+    pip_needed="false"
+fi
+if [[ "$pip_needed" == "true" ]]; then
+    if ! pip_loc="$(type -p "pip")" || [[ -z $pip_loc ]]; then
+        pip_needed="true"
+    else
+        pip_command="pip"
+        pip_needed="false"
+    fi
+fi
+if [[ "$pip_needed" == "true" ]]; then
+    if ! pip_loc="$(type -p "pip2")" || [[ -z $pip_loc ]]; then
+        pip_needed="true"
+    else
+        pip_command="pip2"
+        pip_needed="false"
+    fi
+fi
+if [[ "$pip_needed" == "true" ]]; then
+    if apt install python-pip; then
+        pip_needed="true"
+    else
+        pip_command="pip"
+        pip_needed="false"
+    fi
 fi
