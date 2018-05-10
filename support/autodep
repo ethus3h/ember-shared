@@ -125,9 +125,11 @@ fi
 
 # Install internetarchive
 
-if ! ia_loc="$(type -p "internetarchive")" || [[ -z $ia_loc ]]; then
-    if ! sudo -H "$pip_command" install internetarchive; then
-        echo "ERROR: Could not find or install internetarchive."
-        exit 1
+if ! ia_loc="$(type -p "ia")" || [[ -z $ia_loc ]]; then
+    if ! sudo "$pip_command" install internetarchive; then
+        if ! sudo -H "$pip_command" install internetarchive; then
+            echo "ERROR: Could not find or install internetarchive."
+            exit 1
+        fi
     fi
 fi
