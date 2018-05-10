@@ -7,19 +7,14 @@ trap 'die "A fatal error was reported on ${BASH_SOURCE[0]} line ${LINENO} in $(p
 
 ((EUID)) && exec sudo -- "$0" "$@"
 
-installScriptCommandTest() {
-    testCommand="$1"
-    if ! pip_loc="$(type -p "$testCommand")" || [[ -z $pip_loc ]]; then
-        pip_needed="true"
-    else
-        pip_command="$testCommand"
-        pip_needed="false"
-    fi
-
-}
-
 pip_command=""
 pip_needed="true"
+if ! pip_loc="$(type -p "pip3")" || [[ -z $pip_loc ]]; then
+    pip_needed="true"
+else
+    pip_command="pip3"
+    pip_needed="false"
+fi
 if [[ "$pip_needed" == "true" ]]; then
     if ! pip_loc="$(type -p "pip")" || [[ -z $pip_loc ]]; then
         pip_needed="true"
