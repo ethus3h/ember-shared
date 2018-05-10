@@ -5,24 +5,5 @@ source ember_bash_setup &> /dev/null
 trap 'die "A fatal error was reported on ${BASH_SOURCE[0]} line ${LINENO} in $(pwd)."' ERR
 #set -x
 
-if [[ "$OSTYPE" = darwin* ]]; then
-    scripts/emberMacGNUUpgrade
-    find scripts -type f -exec perl -0777 -p -i -e 's/readlink /greadlink /g' {} \;
-    find scripts -type f -exec perl -0777 -p -i -e 's/dirname /gdirname /g' {} \;
-    find scripts -type f -exec perl -0777 -p -i -e 's/sort /gsort /g' {} \;
-    find scripts -type f -exec perl -0777 -p -i -e 's/stdbuf /gstdbuf /g' {} \;
-    find scripts -type f -exec perl -0777 -p -i -e 's/sha256sum /gsha256sum /g' {} \;
-    find scripts -type f -exec perl -0777 -p -i -e 's/sha512sum /gsha512sum /g' {} \;
-    find scripts -type f -exec perl -0777 -p -i -e 's/ncdu /8731d097a5ed41149c7ffb67756c310e /g' {} \;
-    find scripts -type f -exec perl -0777 -p -i -e 's/du /gdu /g' {} \;
-    find scripts -type f -exec perl -0777 -p -i -e 's/8731d097a5ed41149c7ffb67756c310e /ncdu /g' {} \;
-    find scripts -type f -exec perl -0777 -p -i -e 's/sed /gsed /g' {} \;
-    find scripts -type f -exec perl -0777 -p -i -e 's/find /gfind /g' {} \;
-    find scripts -type f -exec perl -0777 -p -i -e 's/stat /gstat /g' {} \;
-fi
-rm scripts/emberMacGNUUpgrade
-
-if [[ "$OSTYPE" = darwin* ]]; then
-    sudo ./support/macRootPrepare
-    sudo chsh -s /usr/local/bin/bash "$USER"
-fi
+((EUID)) && exec sudo -- "$0" "$@"
+if 
