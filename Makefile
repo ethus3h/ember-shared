@@ -7,3 +7,6 @@ install:
 noconf:
 	@support/install $(DESTDIR) $(prefix) $(PREFIX) $(exec_prefix) $(bindir) $(datarootdir) $(datadir) $(sysconfdir) $(sharedstatedir) --skip-config-file
 	@echo "Done installing or updating ember-shared"
+autodep:
+	@support/autodep $(DESTDIR) $(prefix) $(PREFIX) $(exec_prefix) $(bindir) $(datarootdir) $(datadir) $(sysconfdir) $(sharedstatedir)
+	@echo "Done installing or updating dependencies"
