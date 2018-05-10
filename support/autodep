@@ -12,7 +12,7 @@ set -x
 pip_command=""
 pip_needed="true"
 if [[ "$pip_needed" == "true" ]]; then
-    if ! pip_loc="$(type -p "pip")" || [[ -z $pip_loc ]]; then
+    if ! pip_loc="$(type -P "pip")" || [[ -z $pip_loc ]]; then
         pip_needed="true"
     else
         pip_command="pip"
@@ -20,7 +20,7 @@ if [[ "$pip_needed" == "true" ]]; then
     fi
 fi
 if [[ "$pip_needed" == "true" ]]; then
-    if ! pip_loc="$(type -p "pip3")" || [[ -z $pip_loc ]]; then
+    if ! pip_loc="$(type -P "pip3")" || [[ -z $pip_loc ]]; then
         pip_needed="true"
     else
         pip_command="pip3"
@@ -28,7 +28,7 @@ if [[ "$pip_needed" == "true" ]]; then
     fi
 fi
 if [[ "$pip_needed" == "true" ]]; then
-    if ! pip_loc="$(type -p "pip2")" || [[ -z $pip_loc ]]; then
+    if ! pip_loc="$(type -P "pip2")" || [[ -z $pip_loc ]]; then
         pip_needed="true"
     else
         pip_command="pip2"
@@ -37,19 +37,19 @@ if [[ "$pip_needed" == "true" ]]; then
 fi
 if [[ "$pip_needed" == "true" ]]; then
     if emerge pip &> /dev/null; then
-        if ! pip_loc="$(type -p "pip3")" || [[ -z $pip_loc ]]; then
+        if ! pip_loc="$(type -P "pip3")" || [[ -z $pip_loc ]]; then
             pip_needed="true"
         else
             pip_command="pip3"
             pip_needed="false"
         fi
-        if ! pip_loc="$(type -p "pip")" || [[ -z $pip_loc ]]; then
+        if ! pip_loc="$(type -P "pip")" || [[ -z $pip_loc ]]; then
             pip_needed="true"
         else
             pip_command="pip"
             pip_needed="false"
         fi
-        if ! pip_loc="$(type -p "pip2")" || [[ -z $pip_loc ]]; then
+        if ! pip_loc="$(type -P "pip2")" || [[ -z $pip_loc ]]; then
             pip_needed="true"
         else
             pip_command="pip2"
@@ -59,7 +59,7 @@ if [[ "$pip_needed" == "true" ]]; then
 fi
 if [[ "$pip_needed" == "true" ]]; then
     if apt install python-pip &> /dev/null; then
-        if ! pip_loc="$(type -p "pip")" || [[ -z $pip_loc ]]; then
+        if ! pip_loc="$(type -P "pip")" || [[ -z $pip_loc ]]; then
             pip_needed="true"
         else
             pip_command="pip"
@@ -69,7 +69,7 @@ if [[ "$pip_needed" == "true" ]]; then
 fi
 if [[ "$pip_needed" == "true" ]]; then
     if apt-get install python-pip &> /dev/null; then
-        if ! pip_loc="$(type -p "pip")" || [[ -z $pip_loc ]]; then
+        if ! pip_loc="$(type -P "pip")" || [[ -z $pip_loc ]]; then
             pip_needed="true"
         else
             pip_command="pip"
@@ -79,7 +79,7 @@ if [[ "$pip_needed" == "true" ]]; then
 fi
 if [[ "$pip_needed" == "true" ]]; then
     if apt install python-pip3 &> /dev/null; then
-        if ! pip_loc="$(type -p "pip3")" || [[ -z $pip_loc ]]; then
+        if ! pip_loc="$(type -P "pip3")" || [[ -z $pip_loc ]]; then
             pip_needed="true"
         else
             pip_command="pip3"
@@ -89,7 +89,7 @@ if [[ "$pip_needed" == "true" ]]; then
 fi
 if [[ "$pip_needed" == "true" ]]; then
     if apt-get install python-pip3 &> /dev/null; then
-        if ! pip_loc="$(type -p "pip3")" || [[ -z $pip_loc ]]; then
+        if ! pip_loc="$(type -P "pip3")" || [[ -z $pip_loc ]]; then
             pip_needed="true"
         else
             pip_command="pip3"
@@ -100,19 +100,19 @@ fi
 if [[ "$pip_needed" == "true" ]]; then
     curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
     python get-pip.py
-    if ! pip_loc="$(type -p "pip")" || [[ -z $pip_loc ]]; then
+    if ! pip_loc="$(type -P "pip")" || [[ -z $pip_loc ]]; then
         pip_needed="true"
     else
         pip_command="pip"
         pip_needed="false"
     fi
-    if ! pip_loc="$(type -p "pip3")" || [[ -z $pip_loc ]]; then
+    if ! pip_loc="$(type -P "pip3")" || [[ -z $pip_loc ]]; then
         pip_needed="true"
     else
         pip_command="pip3"
         pip_needed="false"
     fi
-    if ! pip_loc="$(type -p "pip2")" || [[ -z $pip_loc ]]; then
+    if ! pip_loc="$(type -P "pip2")" || [[ -z $pip_loc ]]; then
         pip_needed="true"
     else
         pip_command="pip2"
@@ -127,7 +127,7 @@ fi
 
 # Install internetarchive
 
-if ! ia_loc="$(type -p "ia")" || [[ -z $ia_loc ]]; then
+if ! ia_loc="$(type -P "ia")" || [[ -z $ia_loc ]]; then
     if ! sudo "$pip_command" install internetarchive; then
         if ! sudo -H "$pip_command" install internetarchive; then
             echo "ERROR: Could not find or install internetarchive."
