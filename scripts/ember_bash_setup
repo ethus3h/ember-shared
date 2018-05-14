@@ -710,7 +710,8 @@ getSystemTempLocation() {
 
 bigTempDir() {
     local tempLocation="$EMBER_TEMPDIR"
-    [[ -n "$EMBER_TEMPDIR" ]] && tempLocation="$(crystallize-getconf WorkDirectory)"
+    [[ -n "$tempLocation" ]] && tempLocation="$(ember-getconf WorkDirectory)"
+    [[ -n "$tempLocation" ]] && tempLocation="$(getSystemTempLocation)"
     local directoryId
     directoryId="$tempLocation/.tempDir-$(date-uuid)/"
     mkdir -p "$directoryId"
@@ -719,7 +720,8 @@ bigTempDir() {
 
 bigTempFile() {
     local tempLocation="$EMBER_TEMPDIR"
-    [[ -n "$EMBER_TEMPDIR" ]] && tempLocation="$(crystallize-getconf WorkDirectory)"
+    [[ -n "$tempLocation" ]] && tempLocation="$(ember-getconf WorkDirectory)"
+    [[ -n "$tempLocation" ]] && tempLocation="$(getSystemTempLocation)"
     local fileId
     fileId="$tempLocation/.tempFile-$(date-uuid)"
     touch "$fileId"
@@ -766,8 +768,11 @@ git-bulk-sync() {
 sponge() (
     trap 'error-notify "An error was reported in the sponge wrapper with the arguments $* on ${BASH_SOURCE[0]} line ${LINENO} in $(pwd) at $(emdate)."' ERR
     trap - EXIT
+    local tempLocation="$EMBER_TEMPDIR"
+    [[ -n "$tempLocation" ]] && tempLocation="$(ember-getconf WorkDirectory)"
+    [[ -n "$tempLocation" ]] && tempLocation="$(getSystemTempLocation)"
     local oldTmpdir="$TMPDIR"
-    TMPDIR="$(crystallize-getconf WorkDirectory)" || TMPDIR="$oldTmpdir"
+    TMPDIR="$tempLocation"
     export TMPDIR
     command sponge "$@"
 )
