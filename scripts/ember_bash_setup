@@ -705,8 +705,10 @@ invertReturnValue() {
 }
 
 tempDir() {
+    local tempLocation="$EMBER_TEMPDIR"
+    [[ -n "$EMBER_TEMPDIR" ]] && tempLocation="$(crystallize-getconf WorkDirectory)"
     local directoryId
-    directoryId="$(crystallize-getconf WorkDirectory)/.tempDir-$(date-uuid)/"
+    directoryId="$tempLocation/.tempDir-$(date-uuid)/"
     mkdir -p "$directoryId"
     echo "$directoryId"
 }
