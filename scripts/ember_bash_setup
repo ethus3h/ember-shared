@@ -705,13 +705,17 @@ invertReturnValue() {
 }
 
 getSystemTempLocation() {
-    dirname "$(mktemp tmp.XXXXXXXXXX -ut)"
+    if [[ -n "$TMPDIR" ]]; then
+        print "$TMPDIR"
+    else
+        dirname "$(mktemp tmp.XXXXXXXXXX -ut)"
+    fi
 }
 
 bigTempDir() {
     local tempLocation="$EMBER_TEMPDIR"
-    [[ -n "$tempLocation" ]] && tempLocation="$(ember-getconf WorkDirectory)"
-    [[ -n "$tempLocation" ]] && tempLocation="$(getSystemTempLocation)"
+    [[ -z "$tempLocation" ]] && tempLocation="$(ember-getconf WorkDirectory)"
+    [[ -z "$tempLocation" ]] && tempLocation="$(getSystemTempLocation)"
     local directoryId
     directoryId="$tempLocation/.tempDir-$(date-uuid)/"
     mkdir -p "$directoryId"
@@ -720,8 +724,8 @@ bigTempDir() {
 
 bigTempFile() {
     local tempLocation="$EMBER_TEMPDIR"
-    [[ -n "$tempLocation" ]] && tempLocation="$(ember-getconf WorkDirectory)"
-    [[ -n "$tempLocation" ]] && tempLocation="$(getSystemTempLocation)"
+    [[ -z "$tempLocation" ]] && tempLocation="$(ember-getconf WorkDirectory)"
+    [[ -z "$tempLocation" ]] && tempLocation="$(getSystemTempLocation)"
     local fileId
     fileId="$tempLocation/.tempFile-$(date-uuid)"
     touch "$fileId"
@@ -771,7 +775,6 @@ sponge() (
     local tempLocation="$EMBER_TEMPDIR"
     [[ -n "$tempLocation" ]] && tempLocation="$(ember-getconf WorkDirectory)"
     [[ -n "$tempLocation" ]] && tempLocation="$(getSystemTempLocation)"
-    local oldTmpdir="$TMPDIR"
     TMPDIR="$tempLocation"
     export TMPDIR
     command sponge "$@"
