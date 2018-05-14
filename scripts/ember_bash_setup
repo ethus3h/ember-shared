@@ -704,12 +704,20 @@ invertReturnValue() {
     fi
 }
 
+getBigTempLocation() {
+    local tempLocation="$EMBER_TEMPDIR"
+    [[ -z "$tempLocation" ]] && tempLocation="$(ember-getconf WorkDirectory)"
+    [[ -z "$tempLocation" ]] && tempLocation="$(getSystemTempLocation)"
+    return 0
+}
+
 getSystemTempLocation() {
     if [[ -n "$TMPDIR" ]]; then
         print "$TMPDIR"
     else
         dirname "$(mktemp tmp.XXXXXXXXXX -ut)"
     fi
+    return 0
 }
 
 bigTempDir() {
