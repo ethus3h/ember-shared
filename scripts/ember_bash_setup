@@ -771,7 +771,7 @@ git-bulk-sync() {
     done
 }
 
-sponge() (
+bigSponge() (
     trap 'error-notify "An error was reported in the sponge wrapper with the arguments $* on ${BASH_SOURCE[0]} line ${LINENO} in $(pwd) at $(emdate)."' ERR
     trap - EXIT
     TMPDIR="$(getBigTempLocation)"
