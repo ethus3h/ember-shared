@@ -708,7 +708,7 @@ getSystemTempLocation() {
     dirname "$(mktemp tmp.XXXXXXXXXX -ut)"
 }
 
-tempDir() {
+bigTempDir() {
     local tempLocation="$EMBER_TEMPDIR"
     [[ -n "$EMBER_TEMPDIR" ]] && tempLocation="$(crystallize-getconf WorkDirectory)"
     local directoryId
@@ -717,13 +717,21 @@ tempDir() {
     echo "$directoryId"
 }
 
-tempFile() {
+bigTempFile() {
     local tempLocation="$EMBER_TEMPDIR"
     [[ -n "$EMBER_TEMPDIR" ]] && tempLocation="$(crystallize-getconf WorkDirectory)"
     local fileId
     fileId="$tempLocation/.tempFile-$(date-uuid)"
     touch "$fileId"
     echo "$fileId"
+}
+
+tempDir() {
+    mktemp -d ".tempFile-$(date-uuid).XXXXXXXXXX"
+}
+
+tempFile() {
+    mktemp ".tempFile-$(date-uuid).XXXXXXXXXX"
 }
 
 crystallize-getconf() {
