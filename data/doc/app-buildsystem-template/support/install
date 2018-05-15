@@ -13,6 +13,9 @@ fi
 
 trap 'die "A fatal error was reported on ${BASH_SOURCE[0]} line ${LINENO} in $(pwd)."' ERR
 
+packageName="$1"
+shift
+
 skipConfigFile="false"
 if [[ "$1" == "--skip-config-file" ]]; then
     skipConfigFile="true"

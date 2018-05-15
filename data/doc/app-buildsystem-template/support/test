@@ -5,4 +5,7 @@ source ember_bash_setup &> /dev/null
 
 trap 'die "A fatal error was reported on ${BASH_SOURCE[0]} line ${LINENO} in $(pwd)."' ERR
 
+packageName="$1"
+shift
+
 # Run your tests here.
