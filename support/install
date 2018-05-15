@@ -121,8 +121,8 @@ if [[ -z "$emberSysconfdir" ]] && [[ -n "$1" ]]; then
     emberSysconfdir="$1"
     shift
 fi
-if [[ -z "$emberstatedir" ]] && [[ -n "$1" ]]; then
-    emberstatedir="$1"
+if [[ -z "$emberSharedstatedir" ]] && [[ -n "$1" ]]; then
+    emberSharedstatedir="$1"
     shift
 fi
 if [[ -z "$emberPrefix" ]]; then
@@ -160,12 +160,12 @@ else
     emberSysconfdir="$emberPrefix$emberSysconfdir"
 fi
 #echo "emberSysconfdir: $emberSysconfdir"
-if [[ -z "$emberstatedir" ]]; then
-    emberstatedir="$emberPrefix"/var
+if [[ -z "$emberSharedstatedir" ]]; then
+    emberSharedstatedir="$emberPrefix"/var
 else
-    emberstatedir="$emberPrefix$emberstatedir"
+    emberSharedstatedir="$emberPrefix$emberSharedstatedir"
 fi
-#echo "emberstatedir: $emberstatedir"
+#echo "emberSharedstatedir: $emberSharedstatedir"
 
 emberEmberdir="$emberPrefix"/Ember\ Library
 
