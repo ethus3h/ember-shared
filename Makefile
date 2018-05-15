@@ -1,4 +1,4 @@
-packageName = example-package-name
+packageName = ember-shared
 
 all:
 	@support/prepare $(packageName) $(DESTDIR) $(prefix) $(PREFIX) $(exec_prefix) $(bindir) $(datarootdir) $(datadir) $(sysconfdir) $(sharedstatedir)
