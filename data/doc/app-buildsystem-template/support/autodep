@@ -10,6 +10,10 @@ trap 'die "A fatal error was reported on ${BASH_SOURCE[0]} line ${LINENO} in $(p
 packageName="$1"
 shift
 
+failinstall() {
+    die "ERROR: Could not find or install $1."
+}
+
 cd "$(getSystemTempLocation)"
 
 if ! ebs_loc="$(type -P "ember_bash_setup")" || [[ -z $ebs_loc ]]; then
