@@ -1,7 +1,5 @@
 #!/usr/bin/env bash
-# shellcheck disable=SC1091
-source ember_bash_setup &> /dev/null
-#set -x
+# This file should be sourced rather than run directly.
 
 #NOTE: MAINTENANCE: Manual error printing
 if [[ -z "$(ember-getconf emberSharedVersion)" ]]; then
@@ -12,6 +10,13 @@ if [[ -z "$(ember-getconf emberSharedVersion)" ]]; then
 fi
 
 trap 'die "A fatal error was reported on ${BASH_SOURCE[0]} line ${LINENO} in $(pwd)."' ERR
+
+overrideInstalledAppDataDir="/usr/share"
+overrideInstalledAppDataDirArg="${1#*=}"
+if [[ "$1" == "--override-data-dir="* ]] && [[ -n "$overrideInstalledAppDataDirArg" ]]; then
+    overrideInstalledAppDataDir="$overrideInstalledAppDataDirArg"
+fi
+shift
 
 emberPrefix="$(<support/.prefix)" || true
 emberMandir="$(<support/.mandir)" || true
