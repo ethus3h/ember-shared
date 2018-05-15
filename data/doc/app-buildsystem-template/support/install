@@ -116,15 +116,22 @@ emberEmberdir="$emberPrefix"/Ember\ Library
 
 #### End of Makefile install script template ####
 
-mkdir -p "$emberDatadir/example-package-name"
-cp -r data "$emberDatadir/example-package-name/"
+if [[ -e data ]]; then
+    mkdir -p "$emberDatadir/example-package-name"
+    cp -r data "$emberDatadir/example-package-name/"
+fi
 
-mkdir -p "$emberBindir"
-chmod +x scripts/*
-cp scripts/* "$emberBindir/"
+if [[ -e scripts ]]; then
+    mkdir -p "$emberBindir"
+    chmod +x scripts/*
+    cp scripts/* "$emberBindir/"
+fi
 
-mkdir -p "$emberDatadir/doc/example-package-name"
-cp -r docs/futuramerlin-web-toolkit-output/* "$emberDatadir/doc/eite/"
+if [[ -e docs ]]; then
+    # NOT IMPLEMENTED ELSEWHERE
+    mkdir -p "$emberDatadir/doc/example-package-name"
+    cp -r docs/futuramerlin-web-toolkit-output/* "$emberDatadir/doc/example-package-name/"
+fi
 
 # Your installation logic goes here.
 # See ember-information-technology-environment's use of this template
