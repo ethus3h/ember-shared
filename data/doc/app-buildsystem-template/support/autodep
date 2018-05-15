@@ -25,3 +25,7 @@ if ! ebs_loc="$(type -P "ember_bash_setup")" || [[ -z $ebs_loc ]]; then
     popd
     rm -r ember_bash_setup
 fi
+
+#### End of automatic dependency installation install script template ####
+
+# Any extra automatic dependency installation goes here.
