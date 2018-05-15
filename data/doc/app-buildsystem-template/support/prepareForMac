@@ -21,10 +21,6 @@ fail() {
     fi
 }
 
-if [[ -z "$(ember-getconf emberSharedVersion)" ]]; then
-    fail
-fi
-
 if [[ "$OSTYPE" = darwin* ]]; then
     if ! type "greadlink"; then
         fail
