@@ -119,8 +119,8 @@ if [[ -z "$emberSysconfdir" ]] && [[ -n "$1" ]]; then
     emberSysconfdir="$1"
     shift
 fi
-if [[ -z "$emberSharedstatedir" ]] && [[ -n "$1" ]]; then
-    emberSharedstatedir="$1"
+if [[ -z "$emberstatedir" ]] && [[ -n "$1" ]]; then
+    emberstatedir="$1"
     shift
 fi
 if [[ -z "$emberPrefix" ]]; then
@@ -158,41 +158,41 @@ else
     emberSysconfdir="$emberPrefix$emberSysconfdir"
 fi
 #echo "emberSysconfdir: $emberSysconfdir"
-if [[ -z "$emberSharedstatedir" ]]; then
-    emberSharedstatedir="$emberPrefix"/var
+if [[ -z "$emberstatedir" ]]; then
+    emberstatedir="$emberPrefix"/var
 else
-    emberSharedstatedir="$emberPrefix$emberSharedstatedir"
+    emberstatedir="$emberPrefix$emberstatedir"
 fi
-#echo "emberSharedstatedir: $emberSharedstatedir"
+#echo "emberstatedir: $emberstatedir"
 
-emberSharedEmberdir="$emberSharedPrefix"/Ember\ Library
+emberEmberdir="$emberPrefix"/Ember\ Library
 
 #### End of Makefile install script template ####
 
 ereplace "73FAB73B-EEE4-4992-8622-4F3FCEC9823A" "$(date-uuid)" support/ember.conf
-ereplace "/usr/local/var" "$emberSharedSharedstatedir" support/ember.conf
-ereplace '/Ember\ Library/' "$emberSharedEmberdir" support/ember.conf
-ereplace "/usr/local/etc" "$emberSharedSysconfdir" scripts/ember-getconf
+ereplace "/usr/local/var" "$emberSharedstatedir" support/ember.conf
+ereplace '/Ember\ Library/' "$emberEmberdir" support/ember.conf
+ereplace "/usr/local/etc" "$emberSysconfdir" scripts/ember-getconf
 
-mkdir -p "$emberSharedEmberdir"
-mkdir -p "$emberSharedBindir"
-mkdir -p "$emberSharedSharedstatedir"/ember
-chmod 777 "$emberSharedSharedstatedir"/ember
-mkdir -p "$emberSharedDatadir"/ember
-cp -r data/* "$emberSharedDatadir"/ember/
+mkdir -p "$emberEmberdir"
+mkdir -p "$emberBindir"
+mkdir -p "$emberSharedstatedir"/ember
+chmod 777 "$emberSharedstatedir"/ember
+mkdir -p "$emberDatadir"/ember
+cp -r data/* "$emberDatadir"/ember/
 chmod +x scripts/*
-cp scripts/* "$emberSharedBindir/"
+cp scripts/* "$emberBindir/"
 if [[ "$skipConfigFile" == "false" ]]; then
-    mkdir -p "$emberSharedSysconfdir"
-    cp -v support/ember.conf "$emberSharedSysconfdir/"
+    mkdir -p "$emberSysconfdir"
+    cp -v support/ember.conf "$emberSysconfdir/"
 fi
 
-if [[ ! -h "$emberSharedSharedstatedir/crystallize" ]] && [[ -d "$emberSharedSharedstatedir/crystallize" ]]; then
-    mv "$emberSharedSharedstatedir/crystallize" "$emberSharedSharedstatedir/ember"
-    ln -s "$emberSharedSharedstatedir/ember" "$emberSharedSharedstatedir/crystallize"
+if [[ ! -h "$emberSharedstatedir/crystallize" ]] && [[ -d "$emberSharedstatedir/crystallize" ]]; then
+    mv "$emberSharedstatedir/crystallize" "$emberSharedstatedir/ember"
+    ln -s "$emberSharedstatedir/ember" "$emberSharedstatedir/crystallize"
 fi
 
-if [[ ! -h "$emberSharedSysconfdir/crystallize.conf" ]] && [[ -f "$emberSharedSysconfdir/crystallize.conf" ]]; then
-    mv "$emberSharedSysconfdir/crystallize.conf" "$emberSharedSysconfdir/ember.conf"
-    ln -s "$emberSharedSysconfdir/ember.conf" "$emberSharedSysconfdir/crystallize.conf"
+if [[ ! -h "$emberSysconfdir/crystallize.conf" ]] && [[ -f "$emberSysconfdir/crystallize.conf" ]]; then
+    mv "$emberSysconfdir/crystallize.conf" "$emberSysconfdir/ember.conf"
+    ln -s "$emberSysconfdir/ember.conf" "$emberSysconfdir/crystallize.conf"
 fi
