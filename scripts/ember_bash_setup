@@ -735,11 +735,11 @@ bigTempFile() {
 }
 
 tempDir() {
-    mktemp -d ".tempFile-$(date-uuid).XXXXXXXXXX"
+    mktemp --tmpdir -d ".tempFile-$(date-uuid).XXXXXXXXXX"
 }
 
 tempFile() {
-    mktemp ".tempFile-$(date-uuid).XXXXXXXXXX"
+    mktemp --tmpdir ".tempFile-$(date-uuid).XXXXXXXXXX"
 }
 
 crystallize-getconf() {
