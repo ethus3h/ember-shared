@@ -11,7 +11,7 @@ packageName="$1"
 shift
 
 if [[ -n "$TMPDIR" ]]; then
-    cd "$TMPDIR"
+    cd "$(getSystemTempLocation)"
 else
     cd "/tmp"
 fi
