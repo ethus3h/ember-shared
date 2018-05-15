@@ -13,6 +13,8 @@ cd "$installDir" || die "cd failed"
 git clone https://github.com/ethus3h/ember-shared.git
 (
     cd ember-shared || die "cd failed"
+    ./configure
     make
     sudo make noconf
+    make autodep
 )
