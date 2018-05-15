@@ -191,6 +191,13 @@ if [[ -e docs ]]; then
     cp -r docs/futuramerlin-web-toolkit-output/* "$emberDatadir/doc/$packageName/"
 fi
 
+if [[ -e "support/$packageName.conf" ]]; then
+    if [[ "$skipConfigFile" == "false" ]]; then
+        mkdir -p "$emberSysconfdir"
+        cp -v "support/$packageName.conf" "$emberSysconfdir/"
+    fi
+fi
+
 #### End of Makefile install script template (fragment) ####
 
 ereplace "73FAB73B-EEE4-4992-8622-4F3FCEC9823A" "$(date-uuid)" support/ember.conf
@@ -202,10 +209,7 @@ mkdir -p "$emberEmberdir"
 mkdir -p "$emberBindir"
 mkdir -p "$emberSharedstatedir"/ember
 chmod 777 "$emberSharedstatedir"/ember
-mkdir -p "$emberDatadir"/ember
-cp -r data/* "$emberDatadir"/ember/
-chmod +x scripts/*
-cp scripts/* "$emberBindir/"
+
 if [[ "$skipConfigFile" == "false" ]]; then
     mkdir -p "$emberSysconfdir"
     cp -v support/ember.conf "$emberSysconfdir/"
