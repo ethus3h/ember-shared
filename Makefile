@@ -1,6 +1,6 @@
 all:
 	@support/prepare $(DESTDIR) $(prefix) $(PREFIX) $(exec_prefix) $(bindir) $(datarootdir) $(datadir) $(sysconfdir) $(sharedstatedir)
-	@echo "Done preparing eite"
+	@echo "Done preparing the package"
 install:
 	@support/install --override-data-dir=$(OVERRIDEDATADIR) $(DESTDIR) $(prefix) $(PREFIX) $(exec_prefix) $(bindir) $(datarootdir) $(datadir) $(sysconfdir) $(sharedstatedir)
 	@echo "Done installing or updating eite"
