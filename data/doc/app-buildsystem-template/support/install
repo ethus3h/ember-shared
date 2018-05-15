@@ -119,6 +119,9 @@ emberEmberdir="$emberPrefix"/Ember\ Library
 
 # Done setting up variables, now install the files
 
+mkdir -p "$emberEmberdir"
+mkdir -p "$emberBindir"
+
 if [[ -e data ]]; then
     mkdir -p "$emberDatadir/$packageName"
     cp -r data "$emberDatadir/$packageName/"

@@ -174,6 +174,9 @@ emberEmberdir="$emberPrefix"/Ember\ Library
 
 # Done setting up variables, now install the files
 
+mkdir -p "$emberEmberdir"
+mkdir -p "$emberBindir"
+
 if [[ -e data ]]; then
     mkdir -p "$emberDatadir/$packageName"
     cp -r data "$emberDatadir/$packageName/"
@@ -205,15 +208,7 @@ ereplace "/usr/local/var" "$emberSharedstatedir" support/ember.conf
 ereplace '/Ember\ Library/' "$emberEmberdir" support/ember.conf
 ereplace "/usr/local/etc" "$emberSysconfdir" scripts/ember-getconf
 
-mkdir -p "$emberEmberdir"
-mkdir -p "$emberBindir"
 mkdir -p "$emberSharedstatedir"/ember
-chmod 777 "$emberSharedstatedir"/ember
-
-if [[ "$skipConfigFile" == "false" ]]; then
-    mkdir -p "$emberSysconfdir"
-    cp -v support/ember.conf "$emberSysconfdir/"
-fi
 
 if [[ ! -h "$emberSharedstatedir/crystallize" ]] && [[ -d "$emberSharedstatedir/crystallize" ]]; then
     mv "$emberSharedstatedir/crystallize" "$emberSharedstatedir/ember"
