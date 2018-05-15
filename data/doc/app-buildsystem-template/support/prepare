@@ -26,6 +26,15 @@ if [[ "$OSTYPE" = darwin* ]]; then
     fi
 fi
 
+substitutePath() {
+    export "$2"
+    local pathEsc
+    pathEsc="$(perl -0777 -e 'print(quotemeta($ENV{'"$2"'}))')"
+    echo "pathEsc for $2: $pathEsc"
+    find scripts -maxdepth 1 -type f -exec perl -0777 -p -i -e "s/\/usr\/local\/bin/$pathEsc/g" scripts/futuramerlin-web-toolkit-build
+}
+
+substitutePath "emberBindir"
 export emberBindir
 emberBindirEsc="$(perl -0777 -e 'print(quotemeta($ENV{emberBindir}))')"
 echo "emberBindirEsc: $emberBindirEsc"
