@@ -10,7 +10,7 @@ shift
 
 source support/getDirs
 
-fail() {
+if [[ -z "$(ember-getconf emberSharedVersion)" ]]; then
     #NOTE: MAINTENANCE: Manual error printing
     if [[ -z "$(ember-getconf emberSharedVersion)" ]]; then
         printf '%b' '\033[1;31m' >&2
@@ -18,10 +18,6 @@ fail() {
         printf '%b' '\033[0m' >&2
         exit 1
     fi
-}
-
-if [[ -z "$(ember-getconf emberSharedVersion)" ]]; then
-    fail
 fi
 
 if [[ "$OSTYPE" = darwin* ]]; then
@@ -29,6 +25,22 @@ if [[ "$OSTYPE" = darwin* ]]; then
         support/prepareForMac "$packageName"
     fi
 fi
+
+export emberBindir
+emberBindirEsc="$(perl -0777 -e 'print(quotemeta($ENV{emberBindir}))')"
+echo "emberBindirEsc: $emberBindirEsc"
+perl -0777 -p -i -e "s/\/usr\/local\/bin/$emberBindirEsc/g" scripts/futuramerlin-web-toolkit-build
+
+export emberSysconfdir
+emberSysconfdirEsc="$(perl -0777 -e 'print(quotemeta($ENV{emberSysconfdir}))')"
+echo "emberSysconfdirEsc: $emberSysconfdirEsc"
+perl -0777 -p -i -e "s/\/usr\/local\/etc/$emberSysconfdirEsc/g" scripts/futuramerlin-web-toolkit-build
+
+export emberDatadir
+emberDatadirEsc="$(perl -0777 -e 'print(quotemeta($ENV{emberDatadir}))')"
+echo "emberDatadirEsc: $emberDatadirEsc"
+perl -0777 -p -i -e "s/\/usr\/local\/share/$emberDatadirEsc/g" scripts/futuramerlin-web-toolkit-build
+perl -0777 -p -i -e "s/\/usr\/local\/share/$emberDatadirEsc/g" scripts/futuramerlin-web-toolkit-build-discography
 
 #### End of preparation install script template ####
 
