@@ -33,25 +33,14 @@ substitutePath() {
     local pathEsc
     pathEsc="$(perl -0777 -e 'print(quotemeta($ENV{'"$newPathVarName"'}))')"
     echo "pathEsc for $newPathVarName: $pathEsc"
-    find scripts -maxdepth 1 -type f -exec perl -0777 -p -i -e "s/$defaultPath/$pathEsc/g" scripts/futuramerlin-web-toolkit-build
+    find scripts -maxdepth 1 -type f -exec perl -0777 -p -i -e "s/$defaultPath/$pathEsc/g" {} \;
 }
 
 substitutePath "/usr/local/bin" "emberBindir"
-export emberBindir
-emberBindirEsc="$(perl -0777 -e 'print(quotemeta($ENV{emberBindir}))')"
-echo "emberBindirEsc: $emberBindirEsc"
-perl -0777 -p -i -e "s/\/usr\/local\/bin/$emberBindirEsc/g" scripts/futuramerlin-web-toolkit-build
 
-export emberSysconfdir
-emberSysconfdirEsc="$(perl -0777 -e 'print(quotemeta($ENV{emberSysconfdir}))')"
-echo "emberSysconfdirEsc: $emberSysconfdirEsc"
-perl -0777 -p -i -e "s/\/usr\/local\/etc/$emberSysconfdirEsc/g" scripts/futuramerlin-web-toolkit-build
+substitutePath "/usr/local/etc" "emberSysconfdir"
 
-export emberDatadir
-emberDatadirEsc="$(perl -0777 -e 'print(quotemeta($ENV{emberDatadir}))')"
-echo "emberDatadirEsc: $emberDatadirEsc"
-perl -0777 -p -i -e "s/\/usr\/local\/share/$emberDatadirEsc/g" scripts/futuramerlin-web-toolkit-build
-perl -0777 -p -i -e "s/\/usr\/local\/share/$emberDatadirEsc/g" scripts/futuramerlin-web-toolkit-build-discography
+substitutePath "/usr/local/share" "emberDatadir"
 
 #### End of preparation install script template ####
 
