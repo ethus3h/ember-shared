@@ -72,75 +72,100 @@ if [[ "$1" == "--skip-config-file" ]]; then
     shift
 fi
 
+overrideInstalledAppDataDir="/usr/share"
+overrideInstalledAppDataDirArg="${1#*=}"
+if [[ "$1" == "--override-data-dir="* ]] && [[ -n "$overrideInstalledAppDataDirArg" ]]; then
+    overrideInstalledAppDataDir="$overrideInstalledAppDataDirArg"
+fi
+shift
+
+emberPrefix="$(<support/.prefix)" || true
+emberMandir="$(<support/.mandir)" || true
+emberInfodir="$(<support/.infodir)" || true
+emberDatadir="$(<support/.datadir)" || true
+emberSysconfdir="$(<support/.sysconfdir)" || true
+emberLocalstatedir="$(<support/.localstatedir)" || true
+
 #echo 1 "$1" 2 "$2" 3 "$3" 4 "$4" 5 "$5" 6 "$6" 7 "$7" 8 "$8" 9 "$9"
-if [[ -n "$1" ]]; then
-    emberSharedDestdir="$1"
+if [[ -z "$emberDestdir" ]] && [[ -n "$1" ]]; then
+    emberDestdir="$1"
     shift
 fi
-if [[ -n "$1" ]]; then
-    emberSharedPrefix="$1"
+if [[ -z "$emberPrefix" ]] && [[ -n "$1" ]]; then
+    emberPrefix="$1"
     shift
 fi
-if [[ -n "$1" ]]; then
-    emberSharedCapPrefix="$1"
+if [[ -z "$emberCapPrefix" ]] && [[ -n "$1" ]]; then
+    emberCapPrefix="$1"
     shift
 fi
-if [[ -n "$1" ]]; then
-    emberSharedExecPrefix="$1"
+if [[ -z "$emberExecPrefix" ]] && [[ -n "$1" ]]; then
+    emberExecPrefix="$1"
     shift
 fi
-if [[ -n "$1" ]]; then
-    emberSharedBindir="$1"
+if [[ -z "$emberBindir" ]] && [[ -n "$1" ]]; then
+    emberBindir="$1"
     shift
 fi
-if [[ -n "$1" ]]; then
-    emberSharedDatarootdir="$1"
+if [[ -z "$emberDatarootdir" ]] && [[ -n "$1" ]]; then
+    emberDatarootdir="$1"
     shift
 fi
-if [[ -n "$1" ]]; then
-    emberSharedDatadir="$1"
+if [[ -z "$emberDatadir" ]] && [[ -n "$1" ]]; then
+    emberDatadir="$1"
     shift
 fi
-if [[ -n "$1" ]]; then
-    emberSharedSysconfdir="$1"
+if [[ -z "$emberSysconfdir" ]] && [[ -n "$1" ]]; then
+    emberSysconfdir="$1"
     shift
 fi
-if [[ -n "$1" ]]; then
-    emberSharedSharedstatedir="$1"
+if [[ -z "$emberSharedstatedir" ]] && [[ -n "$1" ]]; then
+    emberSharedstatedir="$1"
     shift
 fi
-if ! [[ -n "$emberSharedPrefix" ]]; then
-    if ! [[ -n "$emberSharedCapPrefix" ]]; then
-        emberSharedPrefix="$emberSharedDestdir"/usr/local
+if [[ -z "$emberPrefix" ]]; then
+    if [[ -z "$emberCapPrefix" ]]; then
+        emberPrefix=/usr/local
     else
-        emberSharedPrefix="$emberSharedCapPrefix"
+        emberPrefix="$emberCapPrefix"
     fi
 fi
-#echo "emberSharedPrefix: $emberSharedPrefix"
-if ! [[ -n "$emberSharedExecPrefix" ]]; then
-    emberSharedExecPrefix="$emberSharedPrefix"
+emberPrefix="$emberDestdir$emberPrefix"
+#echo "emberPrefix: $emberPrefix"
+if [[ -z "$emberExecPrefix" ]]; then
+    emberExecPrefix="$emberPrefix"
+else
+    emberExecPrefix="$emberDestdir$emberExecPrefix"
 fi
-#echo "emberSharedExecPrefix: $emberSharedExecPrefix"
-if ! [[ -n "$emberSharedBindir" ]]; then
-    emberSharedBindir="$emberSharedExecPrefix"/bin
+#echo "emberExecPrefix: $emberExecPrefix"
+if [[ -z "$emberBindir" ]]; then
+    emberBindir="$emberExecPrefix"/bin
 fi
-#echo "emberSharedBindir: $emberSharedBindir"
-if ! [[ -n "$emberSharedDatarootdir" ]]; then
-    emberSharedDatarootdir="$emberSharedPrefix"/share
+#echo "emberBindir: $emberBindir"
+if [[ -z "$emberDatarootdir" ]]; then
+    emberDatarootdir="$emberPrefix"/share
 fi
-#echo "emberSharedDatarootdir: $emberSharedDatarootdir"
-if ! [[ -n "$emberSharedDatadir" ]]; then
-    emberSharedDatadir="$emberSharedDatarootdir"
+#echo "emberDatarootdir: $emberDatarootdir"
+if [[ -z "$emberDatadir" ]]; then
+    emberDatadir="$emberDestdir$emberDatarootdir"
+else
+    emberDatadir="$emberDestdir$emberDatadir"
 fi
-#echo "emberSharedDatadir: $emberSharedDatadir"
-if ! [[ -n "$emberSharedSysconfdir" ]]; then
-    emberSharedSysconfdir="$emberSharedPrefix"/etc
+#echo "emberDatadir: $emberDatadir"
+if [[ -z "$emberSysconfdir" ]]; then
+    emberSysconfdir="$emberPrefix"/etc
+else
+    emberSysconfdir="$emberPrefix$emberSysconfdir"
 fi
-#echo "emberSharedSysconfdir: $emberSharedSysconfdir"
-if ! [[ -n "$emberSharedSharedstatedir" ]]; then
-    emberSharedSharedstatedir="$emberSharedPrefix"/var
+#echo "emberSysconfdir: $emberSysconfdir"
+if [[ -z "$emberSharedstatedir" ]]; then
+    emberSharedstatedir="$emberPrefix"/var
+else
+    emberSharedstatedir="$emberPrefix$emberSharedstatedir"
 fi
-#echo "emberSharedSharedstatedir: $emberSharedSharedstatedir"
+#echo "emberSharedstatedir: $emberSharedstatedir"
+
+#### End of Makefile install script template ####
 
 emberSharedEmberdir="$emberSharedPrefix"/Ember\ Library
 
