@@ -136,6 +136,13 @@ if [[ -e docs ]]; then
     cp -r docs/futuramerlin-web-toolkit-output/* "$emberDatadir/doc/$packageName/"
 fi
 
+if [[ -e "support/$packageName.conf" ]]; then
+    if [[ "$skipConfigFile" == "false" ]]; then
+        mkdir -p "$emberSysconfdir"
+        cp -v "support/$packageName.conf" "$emberSysconfdir/"
+    fi
+fi
+
 #### End of Makefile install script template ####
 
 # Any extra installation logic goes here.
