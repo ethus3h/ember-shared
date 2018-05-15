@@ -68,6 +68,9 @@ ereplace() {
 
 #### Beginning of Makefile install script template (fragment) ####
 
+packageName="$1"
+shift
+
 skipConfigFile="false"
 if [[ "$1" == "--skip-config-file" ]]; then
     skipConfigFile="true"
@@ -168,6 +171,25 @@ fi
 #echo "emberSharedstatedir: $emberSharedstatedir"
 
 emberEmberdir="$emberPrefix"/Ember\ Library
+
+# Done setting up variables, now install the files
+
+if [[ -e data ]]; then
+    mkdir -p "$emberDatadir/$packageName"
+    cp -r data "$emberDatadir/$packageName/"
+fi
+
+if [[ -e scripts ]]; then
+    mkdir -p "$emberBindir"
+    chmod +x scripts/*
+    cp scripts/* "$emberBindir/"
+fi
+
+if [[ -e docs ]]; then
+    # NOT IMPLEMENTED ELSEWHERE
+    mkdir -p "$emberDatadir/doc/$packageName"
+    cp -r docs/futuramerlin-web-toolkit-output/* "$emberDatadir/doc/$packageName/"
+fi
 
 #### End of Makefile install script template (fragment) ####
 
