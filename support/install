@@ -165,9 +165,9 @@ else
 fi
 #echo "emberSharedstatedir: $emberSharedstatedir"
 
-#### End of Makefile install script template ####
-
 emberSharedEmberdir="$emberSharedPrefix"/Ember\ Library
+
+#### End of Makefile install script template ####
 
 ereplace "73FAB73B-EEE4-4992-8622-4F3FCEC9823A" "$(date-uuid)" support/ember.conf
 ereplace "/usr/local/var" "$emberSharedSharedstatedir" support/ember.conf
