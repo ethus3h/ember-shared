@@ -8,9 +8,6 @@ trap 'die "A fatal error was reported on ${BASH_SOURCE[0]} line ${LINENO} in $(p
 packageName="$1"
 shift
 
-# Note: Only provide this file if the package should run on macOS. Your code may require some
-# changes to be correctly transformed by this script.
-
 fail() {
     #NOTE: MAINTENANCE: Manual error printing
     if [[ -z "$(ember-getconf emberSharedVersion)" ]]; then
@@ -30,3 +27,7 @@ if [[ "$OSTYPE" = darwin* ]]; then
         support/prepareForMac "$packageName"
     fi
 fi
+
+#### End of preparation install script template ####
+
+# Any extra installation prep logic (compilation, etc.) goes here.

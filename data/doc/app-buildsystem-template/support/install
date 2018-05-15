@@ -149,5 +149,3 @@ fi
 #### End of Makefile install script template ####
 
 # Any extra installation logic goes here.
-# See ember-information-technology-environment's use of this template
-# for a good simple sample.
