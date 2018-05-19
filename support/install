@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 #set -x
 
-# Should work without ember-shared or crystallize, just in case, so don't source ember_bash_setup or set traps that need
+# Should work without ember-shared (or crystallize), just in case, so don't source ember_bash_setup or set traps that need it
 
 #NOTE: MAINTENANCE: Manual error printing
 trap 'printf '\''%b'\'' '\''\033[1;31m'\'' >&2; echo "A fatal error was reported on ${BASH_SOURCE[0]} line ${LINENO} in $(pwd)." >&2; printf '\''%b'\'' '\''\033[0m'\'' >&2; exit 1' ERR
@@ -95,7 +95,7 @@ if [[ -e scripts ]]; then
     find scripts -maxdepth 1 -type f -exec cp {} "$emberBindir/" \;
 fi
 
-if [[ -e docs ]]; then
+if [[ -e docs/futuramerlin-web-toolkit-output ]]; then
     # NOT IMPLEMENTED ELSEWHERE
     mkdir -p "$emberDatadir/doc/$packageName"
     cp -r docs/futuramerlin-web-toolkit-output/* "$emberDatadir/doc/$packageName/"

@@ -1,9 +1,17 @@
 #!/usr/bin/env bash
 # shellcheck disable=SC1091
-source ember_bash_setup &> /dev/null
+source ember_bash_setup &> /dev/null || true
 #set -x
 
-trap 'die "A fatal error was reported on ${BASH_SOURCE[0]} line ${LINENO} in $(pwd)."' ERR
+# Should work without ember-shared (or crystallize), just in case, so don't depend on ember_bash_setup or set traps that need it
+
+#NOTE: MAINTENANCE: Manual error printing
+trap 'printf '\''%b'\'' '\''\033[1;31m'\'' >&2; echo "A fatal error was reported on ${BASH_SOURCE[0]} line ${LINENO} in $(pwd)." >&2; printf '\''%b'\'' '\''\033[0m'\'' >&2; exit 1' ERR
+
+# NOTE: MAINTENANCE: Inlined function from warn
+warn() {
+    printf %b '\033[1;33m' "$(ps -o args= $PPID)" '\nsends the warning:\n' "${@+$@$'\n'}" '\033[0m' >&2
+}
 
 if [[ "$OSTYPE" = darwin* ]]; then
     scripts/emberMacGNUUpgrade
@@ -25,4 +33,19 @@ rm scripts/emberMacGNUUpgrade
 if [[ "$OSTYPE" = darwin* ]]; then
     sudo ./support/macRootPrepare
     sudo chsh -s /usr/local/bin/bash "$USER"
+fi
+
+#NOTE: MAINTENANCE: Fragment copied from "prepare" template file
+if [[ -e docs ]]; then
+    if ! [[ -d docs ]]; then
+        warn "The \"docs\" folder exists, but is not a directory. Documentation will not be installed."
+    else
+        if ! fmwtk_loc="$(type -P "futuramerlin-web-toolkit-build")" || [[ -z $fmwtk_loc ]]; then
+            warn "Not building documentation: futuramerlin-web-toolkit not found."
+        else
+            pushd "docs" || die
+            futuramerlin-web-toolkit-build
+            popd || die
+        fi
+    fi
 fi
