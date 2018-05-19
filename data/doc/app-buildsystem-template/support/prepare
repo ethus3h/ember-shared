@@ -44,6 +44,18 @@ if [[ -e scripts ]]; then
     substitutePath "/usr/local/share" "emberDatadir"
 fi
 
+if [[ -e docs ]]; then
+    if ! [[ -d docs ]]; then
+        warn "The \"docs\" folder exists, but is not a directory. Documentation will not be installed."
+    if ! fmwtk_loc="$(type -P "futuramerlin-web-toolkit-build")" || [[ -z $fmwtk_loc ]]; then
+        warn "Not building documentation: futuramerlin-web-toolkit not found."
+    else
+        pushd "docs" || die
+        futuramerlin-web-toolkit-build
+        popd || die
+    fi
+fi
+
 #### End of preparation install script template ####
 
 # Any extra installation prep logic (compilation, etc.) goes here.
