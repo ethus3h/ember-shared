@@ -3,6 +3,9 @@
 source ember_bash_setup &> /dev/null || { printf '%b' '\033[1;31m' >&2; echo "A fatal error was reported on ${BASH_SOURCE[0]} line ${LINENO} in $(pwd): The required dependency ember-shared could not be found (or ember_bash_setup could not be sourced for some other reason)." >&2; printf '%b' '\033[0m' >&2; exit 1; }
 #set -x
 
+packageName="$1"
+shift
+
 #NOTE: MAINTENANCE: Manual error printing
 if [[ -z "$(ember-getconf emberSharedVersion)" ]]; then
     printf '%b' '\033[1;31m' >&2
@@ -12,9 +15,6 @@ if [[ -z "$(ember-getconf emberSharedVersion)" ]]; then
 fi
 
 trap 'die "A fatal error was reported on ${BASH_SOURCE[0]} line ${LINENO} in $(pwd)."' ERR
-
-packageName="$1"
-shift
 
 skipConfigFile="false"
 if [[ "$1" == "--skip-config-file" ]]; then
