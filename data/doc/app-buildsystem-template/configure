@@ -3,6 +3,16 @@
 
 # Should work without ember-shared or crystallize, just in case, so don't source ember_bash_setup or set traps that need
 
+if [[ -z "$(ember-getconf emberSharedVersion)" ]]; then
+    #NOTE: MAINTENANCE: Manual error printing
+    if [[ -z "$(ember-getconf emberSharedVersion)" ]]; then
+        printf '%b' '\033[1;31m' >&2
+        echo "ERROR: ember-shared is not properly installed! It must be installed before installing $packageName." >&2
+        printf '%b' '\033[0m' >&2
+        exit 1
+    fi
+fi
+
 #NOTE: MAINTENANCE: Manual error printing
 trap 'printf '\''%b'\'' '\''\033[1;31m'\'' >&2; echo "A fatal error was reported on ${BASH_SOURCE[0]} line ${LINENO} in $(pwd)." >&2; printf '\''%b'\'' '\''\033[0m'\'' >&2; exit 1' ERR
 
