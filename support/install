@@ -107,6 +107,10 @@ if [[ -e "support/$packageName.conf" ]]; then
     fi
 fi
 
+if [[ ! -e /Ember\ Library ]]; then
+	mkdir -p /Ember\ Library/Futuramerlin\ Projects/Data/Crystal\ Index/
+fi
+
 #### End of Makefile install script template (fragment) ####
 
 ereplace "73FAB73B-EEE4-4992-8622-4F3FCEC9823A" "$(date-uuid)" support/ember.conf
