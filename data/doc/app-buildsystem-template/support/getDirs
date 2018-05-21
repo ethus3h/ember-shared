@@ -11,6 +11,9 @@ fi
 
 trap 'die "A fatal error was reported on ${BASH_SOURCE[0]} line ${LINENO} in $(pwd)."' ERR
 
+packageName="$1"
+shift
+
 overrideInstalledAppDataDir="/usr/share"
 overrideInstalledAppDataDirArg="${1#*=}"
 if [[ "$1" == "--override-data-dir"* ]] && [[ -n "$overrideInstalledAppDataDirArg" ]]; then
