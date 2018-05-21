@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # shellcheck disable=SC1091
 source ember_bash_setup &> /dev/null || true
-set -x
+#set -x
 
 # Should work without ember-shared (or crystallize), just in case, so don't depend on ember_bash_setup or set traps that need it
 

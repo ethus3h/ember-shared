@@ -68,9 +68,6 @@ ereplace() {
 
 #### Beginning of Makefile install script template (fragment) ####
 
-packageName="$1"
-shift
-
 #NOTE: MAINTENANCE: Manual error printing
 if [[ -z "$(ember-getconf emberSharedVersion)" ]]; then
     printf '%b' '\033[1;31m' >&2
