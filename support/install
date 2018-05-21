@@ -136,3 +136,5 @@ if [[ ! -h "$emberSysconfdir/crystallize.conf" ]] && [[ -f "$emberSysconfdir/cry
     mv "$emberSysconfdir/crystallize.conf" "$emberSysconfdir/ember.conf"
     ln -s "$emberSysconfdir/ember.conf" "$emberSysconfdir/crystallize.conf"
 fi
+
+ln -s "$emberSysconfdir/ember-shared.conf" "$emberSysconfdir/ember.conf"
