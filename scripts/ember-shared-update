@@ -9,10 +9,9 @@ trap 'die "A fatal error was reported on ${BASH_SOURCE[0]} line ${LINENO} in $(p
 if [[ -z "$1" ]]; then
     sudo echo
     cp "$0" "$0.tmp"
-    sudo "$0.tmp" --innerExec
+    sudo "$0.tmp" --innerExec &
+    wait "$!" || die
 else
-    ((EUID)) && exec sudo -- "$0" "$@" &
-
     installDir="$(tempDir)"
     (
         cd "$installDir" || die "cd failed"
@@ -27,7 +26,4 @@ else
         )
     )
     rm -rf "${installDir:?}"
-
-    wait
-    
 fi
