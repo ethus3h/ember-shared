@@ -1,18 +1,20 @@
 #!/usr/bin/env bash
-# shellcheck disable=SC1091
-source ember_bash_setup &> /dev/null || { printf '%b' '\033[1;31m' >&2; echo "A fatal error was reported on ${BASH_SOURCE[0]} line ${LINENO} in $(pwd): The required dependency ember-shared could not be found (or ember_bash_setup could not be sourced for some other reason)." >&2; printf '%b' '\033[0m' >&2; exit 1; }
 #set -x
 
-trap 'die "A fatal error was reported on ${BASH_SOURCE[0]} line ${LINENO} in $(pwd)."' ERR
+#NOTE: MAINTENANCE: Manual error printing
+trap 'printf '\''%b'\'' '\''\033[1;31m'\'' >&2; echo "A fatal error was reported on ${BASH_SOURCE[0]} line ${LINENO} in $(pwd)." >&2; printf '\''%b'\'' '\''\033[0m'\'' >&2; exit 1' ERR
 
 ((EUID)) && exec sudo -- "$0" "$@"
 
 # Basic packages
 
-if ! emerge_loc="$(type -P "emerge")" || [[ -z $emerge_loc ]]; then
-    # If we have emerge, should just use the ebuild.
-    if ! apt install build-essential coreutils moreutils findutils tar sed gawk gnutls-bin indent wdiff rsync wget tmux hashdeep git jq pv ncdu bash xz-utils gnupg perl &> /dev/null; then
-        apt-get install build-essential coreutils moreutils findutils tar sed gawk gnutls-bin indent wdiff rsync wget tmux hashdeep git jq pv ncdu bash xz-utils gnupg perl &> /dev/null
+if [[ "$OSTYPE" != darwin* ]]; then
+    if ! emerge_loc="$(type -P "emerge")" || [[ -z $emerge_loc ]]; then
+        # If we have emerge, should just use the ebuild.
+        if ! apt install build-essential coreutils moreutils findutils tar sed gawk gnutls-bin indent wdiff rsync wget tmux hashdeep git jq pv ncdu bash xz-utils gnupg perl &> /dev/null; then
+            # Try this for Debian-ish distributions
+            apt-get install build-essential coreutils moreutils findutils tar sed gawk gnutls-bin indent wdiff rsync wget tmux hashdeep git jq pv ncdu bash xz-utils gnupg perl &> /dev/null || echo "WARNING: Unknown package manager, or package manager failed to run. Please install the dependencies manually."
+        fi
     fi
 fi
 
