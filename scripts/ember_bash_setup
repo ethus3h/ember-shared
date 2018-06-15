@@ -772,13 +772,17 @@ git-bulk-sync() {
 }
 
 get-default-firefox-profile() {
-    # from https://askubuntu.com/questions/239543/get-the-default-firefox-profile-directory-from-bash
+    # based on https://askubuntu.com/questions/239543/get-the-default-firefox-profile-directory-from-bash
     cd ~/.mozilla/firefox || die "Could not cd to ~/.mozilla/firefox"
     if grep -q '\[Profile[^0]\]' profiles.ini; then
         grep -E '^\[Profile|^Path|^Default' profiles.ini | grep -1 '^Default=1' | grep '^Path' | cut -c6-
     else
         grep 'Path=' profiles.ini | sed 's/^Path=//'
     fi
+}
+
+firefox-places-dump() {
+    
 }
 
 bigSponge() (
