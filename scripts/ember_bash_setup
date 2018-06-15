@@ -782,7 +782,11 @@ get-default-firefox-profile() {
 }
 
 firefox-places-dump() {
-    
+    # based on https://gist.github.com/kirang89/6541591
+    local firefoxProfile
+    firefoxProfile="$(get-default-firefox-profile)"
+    sqlite3 "$firefoxProfile/places.sqlite" '.sch' > firefox-places-dump.schema.sql
+    sqlite3 "$firefoxProfile/places.sqlite" '.dump' > firefox-places-dump.sql
 }
 
 bigSponge() (
