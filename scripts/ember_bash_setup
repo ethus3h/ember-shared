@@ -817,11 +817,8 @@ firefox-places-dump() {
     cp "$firefoxProfile/sessionstore.js" firefox-places-dump.sessionstore.js
     # Put newline every other character, to make it easier on git storage
     newline-delimited-characters-from-text < firefox-places-dump.schema.sql | sponge firefox-places-dump.schema.sql
-    sed 's/\(.\)/\1\n/g' -i firefox-places-dump.schema.sql
-    sed -i 's/$/\n/g' firefox-places-dump.sql
-    sed 's/\(.\)/\1\n/g' -i firefox-places-dump.sql
-    sed -i 's/$/\n/g' firefox-places-dump.sessionstore.js
-    sed 's/\(.\)/\1\n/g' -i firefox-places-dump.sessionstore.js
+    newline-delimited-characters-from-text < firefox-places-dump.sql | sponge firefox-places-dump.sql
+    newline-delimited-characters-from-text < firefox-places-dump.sessionstore.js | sponge firefox-places-dump.sessionstore.js
 }
 
 firefox-places-build() {
