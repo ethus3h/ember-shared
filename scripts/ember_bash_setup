@@ -822,8 +822,10 @@ firefox-places-dump() {
 }
 
 firefox-places-build() {
-    sqlite3 places.sqlite < firefox-places-dump.sql
-    
+    newline-delimited-characters-to-text < firefox-places-dump.sessionstore.js > sessionstore.js
+    newline-delimited-characters-to-text < firefox-places-dump.sql > firefox-places-dump.tmp.sql
+    sqlite3 places.sqlite < firefox-places-dump.tmp.sql
+    rm firefox-places-dump.tmp.sql
 }
 
 bigSponge() (
