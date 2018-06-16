@@ -783,16 +783,6 @@ remove-every-other-character() {
             fi;
         fi;
     done
-    local char
-    local state="false"
-    while IFS= read -rN1 char; do
-        if [[ "$state" == "false" ]]; then
-            print "$char"
-            state="true"
-        else
-            state="false"
-        fi
-    done
 }
 
 get-default-firefox-profile() (
@@ -822,8 +812,11 @@ firefox-places-dump() {
     sqlite3 "$firefoxProfile/places.sqlite" '.dump' > firefox-places-dump.sql
     cp "$firefoxProfile/sessionstore.js" firefox-places-dump.sessionstore.js
     # Put newline every other character, to make it easier on git storage
+    sed -i 's/$/\n/g' firefox-places-dump.schema.sql
     sed 's/\(.\)/\1\n/g' -i firefox-places-dump.schema.sql
+    sed -i 's/$/\n/g' firefox-places-dump.sql
     sed 's/\(.\)/\1\n/g' -i firefox-places-dump.sql
+    sed -i 's/$/\n/g' firefox-places-dump.sessionstore.js
     sed 's/\(.\)/\1\n/g' -i firefox-places-dump.sessionstore.js
 }
 
