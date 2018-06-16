@@ -774,7 +774,7 @@ git-bulk-sync() {
 remove-every-other-character() {
     local char
     local state="false"
-    while IFS= read -N1 char; do
+    while IFS= read -rN1 char; do
         if [[ "$state" == "false" ]]; then
             print "$char"
             state="true"
