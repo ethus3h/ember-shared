@@ -771,6 +771,19 @@ git-bulk-sync() {
     done
 }
 
+remove-every-other-character() {
+    local char
+    local state="false"
+    while IFS= read -N1 char; do
+        if [[ "$state" == "false" ]]; then
+            print "$char"
+            state="true"
+        else
+            state="false"
+        fi
+    done
+}
+
 get-default-firefox-profile() (
     # based on https://askubuntu.com/questions/239543/get-the-default-firefox-profile-directory-from-bash
     if [[ -n "$1" ]]; then
@@ -801,6 +814,11 @@ firefox-places-dump() {
     sed 's/\(.\)/\1\n/g' -i firefox-places-dump.schema.sql
     sed 's/\(.\)/\1\n/g' -i firefox-places-dump.sql
     sed 's/\(.\)/\1\n/g' -i firefox-places-dump.sessionstore.js
+}
+
+firefox-places-build() {
+    sqlite3 places.sqlite < firefox-places-dump.sql
+    
 }
 
 bigSponge() (
