@@ -772,6 +772,17 @@ git-bulk-sync() {
 }
 
 remove-every-other-character() {
+    # local n
+    # while read -r; do
+    #     if [[ -n "$REPLY" ]]; then
+    #         printf %s "$REPLY";
+    #         n=0;
+    #     else
+    #         if (( ++n % 2 )); then
+    #             printf '\n';
+    #         fi;
+    #     fi;
+    # done
     local char
     local state="false"
     while IFS= read -rN1 char; do
