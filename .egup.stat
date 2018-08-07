@@ -1,1026 +1,229 @@
-  File: ./Makefile\
+3.1.2.5.14.111
+./Makefile
+:
+f:644:1000:kyan:1000:kyan:2018:05:21:01:16:01.2035198530:EDT:2018:05:21:01:16:01.2035198530:EDT
+
+./CODE_OF_CONDUCT.md
+:
+f:644:1000:kyan:1000:kyan:2017:07:10:03:59:28.8731491350:EDT:2017:07:10:03:59:28.8731491350:EDT
+
+./support
+:
+d:755:1000:kyan:1000:kyan:2018:05:21:01:32:51.5851075880:EDT:2018:05:21:01:32:51.5851075880:EDT
+
+./support/prepare
+:
+f:755:1000:kyan:1000:kyan:2018:06:17:22:12:19.4129741250:EDT:2018:06:17:22:12:19.4129741250:EDT
+
+./support/getDirs
+:
+f:644:1000:kyan:1000:kyan:2018:05:21:01:15:17.3635420510:EDT:2018:05:21:01:15:17.3635420510:EDT
+
+./support/autodep
+:
+f:755:1000:kyan:1000:kyan:2018:05:24:13:03:19.8151587050:EDT:2018:05:24:13:03:19.8151587050:EDT
+
+./support/ember-shared.conf
+:
+f:644:1000:kyan:1000:kyan:2018:02:20:21:28:50.5217704320:EST:2018:05:21:01:32:51.5851075880:EDT
+
+./support/macRootPrepare
+:
+f:755:1000:kyan:1000:kyan:2018:01:08:21:54:38.4967132940:EST:2018:01:08:21:54:38.4967132940:EST
+
+./support/install
+:
+f:755:1000:kyan:1000:kyan:2018:06:17:22:08:53.9620245860:EDT:2018:06:17:22:08:53.9620245860:EDT
+
+./CONTRIBUTING.md
+:
+f:644:1000:kyan:1000:kyan:2017:07:10:03:59:28.8731491350:EDT:2017:07:10:03:59:28.8731491350:EDT
+
+./configure
+:
+f:755:1000:kyan:1000:kyan:2018:05:20:03:51:41.9812833180:EDT:2018:05:20:03:51:41.9812833180:EDT
+
+./scripts
+:
+d:755:1000:kyan:1000:kyan:2018:08:01:04:20:17.9752057690:EDT:2018:08:01:04:20:17.9752057690:EDT
+
+./scripts/htmlToText.pl
+:
+f:755:1000:kyan:1000:kyan:2017:12:05:15:36:57.4434786110:EST:2018:04:27:20:17:48.9120227240:EDT
+
+./scripts/csum
+:
+f:755:1000:kyan:1000:kyan:2018:05:19:19:51:56.6086887640:EDT:2018:05:19:19:51:56.6086887640:EDT
+
+./scripts/disk-size-in-bytes
+:
+f:755:1000:kyan:1000:kyan:2018:05:19:19:51:56.6186888380:EDT:2018:05:19:19:51:56.6186888380:EDT
+
+./scripts/die
+:
+f:755:1000:kyan:1000:kyan:2017:09:05:15:40:23.6073500290:EDT:2018:04:27:20:17:48.9120227240:EDT
+
+./scripts/wav2png.py
+:
+f:755:1000:kyan:1000:kyan:2018:04:27:20:18:38.5847123430:EDT:2018:04:27:20:18:38.5847123430:EDT
+
+./scripts/ember-getconf
+:
+f:755:1000:kyan:1000:kyan:2018:03:03:20:59:16.5657896310:EST:2018:04:27:20:17:48.9120227240:EDT
+
+./scripts/emberMacGNUUpgrade
+:
+f:755:1000:kyan:1000:kyan:2018:05:10:19:03:07.8814715550:EDT:2018:05:10:19:03:07.8814715550:EDT
+
+./scripts/warn
+:
+f:755:1000:kyan:1000:kyan:2017:09:05:15:40:23.6173500450:EDT:2018:04:27:20:17:48.9120227240:EDT
+
+./scripts/ember-shared-update
+:
+f:755:1000:kyan:1000:kyan:2018:06:07:00:17:38.5428610370:EDT:2018:06:07:00:17:38.5428610370:EDT
+
+./scripts/ember_bash_setup
+:
+f:755:1000:kyan:1000:kyan:2018:08:01:04:20:17.9652056600:EDT:2018:08:01:04:20:17.9752057690:EDT
+
+./scripts/error-notify
+:
+f:755:1000:kyan:1000:kyan:2017:10:13:08:38:48.5005502270:EDT:2018:04:27:20:17:48.9120227240:EDT
+
+./scripts/ember-editconf
+:
+f:755:1000:kyan:1000:kyan:2018:01:22:20:18:48.2607246930:EST:2018:04:27:20:17:48.9120227240:EDT
+
+./scripts/warn-timeout
+:
+f:755:1000:kyan:1000:kyan:2017:09:05:15:40:23.6173500450:EDT:2018:04:27:20:17:48.9120227240:EDT
+
+./data
+:
+d:755:1000:kyan:1000:kyan:2018:05:15:00:44:10.6100588220:EDT:2018:05:15:00:44:10.6100588220:EDT
 
-  Size: 1309      	Blocks: 2          IO Block: 1536   regular file\
+./data/repositories.lst
+:
+f:644:1000:kyan:1000:kyan:2018:06:02:01:08:25.1543578920:EDT:2018:06:02:01:08:25.1543578920:EDT
 
-Device: 32h/50d	Inode: 4234022     Links: 1\
+./data/repositories-nonpublic.lst
+:
+f:644:1000:kyan:1000:kyan:2018:06:02:01:08:31.3712478600:EDT:2018:06:02:01:08:31.3712478600:EDT
 
-Access: (0644/-rw-r--r--)  Uid: ( 1000/    kyan)   Gid: ( 1000/    kyan)\
+./data/repository-url-pattern.txt
+:
+f:644:1000:kyan:1000:kyan:2018:03:03:20:31:19.6818326100:EST:2018:03:03:20:31:19.6818326100:EST
 
-Access: 2018-05-24 12:40:06.735634846 -0400\
+./data/doc
+:
+d:755:1000:kyan:1000:kyan:2018:05:15:00:44:51.0313833100:EDT:2018:05:15:00:44:51.0313833100:EDT
 
-Modify: 2018-05-21 01:16:01.203519853 -0400\
+./data/doc/app-buildsystem-template
+:
+d:755:1000:kyan:1000:kyan:2018:05:20:03:45:54.8670788510:EDT:2018:05:20:03:45:54.8670788510:EDT
 
-Change: 2018-05-21 01:16:01.203519853 -0400\
+./data/doc/app-buildsystem-template/configure
+:
+f:644:1000:kyan:1000:kyan:2018:05:20:03:48:37.8590532540:EDT:2018:05:20:03:48:37.8590532540:EDT
 
- Birth: -\
+./data/doc/app-buildsystem-template/support
+:
+d:755:1000:kyan:1000:kyan:2018:05:15:18:06:55.3008572110:EDT:2018:05:15:18:06:55.3008572110:EDT
 
+./data/doc/app-buildsystem-template/support/example-package-name.conf
+:
+f:644:1000:kyan:1000:kyan:2018:05:15:01:13:02.1592333580:EDT:2018:05:15:01:13:02.1592333580:EDT
 
+./data/doc/app-buildsystem-template/support/install
+:
+f:644:1000:kyan:1000:kyan:2018:06:17:22:08:17.8519591760:EDT:2018:06:17:22:08:17.8519591760:EDT
 
-  File: ./CODE_OF_CONDUCT.md\
+./data/doc/app-buildsystem-template/support/prepare
+:
+f:644:1000:kyan:1000:kyan:2018:06:17:22:12:29.5630189170:EDT:2018:06:17:22:12:29.5630189170:EDT
 
-  Size: 3229      	Blocks: 4          IO Block: 3584   regular file\
+./data/doc/app-buildsystem-template/support/test
+:
+f:644:1000:kyan:1000:kyan:2018:05:21:01:14:40.9235711010:EDT:2018:05:21:01:14:40.9235711010:EDT
 
-Device: 32h/50d	Inode: 378379      Links: 1\
+./data/doc/app-buildsystem-template/support/prepareForMac
+:
+f:644:1000:kyan:1000:kyan:2018:06:07:00:51:06.1063727840:EDT:2018:06:07:00:51:06.1063727840:EDT
 
-Access: (0644/-rw-r--r--)  Uid: ( 1000/    kyan)   Gid: ( 1000/    kyan)\
+./data/doc/app-buildsystem-template/support/getDirs
+:
+f:644:1000:kyan:1000:kyan:2018:05:21:01:13:46.0136347280:EDT:2018:05:21:01:13:46.0136347280:EDT
 
-Access: 2018-05-19 19:51:50.848645876 -0400\
+./data/doc/app-buildsystem-template/support/autodep
+:
+f:644:1000:kyan:1000:kyan:2018:05:21:01:13:52.6336257210:EDT:2018:05:21:01:13:52.6336257210:EDT
 
-Modify: 2017-07-10 03:59:28.873149135 -0400\
+./data/doc/app-buildsystem-template/scripts
+:
+d:755:1000:kyan:1000:kyan:2018:05:15:00:52:56.0731132610:EDT:2018:05:15:00:52:56.0731132610:EDT
 
-Change: 2017-07-10 03:59:28.873149135 -0400\
+./data/doc/app-buildsystem-template/scripts/example
+:
+f:644:1000:kyan:1000:kyan:2018:05:19:19:51:56.6086887640:EDT:2018:05:19:19:51:56.6086887640:EDT
 
- Birth: -\
+./data/doc/app-buildsystem-template/docs
+:
+d:755:1000:kyan:1000:kyan:2018:05:20:01:06:16.7048853350:EDT:2018:05:20:01:06:16.7048853350:EDT
 
+./data/doc/app-buildsystem-template/docs/.futuramerlin-web-toolkit
+:
+d:755:1000:kyan:1000:kyan:2018:05:20:01:06:28.5848967090:EDT:2018:05:20:01:06:28.5848967090:EDT
 
+./data/doc/app-buildsystem-template/docs/.futuramerlin-web-toolkit/.futuramerlin-web-toolkit.cfg
+:
+f:644:1000:kyan:1000:kyan:2018:05:20:16:59:46.6532039460:EDT:2018:05:20:16:59:46.6532039460:EDT
 
-  File: ./support\
+./data/doc/app-buildsystem-template/docs/example.htm
+:
+f:644:1000:kyan:1000:kyan:2018:05:15:00:56:07.2963949310:EDT:2018:05:15:00:56:07.2963949310:EDT
 
-  Size: 8         	Blocks: 3          IO Block: 512    directory\
+./data/doc/app-buildsystem-template/package-name
+:
+f:644:1000:kyan:1000:kyan:2018:05:20:03:45:58.8871275510:EDT:2018:05:20:03:45:58.8871275510:EDT
 
-Device: 32h/50d	Inode: 4233833     Links: 2\
+./data/doc/app-buildsystem-template/data
+:
+d:755:1000:kyan:1000:kyan:2018:05:15:00:54:09.8944403930:EDT:2018:05:15:00:54:09.8944403930:EDT
 
-Access: (0755/drwxr-xr-x)  Uid: ( 1000/    kyan)   Gid: ( 1000/    kyan)\
+./data/doc/app-buildsystem-template/data/example.dat
+:
+f:644:1000:kyan:1000:kyan:2018:05:15:00:54:09.8944403930:EDT:2018:05:15:00:54:09.8944403930:EDT
 
-Access: 2018-08-05 01:29:18.108401961 -0400\
+./data/doc/app-buildsystem-template/Makefile
+:
+f:644:1000:kyan:1000:kyan:2018:05:21:01:14:23.1535889870:EDT:2018:05:21:01:14:23.1535889870:EDT
 
-Modify: 2018-05-21 01:32:51.585107588 -0400\
+./data/stream-registries.lst
+:
+f:644:1000:kyan:1000:kyan:2018:03:22:19:29:16.8586892250:EDT:2018:03:22:19:29:16.8586892250:EDT
 
-Change: 2018-05-21 01:32:51.585107588 -0400\
+./data/repositories-submodules.lst
+:
+f:644:1000:kyan:1000:kyan:2018:03:04:19:34:10.6973570220:EST:2018:03:04:19:34:10.6973570220:EST
 
- Birth: -\
+./README.md
+:
+f:755:1000:kyan:1000:kyan:2017:05:10:15:49:11.0781402260:EDT:2017:06:01:23:07:41.7931688440:EDT
 
+./.gitignore
+:
+f:644:1000:kyan:1000:kyan:2017:09:28:14:33:28.5031191630:EDT:2017:09:28:14:33:28.5031191630:EDT
 
+./.codeclimate.yml
+:
+f:644:1000:kyan:1000:kyan:2017:05:10:16:18:06.2244746680:EDT:2017:05:10:16:18:06.2244746680:EDT
 
-  File: ./support/prepare\
+./package-name
+:
+f:644:1000:kyan:1000:kyan:2018:05:20:03:50:30.1504133440:EDT:2018:05:20:03:50:30.1504133440:EDT
 
-  Size: 3355      	Blocks: 4          IO Block: 3584   regular file\
-
-Device: 32h/50d	Inode: 9961633     Links: 1\
-
-Access: (0755/-rwxr-xr-x)  Uid: ( 1000/    kyan)   Gid: ( 1000/    kyan)\
-
-Access: 2018-07-07 00:22:44.278295018 -0400\
-
-Modify: 2018-06-17 22:12:19.412974125 -0400\
-
-Change: 2018-06-17 22:12:19.412974125 -0400\
-
- Birth: -\
-
-
-
-  File: ./support/getDirs\
-
-  Size: 3269      	Blocks: 3          IO Block: 3584   regular file\
-
-Device: 32h/50d	Inode: 122410      Links: 1\
-
-Access: (0644/-rw-r--r--)  Uid: ( 1000/    kyan)   Gid: ( 1000/    kyan)\
-
-Access: 2018-07-07 00:22:44.278295018 -0400\
-
-Modify: 2018-05-21 01:15:17.363542051 -0400\
-
-Change: 2018-05-21 01:15:17.363542051 -0400\
-
- Birth: -\
-
-
-
-  File: ./support/autodep\
-
-  Size: 4496      	Blocks: 3          IO Block: 6144   regular file\
-
-Device: 32h/50d	Inode: 3032707     Links: 1\
-
-Access: (0755/-rwxr-xr-x)  Uid: ( 1000/    kyan)   Gid: ( 1000/    kyan)\
-
-Access: 2018-07-07 00:22:44.278295018 -0400\
-
-Modify: 2018-05-24 13:03:19.815158705 -0400\
-
-Change: 2018-05-24 13:03:19.815158705 -0400\
-
- Birth: -\
-
-
-
-  File: ./support/ember-shared.conf\
-
-  Size: 288       	Blocks: 2          IO Block: 512    regular file\
-
-Device: 32h/50d	Inode: 535035      Links: 1\
-
-Access: (0644/-rw-r--r--)  Uid: ( 1000/    kyan)   Gid: ( 1000/    kyan)\
-
-Access: 2018-07-07 00:22:44.278295018 -0400\
-
-Modify: 2018-02-20 21:28:50.521770432 -0500\
-
-Change: 2018-05-21 01:32:51.585107588 -0400\
-
- Birth: -\
-
-
-
-  File: ./support/macRootPrepare\
-
-  Size: 465       	Blocks: 2          IO Block: 512    regular file\
-
-Device: 32h/50d	Inode: 9961632     Links: 1\
-
-Access: (0755/-rwxr-xr-x)  Uid: ( 1000/    kyan)   Gid: ( 1000/    kyan)\
-
-Access: 2018-07-07 00:22:44.278295018 -0400\
-
-Modify: 2018-01-08 21:54:38.496713294 -0500\
-
-Change: 2018-01-08 21:54:38.496713294 -0500\
-
- Birth: -\
-
-
-
-  File: ./support/install\
-
-  Size: 5481      	Blocks: 5          IO Block: 7168   regular file\
-
-Device: 32h/50d	Inode: 4233952     Links: 1\
-
-Access: (0755/-rwxr-xr-x)  Uid: ( 1000/    kyan)   Gid: ( 1000/    kyan)\
-
-Access: 2018-06-17 22:08:54.282025164 -0400\
-
-Modify: 2018-06-17 22:08:53.962024586 -0400\
-
-Change: 2018-06-17 22:08:53.962024586 -0400\
-
- Birth: -\
-
-
-
-  File: ./CONTRIBUTING.md\
-
-  Size: 356       	Blocks: 2          IO Block: 512    regular file\
-
-Device: 32h/50d	Inode: 378380      Links: 1\
-
-Access: (0644/-rw-r--r--)  Uid: ( 1000/    kyan)   Gid: ( 1000/    kyan)\
-
-Access: 2018-05-19 19:51:50.848645876 -0400\
-
-Modify: 2017-07-10 03:59:28.873149135 -0400\
-
-Change: 2017-07-10 03:59:28.873149135 -0400\
-
- Birth: -\
-
-
-
-  File: ./configure\
-
-  Size: 1838      	Blocks: 3          IO Block: 2048   regular file\
-
-Device: 32h/50d	Inode: 12104333    Links: 1\
-
-Access: (0755/-rwxr-xr-x)  Uid: ( 1000/    kyan)   Gid: ( 1000/    kyan)\
-
-Access: 2018-08-05 01:29:38.818609565 -0400\
-
-Modify: 2018-05-20 03:51:41.981283318 -0400\
-
-Change: 2018-05-20 03:51:41.981283318 -0400\
-
- Birth: -\
-
-
-
-  File: ./scripts\
-
-  Size: 15        	Blocks: 3          IO Block: 1024   directory\
-
-Device: 32h/50d	Inode: 4233832     Links: 2\
-
-Access: (0755/drwxr-xr-x)  Uid: ( 1000/    kyan)   Gid: ( 1000/    kyan)\
-
-Access: 2018-08-05 01:29:18.118402061 -0400\
-
-Modify: 2018-08-01 04:20:17.975205769 -0400\
-
-Change: 2018-08-01 04:20:17.975205769 -0400\
-
- Birth: -\
-
-
-
-  File: ./scripts/htmlToText.pl\
-
-  Size: 167       	Blocks: 2          IO Block: 512    regular file\
-
-Device: 32h/50d	Inode: 3287001     Links: 1\
-
-Access: (0755/-rwxr-xr-x)  Uid: ( 1000/    kyan)   Gid: ( 1000/    kyan)\
-
-Access: 2018-05-24 16:22:18.206766940 -0400\
-
-Modify: 2017-12-05 15:36:57.443478611 -0500\
-
-Change: 2018-04-27 20:17:48.912022724 -0400\
-
- Birth: -\
-
-
-
-  File: ./scripts/csum\
-
-  Size: 3127      	Blocks: 4          IO Block: 3584   regular file\
-
-Device: 32h/50d	Inode: 245801      Links: 1\
-
-Access: (0755/-rwxr-xr-x)  Uid: ( 1000/    kyan)   Gid: ( 1000/    kyan)\
-
-Access: 2018-08-05 01:29:40.398625365 -0400\
-
-Modify: 2018-05-19 19:51:56.608688764 -0400\
-
-Change: 2018-05-19 19:51:56.608688764 -0400\
-
- Birth: -\
-
-
-
-  File: ./scripts/disk-size-in-bytes\
-
-  Size: 512       	Blocks: 2          IO Block: 512    regular file\
-
-Device: 32h/50d	Inode: 120480      Links: 1\
-
-Access: (0755/-rwxr-xr-x)  Uid: ( 1000/    kyan)   Gid: ( 1000/    kyan)\
-
-Access: 2018-08-05 01:29:40.428625664 -0400\
-
-Modify: 2018-05-19 19:51:56.618688838 -0400\
-
-Change: 2018-05-19 19:51:56.618688838 -0400\
-
- Birth: -\
-
-
-
-  File: ./scripts/die\
-
-  Size: 324       	Blocks: 2          IO Block: 1024   regular file\
-
-Device: 32h/50d	Inode: 1248438     Links: 1\
-
-Access: (0755/-rwxr-xr-x)  Uid: ( 1000/    kyan)   Gid: ( 1000/    kyan)\
-
-Access: 2018-05-19 19:51:50.938646549 -0400\
-
-Modify: 2017-09-05 15:40:23.607350029 -0400\
-
-Change: 2018-04-27 20:17:48.912022724 -0400\
-
- Birth: -\
-
-
-
-  File: ./scripts/wav2png.py\
-
-  Size: 2179      	Blocks: 4          IO Block: 2560   regular file\
-
-Device: 32h/50d	Inode: 12614023    Links: 1\
-
-Access: (0755/-rwxr-xr-x)  Uid: ( 1000/    kyan)   Gid: ( 1000/    kyan)\
-
-Access: 2018-08-05 01:29:40.438625764 -0400\
-
-Modify: 2018-04-27 20:18:38.584712343 -0400\
-
-Change: 2018-04-27 20:18:38.584712343 -0400\
-
- Birth: -\
-
-
-
-  File: ./scripts/ember-getconf\
-
-  Size: 1675      	Blocks: 3          IO Block: 2048   regular file\
-
-Device: 32h/50d	Inode: 535087      Links: 1\
-
-Access: (0755/-rwxr-xr-x)  Uid: ( 1000/    kyan)   Gid: ( 1000/    kyan)\
-
-Access: 2018-08-05 01:29:40.428625664 -0400\
-
-Modify: 2018-03-03 20:59:16.565789631 -0500\
-
-Change: 2018-04-27 20:17:48.912022724 -0400\
-
- Birth: -\
-
-
-
-  File: ./scripts/emberMacGNUUpgrade\
-
-  Size: 596       	Blocks: 2          IO Block: 1024   regular file\
-
-Device: 32h/50d	Inode: 9961630     Links: 1\
-
-Access: (0755/-rwxr-xr-x)  Uid: ( 1000/    kyan)   Gid: ( 1000/    kyan)\
-
-Access: 2018-08-05 01:29:40.428625664 -0400\
-
-Modify: 2018-05-10 19:03:07.881471555 -0400\
-
-Change: 2018-05-10 19:03:07.881471555 -0400\
-
- Birth: -\
-
-
-
-  File: ./scripts/warn\
-
-  Size: 147       	Blocks: 2          IO Block: 512    regular file\
-
-Device: 32h/50d	Inode: 736005      Links: 1\
-
-Access: (0755/-rwxr-xr-x)  Uid: ( 1000/    kyan)   Gid: ( 1000/    kyan)\
-
-Access: 2018-08-05 01:29:40.428625664 -0400\
-
-Modify: 2017-09-05 15:40:23.617350045 -0400\
-
-Change: 2018-04-27 20:17:48.912022724 -0400\
-
- Birth: -\
-
-
-
-  File: ./scripts/ember-shared-update\
-
-  Size: 918       	Blocks: 2          IO Block: 1024   regular file\
-
-Device: 32h/50d	Inode: 10023469    Links: 1\
-
-Access: (0755/-rwxr-xr-x)  Uid: ( 1000/    kyan)   Gid: ( 1000/    kyan)\
-
-Access: 2018-08-05 01:29:40.438625764 -0400\
-
-Modify: 2018-06-07 00:17:38.542861037 -0400\
-
-Change: 2018-06-07 00:17:38.542861037 -0400\
-
- Birth: -\
-
-
-
-  File: ./scripts/ember_bash_setup\
-
-  Size: 41868     	Blocks: 21         IO Block: 41984  regular file\
-
-Device: 32h/50d	Inode: 16913650    Links: 1\
-
-Access: (0755/-rwxr-xr-x)  Uid: ( 1000/    kyan)   Gid: ( 1000/    kyan)\
-
-Access: 2018-08-05 01:29:40.438625764 -0400\
-
-Modify: 2018-08-01 04:20:17.965205660 -0400\
-
-Change: 2018-08-01 04:20:17.975205769 -0400\
-
- Birth: -\
-
-
-
-  File: ./scripts/error-notify\
-
-  Size: 1419      	Blocks: 3          IO Block: 1536   regular file\
-
-Device: 32h/50d	Inode: 735986      Links: 1\
-
-Access: (0755/-rwxr-xr-x)  Uid: ( 1000/    kyan)   Gid: ( 1000/    kyan)\
-
-Access: 2018-08-05 01:29:40.438625764 -0400\
-
-Modify: 2017-10-13 08:38:48.500550227 -0400\
-
-Change: 2018-04-27 20:17:48.912022724 -0400\
-
- Birth: -\
-
-
-
-  File: ./scripts/ember-editconf\
-
-  Size: 885       	Blocks: 2          IO Block: 1024   regular file\
-
-Device: 32h/50d	Inode: 535304      Links: 1\
-
-Access: (0755/-rwxr-xr-x)  Uid: ( 1000/    kyan)   Gid: ( 1000/    kyan)\
-
-Access: 2018-08-05 01:29:40.438625764 -0400\
-
-Modify: 2018-01-22 20:18:48.260724693 -0500\
-
-Change: 2018-04-27 20:17:48.912022724 -0400\
-
- Birth: -\
-
-
-
-  File: ./scripts/warn-timeout\
-
-  Size: 426       	Blocks: 2          IO Block: 512    regular file\
-
-Device: 32h/50d	Inode: 736006      Links: 1\
-
-Access: (0755/-rwxr-xr-x)  Uid: ( 1000/    kyan)   Gid: ( 1000/    kyan)\
-
-Access: 2018-08-05 01:29:40.438625764 -0400\
-
-Modify: 2017-09-05 15:40:23.617350045 -0400\
-
-Change: 2018-04-27 20:17:48.912022724 -0400\
-
- Birth: -\
-
-
-
-  File: ./data\
-
-  Size: 8         	Blocks: 3          IO Block: 512    directory\
-
-Device: 32h/50d	Inode: 10491284    Links: 3\
-
-Access: (0755/drwxr-xr-x)  Uid: ( 1000/    kyan)   Gid: ( 1000/    kyan)\
-
-Access: 2018-08-05 01:29:18.118402061 -0400\
-
-Modify: 2018-05-15 00:44:10.610058822 -0400\
-
-Change: 2018-05-15 00:44:10.610058822 -0400\
-
- Birth: -\
-
-
-
-  File: ./data/repositories.lst\
-
-  Size: 700       	Blocks: 2          IO Block: 5632   regular file\
-
-Device: 32h/50d	Inode: 10491287    Links: 1\
-
-Access: (0644/-rw-r--r--)  Uid: ( 1000/    kyan)   Gid: ( 1000/    kyan)\
-
-Access: 2018-07-07 00:22:44.278295018 -0400\
-
-Modify: 2018-06-02 01:08:25.154357892 -0400\
-
-Change: 2018-06-02 01:08:25.154357892 -0400\
-
- Birth: -\
-
-
-
-  File: ./data/repositories-nonpublic.lst\
-
-  Size: 86        	Blocks: 1          IO Block: 512    regular file\
-
-Device: 32h/50d	Inode: 10491538    Links: 1\
-
-Access: (0644/-rw-r--r--)  Uid: ( 1000/    kyan)   Gid: ( 1000/    kyan)\
-
-Access: 2018-07-07 00:22:44.278295018 -0400\
-
-Modify: 2018-06-02 01:08:31.371247860 -0400\
-
-Change: 2018-06-02 01:08:31.371247860 -0400\
-
- Birth: -\
-
-
-
-  File: ./data/repository-url-pattern.txt\
-
-  Size: 44        	Blocks: 1          IO Block: 512    regular file\
-
-Device: 32h/50d	Inode: 10491630    Links: 1\
-
-Access: (0644/-rw-r--r--)  Uid: ( 1000/    kyan)   Gid: ( 1000/    kyan)\
-
-Access: 2018-05-21 01:13:06.763696135 -0400\
-
-Modify: 2018-03-03 20:31:19.681832610 -0500\
-
-Change: 2018-03-03 20:31:19.681832610 -0500\
-
- Birth: -\
-
-
-
-  File: ./data/doc\
-
-  Size: 3         	Blocks: 1          IO Block: 512    directory\
-
-Device: 32h/50d	Inode: 12102373    Links: 3\
-
-Access: (0755/drwxr-xr-x)  Uid: ( 1000/    kyan)   Gid: ( 1000/    kyan)\
-
-Access: 2018-08-05 01:29:18.118402061 -0400\
-
-Modify: 2018-05-15 00:44:51.031383310 -0400\
-
-Change: 2018-05-15 00:44:51.031383310 -0400\
-
- Birth: -\
-
-
-
-  File: ./data/doc/app-buildsystem-template\
-
-  Size: 9         	Blocks: 3          IO Block: 512    directory\
-
-Device: 32h/50d	Inode: 12102374    Links: 6\
-
-Access: (0755/drwxr-xr-x)  Uid: ( 1000/    kyan)   Gid: ( 1000/    kyan)\
-
-Access: 2018-08-05 01:29:18.118402061 -0400\
-
-Modify: 2018-05-20 03:45:54.867078851 -0400\
-
-Change: 2018-05-20 03:45:54.867078851 -0400\
-
- Birth: -\
-
-
-
-  File: ./data/doc/app-buildsystem-template/configure\
-
-  Size: 1838      	Blocks: 3          IO Block: 2560   regular file\
-
-Device: 32h/50d	Inode: 12102502    Links: 1\
-
-Access: (0644/-rw-r--r--)  Uid: ( 1000/    kyan)   Gid: ( 1000/    kyan)\
-
-Access: 2018-07-07 00:22:44.288295033 -0400\
-
-Modify: 2018-05-20 03:48:37.859053254 -0400\
-
-Change: 2018-05-20 03:48:37.859053254 -0400\
-
- Birth: -\
-
-
-
-  File: ./data/doc/app-buildsystem-template/support\
-
-  Size: 9         	Blocks: 3          IO Block: 512    directory\
-
-Device: 32h/50d	Inode: 12102254    Links: 2\
-
-Access: (0755/drwxr-xr-x)  Uid: ( 1000/    kyan)   Gid: ( 1000/    kyan)\
-
-Access: 2018-08-05 01:29:18.118402061 -0400\
-
-Modify: 2018-05-15 18:06:55.300857211 -0400\
-
-Change: 2018-05-15 18:06:55.300857211 -0400\
-
- Birth: -\
-
-
-
-  File: ./data/doc/app-buildsystem-template/support/example-package-name.conf\
-
-  Size: 34        	Blocks: 1          IO Block: 512    regular file\
-
-Device: 32h/50d	Inode: 12103967    Links: 1\
-
-Access: (0644/-rw-r--r--)  Uid: ( 1000/    kyan)   Gid: ( 1000/    kyan)\
-
-Access: 2018-07-07 00:22:44.288295033 -0400\
-
-Modify: 2018-05-15 01:13:02.159233358 -0400\
-
-Change: 2018-05-15 01:13:02.159233358 -0400\
-
- Birth: -\
-
-
-
-  File: ./data/doc/app-buildsystem-template/support/install\
-
-  Size: 2192      	Blocks: 3          IO Block: 4608   regular file\
-
-Device: 32h/50d	Inode: 12102686    Links: 1\
-
-Access: (0644/-rw-r--r--)  Uid: ( 1000/    kyan)   Gid: ( 1000/    kyan)\
-
-Access: 2018-06-17 22:08:18.181959776 -0400\
-
-Modify: 2018-06-17 22:08:17.851959176 -0400\
-
-Change: 2018-06-17 22:08:17.851959176 -0400\
-
- Birth: -\
-
-
-
-  File: ./data/doc/app-buildsystem-template/support/prepare\
-
-  Size: 2399      	Blocks: 4          IO Block: 2560   regular file\
-
-Device: 32h/50d	Inode: 12102689    Links: 1\
-
-Access: (0644/-rw-r--r--)  Uid: ( 1000/    kyan)   Gid: ( 1000/    kyan)\
-
-Access: 2018-07-07 00:22:44.288295033 -0400\
-
-Modify: 2018-06-17 22:12:29.563018917 -0400\
-
-Change: 2018-06-17 22:12:29.563018917 -0400\
-
- Birth: -\
-
-
-
-  File: ./data/doc/app-buildsystem-template/support/test\
-
-  Size: 567       	Blocks: 2          IO Block: 1024   regular file\
-
-Device: 32h/50d	Inode: 12102938    Links: 1\
-
-Access: (0644/-rw-r--r--)  Uid: ( 1000/    kyan)   Gid: ( 1000/    kyan)\
-
-Access: 2018-07-07 00:22:44.288295033 -0400\
-
-Modify: 2018-05-21 01:14:40.923571101 -0400\
-
-Change: 2018-05-21 01:14:40.923571101 -0400\
-
- Birth: -\
-
-
-
-  File: ./data/doc/app-buildsystem-template/support/prepareForMac\
-
-  Size: 2363      	Blocks: 3          IO Block: 2560   regular file\
-
-Device: 32h/50d	Inode: 12103754    Links: 1\
-
-Access: (0644/-rw-r--r--)  Uid: ( 1000/    kyan)   Gid: ( 1000/    kyan)\
-
-Access: 2018-07-07 00:22:44.288295033 -0400\
-
-Modify: 2018-06-07 00:51:06.106372784 -0400\
-
-Change: 2018-06-07 00:51:06.106372784 -0400\
-
- Birth: -\
-
-
-
-  File: ./data/doc/app-buildsystem-template/support/getDirs\
-
-  Size: 3269      	Blocks: 3          IO Block: 4608   regular file\
-
-Device: 32h/50d	Inode: 122048      Links: 1\
-
-Access: (0644/-rw-r--r--)  Uid: ( 1000/    kyan)   Gid: ( 1000/    kyan)\
-
-Access: 2018-07-07 00:22:44.288295033 -0400\
-
-Modify: 2018-05-21 01:13:46.013634728 -0400\
-
-Change: 2018-05-21 01:13:46.013634728 -0400\
-
- Birth: -\
-
-
-
-  File: ./data/doc/app-buildsystem-template/support/autodep\
-
-  Size: 1070      	Blocks: 3          IO Block: 1536   regular file\
-
-Device: 32h/50d	Inode: 12102690    Links: 1\
-
-Access: (0644/-rw-r--r--)  Uid: ( 1000/    kyan)   Gid: ( 1000/    kyan)\
-
-Access: 2018-07-07 00:22:44.288295033 -0400\
-
-Modify: 2018-05-21 01:13:52.633625721 -0400\
-
-Change: 2018-05-21 01:13:52.633625721 -0400\
-
- Birth: -\
-
-
-
-  File: ./data/doc/app-buildsystem-template/scripts\
-
-  Size: 3         	Blocks: 1          IO Block: 512    directory\
-
-Device: 32h/50d	Inode: 12102847    Links: 2\
-
-Access: (0755/drwxr-xr-x)  Uid: ( 1000/    kyan)   Gid: ( 1000/    kyan)\
-
-Access: 2018-08-05 01:29:18.118402061 -0400\
-
-Modify: 2018-05-15 00:52:56.073113261 -0400\
-
-Change: 2018-05-15 00:52:56.073113261 -0400\
-
- Birth: -\
-
-
-
-  File: ./data/doc/app-buildsystem-template/scripts/example\
-
-  Size: 563       	Blocks: 2          IO Block: 3584   regular file\
-
-Device: 32h/50d	Inode: 12102954    Links: 1\
-
-Access: (0644/-rw-r--r--)  Uid: ( 1000/    kyan)   Gid: ( 1000/    kyan)\
-
-Access: 2018-07-07 00:22:44.288295033 -0400\
-
-Modify: 2018-05-19 19:51:56.608688764 -0400\
-
-Change: 2018-05-19 19:51:56.608688764 -0400\
-
- Birth: -\
-
-
-
-  File: ./data/doc/app-buildsystem-template/docs\
-
-  Size: 4         	Blocks: 1          IO Block: 512    directory\
-
-Device: 32h/50d	Inode: 12102895    Links: 3\
-
-Access: (0755/drwxr-xr-x)  Uid: ( 1000/    kyan)   Gid: ( 1000/    kyan)\
-
-Access: 2018-08-05 01:29:18.118402061 -0400\
-
-Modify: 2018-05-20 01:06:16.704885335 -0400\
-
-Change: 2018-05-20 01:06:16.704885335 -0400\
-
- Birth: -\
-
-
-
-  File: ./data/doc/app-buildsystem-template/docs/.futuramerlin-web-toolkit\
-
-  Size: 3         	Blocks: 1          IO Block: 512    directory\
-
-Device: 32h/50d	Inode: 222942      Links: 2\
-
-Access: (0755/drwxr-xr-x)  Uid: ( 1000/    kyan)   Gid: ( 1000/    kyan)\
-
-Access: 2018-08-05 01:29:18.118402061 -0400\
-
-Modify: 2018-05-20 01:06:28.584896709 -0400\
-
-Change: 2018-05-20 01:06:28.584896709 -0400\
-
- Birth: -\
-
-
-
-  File: ./data/doc/app-buildsystem-template/docs/.futuramerlin-web-toolkit/.futuramerlin-web-toolkit.cfg\
-
-  Size: 80        	Blocks: 1          IO Block: 512    regular file\
-
-Device: 32h/50d	Inode: 222943      Links: 1\
-
-Access: (0644/-rw-r--r--)  Uid: ( 1000/    kyan)   Gid: ( 1000/    kyan)\
-
-Access: 2018-05-20 16:59:46.663203826 -0400\
-
-Modify: 2018-05-20 16:59:46.653203946 -0400\
-
-Change: 2018-05-20 16:59:46.653203946 -0400\
-
- Birth: -\
-
-
-
-  File: ./data/doc/app-buildsystem-template/docs/example.htm\
-
-  Size: 0         	Blocks: 1          IO Block: 512    regular empty file\
-
-Device: 32h/50d	Inode: 12102896    Links: 1\
-
-Access: (0644/-rw-r--r--)  Uid: ( 1000/    kyan)   Gid: ( 1000/    kyan)\
-
-Access: 2018-07-07 00:22:44.288295033 -0400\
-
-Modify: 2018-05-15 00:56:07.296394931 -0400\
-
-Change: 2018-05-15 00:56:07.296394931 -0400\
-
- Birth: -\
-
-
-
-  File: ./data/doc/app-buildsystem-template/package-name\
-
-  Size: 21        	Blocks: 1          IO Block: 512    regular file\
-
-Device: 32h/50d	Inode: 14687697    Links: 1\
-
-Access: (0644/-rw-r--r--)  Uid: ( 1000/    kyan)   Gid: ( 1000/    kyan)\
-
-Access: 2018-07-07 00:22:44.288295033 -0400\
-
-Modify: 2018-05-20 03:45:58.887127551 -0400\
-
-Change: 2018-05-20 03:45:58.887127551 -0400\
-
- Birth: -\
-
-
-
-  File: ./data/doc/app-buildsystem-template/data\
-
-  Size: 3         	Blocks: 1          IO Block: 512    directory\
-
-Device: 32h/50d	Inode: 12103007    Links: 2\
-
-Access: (0755/drwxr-xr-x)  Uid: ( 1000/    kyan)   Gid: ( 1000/    kyan)\
-
-Access: 2018-08-05 01:29:18.118402061 -0400\
-
-Modify: 2018-05-15 00:54:09.894440393 -0400\
-
-Change: 2018-05-15 00:54:09.894440393 -0400\
-
- Birth: -\
-
-
-
-  File: ./data/doc/app-buildsystem-template/data/example.dat\
-
-  Size: 0         	Blocks: 1          IO Block: 512    regular empty file\
-
-Device: 32h/50d	Inode: 12103046    Links: 1\
-
-Access: (0644/-rw-r--r--)  Uid: ( 1000/    kyan)   Gid: ( 1000/    kyan)\
-
-Access: 2018-05-21 01:13:06.833696014 -0400\
-
-Modify: 2018-05-15 00:54:09.894440393 -0400\
-
-Change: 2018-05-15 00:54:09.894440393 -0400\
-
- Birth: -\
-
-
-
-  File: ./data/doc/app-buildsystem-template/Makefile\
-
-  Size: 1309      	Blocks: 2          IO Block: 1536   regular file\
-
-Device: 32h/50d	Inode: 12102696    Links: 1\
-
-Access: (0644/-rw-r--r--)  Uid: ( 1000/    kyan)   Gid: ( 1000/    kyan)\
-
-Access: 2018-05-21 01:14:23.163588976 -0400\
-
-Modify: 2018-05-21 01:14:23.153588987 -0400\
-
-Change: 2018-05-21 01:14:23.153588987 -0400\
-
- Birth: -\
-
-
-
-  File: ./data/stream-registries.lst\
-
-  Size: 102       	Blocks: 1          IO Block: 512    regular file\
-
-Device: 32h/50d	Inode: 10550270    Links: 1\
-
-Access: (0644/-rw-r--r--)  Uid: ( 1000/    kyan)   Gid: ( 1000/    kyan)\
-
-Access: 2018-07-07 00:22:44.278295018 -0400\
-
-Modify: 2018-03-22 19:29:16.858689225 -0400\
-
-Change: 2018-03-22 19:29:16.858689225 -0400\
-
- Birth: -\
-
-
-
-  File: ./data/repositories-submodules.lst\
-
-  Size: 1584      	Blocks: 2          IO Block: 5632   regular file\
-
-Device: 32h/50d	Inode: 10498475    Links: 1\
-
-Access: (0644/-rw-r--r--)  Uid: ( 1000/    kyan)   Gid: ( 1000/    kyan)\
-
-Access: 2018-07-07 00:22:44.278295018 -0400\
-
-Modify: 2018-03-04 19:34:10.697357022 -0500\
-
-Change: 2018-03-04 19:34:10.697357022 -0500\
-
- Birth: -\
-
-
-
-  File: ./README.md\
-
-  Size: 298       	Blocks: 2          IO Block: 512    regular file\
-
-Device: 32h/50d	Inode: 1077362     Links: 1\
-
-Access: (0755/-rwxr-xr-x)  Uid: ( 1000/    kyan)   Gid: ( 1000/    kyan)\
-
-Access: 2018-08-05 01:29:38.818609565 -0400\
-
-Modify: 2017-05-10 15:49:11.078140226 -0400\
-
-Change: 2017-06-01 23:07:41.793168844 -0400\
-
- Birth: -\
-
-
-
-  File: ./.gitignore\
-
-  Size: 16        	Blocks: 1          IO Block: 512    regular file\
-
-Device: 32h/50d	Inode: 3345451     Links: 1\
-
-Access: (0644/-rw-r--r--)  Uid: ( 1000/    kyan)   Gid: ( 1000/    kyan)\
-
-Access: 2018-08-05 01:29:18.108401961 -0400\
-
-Modify: 2017-09-28 14:33:28.503119163 -0400\
-
-Change: 2017-09-28 14:33:28.503119163 -0400\
-
- Birth: -\
-
-
-
-  File: ./.codeclimate.yml\
-
-  Size: 107       	Blocks: 1          IO Block: 512    regular file\
-
-Device: 32h/50d	Inode: 1077645     Links: 1\
-
-Access: (0644/-rw-r--r--)  Uid: ( 1000/    kyan)   Gid: ( 1000/    kyan)\
-
-Access: 2018-05-19 19:51:50.798645504 -0400\
-
-Modify: 2017-05-10 16:18:06.224474668 -0400\
-
-Change: 2017-05-10 16:18:06.224474668 -0400\
-
- Birth: -\
-
-
-
-  File: ./package-name\
-
-  Size: 13        	Blocks: 1          IO Block: 512    regular file\
-
-Device: 32h/50d	Inode: 14687957    Links: 1\
-
-Access: (0644/-rw-r--r--)  Uid: ( 1000/    kyan)   Gid: ( 1000/    kyan)\
-
-Access: 2018-08-05 01:29:38.818609565 -0400\
-
-Modify: 2018-05-20 03:50:30.150413344 -0400\
-
-Change: 2018-05-20 03:50:30.150413344 -0400\
-
- Birth: -\
-
-
-
-  File: ./LICENSE.md\
-
-  Size: 34280     	Blocks: 24         IO Block: 34304  regular file\
-
-Device: 32h/50d	Inode: 1077644     Links: 1\
-
-Access: (0755/-rwxr-xr-x)  Uid: ( 1000/    kyan)   Gid: ( 1000/    kyan)\
-
-Access: 2018-05-19 19:51:50.858645951 -0400\
-
-Modify: 2017-05-10 16:17:56.754620716 -0400\
-
-Change: 2017-06-01 23:07:41.793168844 -0400\
-
- Birth: -\
-
-
+./LICENSE.md
+:
+f:755:1000:kyan:1000:kyan:2017:05:10:16:17:56.7546207160:EDT:2017:06:01:23:07:41.7931688440:EDT
 
