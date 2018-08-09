@@ -742,6 +742,14 @@ tempFile() {
     mktemp --tmpdir ".tempFile-$(date-uuid).XXXXXXXXXX"
 }
 
+ytdl-quick() {
+    youtube-dl -i --geo-bypass --write-description --write-info-json --write-annotations --write-thumbnail --write-all-thumbnails --write-sub --write-auto-sub --all-subs -k -f bestaudio "$@" | tee "ytdl-quicked-$(date-uuid)".log
+}
+
+ytdl-quick() {
+    youtube-dl -i --geo-bypass --write-description --write-info-json --write-annotations --write-thumbnail --write-all-thumbnails --write-sub --write-auto-sub --all-subs -k -f bestaudio "$@" | tee "ytdl-quicked-$(date-uuid)".log
+}
+
 crystallize-getconf() {
     [[ -n "$EmberWorkdirOverride54ae685dc782437c99bc46c7a1211377" ]] && export EmberWorkdirOverride54ae685dc782437c99bc46c7a1211377
     command crystallize-getconf "$@"
