@@ -543,10 +543,10 @@ hasWebProtocol() (
 getGrabSitePath() {
     if command grab-site 2>&1 > /dev/null; then
         command grab-site
-    elif [[ -f "~/gs-venv/bin/grab-site" ]]; then
-        echo "~/gs-venv/bin/grab-site"
-    elif [[ -f "~/gs-venv/gs-venv/bin/grab-site" ]]; then
-        echo "~/gs-venv/gs-venv/bin/grab-site"
+    elif [[ -f "$HOME/gs-venv/bin/grab-site" ]]; then
+        echo "$HOME/gs-venv/bin/grab-site"
+    elif [[ -f "$HOME/gs-venv/gs-venv/bin/grab-site" ]]; then
+        echo "$HOME/gs-venv/gs-venv/bin/grab-site"
     else
         exit 1
     fi
@@ -555,10 +555,12 @@ getGrabSitePath() {
 getPhantomjsPath() {
     if command phantomjs 2>&1 > /dev/null; then
         command phantomjs
+    elif [[ -f "$HOME/phantomjs-1.9.8-linux-x86_64/bin/phantomjs" ]]; then
+        echo "$HOME/phantomjs-1.9.8-linux-x86_64/bin/phantomjs"
     elif [[ -f "/phantomjs-1.9.8-linux-x86_64/bin/phantomjs" ]]; then
         echo "/phantomjs-1.9.8-linux-x86_64/bin/phantomjs"
-    elif [[ -f "~/bin/phantomjs" ]]; then
-        echo "~/bin/phantomjs"
+    elif [[ -f "$HOME/bin/phantomjs" ]]; then
+        echo "$HOME/bin/phantomjs"
     else
         exit 1
     fi
