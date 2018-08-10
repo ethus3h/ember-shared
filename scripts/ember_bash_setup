@@ -598,6 +598,14 @@ oq() {
     aq --1 "$@"
 }
 
+ap() {
+    aq --add-wpull-args '--tries=1024 --phantomjs' "$@"
+}
+
+op() {
+    aq --add-wpull-args '--tries=1024 --phantomjs' --1 "$@"
+}
+
 getGrabSiteGrabLocation() {
     local grabSiteLocation
     grabSiteLocation="$(getWorkdirLocation)/.grab-site-grabs"
