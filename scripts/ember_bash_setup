@@ -568,6 +568,10 @@ grab-site() {
     "$(getGrabSitePath)" "$@"
 }
 
+phantomjs() {
+    "$(getPhantomjsPath)" "$@"
+}
+
 a() (
     aq --add-wpull-args '--tries=1024' "$@"
 )
