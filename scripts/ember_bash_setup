@@ -540,6 +540,20 @@ hasWebProtocol() (
     exit 1
 )
 
+getGrabSitePath() {
+    if command grab-site 2>&1 > /dev/null; then
+        command grab-site
+    elif [[ -f "~/gs-venv/bin/grab-site" ]]; then
+        echo "~/gs-venv/bin/grab-site"
+    elif [[ -f "~/gs-venv/gs-venv/bin/grab-site" ]]; then
+        echo "~/gs-venv/gs-venv/bin/grab-site"
+    fi
+}
+
+grab-site() {
+    "$(getGrabSitePath)" "$@"
+}
+
 # TODO
 #a() { cd /home/grabbot/grabs/ && grab-site --no-dupespotter --concurrency=5 --wpull-args=--warc-move=/home/grabbot/warcdealer/\ --read-timeout=3600\ --connect-timeout=20\ --dns-timeout=20\ --retry-connrefused\ --retry-dns-error\ --max-redirect=128\ --phantomjs-scroll=50000\ --phantomjs-exe=/phantomjs-1.9.8-linux-x86_64/bin/phantomjs\ --content-on-error\ --tries=1024 "$@"; }
 #o() { cd /home/grabbot/grabs/ && grab-site --no-dupespotter --concurrency=5 --wpull-args=--warc-move=/home/grabbot/warcdealer/\ --read-timeout=3600\ --connect-timeout=20\ --dns-timeout=20\ --retry-connrefused\ --retry-dns-error\ --max-redirect=128\ --phantomjs-scroll=50000\ --phantomjs-exe=/phantomjs-1.9.8-linux-x86_64/bin/phantomjs\ --content-on-error\ --tries=1024 --1 "$@"; }
