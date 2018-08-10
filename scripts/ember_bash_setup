@@ -626,10 +626,13 @@ getGrabSiteGrabLocation() {
         default
     fi
 
-    if [[ -d "$HOME/gs-grabs" ]] && [[ ! -d "$HOME/gs-grabs/gs-grabs" ]]; then
-        echo "$HOME/gs-grabs"
-    elif [[ -d "$HOME/gs-grabs/gs-grabs" ]]; then
-        "$HOME/gs-grabs/gs-grabs"
+    if [[ -d "$HOME/gs-grabs/gs-grabs" ]]; then
+        echo "$HOME/gs-grabs/gs-grabs"
+        return 0
+    elif [[ -d "$HOME/gs-grabs" ]]; then
+        "$HOME/gs-grabs"
+        return 0
+    fi
 }
 
 getGrabSiteWarcLocation() {
