@@ -548,7 +548,7 @@ getGrabSitePath() {
     elif [[ -f "$HOME/gs-venv/gs-venv/bin/grab-site" ]]; then
         echo "$HOME/gs-venv/gs-venv/bin/grab-site"
     else
-        exit 1
+        return 1
     fi
 }
 
@@ -562,7 +562,7 @@ getPhantomjsPath() {
     elif [[ -f "$HOME/bin/phantomjs" ]]; then
         echo "$HOME/bin/phantomjs"
     else
-        exit 1
+        return 1
     fi
 }
 
@@ -612,12 +612,18 @@ op() {
     aq --add-wpull-args '--tries=1024 --phantomjs' --1 "$@"
 }
 
-getGrabSiteGrabLocation() {
+getGrabSiteGrabLocation() (
     local grabSiteLocation
     grabSiteLocation="$(getWorkdirLocation)/.grab-site-grabs"
-    mkdir -p "$(getWorkdirLocation)/.grab-site-grabs/warcs"
-    echo "$grabSiteLocation"
-}
+    default() {
+                mkdir -p "$(getWorkdirLocation)/.grab-site-grabs/warcs"
+        echo "$grabSiteLocation"
+
+    }
+    if [[ -d "$HOME/gs-grabs" ]] || [[ -d "$HOME/gs-grabs" ]]; then
+        
+    if [[ -d "$grabSiteLocation" ]]; then
+)
 
 getGrabSiteWarcLocation() {
     die "Unimplemented!" # TODO: Add optional Warcdealer support to the grab-site wrappers here.
@@ -791,7 +797,7 @@ invertReturnValue() {
 getWorkdirLocation() {
     local tempLocation;
     tempLocation="$(ember-getconf WorkDirectory)"
-    [[ -n "$tempLocation" ]] || exit 1
+    [[ -n "$tempLocation" ]] || return 1
     print "$tempLocation"
 }
 
