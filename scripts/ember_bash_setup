@@ -552,8 +552,37 @@ getGrabSitePath() {
     fi
 }
 
+getPhantomjsPath() {
+    if command phantomjs 2>&1 > /dev/null; then
+        command phantomjs
+    elif [[ -f "/phantomjs-1.9.8-linux-x86_64/bin/phantomjs" ]]; then
+        echo "/phantomjs-1.9.8-linux-x86_64/bin/phantomjs"
+    elif [[ -f "~/bin/phantomjs" ]]; then
+        echo "~/bin/phantomjs"
+    else
+        exit 1
+    fi
+}
+
 grab-site() {
     "$(getGrabSitePath)" "$@"
+}
+
+a() (
+    cd "$(getGrabSiteGrabLocation)" || die "Could not cd to grab-site grab location!"
+    local phantomjsArgs=''
+    if getPhantomjsPath 2>&1 > /dev/null; then
+        phantomjsArgs='\ --phantomjs-scroll=50000\ --phantomjs-exe='"$(getPhantomjsPath)"
+    fi
+    grab-site --no-dupespotter --concurrency=3 --wpull-args=--read-timeout=3600\ --connect-timeout=20\ --dns-timeout=20\ --retry-connrefused\ --retry-dns-error\ --max-redirect=128"$phantomjsArgs"\ --content-on-error\ --tries=1024 "$@"
+)
+
+o() {
+    aq --add-wpull-args '--tries=1024' --1 "$@"
+}
+
+aq() {
+    a --1 "$@"
 }
 
 getGrabSiteGrabLocation() {
@@ -575,12 +604,6 @@ getGrabSiteWarcLocation() {
     #op() { cd /home/grabbot/grabs/ && grab-site --no-dupespotter --concurrency=5 --wpull-args=--warc-move=/home/grabbot/warcdealer/\ --read-timeout=3600\ --connect-timeout=20\ --dns-timeout=20\ --retry-connrefused\ --retry-dns-error\ --max-redirect=128\ --phantomjs-scroll=50000\ --phantomjs-exe=/phantomjs-1.9.8-linux-x86_64/bin/phantomjs\ --content-on-error\ --tries=1024\ --phantomjs --1 "$@"; }
 
 }
-
-a() (
-    cd "$(getGrabSiteGrabLocation)" || die "Could not cd to grab-site grab location!"
-    grab-site --no-dupespotter --concurrency=5 --wpull-args=--warc-move=/home/grabbot/warcdealer/\ --read-timeout=3600\ --connect-timeout=20\ --dns-timeout=20\ --retry-connrefused\ --retry-dns-error\ --max-redirect=128\ --phantomjs-scroll=50000\ --phantomjs-exe=/phantomjs-1.9.8-linux-x86_64/bin/phantomjs\ --content-on-error\ --tries=1024 "$@"
-)
-
 
 urlencode() {
     local LANG=C
