@@ -547,6 +547,8 @@ getGrabSitePath() {
         echo "~/gs-venv/bin/grab-site"
     elif [[ -f "~/gs-venv/gs-venv/bin/grab-site" ]]; then
         echo "~/gs-venv/gs-venv/bin/grab-site"
+    else
+        exit 1
     fi
 }
 
@@ -716,6 +718,13 @@ invertReturnValue() {
     else
         return 0
     fi
+}
+
+getWorkdirLocation() {
+    local tempLocation;
+    tempLocation="$(ember-getconf WorkDirectory)"
+    [[ -n "$tempLocation" ]] || exit 1
+    print "$tempLocation"
 }
 
 getBigTempLocation() {
