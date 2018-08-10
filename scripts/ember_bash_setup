@@ -569,20 +569,33 @@ grab-site() {
 }
 
 a() (
-    cd "$(getGrabSiteGrabLocation)" || die "Could not cd to grab-site grab location!"
-    local phantomjsArgs=''
-    if getPhantomjsPath 2>&1 > /dev/null; then
-        phantomjsArgs='\ --phantomjs-scroll=50000\ --phantomjs-exe='"$(getPhantomjsPath)"
-    fi
-    grab-site --no-dupespotter --concurrency=3 --wpull-args=--read-timeout=3600\ --connect-timeout=20\ --dns-timeout=20\ --retry-connrefused\ --retry-dns-error\ --max-redirect=128"$phantomjsArgs"\ --content-on-error\ --tries=1024 "$@"
+    aq --add-wpull-args '--tries=1024' "$@"
 )
 
 o() {
     aq --add-wpull-args '--tries=1024' --1 "$@"
 }
 
-aq() {
-    a --1 "$@"
+aq() (
+    cd "$(getGrabSiteGrabLocation)" || die "Could not cd to grab-site grab location!"
+
+    local addWpullArgs=''
+    if [[ "$1" == "--add-wpull-args" ]]; then
+        shift
+        addWpullArgs=" $1"
+        shift
+    fi
+
+    local phantomjsArgs=''
+    if getPhantomjsPath 2>&1 > /dev/null; then
+        phantomjsArgs='\ --phantomjs-scroll=50000\ --phantomjs-exe='"$(getPhantomjsPath)"
+    fi
+
+    grab-site --no-dupespotter --concurrency=3 --wpull-args=--read-timeout=3600\ --connect-timeout=20\ --dns-timeout=20\ --retry-connrefused\ --retry-dns-error\ --max-redirect=128"$phantomjsArgs"\ --content-on-error\ --tries=1024"$addWpullArgs" "$@"
+)
+
+oq() {
+    aq --1 "$@"
 }
 
 getGrabSiteGrabLocation() {
