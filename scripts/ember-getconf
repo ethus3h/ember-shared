@@ -22,7 +22,7 @@ if [[ "$1" == "DataDir" ]]; then
 fi
 
 if [[ "$1" == "crystallizeVersion" ]]; then
-    crystallizeVersionA="$(sed '18q;d' "$(type -P crystallize)")" || exit 1
+    crystallizeVersionA="$(sed '4q;d' "$(type -P crystallize-bash_setup)")" || exit 1
     crystallizeVersionB="${crystallizeVersionA%\'*}"
     echo "${crystallizeVersionB##*\'}"
     exit
