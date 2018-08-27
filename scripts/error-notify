@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 emdate() (
     # If changing this, also change the copy in the ember_bash_setup script.
-    trap 'die "A fatal error was reported on ${BASH_SOURCE[0]} line ${LINENO} in $(pwd)."' ERR
+    trap 'die "A fatal error (#$?) was reported on ${BASH_SOURCE[0]} line ${LINENO} in $(pwd)."' ERR
 
     temp="$(date +%Y-%m-%d-%H-%M-%S-%N)_$(xxd -pu <<< "$(date +%z)")"
     echo "${temp//-/}"
@@ -25,7 +25,7 @@ else
 fi
 printf '%b' '\033[1;31m' >&2
 printf '%s\n' "$(ps -o args= $PPID)" >&2
-printf '%s\n' 'failed with the error on '"${BASH_SOURCE[0]} line ${LINENO} in $(pwd) at $(emdate)"':' >&2
+printf '%s\n' 'failed with the error (#$?) on '"${BASH_SOURCE[0]} line ${LINENO} in $(pwd) at $(emdate)"':' >&2
 printf '%s' "${@+$@$'\n'}" >&2
 printf '%b' '\033[0m' >&2
 
