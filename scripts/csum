@@ -88,7 +88,7 @@ case $action in
     fi
 
     if [[ "$(tail -c 1 "/tmp/$streamId" | xxd -p)" == "00" ]]; then
-        hashdeep -0 -k "/tmp/$streamId" -e -o fbsd -r -l -a -v -v "${pathsToCsum[@]}" || {
+        hashdeep -k "/tmp/$streamId" -0 -e -o fbsd -r -l -a -v -v "${pathsToCsum[@]}" || {
                 die "Hashdeep failed checksum verification! Reported on ${BASH_SOURCE[0]} line ${LINENO} in $(pwd) at $(emdate). Hashdeep version: $(hashdeep -V)."
             }
     else
