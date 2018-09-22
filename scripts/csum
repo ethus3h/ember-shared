@@ -48,7 +48,7 @@ case $action in
         printf '%s\n' "${currentworkingdir//$'\r'/'\r'}"
         (
             cd / || die
-            hashdeep -c md5,sha1,sha256,tiger,whirlpool -j0 -e -o fbsd -r -l "${argsRelativeToRoot[@]}"
+            hashdeep -0 -c md5,sha1,sha256,tiger,whirlpool -j0 -e -o fbsd -r -l "${argsRelativeToRoot[@]}"
         ) || die
     } > "$firstPass"
     # Second pass
@@ -57,7 +57,7 @@ case $action in
         printf '%s\n' "${currentworkingdir//$'\r'/'\r'}"
         (
             cd / || die
-            hashdeep -c md5,sha1,sha256,tiger,whirlpool -j0 -e -o fbsd -r -l "${argsRelativeToRoot[@]}"
+            hashdeep -0 -c md5,sha1,sha256,tiger,whirlpool -j0 -e -o fbsd -r -l "${argsRelativeToRoot[@]}"
         ) || die
     } > "$secondPass"
     assert fileEquals "$firstPass" "$secondPass" || die
@@ -87,10 +87,17 @@ case $action in
         tail -n +2 "$checksumFile" > "/tmp/$streamId"
     fi
 
-    hashdeep -k "/tmp/$streamId" -e -o fbsd -r -l -a -v -v "${pathsToCsum[@]}" || {
-            die "Hashdeep failed checksum verification! Reported on ${BASH_SOURCE[0]} line ${LINENO} in $(pwd) at $(emdate). Hashdeep version: $(hashdeep -V)."
-        }
-    finish
+    if [[ "$(tail -c 1 "/tmp/$streamId" | xxd -p)" == "00" ]]; then
+        hashdeep -0 -k "/tmp/$streamId" -e -o fbsd -r -l -a -v -v "${pathsToCsum[@]}" || {
+                die "Hashdeep failed checksum verification! Reported on ${BASH_SOURCE[0]} line ${LINENO} in $(pwd) at $(emdate). Hashdeep version: $(hashdeep -V)."
+            }
+    else
+       hashdeep -k "/tmp/$streamId" -e -o fbsd -r -l -a -v -v "${pathsToCsum[@]}" || {
+                die "Hashdeep failed checksum verification! Reported on ${BASH_SOURCE[0]} line ${LINENO} in $(pwd) at $(emdate). Hashdeep version: $(hashdeep -V)."
+            }
+    fi
+        finish
+        
     ;;
 *)
     echo "Unknown action."
