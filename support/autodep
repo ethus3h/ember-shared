@@ -13,7 +13,7 @@ if [[ "$OSTYPE" != darwin* ]]; then
         # If we have emerge, should just use the ebuild.
         if ! apt install build-essential coreutils moreutils findutils tar sed gawk gnutls-bin indent wdiff rsync wget tmux hashdeep git jq pv ncdu bash xz-utils gnupg perl &> /dev/null; then
             # Try this for Debian-ish distributions
-            apt-get install build-essential coreutils moreutils findutils tar sed gawk gnutls-bin indent wdiff rsync wget tmux hashdeep git jq pv ncdu bash xz-utils gnupg perl &> /dev/null || echo "WARNING: Unknown package manager, or package manager failed to run. Please install the dependencies manually."
+            apt-get install build-essential coreutils moreutils findutils tar sed gawk gnutls-bin indent wdiff rsync wget tmux hashdeep git jq pv ncdu bash xz-utils gnupg perl csvfix &> /dev/null || echo "WARNING: Unknown package manager, or package manager failed to run. Please install the dependencies manually."
         fi
     fi
 fi
