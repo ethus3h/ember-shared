@@ -2,10 +2,10 @@
 
 #set -x
 
-export emberSharedVersion='1.1.4.322'
+export emberSharedVersion='1.1.4.323'
 
 # The update script shown here requires there to be only one ebuild of ember-shared in the wreathe-overlay overlay.
-# ( sudo true; newVersion="1.1.4.322"; cd "/Ember Library/Ember satellite projects/ember-shared"; eogup-single; git tag -a "v$newVersion" -m "version"; egup-single .; cd "/Ember Library/Ember satellite projects/wreathe-overlay"; eogup-single; mv app-misc/ember-shared/ember-shared-*.ebuild "app-misc/ember-shared/ember-shared-$newVersion.ebuild"; repoman manifest; egup-single; sudo emerge --sync wreathe-overlay; sudo emerge ember-shared; sudo dispatch-conf )
+# ( sudo true; newVersion="1.1.4.323"; cd "/Ember Library/Ember satellite projects/ember-shared"; eogup-single; git tag -a "v$newVersion" -m "version"; egup-single .; cd "/Ember Library/Ember satellite projects/wreathe-overlay"; eogup-single; mv app-misc/ember-shared/ember-shared-*.ebuild "app-misc/ember-shared/ember-shared-$newVersion.ebuild"; repoman manifest; egup-single; sudo emerge --sync wreathe-overlay; sudo emerge ember-shared; sudo dispatch-conf )
 
 # To use the --version option of ember_bash_setup, it is necessary to have e8787d06e61943a6874e94985b53bc0a="2dee41bf-53fb-4f65-997f-33bf50bfbb4d" and run ember_bash_setup --version. It may be important to run unset e8787d06e61943a6874e94985b53bc0a afterwards.
 d1875509777f46809ff940e0aad970f0=""
@@ -496,11 +496,14 @@ iafilename() (
 iasha1() (
     local field="sha1"
     local result
+    local iapathEscaped
     if [[ "$(iapath "$1")" == "$(iaident "$1")"_files.xml ]]; then
         # TODO: Decide whether this is the right way to go about this. Right now, because item files XMLs do not have checksums available for them from the Internet Archive (since the XML files are where the checksums are kept), iasha1 will retrieve it and calculate the checksum dynamically. This could be suboptimal (or even harmful) since there is no guarantee that the returned value is correct; this behavior may change in later versions. Also, check whether it works with on-the-fly derivative files, which may break when checked using this, e.g. when using crystallize-backup, because of the same issue of not having checksums listed in the XML (I don't know if they are).
         result="$(wget -qO - "https://archive.org/download/$(iaident "$1")/$(iaident "$1")"_files.xml | sha1sum | awk '{print $1;}')"
     else
-        result="$(ia metadata "$(iaident "$1")" | { jq -r '.files[] | select(.name=="'"$(iapath "$1")"'").'"$field" 2>/dev/null; };)"
+        iapathEscaped="$(iapath "$1")"
+        iapathEscaped="${iapath//\"/\\\"}"
+        result="$(ia metadata "$(iaident "$1")" | { jq -r '.files[] | select(.name=="'"$iapathEscaped"'").'"$field" 2>/dev/null; };)"
     fi
     # jq seems to exit 0 on at least some errors
     [[ -z "$result" ]] && exit 1
@@ -510,11 +513,14 @@ iasha1() (
 iamd5() (
     local field="md5"
     local result
+    local iapathEscaped
     if [[ "$(iapath "$1")" == "$(iaident "$1")"_files.xml ]]; then
         # TODO: Decide whether this is the right way to go about this. Right now, because item files XMLs do not have checksums available for them from the Internet Archive (since the XML files are where the checksums are kept), iamd5 will retrieve it and calculate the checksum dynamically. This could be suboptimal (or even harmful) since there is no guarantee that the returned value is correct; this behavior may change in later versions. Also, check whether it works with on-the-fly derivative files, which may break when checked using this, e.g. when using crystallize-backup, because of the same issue of not having checksums listed in the XML (I don't know if they are).
         result="$(wget -O - "https://archive.org/download/$(iaident "$1")/$(iaident "$1")"_files.xml | md5sum | awk '{print $1;}')"
     else
-        result="$(ia metadata "$(iaident "$1")" | { jq -r '.files[] | select(.name=="'"$(iapath "$1")"'").'"$field" 2>/dev/null; };)"
+        iapathEscaped="$(iapath "$1")"
+        iapathEscaped="${iapath//\"/\\\"}"
+        result="$(ia metadata "$(iaident "$1")" | { jq -r '.files[] | select(.name=="'"$iapathEscaped"'").'"$field" 2>/dev/null; };)"
     fi
     # jq seems to exit 0 on at least some errors
     [[ -z "$result" ]] && exit 1
