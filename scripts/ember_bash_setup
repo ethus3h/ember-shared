@@ -425,7 +425,7 @@ ia() (
                     # Now, check the downloaded files
                     shopt -s dotglob
                     shopt -s globstar
-                    # TODO: See if IA items can hold files with newlines in their names, and figure out if this breaks on that. Also, it would be nice to be able to get rid of the "ia list" (e.g. by doing it locally from the files XML) to avoid needing network access.
+                    # TODO: See if IA items can hold files with newlines in their names, and figure out if this breaks on that. Also, it would be nice to be able to get rid of the "ia listplain" (e.g. by doing it locally from the files XML) to avoid needing network access.
                     while read -r fileNameToCheck; do
                         file="$ident/$fileNameToCheck"
                         localsha1="$(sha1sum "$file" | awk '{print $1;}')"
@@ -452,7 +452,7 @@ ia() (
                 path="${requestUrl#https:\/\/archive.org\/download\/}"
                 identifier="${path%%\/*}"
                 fileName="${path#*\/}" # Should work with files in subdirectories
-                command ia download "$identifier" "$fileName" > /dev/null || die
+                command ia checkeddl "$identifier" "$fileName" > /dev/null || die
                 [[ -f "$identifier/$fileName" ]] || die
                 cat "$identifier/$fileName"
             ) || die
