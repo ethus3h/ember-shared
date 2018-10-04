@@ -449,10 +449,7 @@ ia() (
             (
                 cd "$tempDir" || die
                 requestUrl="$2"
-                path="${requestUrl#https:\/\/archive.org\/download\/}"
-                identifier="${path%%\/*}"
-                fileName="${path#*\/}" # Should work with files in subdirectories
-                command ia checkeddl "$identifier" "$fileName" > /dev/null || die
+                command ia checkeddl "$requestUrl" > /dev/null || die
                 [[ -f "$identifier/$fileName" ]] || die
                 cat "$identifier/$fileName"
             ) || die
