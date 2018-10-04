@@ -406,7 +406,7 @@ ia() (
     elif [[ "$1" == "checkeddl" ]]; then
         # Wrapper around ia download. TODO: Provide the ability to use local copies (not yet implemented)
         (
-            for param in "${@:2}"; do
+            for param in "${@:2}"; do # WTF?
                 retryCount=0
                 succeeded=""
                 ident=""
