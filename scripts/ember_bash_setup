@@ -406,40 +406,46 @@ ia() (
     elif [[ "$1" == "checkeddl" ]]; then
         # Wrapper around ia download. TODO: Provide the ability to use local copies (not yet implemented)
         (
-            for param in "${@:2}"; do
-                retryCount=0
-                succeeded=""
-                ident=""
-                ident="$(iaident "$param")"
-                while [[ "$succeeded" != "true" && "$retryCount" -lt 30 ]]; do
+            retryCount=0
+            downloadRetryInner() {
+                for param in "${@:2}"; do
                     succeeded=""
-                    retryCount=$(( retryCount + 1 ))
-                    if [[ "$retryCount" -gt 1 ]]; then
-                        warn "Something went wrong: retrying download."
-                        sleep 60
-                    fi
-
-                    # Use command to prevent calling this function again.
-                    command ia download "$ident" -C
-
-                    # Now, check the downloaded files
-                    shopt -s dotglob
-                    shopt -s globstar
-                    # TODO: See if IA items can hold files with newlines in their names, and figure out if this breaks on that. Also, it would be nice to be able to get rid of the "ia listplain" (e.g. by doing it locally from the files XML) to avoid needing network access.
-                    while read -r fileNameToCheck; do
-                        file="$ident/$fileNameToCheck"
-                        localsha1="$(sha1sum "$file" | awk '{print $1;}')"
-                        [[ -z "$localsha1" ]] && die "Got an empty sha1 for $file."
-                        if [[ -f "$file" ]] && [[ "$localsha1" == "$(iasha1 "$file")" ]] && ( [[ "$succeeded" == "true" ]] || [[ -z "$succeeded" ]] ); then
-                                succeeded="true"
-                        else
-                            succeeded="false"
-                            continue
+                    ident=""
+                    ident="$(iaident "$param")"
+                    while [[ "$succeeded" != "true" && "$retryCount" -lt 30 ]]; do
+                        succeeded=""
+                        retryCount=$(( retryCount + 1 ))
+                        if [[ "$retryCount" -gt 1 ]]; then
+                            warn "Something went wrong: retrying download."
+                            sleep 60
                         fi
-                    done < <(ia listplain "$ident")
+
+                        # Now, try to get the file from various possible places.
+                        backupLocation="$(crystallize-getconf BackupLocation)"
+                        
+                        # Use command to prevent calling this function again.
+                        command ia download "$ident" -C
+
+                        # Now, check the downloaded files
+                        shopt -s dotglob
+                        shopt -s globstar
+                        # TODO: See if IA items can hold files with newlines in their names, and figure out if this breaks on that. Also, it would be nice to be able to get rid of the "ia listplain" (e.g. by doing it locally from the files XML) to avoid needing network access.
+                        while read -r fileNameToCheck; do
+                            file="$ident/$fileNameToCheck"
+                            localsha1="$(sha1sum "$file" | awk '{print $1;}')"
+                            [[ -z "$localsha1" ]] && die "Got an empty sha1 for $file."
+                            if [[ -f "$file" ]] && [[ "$localsha1" == "$(iasha1 "$file")" ]] && ( [[ "$succeeded" == "true" ]] || [[ -z "$succeeded" ]] ); then
+                                    succeeded="true"
+                            else
+                                succeeded="false"
+                                continue
+                            fi
+                        done < <(ia listplain "$ident")
+                    done
+                    [[ "$succeeded" == "true" ]] || die
                 done
-                [[ "$succeeded" == "true" ]] || die
-            done
+            }
+            retryUntilSuccess 3 30 5 5 downloadRetryInner "$@"
         ) || die
     elif [[ "$1" == "downloadAsStream" ]]; then
         # Wrapper around ia download. Provides the ability to get the result as a stream. Expects a URL rather than the ia download syntax, so it can act as a drop-in replacement for wgetting a file.
