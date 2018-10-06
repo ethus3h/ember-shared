@@ -437,7 +437,7 @@ ia() (
                         localsha1="$(sha1sum "$file" | awk '{print $1;}')"
                         [[ -z "$localsha1" ]] && die "Got an empty sha1 for $file."
                         if [[ -f "$file" ]] && [[ "$localsha1" == "$(iasha1 "$file")" ]] && ( [[ "$succeeded" == "true" ]] || [[ -z "$succeeded" ]] ); then
-                                succeeded="true"
+                            succeeded="true"
                         else
                             succeeded="false"
                             continue
