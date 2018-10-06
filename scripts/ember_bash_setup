@@ -408,6 +408,7 @@ ia() (
         (
             for param in "${@:2}"; do
                 retryCount=0
+                retryCheckedLocation=0
                 succeeded=""
                 ident=""
                 ident="$(iaident "$param")"
@@ -420,13 +421,15 @@ ia() (
                     fi
 
                     # Now, try to get the file from various possible places.
-                    if [[ "$retryCount" == 1 ]]; then
+                    if [[ "$retryCheckedLocation" == 0 ]]; then
                         backupLocation="$(crystallize-getconf BackupLocation)"
                         if [[ -d "$backupLocation/items/$ident" ]]; then
                             rsync -av --checksum --progress "$backupLocation/items/$ident" ./ 1>&2
+                            retryCheckedLocation=1
                         else
                             # This crystal is not in the backup.
                             retryCount=$(( retryCount - 1 ))
+                            retryCheckedLocation=1
                             continue
                         fi
                     else
