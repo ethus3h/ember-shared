@@ -2,10 +2,10 @@
 
 #set -x
 
-export emberSharedVersion='1.1.4.336'
+export emberSharedVersion='1.1.4.337'
 
 # The update script shown here requires there to be only one ebuild of ember-shared in the wreathe-overlay overlay.
-# ( sudo true; newVersion="1.1.4.336"; cd "/Ember Library/Ember satellite projects/ember-shared"; eogup-single; git tag -a "v$newVersion" -m "version"; egup-single .; cd "/Ember Library/Ember satellite projects/wreathe-overlay"; eogup-single; mv app-misc/ember-shared/ember-shared-*.ebuild "app-misc/ember-shared/ember-shared-$newVersion.ebuild"; repoman manifest; egup-single; sudo emerge --sync wreathe-overlay; sudo emerge ember-shared; sudo dispatch-conf )
+# ( sudo true; newVersion="1.1.4.337"; cd "/Ember Library/Ember satellite projects/ember-shared"; eogup-single; git tag -a "v$newVersion" -m "version"; egup-single .; cd "/Ember Library/Ember satellite projects/wreathe-overlay"; eogup-single; mv app-misc/ember-shared/ember-shared-*.ebuild "app-misc/ember-shared/ember-shared-$newVersion.ebuild"; repoman manifest; egup-single; sudo emerge --sync wreathe-overlay; sudo emerge ember-shared; sudo dispatch-conf )
 
 # To use the --version option of ember_bash_setup, it is necessary to have e8787d06e61943a6874e94985b53bc0a="2dee41bf-53fb-4f65-997f-33bf50bfbb4d" and run ember_bash_setup --version. It may be important to run unset e8787d06e61943a6874e94985b53bc0a afterwards.
 d1875509777f46809ff940e0aad970f0=""
@@ -406,12 +406,14 @@ ia() (
     elif [[ "$1" == "checkeddl" ]]; then
         # Wrapper around ia download. TODO: Provide the ability to use local copies (not yet implemented)
         (
+            # iterate over all but first argument
             for param in "${@:2}"; do
                 retryCount=0
                 retryCheckedLocation=0
                 succeeded=""
                 ident=""
                 ident="$(iaident "$param")"
+                fileName="$(iapath "$param")"
                 while [[ "$succeeded" != "true" && "$retryCount" -lt 30 ]]; do
                     succeeded=""
                     retryCount=$(( retryCount + 1 ))
@@ -433,7 +435,7 @@ ia() (
                         fi
                     else
                         # Use command to prevent calling this function again.
-                        command ia download "$ident" -C
+                        command ia download "$ident" "$fileName" -C
                     fi
 
                     # Now, check the downloaded files
@@ -486,6 +488,8 @@ ia() (
     elif [[ "$1" == "listplain" ]]; then
         # Wrapper around ia list.
         ia list "$2" | csvfix printf -fmt '%s'
+    elif [[ "$1" == "metadata" ]]; then
+        retryUntilSuccess 30 30 5 5 command ia "$@" || die
     else
         command ia "$@" || die
     fi
