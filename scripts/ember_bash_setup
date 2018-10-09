@@ -525,7 +525,7 @@ iaident() (
 
 iapath() (
     local url="$1"
-    if [[ "$url" != *\/* ]]; then
+    if [[ "$url" != */* ]]; then
         # Doesn't contain a slash, so this is a bare identifier
         return 0
     fi
