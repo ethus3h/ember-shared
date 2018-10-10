@@ -11,9 +11,9 @@ trap 'printf '\''%b'\'' '\''\033[1;31m'\'' >&2; echo "A fatal error was reported
 if [[ "$OSTYPE" != darwin* ]]; then
     if ! emerge_loc="$(type -P "emerge")" || [[ -z $emerge_loc ]]; then
         # If we have emerge, should just use the ebuild.
-        if ! apt install build-essential coreutils moreutils findutils tar sed gawk gnutls-bin indent wdiff rsync wget tmux hashdeep git jq pv ncdu bash xz-utils gnupg perl csvfix &> /dev/null; then
+        if ! apt install build-essential coreutils moreutils findutils tar sed gawk gnutls-bin indent wdiff rsync wget tmux hashdeep git jq pv ncdu bash xz-utils gnupg perl csvfix sshfs &> /dev/null; then
             # Try this for Debian-ish distributions
-            apt-get install build-essential coreutils moreutils findutils tar sed gawk gnutls-bin indent wdiff rsync wget tmux hashdeep git jq pv ncdu bash xz-utils gnupg perl csvfix &> /dev/null || echo "WARNING: Unknown package manager, or package manager failed to run. Please install the dependencies manually."
+            apt-get install build-essential coreutils moreutils findutils tar sed gawk gnutls-bin indent wdiff rsync wget tmux hashdeep git jq pv ncdu bash xz-utils gnupg perl csvfix sshfs &> /dev/null || echo "WARNING: Unknown package manager, or package manager failed to run. Please install the dependencies manually."
         fi
     fi
 fi
