@@ -427,7 +427,7 @@ ia() (
                         backupLocation="$(crystallize-getconf BackupLocation)"
                         if [[ -d "$backupLocation/items/$ident" ]]; then
                             # A bit more stubborn rsyncing to try to get things off of flaky sshfs mount.
-                            # sshfs is considered a local source, and --append-verify doesn't work for local files because fuck you (and we couldn't be bothered to make a note in the fucking manpage either).
+                            # sshfs is considered a local source, and --append-verify doesn't work for local files because it would need to read the first chunk of the file to get a checksum for comparison anyway (it would be nice if they put a note in the manpage, though).
                             retryUntilSuccess 500 1 1 1 rsync -av --partial --progress --append "$backupLocation/items/$ident" ./ 1>&2
                             retryCheckedLocation=1
                         else
