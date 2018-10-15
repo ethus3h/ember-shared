@@ -947,20 +947,18 @@ git-sync() {
     fi
 }
 
+intIsBetween() {
+}
 asciiIsDigit() {
     return intIsBetween "$1" 48 57
 }
 
-asciiIsPrintable(intN) {
-    await assertIsInt(intN); let boolReturn;
-
-    boolReturn = await boolIntIsBetween(intN, 32, 126); await assertIsBool(boolReturn); return boolReturn;
+asciiIsPrintable() {
+    return intIsBetween "$1" 32 126
 }
 
-asciiIsSpace(intN) {
-    await assertIsInt(intN); let boolReturn;
-
-    boolReturn = intN == 32; await assertIsBool(boolReturn); return boolReturn;
+asciiIsSpace() {
+    [[ "$1" == 32 ]] && return 0
 }
 
 asciiIsNewline(intN) {
