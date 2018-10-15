@@ -948,11 +948,10 @@ git-sync() {
 }
 
 intIsBetween() {
-async function boolIntIsBetween(intN, intA, intB) {
-    assertIsInt(intN); assertIsInt(intA); assertIsInt(intB); let boolReturn;
-
-    // Checks whether N is within the range A and B, including endpoints
-    boolReturn = ( (intN - intA) * (intN - intB) ) <= 0; await assertIsBool(boolReturn); return boolReturn;
+    # Checks whether $1 is within the range $2 and $3, including endpoints
+    boolReturn = ( (intN - intA) * (intN - intB) ) <= 0
+    [[ (( (( "$1" - "$2" )) * (($1 - $3)) )) -le 0 ]] && return 0
+    return 1
 }
 }
 
