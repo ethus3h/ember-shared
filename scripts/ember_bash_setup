@@ -949,10 +949,8 @@ git-sync() {
 
 intIsBetween() {
     # Checks whether $1 is within the range $2 and $3, including endpoints
-    boolReturn = ( (intN - intA) * (intN - intB) ) <= 0
-    [[ (( (( "$1" - "$2" )) * (($1 - $3)) )) -le 0 ]] && return 0
+    [[ $(( $(( "$1" - "$2" )) * $(($1 - $3)) )) -le 0 ]] && return 0
     return 1
-}
 }
 
 asciiIsDigit() {
