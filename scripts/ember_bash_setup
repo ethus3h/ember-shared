@@ -954,11 +954,11 @@ intIsBetween() {
 }
 
 asciiIsDigit() {
-    return intIsBetween "$1" 48 57
+    intIsBetween "$1" 48 57
 }
 
 asciiIsPrintable() {
-    return intIsBetween "$1" 32 126
+    intIsBetween "$1" 32 126
 }
 
 asciiIsSpace() {
