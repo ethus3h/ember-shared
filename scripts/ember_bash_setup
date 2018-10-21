@@ -439,9 +439,7 @@ ia() (
                         backupLocation="$(crystallize-getconf RsyncBackupLocation)"
                         if [[ -n "$backupLocation" ]] && [[ "$backupLocation" != "exampleUser@example.hostname:"\'"/Example/Path\ To\ Backup\ Directory/"\' ]]; then
                             # There's a rsync location configured.
-                            backupPassphrase="$(crystallize-getconf RsyncBackupPassphrase)"
-                            retryUntilSuccess 500 1 1 1 sshpass -p "$backupPassphrase" rsync -avz --partial --progress --append-verify --checksum "$backupLocation/items/$ident" ./ 1>&2
-                            unset backupPassphrase
+                            retryUntilSuccess 500 1 1 1 sshpass -p "$(crystallize-getconf RsyncBackupPassphrase)" rsync -avz --partial --progress --append-verify --checksum "$backupLocation/items/$ident" ./ 1>&2
                             retryCheckedLocation=2
                         else
                             # This crystal is not in the backup.
