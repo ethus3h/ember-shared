@@ -437,7 +437,7 @@ ia() (
                         fi
                     elif [[ "$retryCheckedLocation" == 1 ]]; then
                         backupLocation="$(crystallize-getconf RsyncBackupLocation)"
-                        if [[ -n "$backupLocation" ]] && [[ "$backupLocation" != "exampleUser@example.hostname:"\'"/Example/Path\ To\ Backup\ Directory/"\' ]]; then
+                        if [[ -n "$backupLocation" ]] && [[ "$backupLocation" != "exampleUser@example.hostname:'/Example/Path\ To\ Backup\ Directory/'" ]]; then
                             # There's a rsync location configured.
                             retryUntilSuccess 500 1 1 1 sshpass -p "$(crystallize-getconf RsyncBackupPassphrase)" rsync -avz --partial --progress --append-verify --checksum "$backupLocation/items/$ident" ./ 1>&2
                             retryCheckedLocation=2
