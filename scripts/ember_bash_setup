@@ -435,6 +435,18 @@ ia() (
                             retryCheckedLocation=1
                             continue
                         fi
+                    elif [[ "$retryCheckedLocation" == 1 ]]; then
+                        backupLocation="$(crystallize-getconf BackupLocation)"
+                        if [[ -d "$backupLocation/items/$ident" ]]; then
+                            # A bit more stubborn rsyncing to try to get things off of flaky sshfs mount.
+                            # sshfs is considered a local source, and --append-verify doesn't work for local files because it would need to read the first chunk of the file to get a checksum for comparison anyway (it would be nice if they put a note in the manpage, though).
+                            retryUntilSuccess 500 1 1 1 rsync -av --partial --progress --append "$backupLocation/items/$ident" ./ 1>&2
+                            retryCheckedLocation=2
+                        else
+                            # This crystal is not in the backup.
+                            retryCheckedLocation=2
+                            continue
+                        fi
                     else
                         # Use command to prevent calling this function again.
                         if [[ -n "$fileName" ]]; then
