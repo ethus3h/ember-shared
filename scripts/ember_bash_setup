@@ -2,10 +2,10 @@
 
 #set -x
 
-export emberSharedVersion='1.1.4.354'
+export emberSharedVersion='1.1.4.355'
 
 # The update script shown here requires there to be only one ebuild of ember-shared in the wreathe-overlay overlay.
-# ( sudo true; newVersion="1.1.4.354"; cd "/Ember Library/Ember satellite projects/ember-shared"; eogup-single; git tag -a "v$newVersion" -m "version"; egup-single .; cd "/Ember Library/Ember satellite projects/wreathe-overlay"; eogup-single; mv app-misc/ember-shared/ember-shared-*.ebuild "app-misc/ember-shared/ember-shared-$newVersion.ebuild"; repoman manifest; egup-single; sudo emerge --sync wreathe-overlay; sudo emerge ember-shared; sudo dispatch-conf )
+# ( sudo true; newVersion="1.1.4.355"; cd "/Ember Library/Ember satellite projects/ember-shared"; eogup-single; git tag -a "v$newVersion" -m "version"; egup-single .; cd "/Ember Library/Ember satellite projects/wreathe-overlay"; eogup-single; mv app-misc/ember-shared/ember-shared-*.ebuild "app-misc/ember-shared/ember-shared-$newVersion.ebuild"; repoman manifest; egup-single; sudo emerge --sync wreathe-overlay; sudo emerge ember-shared; sudo dispatch-conf )
 
 # To use the --version option of ember_bash_setup, it is necessary to have e8787d06e61943a6874e94985b53bc0a="2dee41bf-53fb-4f65-997f-33bf50bfbb4d" and run ember_bash_setup --version. It may be important to run unset e8787d06e61943a6874e94985b53bc0a afterwards.
 d1875509777f46809ff940e0aad970f0=""
@@ -428,7 +428,7 @@ ia() (
                         if [[ -d "$backupLocation/items/$ident" ]]; then
                             # A bit more stubborn rsyncing to try to get things off of flaky sshfs mount.
                             # sshfs is considered a local source, and --append-verify doesn't work for local files because it would need to read the first chunk of the file to get a checksum for comparison anyway (it would be nice if they put a note in the manpage, though).
-                            retryUntilSuccess 500 1 1 1 rsync -av --partial --progress --append "$backupLocation/items/$ident" ./ 1>&2
+                            retryUntilSuccess 30 1 1 1 rsync -av --partial --progress --append "$backupLocation/items/$ident" ./ &>/dev/null
                             retryCheckedLocation=1
                         else
                             # This crystal is not in the backup.
@@ -439,7 +439,7 @@ ia() (
                         backupLocation="$(crystallize-getconf RsyncBackupLocation)"
                         if [[ -n "$backupLocation" ]] && [[ "$backupLocation" != "exampleUser@example.hostname:'/Example/Path To Backup Directory/'" ]]; then
                             # There's a rsync location configured.
-                            sshpass -p "$(crystallize-getconf RsyncBackupPassphrase)" rsync -avz --partial --progress --append-verify --checksum "$backupLocation/items/$ident" ./ 1>&2 || sshpass -p "$(crystallize-getconf RsyncBackupPassphrase)" rsync -avz --partial --progress --append-verify --checksum "$backupLocation/items/$ident" ./ 1>&2 || sshpass -p "$(crystallize-getconf RsyncBackupPassphrase)" rsync -avz --partial --progress --append-verify --checksum "$backupLocation/items/$ident" ./ 1>&2 || [[ -d "$ident" ]] && retryUntilSuccess 500 1 1 1 sshpass -p "$(crystallize-getconf RsyncBackupPassphrase)" rsync -avz --partial --progress --append-verify --checksum "$backupLocation/items/$ident" ./ 1>&2
+                            sshpass -p "$(crystallize-getconf RsyncBackupPassphrase)" rsync -avz --partial --progress --append-verify --checksum "$backupLocation/items/$ident" ./ &>/dev/null || sshpass -p "$(crystallize-getconf RsyncBackupPassphrase)" rsync -avz --partial --progress --append-verify --checksum "$backupLocation/items/$ident" ./ &>/dev/null || sshpass -p "$(crystallize-getconf RsyncBackupPassphrase)" rsync -avz --partial --progress --append-verify --checksum "$backupLocation/items/$ident" ./ &>/dev/null || [[ -d "$ident" ]] && retryUntilSuccess 500 1 1 1 sshpass -p "$(crystallize-getconf RsyncBackupPassphrase)" rsync -avz --partial --progress --append-verify --checksum "$backupLocation/items/$ident" ./ &>/dev/null
                             if [[ ! -d "$ident" ]]; then
                                 retryCheckedLocation=2
                                 continue
