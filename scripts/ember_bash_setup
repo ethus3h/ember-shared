@@ -969,7 +969,7 @@ git-sync() {
 
 asciiDecListToText() {
     while read -r num; do
-        printf "\x"$(printf "%x\n" "$num")""
+        printf "\x$(printf "%x\n" "$num")"
     done
 }
 
