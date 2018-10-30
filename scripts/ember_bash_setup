@@ -967,6 +967,12 @@ git-sync() {
     fi
 }
 
+asciiDecListToText() {
+    while read -r num; do
+        printf "\x"$(printf "%x\n" "$num")""
+    done
+}
+
 intIsBetween() {
     # Checks whether $1 is within the range $2 and $3, including endpoints
     [[ $(( $(( "$1" - "$2" )) * $(($1 - $3)) )) -le 0 ]]
