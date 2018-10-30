@@ -968,7 +968,6 @@ git-sync() {
 }
 
 asciiDecListToText() {
-# from https://unix.stackexchange.com/questions/195224/read-file-word-by-word
     tr -s '[:blank:]' '[\n*]' | while read -r num; do
         # shellcheck disable=SC2059
         printf "\x$(printf "%x\n" "$num")"
