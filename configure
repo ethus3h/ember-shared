@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 #set -x
 
-# This is different than the configure for all packages that depend on ember-shared, so don't copy over this one :)
+# Special configure for ember-shared.
 
 packageName="$(cat package-name)"
 
