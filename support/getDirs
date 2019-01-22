@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 # This file should be sourced rather than run directly.
 
+# Should work without ember-shared (or crystallize), just in case, so don't depend on ember_bash_setup or set traps that need it
+
 #NOTE: MAINTENANCE: Manual error printing
 if [[ -z "$(ember-getconf emberSharedVersion)" ]]; then
     printf '%b' '\033[1;31m' >&2
