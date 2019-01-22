@@ -32,7 +32,7 @@ if [[ "$OSTYPE" = darwin* ]]; then
     find scripts -type f -exec perl -0777 -p -i -e 's/mktemp /gmktemp /g' {} \;
     find scripts -type f -exec perl -0777 -p -i -e 's/split /gsplit /g' {} \;
 fi
-rm scripts/emberMacGNUUpgrade
+rm -f scripts/emberMacGNUUpgrade
 
 if [[ "$OSTYPE" = darwin* ]]; then
     sudo ./support/macRootPrepare
