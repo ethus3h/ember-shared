@@ -15,6 +15,7 @@ warn() {
 
 if [[ "$OSTYPE" = darwin* ]]; then
     scripts/emberMacGNUUpgrade
+    # NOTE: MAINTENANCE: Upgrade list from "prepareForMac" template file
     find scripts -type f -exec perl -0777 -p -i -e 's/readlink /greadlink /g' {} \;
     find scripts -type f -exec perl -0777 -p -i -e 's/dirname /gdirname /g' {} \;
     find scripts -type f -exec perl -0777 -p -i -e 's/sort /gsort /g' {} \;
