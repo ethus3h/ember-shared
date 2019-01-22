@@ -1,17 +1,13 @@
 #!/usr/bin/env bash
+
+# Special autodep for ember-shared.
+
 # This file should be sourced rather than run directly.
 
 # Should work without ember-shared (or crystallize), just in case, so don't depend on ember_bash_setup or set traps that need it
 
 #NOTE: MAINTENANCE: Manual error printing
-if [[ -z "$(ember-getconf emberSharedVersion)" ]]; then
-    printf '%b' '\033[1;31m' >&2
-    echo "ERROR: ember-shared is not properly installed! It must be installed before installing $packageName." >&2
-    printf '%b' '\033[0m' >&2
-    exit 1
-fi
-
-trap 'die "A fatal error was reported on ${BASH_SOURCE[0]} line ${LINENO} in $(pwd)."' ERR
+trap 'printf '\''%b'\'' '\''\033[1;31m'\'' >&2; echo "A fatal error was reported on ${BASH_SOURCE[0]} line ${LINENO} in $(pwd)." >&2; printf '\''%b'\'' '\''\033[0m'\'' >&2; exit 1' ERR
 
 packageName="$1"
 shift
