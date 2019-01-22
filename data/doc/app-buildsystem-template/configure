@@ -17,6 +17,13 @@ if ! ebs_loc="$(type -P "ember_bash_setup")" || [[ -z $ebs_loc ]]; then
     )
     PATH="$PATH:.buildsystem-temp/ember-shared/scripts"
     export PATH
+    if [[ -e ".buildsystem-temp/ember-shared" ]]; then
+        (
+            cd .buildsystem-temp/ember-shared
+            make
+            make install || true
+        )
+    fi
 fi
 
 eiteDie() {
