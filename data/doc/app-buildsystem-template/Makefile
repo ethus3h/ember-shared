@@ -17,7 +17,7 @@ check:
 	@support/test $(packageName) --override-data-dir=$(OVERRIDEDATADIR) $(DESTDIR) $(prefix) $(PREFIX) $(exec_prefix) $(bindir) $(datarootdir) $(datadir) $(sysconfdir) $(sharedstatedir)
 	@echo "Done running tests for" $(packageName)
 
-#### End of automatic dependency installation install script template ####
+#### End of Makefile template ####
 
-# Any extra automatic dependency installation goes here.
+# Any extra Make rules go here.
 
