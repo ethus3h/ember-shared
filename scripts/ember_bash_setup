@@ -438,7 +438,7 @@ ia() (
                     elif [[ "$retryCheckedLocation" == 1 ]]; then
                         backupLocation="$(crystallize-getconf RsyncBackupLocation)"
                         if [[ -n "$backupLocation" ]] && [[ "$backupLocation" != "exampleUser@example.hostname:'/Example/Path To Backup Directory/'" ]]; then
-                            if ssh -q $HOST [[ -f $FILE_PATH ]]; then
+                            if ssh -q "$backupLocation" [[ -f $backupLocation/items/$ident ]]; then
                             # There's a rsync location configured, and it has the desired file.
                                 sshpass -p "$(crystallize-getconf RsyncBackupPassphrase)" rsync -avz --partial --progress --append-verify --checksum "$backupLocation/items/$ident" ./ &>/dev/null || sshpass -p "$(crystallize-getconf RsyncBackupPassphrase)" rsync -avz --partial --progress --append-verify --checksum "$backupLocation/items/$ident" ./ &>/dev/null || sshpass -p "$(crystallize-getconf RsyncBackupPassphrase)" rsync -avz --partial --progress --append-verify --checksum "$backupLocation/items/$ident" ./ &>/dev/null || [[ -d "$ident" ]] && retryUntilSuccess 30 1 1 1 sshpass -p "$(crystallize-getconf RsyncBackupPassphrase)" rsync -avz --partial --progress --append-verify --checksum "$backupLocation/items/$ident" ./ &>/dev/null
                                 if [[ ! -d "$ident" ]]; then
