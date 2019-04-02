@@ -440,8 +440,10 @@ ia() (
                         if [[ -n "$backupLocation" ]] && [[ "$backupLocation" != "exampleUser@example.hostname:'/Example/Path To Backup Directory/'" ]]; then
                             # http://web.archive.org/web/20190402151655/https://stackoverflow.com/questions/12845206/check-if-file-exists-on-remote-host-with-ssh
                             local backupLocTemp=""
-                            backupLocTemp=
-                            if sshpass -p "$(crystallize-getconf RsyncBackupPassphrase)" ssh -q "${backupLocation%:*}" [[ -f "${backupLocation#*:}/items/$ident" ]]; then
+                            backupLocTemp="${backupLocation#*:}"
+                            backupLocTemp="${backupLocTemp#\'*}"
+                            backupLocTemp="${backupLocTemp%*\'}"
+                            if sshpass -p "$(crystallize-getconf RsyncBackupPassphrase)" ssh -q "${backupLocation%:*}" [[ -f "$backupLocTemp/items/$ident" ]]; then
                                 # There's a rsync location configured, and it has the desired file.
                                 sshpass -p "$(crystallize-getconf RsyncBackupPassphrase)" rsync -avz --partial --progress --append-verify --checksum "$backupLocation/items/$ident" ./ &>/dev/null || sshpass -p "$(crystallize-getconf RsyncBackupPassphrase)" rsync -avz --partial --progress --append-verify --checksum "$backupLocation/items/$ident" ./ &>/dev/null || sshpass -p "$(crystallize-getconf RsyncBackupPassphrase)" rsync -avz --partial --progress --append-verify --checksum "$backupLocation/items/$ident" ./ &>/dev/null || [[ -d "$ident" ]] && retryUntilSuccess 30 1 1 1 sshpass -p "$(crystallize-getconf RsyncBackupPassphrase)" rsync -avz --partial --progress --append-verify --checksum "$backupLocation/items/$ident" ./ &>/dev/null
                                 if [[ ! -d "$ident" ]]; then
