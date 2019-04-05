@@ -13,6 +13,7 @@
 
 
 import matplotlib
+#from cycler import cycler
 matplotlib.use("agg")  # run without DISPLAY support
 import sys
 from pylab import *
@@ -56,7 +57,7 @@ params = {'xtick.direction': 'out',
           'axes.labelcolor':'black',
           'axes.linewidth':0,
           #'axes.color_cycle':['#333333','#333333','#333333','#333333','#333333','#333333','#333333'],
-          'axes.color_cycle':['white','white','white','white','white','white','white'],
+          #'axes.color_cycle':['white','white','white','white','white','white','white'],
           'figure.figsize': fig_size}
 rcParams.update(params)
 
@@ -75,7 +76,7 @@ print "number elements =",sound_info.size
 
 
 print "plotting..."
-plot(sound_info)
+plot(sound_info, color="white")
 
 # make sure no extra space on the right, especially!
 subplots_adjust(left=0.0, right=1.00)
