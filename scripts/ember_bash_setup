@@ -870,13 +870,13 @@ normalizeWhitespace() {
 flacToWaveform() {
     sourceFile="$1"
     destinationFile="$sourceFile.png"
-    tempWavFile="$(tempFile)"
-    tempPngFile="$(tempFile)"
     tempWorkDirectory="$(tempDir)"
-    ffmpeg -v 0 -analyzeduration 900000000000 -probesize 200M  -threads 2 -i "$sourceFile" -ac 1 -ar 44100 -y "$tempWavFile" > /dev/null 2>&1
+    tempWavFile="$tempWorkDirectory/$sourceFile.wav"
+    tempPngFile="$tempWorkDirectory/$sourceFile.png"
+    ffmpeg -v 40 -analyzeduration 900000000000 -probesize 200M  -threads 2 -i "$sourceFile" -ac 1 -ar 44100 -y "$tempWavFile"
     (
         cd "$tempWorkDirectory" || die
-        wav2png.py "$tempWavFile" > /dev/null 2>&1
+        wav2png.py "$tempWavFile.wav" > /dev/null 2>&1
     )
     convert -background black "$tempWorkDirectory"/tmp.png -gravity center -extent 800x200 -background black -fuzz 50% -transparent white "$tempPngFile"
     mv "$tempPngFile" "$destinationFile"
