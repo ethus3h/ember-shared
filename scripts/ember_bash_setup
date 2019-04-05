@@ -867,21 +867,22 @@ normalizeWhitespace() {
     stdbuf -o0 tr '\n' ' ' | stdbuf -o0 tr '\r' ' ' | stdbuf -o0 tr -s '[:blank:]' | awk '{$1=$1};1'
 }
 
-flacToWaveform() {
+flacToWaveform() (
     sourceFile="$1"
     destinationFile="$sourceFile.png"
     tempWorkDirectory="$(tempDir)"
     tempWavFile="$tempWorkDirectory/$sourceFile.wav"
-    tempPngFile="$tempWorkDirectory/$sourceFile.png"
+    tempPngFile="$tempWorkDirectory/temp-$sourceFile.png"
+    resPngFile="$tempWorkDirectory/$sourceFile.png"
     ffmpeg -v 0 -analyzeduration 900000000000 -probesize 200M  -threads 2 -i "$sourceFile" -ac 1 -ar 44100 -y "$tempWavFile" || die
     (
         cd "$tempWorkDirectory" || die
         wav2png.py "$tempWavFile" > /dev/null 2>&1 || die
     )
-    convert -background black "$tempPngFile" -gravity center -extent 800x200 -background black -fuzz 50% -transparent white "2-$tempPngFile" || die
-    mv "2-$tempPngFile" "$destinationFile" || die
+    convert -background black "$tempPngFile" -gravity center -extent 800x200 -background black -fuzz 50% -transparent white "$resPngFile" || die
+    mv "$resPngFile" "$destinationFile" || die
     rm -r "$tempWorkDirectory"
-}
+)
 
 invertReturnValue() {
     if bash -c "$(join_by ' ' "$@")"; then
