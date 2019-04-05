@@ -872,8 +872,8 @@ flacToWaveform() (
     destinationFile="$sourceFile.png"
     tempWorkDirectory="$(tempDir)"
     tempWavFile="$tempWorkDirectory/$sourceFile.wav"
-    tempPngFile="$tempWorkDirectory/temp-$sourceFile.png"
-    resPngFile="$tempWorkDirectory/$sourceFile.png"
+    tempPngFile="$tempWorkDirectory/$sourceFile.png"
+    resPngFile="$tempWorkDirectory/res-$sourceFile.png"
     ffmpeg -v 0 -analyzeduration 900000000000 -probesize 200M  -threads 2 -i "$sourceFile" -ac 1 -ar 44100 -y "$tempWavFile" || die
     (
         cd "$tempWorkDirectory" || die
