@@ -869,11 +869,11 @@ normalizeWhitespace() {
 
 flacToWaveform() {
     sourceFile="$1"
-    destinationFile="$1.png"
+    destinationFile="$sourceFile.png"
     tempWavFile="$(tempFile)"
     tempPngFile="$(tempFile)"
     tempWorkDirectory="$(tempDir)"
-    ffmpeg -v 0 -analyzeduration 900000000000 -probesize 200M  -threads 2 -i "$1" -ac 1 -ar 44100 -y "$tempWavFile" > /dev/null 2>&1
+    ffmpeg -v 0 -analyzeduration 900000000000 -probesize 200M  -threads 2 -i "$sourceFile" -ac 1 -ar 44100 -y "$tempWavFile" > /dev/null 2>&1
     (
         cd "$tempWorkDirectory" || die
         wav2png.py "$tempWavFile" > /dev/null 2>&1
