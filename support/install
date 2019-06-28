@@ -143,5 +143,5 @@ if ! [[ -e "$emberSysconfdir/ember.conf" ]]; then
 fi
 
 if ! [[ -h "$emberDatadir/ember" ]]; then
-    ln -s "$emberDatadir/ember-shared" "$emberDatadir/ember"
+    ln -s "$emberDatadir/ember-shared/data" "$emberDatadir/ember"
 fi
