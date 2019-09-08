@@ -3,18 +3,14 @@
 source ember_bash_setup &> /dev/null || { printf '%b' '\033[1;31m' >&2; echo "A fatal error was reported on ${BASH_SOURCE[0]} line ${LINENO} in $(pwd): The required dependency ember-shared could not be found (or ember_bash_setup could not be sourced for some other reason)." >&2; printf '%b' '\033[0m' >&2; exit 1; }
 #set -x
 
-# Use: findq-update pathToIndex extra-options-for-updatedb...
+((EUID)) && exec sudo -- "$0" "$@"
 
-pathToIndex="$(realpath "$1")"
+# Use: emerge-live-from-ember-library [ember-shared|crystallize|futuramerlin-web-toolkit|ember-web-site]
+
+package="$1"
 shift
-
-dbFile="$(sha512sum <<< "$pathToIndex" | awk '{print $1;}')"
-
-mkdir -p ~/.findq
-
-cd ~/.findq
-
-# based on man updatedb
-updatedb -l 0 -o ~/".findq/$dbFile" -U "$pathToIndex" "$@"
-
-eogup-single
+category=' satellite projects'
+if [[ "$package" == 'ember-web-site' ]]; then
+    category='';
+fi
+( sudo true; newVersion="1.1.4.402"; cd "/Ember Library/Ember satellite projects/ember-shared"; eogup-single; git tag -a "v$newVersion" -m "version"; egup-single .; cd "/Ember Library/Ember satellite projects/wreathe-overlay"; eogup-single; mv app-misc/ember-shared/ember-shared-*.ebuild "app-misc/ember-shared/ember-shared-$newVersion.ebuild"; repoman manifest; egup-single; sudo emerge --sync wreathe-overlay; sudo emerge ember-shared; sudo dispatch-conf )
