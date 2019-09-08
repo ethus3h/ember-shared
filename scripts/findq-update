@@ -15,6 +15,6 @@ mkdir -p ~/.findq
 cd ~/.findq
 
 # based on man updatedb
-updatedb -l 0 -o ~/".findq/$dbFile" -U "$pathToIndex" "$@"
+updatedb -l 0 -o "./databases/$dbFile" -U "$pathToIndex" "$@"
 
 eogup-single

@@ -13,4 +13,4 @@ shift
 searchFor="$1"
 shift
 
-locate -d ~/".findq/$dbFile" "$searchFor"
+locate -d ~/".findq/databases/$dbFile" "$searchFor"
