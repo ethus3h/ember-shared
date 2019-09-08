@@ -7,27 +7,15 @@ source ember_bash_setup &> /dev/null || { printf '%b' '\033[1;31m' >&2; echo "A 
 
 # Use: emerge-live-from-ember-library [ember-shared|crystallize|futuramerlin-web-toolkit|ember-web-site]
 
-package="$1"
-shift
-libraryDirAppend=' satellite projects'
-category="app-misc"
-if [[ "$package" == 'ember-web-site' ]]; then
-    libraryDirAppend=''
-    category="app-doc"
+update=""
+if [[ "$1" == "--update" ]]; then
+    update="true"
+    shift
 fi
-# Create the temporary ebuild
-(
-    cd "/Ember Library/Ember satellite projects/wreathe-overlay"
-    eogup-single
-    mv $category/$package $category/$package.emerge-live-old
-    cp $category/$package.emerge-live-old $category/$package
-    ebuildPath="$(realpath $category/$package/$package-*.ebuild)"
-    oldVersion="$(basename "$ebuildPath")"
-    oldVersion="${oldVersion/$package-}"
-    oldVersion="${oldVersion//.ebuild}"
-    newVersion="$oldVersion-r1"
-    mv $category/$package/$package-*.ebuild "$category/$package/$package-$newVersion.ebuild"
-    
-    repoman manifest
-    eogup-single
-    cd "/Ember Library/Ember satellite projects/ember-shared"; eogup-single; git tag -a "v$newVersion" -m "version"; egup-single .; cd "/Ember Library/Ember satellite projects/wreathe-overlay"; eogup-single; mv app-misc/ember-shared/ember-shared-*.ebuild "app-misc/ember-shared/ember-shared-$newVersion.ebuild"; repoman manifest; egup-single; sudo emerge --sync wreathe-overlay; sudo emerge ember-shared; sudo dispatch-conf )
+
+cd /Ember\ Library/Ember/ember-web-site
+if [[ "$update" == "true" ]]; then
+    /Ember\ Library/Ember\ satellite\ projects/futuramerlin-web-toolkit/scripts/futuramerlin-web-toolkit-build
+fi
+
+php -S localhost:8000
