@@ -141,7 +141,7 @@ say() {
 
 trim() {
     # Remove leading and trailing whitespace
-    
+    normalizeWhitespace "$@"
 }
 
 tr() {
