@@ -135,10 +135,6 @@ fi
 
 ln -s "$emberSysconfdir/ember-shared.conf" "$emberSysconfdir/crystallize.conf"
 
-if [[ ! -h "$emberSysconfdir/crystallize.conf" ]] && [[ -f "$emberSysconfdir/crystallize.conf" ]] && [[ ! -e "$emberSysconfdir/ember.conf" ]]; then
-    mv "$emberSysconfdir/crystallize.conf" "$emberSysconfdir/ember.conf"
-fi
-
 if [[ ! -h "$emberSysconfdir/ember.conf" ]] && [[ -f "$emberSysconfdir/ember.conf" ]]; then
     mv "$emberSysconfdir/ember.conf" "$emberSysconfdir/ember-shared.conf"
 fi
