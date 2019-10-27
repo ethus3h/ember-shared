@@ -141,7 +141,8 @@ if [[ ! -h "$emberSysconfdir/crystallize.conf" ]] && [[ -f "$emberSysconfdir/cry
     mv "$emberSysconfdir/crystallize.conf" "$emberSysconfdir/ember-shared.conf"
 fi
 
-# If 
+# PUT IN ANY NEW NEEDED CONFIG FILE COMPATIBILITY LINKS
+
 ln -s "$emberSysconfdir/ember-shared.conf" "$emberSysconfdir/crystallize.conf"
 
 if ! [[ -e "$emberSysconfdir/ember.conf" ]]; then
