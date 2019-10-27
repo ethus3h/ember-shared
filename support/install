@@ -129,6 +129,10 @@ if [[ ! -h "$emberSharedstatedir/crystallize" ]] && [[ -d "$emberSharedstatedir/
     ln -s "$emberSharedstatedir/ember" "$emberSharedstatedir/crystallize"
 fi
 
+if ! [[ -h "$emberDatadir/ember" ]]; then
+    ln -s "$emberDatadir/ember-shared/data" "$emberDatadir/ember"
+fi
+
 # UPDATE OLD CONFIG FILE LOCATIONS
 
 # If ember.conf is a file, move it to the new ember-shared.conf location
@@ -148,13 +152,7 @@ if ! [[ -h "$emberSysconfdir/crystallize.conf" ]]; then
     ln -s "$emberSysconfdir/ember-shared.conf" "$emberSysconfdir/crystallize.conf"
 fi
 
-# Link ember.conf 
+# Link ember.conf to ember-shared.conf
 if ! [[ -h "$emberSysconfdir/ember.conf" ]]; then
     ln -s "$emberSysconfdir/ember-shared.conf" "$emberSysconfdir/ember.conf"
 fi
-
-if ! [[ -h "$emberDatadir/ember" ]]; then
-    ln -s "$emberDatadir/ember-shared/data" "$emberDatadir/ember"
-fi
-
-[[ -h "$emberSysconfdir/crystallize.conf" ]] || ln -s "$emberSysconfdir/ember.conf" "$emberSysconfdir/crystallize.conf"
