@@ -133,7 +133,10 @@ if [[ ! -h "$emberSysconfdir/crystallize.conf" ]] && [[ -f "$emberSysconfdir/cry
     mv "$emberSysconfdir/crystallize.conf" "$emberSysconfdir/ember-shared.conf"
     ln -s "$emberSysconfdir/ember-shared.conf" "$emberSysconfdir/crystallize.conf"
 fi
-if [[ ! -h "$emberSysconfdir/crystallize.conf" ]] && [[ -f "$emberSysconfdir/crystallize.conf" ]] && [[ ! -e "$emberSysconfdir/ember.conf" ]]; then
+
+ln -s "$emberSysconfdir/ember-shared.conf" "$emberSysconfdir/crystallize.conf"
+
+    if [[ ! -h "$emberSysconfdir/crystallize.conf" ]] && [[ -f "$emberSysconfdir/crystallize.conf" ]] && [[ ! -e "$emberSysconfdir/ember.conf" ]]; then
     mv "$emberSysconfdir/crystallize.conf" "$emberSysconfdir/ember.conf"
 fi
 
