@@ -129,7 +129,7 @@ if [[ ! -h "$emberSharedstatedir/crystallize" ]] && [[ -d "$emberSharedstatedir/
     ln -s "$emberSharedstatedir/ember" "$emberSharedstatedir/crystallize"
 fi
 
-if [[ ! -h "$emberSysconfdir/crystallize.conf" ]] && [[ -f "$emberSysconfdir/crystallize.conf" ]]; then
+if [[ ! -h "$emberSysconfdir/crystallize.conf" ]] && [[ -f "$emberSysconfdir/crystallize.conf" ]] && [[ ! -e "$emberSysconfdir/ember-shared.conf" ]]; then
     mv "$emberSysconfdir/crystallize.conf" "$emberSysconfdir/ember-shared.conf"
 fi
 
