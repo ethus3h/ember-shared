@@ -129,16 +129,18 @@ if [[ ! -h "$emberSharedstatedir/crystallize" ]] && [[ -d "$emberSharedstatedir/
     ln -s "$emberSharedstatedir/ember" "$emberSharedstatedir/crystallize"
 fi
 
+
 # If ember.conf is a file, move it to the new ember-shared.conf location
 if [[ ! -h "$emberSysconfdir/ember.conf" ]] && [[ -f "$emberSysconfdir/ember.conf" ]]; then
     mv "$emberSysconfdir/ember.conf" "$emberSysconfdir/ember-shared.conf"
 fi
 
-# If crystallize.conf is a 
+# If crystallize.conf is a file, and ember-shared.conf does not exist yet, move it to the new location
 if [[ ! -h "$emberSysconfdir/crystallize.conf" ]] && [[ -f "$emberSysconfdir/crystallize.conf" ]] && [[ ! -e "$emberSysconfdir/ember-shared.conf" ]]; then
     mv "$emberSysconfdir/crystallize.conf" "$emberSysconfdir/ember-shared.conf"
 fi
 
+# If 
 ln -s "$emberSysconfdir/ember-shared.conf" "$emberSysconfdir/crystallize.conf"
 
 if ! [[ -e "$emberSysconfdir/ember.conf" ]]; then
