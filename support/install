@@ -143,8 +143,10 @@ fi
 
 # PUT IN ANY NEW NEEDED CONFIG FILE COMPATIBILITY LINKS
 
+# Link crystallize.conf to ember-shared.conf
 ln -s "$emberSysconfdir/ember-shared.conf" "$emberSysconfdir/crystallize.conf"
 
+# Link ember.conf 
 if ! [[ -e "$emberSysconfdir/ember.conf" ]]; then
     ln -s "$emberSysconfdir/ember-shared.conf" "$emberSysconfdir/ember.conf"
 fi
