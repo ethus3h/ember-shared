@@ -442,19 +442,7 @@ ia() (
                             retryCheckedLocation=1
                             continue
                         fi
-                    if [[ "$retryCheckedLocation" == 1 ]]; then
-                        backupLocation="$(crystallize-getconf BackupLocation)"
-                        if [[ -d "$backupLocation/items/$ident" ]]; then
-                            # A bit more stubborn rsyncing to try to get things off of flaky sshfs mount.
-                            # sshfs is considered a local source, and --append-verify doesn't work for local files because it would need to read the first chunk of the file to get a checksum for comparison anyway (it would be nice if they put a note in the manpage, though).
-                            retryUntilSuccess 300 1 1 1 rsync -av --partial --progress --append "$backupLocation/items/$ident" ./ &>/dev/null
-                            retryCheckedLocation=1
-                        else
-                            # This crystal is not in the backup.
-                            retryCheckedLocation=1
-                            continue
-                        fi
-                    elif [[ "$retryCheckedLocation" == 2 ]]; then
+                    elif [[ "$retryCheckedLocation" == 1 ]]; then
                         # Rsync is being really slow for some reason. Maybe because the remote computer is already uploading stuff? I wouldn't think it would be that bad, though; I can ssh in (although that's a bit laggy too)
                         if false; then
                         backupLocation="$(crystallize-getconf RsyncBackupLocation)"
@@ -468,15 +456,15 @@ ia() (
                                 # There's a rsync location configured, and it has the desired file.
                                 sshpass -p "$(crystallize-getconf RsyncBackupPassphrase)" rsync -av --progress --append-verify --checksum "$backupLocation/items/$ident" ./ || sshpass -p "$(crystallize-getconf RsyncBackupPassphrase)" rsync -av --progress --append-verify --checksum "$backupLocation/items/$ident" ./ || sshpass -p "$(crystallize-getconf RsyncBackupPassphrase)" rsync -av --progress --append-verify --checksum "$backupLocation/items/$ident" ./ || [[ -d "$ident" ]] && retryUntilSuccess 30 1 1 1 sshpass -p "$(crystallize-getconf RsyncBackupPassphrase)" rsync -av --progress --append-verify --checksum "$backupLocation/items/$ident" ./
                                 if [[ ! -d "$ident" ]]; then
-                                    retryCheckedLocation=3
+                                    retryCheckedLocation=2
                                     continue
                                 fi
                             fi
                             fi
-                            retryCheckedLocation=3
+                            retryCheckedLocation=2
                         else
                             # This crystal is not in the backup.
-                            retryCheckedLocation=3
+                            retryCheckedLocation=2
                             continue
                         fi
                     else
