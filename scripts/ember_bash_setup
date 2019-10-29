@@ -546,6 +546,9 @@ ia() (
         backupLocation="$(crystallize-getconf BackupLocation)"
         mkdir -p "$backupLocation/metadataStored"
         ident="$(iaident "$1")"
+        if [[ -e  ]]
+        retryUntilSuccess 30 30 5 5 command ia "$@" || die
+    elif [[ "$1" == "metadata" ]]; then
         retryUntilSuccess 30 30 5 5 command ia "$@" || die
     else
         command ia "$@" || die
