@@ -545,12 +545,12 @@ ia() (
     elif [[ "$1" == "metadataStored" ]]; then
         backupLocation="$(crystallize-getconf BackupLocation)"
         mkdir -p "$backupLocation/metadataStored"
-        ident="$(iaident "$1")"
+        ident="$(iaident "$2")"
         path="$backupLocation/metadataStored/$ident.json"
         if [[ -e "$path" ]] && [[ "$(wc -c < "$path")" -gt 1 ]]; then
             cat "$path"
         else
-            retryUntilSuccess 30 30 5 5 command ia metadata "$2" > "$path" || die
+            retryUntilSuccess 30 30 5 5 command ia metadata "$ident" > "$path"
             cat "$path"
         fi
     elif [[ "$1" == "metadata" ]]; then
