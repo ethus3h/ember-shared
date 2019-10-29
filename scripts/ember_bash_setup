@@ -551,7 +551,11 @@ ia() (
             cat "$path"
         else
             retryUntilSuccess 30 30 5 5 command ia metadata "$ident" > "$path"
-            cat "$path"
+            if [[ 0 != "$?" ]]; then
+                die "Could not get metadata for $ident."
+            else
+                cat "$path"
+            fi
         fi
     elif [[ "$1" == "metadata" ]]; then
         retryUntilSuccess 30 30 5 5 command ia "$@" || die
