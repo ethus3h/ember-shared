@@ -543,6 +543,9 @@ ia() (
         # Test items: UntilR2V232017june27447p has commas; futuramerlin.archival.data.24nov2013 is messy
         ia list "$2" | sed -E 's/^([^"]*,[^"]*)$/"\1"/g' | csvfix printf -fmt '%s'
     elif [[ "$1" == "metadata" ]]; then
+        backupLocation="$(crystallize-getconf BackupLocation)"
+        mkdir -p "$backupLocation/metadataStored"
+        ident="$(iaident "$1")"
         retryUntilSuccess 30 30 5 5 command ia "$@" || die
     else
         command ia "$@" || die
