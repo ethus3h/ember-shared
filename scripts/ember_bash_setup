@@ -620,10 +620,10 @@ iafilename() (
 
 iacontains() (
     ident="$(iaident "$1")"
-    desiredFile="$2"
+    desiredFile="$(iapath "$2")"
     # Won't work if the file name contains newline
     ia listplain "$ident" | while IFS= read -r fileNameToCheck; do
-        if [[ "$desiredFile"]]
+        if [[ "$desiredFile" == "$fileNameToCheck" ]]; then
 )
 
 iasha1() (
