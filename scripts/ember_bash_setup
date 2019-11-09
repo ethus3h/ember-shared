@@ -620,7 +620,8 @@ iafilename() (
 
 iacontains() (
     # Won't work if the file name contains newline
-    ia listplain "$1" | while IFS= read -r currentPageLine; do
+    ia listplain "$1" | while IFS= read -r fileNameToCheck; do
+        
 )
 
 iasha1() (
