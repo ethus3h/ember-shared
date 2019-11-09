@@ -621,7 +621,7 @@ iafilename() (
 iacontains() (
     ident="$(iaident "$1")"
     desiredFile="$2"
-    if [[ "$desiredFile" == */* ]]; then
+    if hasWebProtocol "$desiredFile"; then
         # Contains a slash, so this is a bare filename
         
     desiredFile="$(iapath "$2")"
