@@ -621,8 +621,9 @@ iafilename() (
 iacontains() (
     ident="$(iaident "$1")"
     desiredFile="$2"
-    if [[ "$url" != */* ]]; then
-        # Doesn't contain a slash, so this is a bare 
+    if [[ "$desiredFile" == */* ]]; then
+        # Contains a slash, so this is a bare filename
+        
     desiredFile="$(iapath "$2")"
     foundDesiredFile="false"
     # Won't work if the file name contains newline
