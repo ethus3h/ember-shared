@@ -559,9 +559,9 @@ ia() (
         fi
     elif [[ "$1" == "filesXmlStored" ]]; then
         backupLocation="$(crystallize-getconf BackupLocation)"
-        mkdir -p "$backupLocation/metadataStored/lists"
+        mkdir -p "$backupLocation/metadataStored/filesXmls"
         ident="$(iaident "$2")"
-        path="$backupLocation/metadataStored/lists/$ident.json"
+        path="$backupLocation/metadataStored/filesXmls/$ident.json"
         if [[ -e "$path" ]] && [[ "$(wc -c < "$path")" -gt 1 ]]; then
             cat "$path"
         else
