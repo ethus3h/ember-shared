@@ -618,8 +618,9 @@ iafilename() (
     basename "$(iapath "$1")"
 )
 
-iafilename() (
-    basename "$(iapath "$1")"
+iacontains() (
+    # Won't work if the file name contains newline
+    ia listplain "$1" | 
 )
 
 iasha1() (
