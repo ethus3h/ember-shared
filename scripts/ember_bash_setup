@@ -622,8 +622,9 @@ iacontains() (
     ident="$(iaident "$1")"
     desiredFile="$2"
     if hasWebProtocol "$desiredFile"; then
-        # This is a URL to check, not a path
+        # This is a URL to check, not a path, so get the path from it
         desiredFile="$(iapath "$desiredFile")"
+    fi
     foundDesiredFile="false"
     # Won't work if the file name contains newline
     ia listplain "$ident" | while IFS= read -r fileNameToCheck; do
