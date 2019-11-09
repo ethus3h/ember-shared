@@ -623,7 +623,7 @@ iacontains() (
     desiredFile="$2"
     # Won't work if the file name contains newline
     ia listplain "$ident" | while IFS= read -r fileNameToCheck; do
-        
+        if [[ "$desiredFile"]]
 )
 
 iasha1() (
