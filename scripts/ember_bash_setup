@@ -621,9 +621,17 @@ iafilename() (
 iacontains() (
     ident="$(iaident "$1")"
     desiredFile="$(iapath "$2")"
+    foundDesiredFile="false"
     # Won't work if the file name contains newline
     ia listplain "$ident" | while IFS= read -r fileNameToCheck; do
         if [[ "$desiredFile" == "$fileNameToCheck" ]]; then
+            foundDesiredFile="true"
+        fi
+    done
+    if [[ "$foundDesiredFile" == "true" ]]
+        return 0
+    fi
+    return 1
 )
 
 iasha1() (
