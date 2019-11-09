@@ -618,6 +618,10 @@ iafilename() (
     basename "$(iapath "$1")"
 )
 
+iafilename() (
+    basename "$(iapath "$1")"
+)
+
 iasha1() (
     local field="sha1"
     local result
