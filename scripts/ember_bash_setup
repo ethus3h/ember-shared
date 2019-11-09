@@ -557,6 +557,21 @@ ia() (
                 cat "$path"
             fi
         fi
+    elif [[ "$1" == "filesXmlStored" ]]; then
+        backupLocation="$(crystallize-getconf BackupLocation)"
+        mkdir -p "$backupLocation/metadataStored/lists"
+        ident="$(iaident "$2")"
+        path="$backupLocation/metadataStored/lists/$ident.json"
+        if [[ -e "$path" ]] && [[ "$(wc -c < "$path")" -gt 1 ]]; then
+            cat "$path"
+        else
+            retryUntilSuccess 30 30 5 5 command ia list "$ident" > "$path"
+            if [[ 0 != "$?" ]]; then
+                die "Could not get list for $ident."
+            else
+                cat "$path"
+            fi
+        fi
     elif [[ "$1" == "metadataStored" ]]; then
         backupLocation="$(crystallize-getconf BackupLocation)"
         mkdir -p "$backupLocation/metadataStored/metadata"
