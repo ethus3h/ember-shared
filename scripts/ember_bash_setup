@@ -619,6 +619,8 @@ iafilename() (
 )
 
 iacontains() (
+    ident="$1"
+    desiredFile="$2"
     # Won't work if the file name contains newline
     ia listplain "$(iaident 1)" | while IFS= read -r fileNameToCheck; do
         
