@@ -557,17 +557,17 @@ ia() (
                 cat "$path"
             fi
         fi
-    elif [[ "$1" == "filesXmlStored" ]]; then
+    elif [[ "$1" == "filesXMLStored" ]]; then
         backupLocation="$(crystallize-getconf BackupLocation)"
-        mkdir -p "$backupLocation/metadataStored/filesXmls"
+        mkdir -p "$backupLocation/metadataStored/filesXMLs"
         ident="$(iaident "$2")"
-        path="$backupLocation/metadataStored/filesXmls/$ident.json"
+        path="$backupLocation/metadataStored/filesXMLs/$ident.json"
         if [[ -e "$path" ]] && [[ "$(wc -c < "$path")" -gt 1 ]]; then
             cat "$path"
         else
             retryUntilSuccess 30 30 5 5 wget -qO - "https://archive.org/download/$ident/$ident"_files.xml > "$path"
             if [[ 0 != "$?" ]]; then
-                die "Could not get list for $ident."
+                die "Could not get files XML for $ident."
             else
                 cat "$path"
             fi
