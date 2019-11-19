@@ -403,9 +403,9 @@ ia() (
             retryUntilSuccess 5 120 5 5 uploadRetryInner "$@" && outerSucceeded="true"
             [[ "$outerSucceeded" == "true" ]] || die "Error uploading!"
             # Download and cache the metadata
-            ia metadataStored "$identifier"
-            ia listStored "$identifier"
-            ia filesXMLStored "$identifier"
+            ia metadataStored "$identifier" > /dev/null
+            ia listStored "$identifier" > /dev/null
+            ia filesXMLStored "$identifier" > /dev/null
             if [[ "$outerSucceeded" == "true" ]] && [[ "$wantsDelete" == "true" ]]; then
                 for file in "${fileArgs[@]}"; do
                     rm "${file:?}"
