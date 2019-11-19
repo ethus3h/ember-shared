@@ -532,13 +532,13 @@ ia() (
             (
                 cd "$tempDir" || die
                 requestUrl="$2"
-    cacheMetadataOption="--cache-metadata"
-    if [[ "--no-cache-metadata" == "$requestUrl" ]]; then
-        cacheMetadataOption="--no-cache-metadata"
-        $requestUrl="$3"
-    elif [[ "--cache-metadata" == "$1" ]]; then
-        $requestUrl="$3"
-    fi
+                cacheMetadataOption="--cache-metadata"
+                if [[ "--no-cache-metadata" == "$requestUrl" ]]; then
+                    cacheMetadataOption="--no-cache-metadata"
+                    requestUrl="$3"
+                elif [[ "--cache-metadata" == "$requestUrl" ]]; then
+                    requestUrl="$3"
+                fi
                 identifier="$(iaident "$requestUrl")"
                 fileName="$(iapath "$requestUrl")"
                 iacontains "$identifier" "$fileName" || die "The Internet Archive item $identifier does not seem to contain the requested path $fileName."
