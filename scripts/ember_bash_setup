@@ -400,7 +400,7 @@ ia() (
                 fi
                 [[ "$succeeded" == "true" ]] || die "Error uploading in inner function!"
             )
-            retryUntilSuccess 10 120 5 5 uploadRetryInner "$@" && outerSucceeded="true"
+            retryUntilSuccess 5 120 5 5 uploadRetryInner "$@" && outerSucceeded="true"
             [[ "$outerSucceeded" == "true" ]] || die "Error uploading!"
             if [[ "$outerSucceeded" == "true" ]] && [[ "$wantsDelete" == "true" ]]; then
                 for file in "${fileArgs[@]}"; do
