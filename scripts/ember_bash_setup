@@ -580,6 +580,7 @@ ia() (
             ident="$3"
         fi
         ident="$(iaident "$ident")"
+        if [[ "--no-cache-metadata" cacheMetadataOption ]]
         path="$backupLocation/metadataStored/lists/$ident.lst"
         if [[ -e "$path" ]] && [[ "$(wc -c < "$path")" -gt 1 ]]; then
             cat "$path"
