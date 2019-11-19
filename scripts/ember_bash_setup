@@ -559,14 +559,17 @@ ia() (
     elif [[ "$1" == "listplain" ]]; then
         # Wrapper around ia list.
         # Test items: UntilR2V232017june27447p has commas; futuramerlin.archival.data.24nov2013 is messy
-        cacheMetadataOption="--cache-metadata"
-        if [[ "--no-cache-metadata" == "$1" ]]; then
-            cacheMetadataOption="--no-cache-metadata"
-            shift
-        elif [[ "--cache-metadata" == "$1" ]]; then
-            shift
-        fi
-        ia listStored "$2" | sed -E 's/^([^"]*,[^"]*)$/"\1"/g' | csvfix printf -fmt '%s'
+        (
+            ident="$2"
+            cacheMetadataOption="--cache-metadata"
+            if [[ "--no-cache-metadata" == "$ident" ]]; then
+                cacheMetadataOption="--no-cache-metadata"
+                ident="$3"
+            elif [[ "--cache-metadata" == "$ident" ]]; then
+                ident="$3"
+            fi
+            ia listStored "$2" | sed -E 's/^([^"]*,[^"]*)$/"\1"/g' | csvfix printf -fmt '%s'
+        ) || die
     elif [[ "$1" == "listStored" ]]; then
         backupLocation="$(crystallize-getconf BackupLocation)"
         mkdir -p "$backupLocation/metadataStored/lists"
