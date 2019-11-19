@@ -559,21 +559,27 @@ ia() (
     elif [[ "$1" == "listplain" ]]; then
         # Wrapper around ia list.
         # Test items: UntilR2V232017june27447p has commas; futuramerlin.archival.data.24nov2013 is messy
-        (
-            ident="$2"
-            cacheMetadataOption="--cache-metadata"
-            if [[ "--no-cache-metadata" == "$ident" ]]; then
-                cacheMetadataOption="--no-cache-metadata"
-                ident="$3"
-            elif [[ "--cache-metadata" == "$ident" ]]; then
-                ident="$3"
-            fi
-            ia listStored "$2" | sed -E 's/^([^"]*,[^"]*)$/"\1"/g' | csvfix printf -fmt '%s'
-        ) || die
+        ident="$2"
+        cacheMetadataOption="--cache-metadata"
+        if [[ "--no-cache-metadata" == "$ident" ]]; then
+            cacheMetadataOption="--no-cache-metadata"
+            ident="$3"
+        elif [[ "--cache-metadata" == "$ident" ]]; then
+            ident="$3"
+        fi
+        ia listStored "$ident" | sed -E 's/^([^"]*,[^"]*)$/"\1"/g' | csvfix printf -fmt '%s'
     elif [[ "$1" == "listStored" ]]; then
         backupLocation="$(crystallize-getconf BackupLocation)"
         mkdir -p "$backupLocation/metadataStored/lists"
-        ident="$(iaident "$2")"
+        ident="$2"
+        cacheMetadataOption="--cache-metadata"
+        if [[ "--no-cache-metadata" == "$ident" ]]; then
+            cacheMetadataOption="--no-cache-metadata"
+            ident="$3"
+        elif [[ "--cache-metadata" == "$ident" ]]; then
+            ident="$3"
+        fi
+        ident="$(iaident "$ident")"
         path="$backupLocation/metadataStored/lists/$ident.lst"
         if [[ -e "$path" ]] && [[ "$(wc -c < "$path")" -gt 1 ]]; then
             cat "$path"
