@@ -580,16 +580,19 @@ ia() (
             ident="$3"
         fi
         ident="$(iaident "$ident")"
-        if [[ "--no-cache-metadata" cacheMetadataOption ]]
-        path="$backupLocation/metadataStored/lists/$ident.lst"
-        if [[ -e "$path" ]] && [[ "$(wc -c < "$path")" -gt 1 ]]; then
-            cat "$path"
+        if [[ "--no-cache-metadata" == "$cacheMetadataOption" ]]; then
+            retryUntilSuccess 30 30 5 5 command ia list "$ident"
         else
-            retryUntilSuccess 30 30 5 5 command ia list "$ident" > "$path"
-            if [[ 0 != "$?" ]]; then
-                die "Could not get list for $ident."
-            else
+            path="$backupLocation/metadataStored/lists/$ident.lst"
+            if [[ -e "$path" ]] && [[ "$(wc -c < "$path")" -gt 1 ]]; then
                 cat "$path"
+            else
+                retryUntilSuccess 30 30 5 5 command ia list "$ident" > "$path"
+                if [[ 0 != "$?" ]]; then
+                    die "Could not get list for $ident."
+                else
+                    cat "$path"
+                fi
             fi
         fi
     elif [[ "$1" == "filesXMLStored" ]]; then
