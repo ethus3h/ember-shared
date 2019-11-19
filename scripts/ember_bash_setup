@@ -541,7 +541,7 @@ ia() (
                 fi
                 identifier="$(iaident "$requestUrl")"
                 fileName="$(iapath "$requestUrl")"
-                iacontains "$identifier" "$fileName" || die "The Internet Archive item $identifier does not seem to contain the requested path $fileName."
+                iacontains "$cacheMetadataOption" "$identifier" "$fileName" || die "The Internet Archive item $identifier does not seem to contain the requested path $fileName."
                 ia checkeddl "$requestUrl" > /dev/null || die
                 [[ -f "$identifier/$fileName" ]] || die
                 cat "$identifier/$fileName"
