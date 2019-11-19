@@ -650,9 +650,9 @@ iacontains() (
 )
 
 iasha1() (
-    metadataCommand="metadata"
-    if [[ "--no-cache-metadata" == "$1" ]]; then
         metadataCommand="metadataStored"
+    if [[ "--no-cache-metadata" == "$1" ]]; then
+    metadataCommand="metadata"
     local field="sha1"
     local result
     local iapathEscaped
