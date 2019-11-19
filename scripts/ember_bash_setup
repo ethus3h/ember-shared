@@ -423,11 +423,13 @@ ia() (
                 succeeded=""
                 ident=""
                 ident="$(iaident "$param")"
-                # Download and cache the metadata
-                ia metadataStored "$ident"
-                ia listStored "$ident"
-                ia filesXMLStored "$ident"
                 fileName="$(iapath "$param")"
+
+                # Download and cache the metadata
+                ia metadataStored "$ident" > /dev/null
+                ia listStored "$ident" > /dev/null
+                ia filesXMLStored "$ident" > /dev/null
+
                 while [[ "$succeeded" != "true" && "$retryCount" -lt 30 ]]; do
                     trap 'warn "A nonfatal error was reported on ${BASH_SOURCE[0]} line ${LINENO} in $(pwd) at $(emdate). Continuing attempt."' ERR
                     succeeded=""
