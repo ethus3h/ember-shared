@@ -630,9 +630,11 @@ iafilename() (
 )
 
 iacontains() (
-    noCacheMetadata="--cache-metadata"
+    cacheMetadataOption="--cache-metadata"
     if [[ "--no-cache-metadata" == "$1" ]]; then
-        noCacheMetadata="true"
+        cacheMetadataOption="--no-cache-metadata"
+        shift
+    elif [[ "--cache-metadata" == "$1" ]]; then
         shift
     fi
     ident="$(iaident "$1")"
