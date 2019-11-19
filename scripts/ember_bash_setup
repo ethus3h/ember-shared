@@ -630,8 +630,8 @@ iafilename() (
 )
 
 iacontains() (
+    noCacheMetadata="false"
     if [[ "--no-cache-metadata" == "$1" ]]; then
-        # This is for verifying freshly created items. Since the filesXML won't be downloaded in that case, don't bother overriding the filesXMLStored command.
         noCacheMetadata="true"
         shift
     fi
