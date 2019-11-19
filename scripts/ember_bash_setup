@@ -651,7 +651,7 @@ iacontains() (
 
 iasha1() (
     if [[ "--no-cache-metadata" == "$1" ]]; then
-        cacheMetadata
+        metadataCommand="metadata"
     local field="sha1"
     local result
     local iapathEscaped
