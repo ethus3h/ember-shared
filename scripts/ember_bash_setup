@@ -532,6 +532,13 @@ ia() (
             (
                 cd "$tempDir" || die
                 requestUrl="$2"
+    cacheMetadataOption="--cache-metadata"
+    if [[ "--no-cache-metadata" == "$requestUrl" ]]; then
+        cacheMetadataOption="--no-cache-metadata"
+        $requestUrl="$3"
+    elif [[ "--cache-metadata" == "$1" ]]; then
+        $requestUrl="$3"
+    fi
                 identifier="$(iaident "$requestUrl")"
                 fileName="$(iapath "$requestUrl")"
                 iacontains "$identifier" "$fileName" || die "The Internet Archive item $identifier does not seem to contain the requested path $fileName."
@@ -645,7 +652,7 @@ iacontains() (
     fi
     foundDesiredFile="false"
     # Won't work if the file name contains newline
-    ia listplain "$ident" | while IFS= read -r fileNameToCheck; do
+    ia listplain "$cacheMetadataOption" "$ident" | while IFS= read -r fileNameToCheck; do
         if [[ "$desiredFile" == "$fileNameToCheck" ]]; then
             foundDesiredFile="true"
         fi
@@ -661,6 +668,8 @@ iasha1() (
     if [[ "--no-cache-metadata" == "$1" ]]; then
         # This is for verifying freshly created items. Since the filesXML won't be downloaded in that case, don't bother overriding the filesXMLStored command.
         metadataCommand="metadata"
+        shift
+    elif [[ "--cache-metadata" == "$1" ]]; then
         shift
     fi
     local field="sha1"
