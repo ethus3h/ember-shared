@@ -654,6 +654,7 @@ iasha1() (
     if [[ "--no-cache-metadata" == "$1" ]]; then
         # This is for verifying freshly created items. Since the filesXML won't be downloaded in that case, don't bother overriding the filesXMLStored command.
         metadataCommand="metadata"
+        shift
     fi
     local field="sha1"
     local result
