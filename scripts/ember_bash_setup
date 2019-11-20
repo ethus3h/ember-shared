@@ -305,9 +305,8 @@ preadconf() {
 
 ia() (
     trap 'die "A fatal error was reported on ${BASH_SOURCE[0]} line ${LINENO} in $(pwd) at $(emdate)."' ERR
-    uploadCacheMetadata="true"
+    uploadCacheMetadata="false"
     if [[ "$1" == "--upload-no-cache-metadata" ]]; then
-        uploadCacheMetadata="false"
         shift
     elif [[ "$1" == "--upload-cache-metadata" ]]; then
         uploadCacheMetadata="true"
