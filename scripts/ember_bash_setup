@@ -312,10 +312,10 @@ ia() (
         uploadCacheMetadata="true"
         shift
     fi
-    uploadCacheMetadata="false"
-    if [[ "$1" == "--upload-no-cache-metadata" ]]; then
+    propagateMetadataRetrieval="true"
+    if [[ "$1" == "--no-propagate-metadata-retrieval" ]]; then
         shift
-    elif [[ "$1" == "--upload-cache-metadata" ]]; then
+    elif [[ "$1" == "--propagate-metadata-retrieval" ]]; then
         uploadCacheMetadata="true"
         shift
     fi
