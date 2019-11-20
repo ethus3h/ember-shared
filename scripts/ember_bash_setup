@@ -591,7 +591,6 @@ ia() (
         ident="$(iaident "$ident")"
         # Download and save the other metadata
         ia metadataStored "$ident" > /dev/null
-        ia listStored "$ident" > /dev/null
         ia filesXMLStored "$ident" > /dev/null
         if [[ "--no-cache-metadata" == "$cacheMetadataOption" ]]; then
             retryUntilSuccess 30 30 5 5 command ia list "$ident"
