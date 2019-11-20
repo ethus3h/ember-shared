@@ -305,6 +305,10 @@ preadconf() {
 
 ia() (
     trap 'die "A fatal error was reported on ${BASH_SOURCE[0]} line ${LINENO} in $(pwd) at $(emdate)."' ERR
+    uploadCacheMetadata="true"
+    if [[ "$1" == "--upload-no-cache-metadata" ]]; then
+        uploadCacheMetadata="false"
+    fi
     if [[ "$1" == "upload" ]]; then
         (
             # Retry wrapper for ia to work around https://github.com/jjjake/internetarchive/issues/183
