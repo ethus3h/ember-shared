@@ -672,6 +672,7 @@ iacontains() (
     fi
     foundDesiredFile="false"
     if [[ "$ident"_files.xml == "$desiredFile" ]]; then
+        # All items should have a _files.xml
         return 0
     fi
     # Won't work if the file name contains newline
