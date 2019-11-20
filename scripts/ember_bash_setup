@@ -455,21 +455,21 @@ ia() (
                     elif [[ "$retryCheckedLocation" == 1 ]]; then
                         # Rsync is being really slow for some reason. Maybe because the remote computer is already uploading stuff? I wouldn't think it would be that bad, though; I can ssh in (although that's a bit laggy too)
                         if false; then
-                        backupLocation="$(crystallize-getconf RsyncBackupLocation)"
-                        if [[ -n "$backupLocation" ]] && [[ "$backupLocation" != "exampleUser@example.hostname:'/Example/Path To Backup Directory/'" ]]; then
-                            # http://web.archive.org/web/20190402151655/https://stackoverflow.com/questions/12845206/check-if-file-exists-on-remote-host-with-ssh
-                            local backupLocTemp=""
-                            backupLocTemp="${backupLocation#*:}"
-                            backupLocTemp="${backupLocTemp#\'*}"
-                            backupLocTemp="${backupLocTemp%*\'}"
-                            if sshpass -p "$(crystallize-getconf RsyncBackupPassphrase)" ssh -q "${backupLocation%:*}" [[ -d \'"$backupLocTemp/items/$ident"\' ]]; then
-                                # There's a rsync location configured, and it has the desired file.
-                                sshpass -p "$(crystallize-getconf RsyncBackupPassphrase)" rsync -av --progress --append-verify --checksum "$backupLocation/items/$ident" ./ || sshpass -p "$(crystallize-getconf RsyncBackupPassphrase)" rsync -av --progress --append-verify --checksum "$backupLocation/items/$ident" ./ || sshpass -p "$(crystallize-getconf RsyncBackupPassphrase)" rsync -av --progress --append-verify --checksum "$backupLocation/items/$ident" ./ || [[ -d "$ident" ]] && retryUntilSuccess 30 1 1 1 sshpass -p "$(crystallize-getconf RsyncBackupPassphrase)" rsync -av --progress --append-verify --checksum "$backupLocation/items/$ident" ./
-                                if [[ ! -d "$ident" ]]; then
-                                    retryCheckedLocation=2
-                                    continue
+                            backupLocation="$(crystallize-getconf RsyncBackupLocation)"
+                            if [[ -n "$backupLocation" ]] && [[ "$backupLocation" != "exampleUser@example.hostname:'/Example/Path To Backup Directory/'" ]]; then
+                                # http://web.archive.org/web/20190402151655/https://stackoverflow.com/questions/12845206/check-if-file-exists-on-remote-host-with-ssh
+                                local backupLocTemp=""
+                                backupLocTemp="${backupLocation#*:}"
+                                backupLocTemp="${backupLocTemp#\'*}"
+                                backupLocTemp="${backupLocTemp%*\'}"
+                                if sshpass -p "$(crystallize-getconf RsyncBackupPassphrase)" ssh -q "${backupLocation%:*}" [[ -d \'"$backupLocTemp/items/$ident"\' ]]; then
+                                    # There's a rsync location configured, and it has the desired file.
+                                    sshpass -p "$(crystallize-getconf RsyncBackupPassphrase)" rsync -av --progress --append-verify --checksum "$backupLocation/items/$ident" ./ || sshpass -p "$(crystallize-getconf RsyncBackupPassphrase)" rsync -av --progress --append-verify --checksum "$backupLocation/items/$ident" ./ || sshpass -p "$(crystallize-getconf RsyncBackupPassphrase)" rsync -av --progress --append-verify --checksum "$backupLocation/items/$ident" ./ || [[ -d "$ident" ]] && retryUntilSuccess 30 1 1 1 sshpass -p "$(crystallize-getconf RsyncBackupPassphrase)" rsync -av --progress --append-verify --checksum "$backupLocation/items/$ident" ./
+                                    if [[ ! -d "$ident" ]]; then
+                                        retryCheckedLocation=2
+                                        continue
+                                    fi
                                 fi
-                            fi
                             fi
                             retryCheckedLocation=2
                         else
