@@ -314,6 +314,7 @@ ia() (
     fi
     propagateMetadataRetrieval="true"
     if [[ "$1" == "--no-propagate-metadata-retrieval" ]]; then
+        # This is an internal option used to avoid recursively looking up metadata
         propagateMetadataRetrieval="false"
         shift
     elif [[ "$1" == "--propagate-metadata-retrieval" ]]; then
