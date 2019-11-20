@@ -597,8 +597,8 @@ ia() (
         fi
         ident="$(iaident "$ident")"
         # Download and save the other metadata to ensure it's all available for the item
-        ia metadataStored "$ident" > /dev/null
-        ia filesXMLStored "$ident" > /dev/null
+        ia --no-propagate-metadata-retrieval metadataStored "$ident" > /dev/null
+        ia --no-propagate-metadata-retrieval filesXMLStored "$ident" > /dev/null
         if [[ "--no-cache-metadata" == "$cacheMetadataOption" ]]; then
             retryUntilSuccess 30 30 5 5 command ia list "$ident"
         else
@@ -619,8 +619,8 @@ ia() (
         mkdir -p "$backupLocation/metadataStored/filesXMLs"
         ident="$(iaident "$2")"
         # Download and save the other metadata to ensure it's all available for the item
-        ia metadataStored "$ident" > /dev/null
-        ia listStored "$ident" > /dev/null
+        ia --no-propagate-metadata-retrieval metadataStored "$ident" > /dev/null
+        ia --no-propagate-metadata-retrieval listStored "$ident" > /dev/null
         path="$backupLocation/metadataStored/filesXMLs/$ident"_files.xml
         if [[ -e "$path" ]] && [[ "$(wc -c < "$path")" -gt 1 ]]; then
             cat "$path"
@@ -637,8 +637,8 @@ ia() (
         mkdir -p "$backupLocation/metadataStored/metadata"
         ident="$(iaident "$2")"
         # Download and save the other metadata to ensure it's all available for the item
-        ia listStored "$ident" > /dev/null
-        ia filesXMLStored "$ident" > /dev/null
+        ia --no-propagate-metadata-retrieval listStored "$ident" > /dev/null
+        ia --no-propagate-metadata-retrieval filesXMLStored "$ident" > /dev/null
         path="$backupLocation/metadataStored/metadata/$ident.json"
         if [[ -e "$path" ]] && [[ "$(wc -c < "$path")" -gt 1 ]]; then
             cat "$path"
