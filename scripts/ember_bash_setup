@@ -629,7 +629,7 @@ ia() (
         backupLocation="$(crystallize-getconf BackupLocation)"
         mkdir -p "$backupLocation/metadataStored/metadata"
         ident="$(iaident "$2")"
-        # Download and save the other metadata
+        # Download and save the other metadata to ensure it's all available for this item
         ia listStored "$ident" > /dev/null
         ia filesXMLStored "$ident" > /dev/null
         path="$backupLocation/metadataStored/metadata/$ident.json"
