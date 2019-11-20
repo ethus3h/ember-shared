@@ -642,9 +642,10 @@ ia() (
         mkdir -p "$backupLocation/metadataStored/metadata"
         ident="$(iaident "$2")"
         if [[ "false" != "$propagateMetadataRetrieval" ]]; then
-        # Download and save the other metadata to ensure it's all available for the item
-        ia --no-propagate-metadata-retrieval listStored "$ident" > /dev/null
-        ia --no-propagate-metadata-retrieval filesXMLStored "$ident" > /dev/null
+            # Download and save the other metadata to ensure it's all available for the item
+            ia --no-propagate-metadata-retrieval listStored "$ident" > /dev/null
+            ia --no-propagate-metadata-retrieval filesXMLStored "$ident" > /dev/null
+        fi
         path="$backupLocation/metadataStored/metadata/$ident.json"
         if [[ -e "$path" ]] && [[ "$(wc -c < "$path")" -gt 1 ]]; then
             cat "$path"
