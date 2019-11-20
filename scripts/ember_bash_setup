@@ -309,6 +309,9 @@ ia() (
     if [[ "$1" == "--upload-no-cache-metadata" ]]; then
         uploadCacheMetadata="false"
         shift
+    elif [[ "$1" == "--upload-cache-metadata" ]]; then
+        uploadCacheMetadata="true"
+        shift
     fi
     if [[ "$1" == "upload" ]]; then
         (
