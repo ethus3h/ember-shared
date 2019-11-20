@@ -314,9 +314,9 @@ ia() (
     fi
     propagateMetadataRetrieval="true"
     if [[ "$1" == "--no-propagate-metadata-retrieval" ]]; then
+        propagateMetadataRetrieval="false"
         shift
     elif [[ "$1" == "--propagate-metadata-retrieval" ]]; then
-        uploadCacheMetadata="true"
         shift
     fi
     if [[ "$1" == "upload" ]]; then
