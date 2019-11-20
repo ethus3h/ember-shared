@@ -671,7 +671,7 @@ iacontains() (
         desiredFile="$(iapath "$desiredFile")"
     fi
     foundDesiredFile="false"
-    if [[ "" "$desiredFile" ]]
+    if [[ "$ident"_files.xml == "$desiredFile" ]]
     # Won't work if the file name contains newline
     ia listplain "$cacheMetadataOption" "$ident" | while IFS= read -r fileNameToCheck; do
         if [[ "$desiredFile" == "$fileNameToCheck" ]]; then
