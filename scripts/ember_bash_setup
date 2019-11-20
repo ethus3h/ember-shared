@@ -589,7 +589,7 @@ ia() (
             ident="$3"
         fi
         ident="$(iaident "$ident")"
-        # Download and save the metadata
+        # Download and save the other metadata
         ia metadataStored "$ident" > /dev/null
         ia listStored "$ident" > /dev/null
         ia filesXMLStored "$ident" > /dev/null
