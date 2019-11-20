@@ -312,6 +312,13 @@ ia() (
         uploadCacheMetadata="true"
         shift
     fi
+    uploadCacheMetadata="false"
+    if [[ "$1" == "--upload-no-cache-metadata" ]]; then
+        shift
+    elif [[ "$1" == "--upload-cache-metadata" ]]; then
+        uploadCacheMetadata="true"
+        shift
+    fi
     if [[ "$1" == "upload" ]]; then
         (
             # Retry wrapper for ia to work around https://github.com/jjjake/internetarchive/issues/183
