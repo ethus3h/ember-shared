@@ -589,10 +589,10 @@ ia() (
             ident="$3"
         fi
         ident="$(iaident "$ident")"
-                # Download and save the metadata
-                ia metadataStored "$identifier" > /dev/null
-                ia listStored "$identifier" > /dev/null
-                ia filesXMLStored "$identifier" > /dev/null
+        # Download and save the metadata
+        ia metadataStored "$ident" > /dev/null
+        ia listStored "$ident" > /dev/null
+        ia filesXMLStored "$ident" > /dev/null
         if [[ "--no-cache-metadata" == "$cacheMetadataOption" ]]; then
             retryUntilSuccess 30 30 5 5 command ia list "$ident"
         else
