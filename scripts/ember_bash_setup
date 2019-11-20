@@ -630,7 +630,6 @@ ia() (
         mkdir -p "$backupLocation/metadataStored/metadata"
         ident="$(iaident "$2")"
         # Download and save the other metadata
-        ia metadataStored "$ident" > /dev/null
         ia listStored "$ident" > /dev/null
         ia filesXMLStored "$ident" > /dev/null
         path="$backupLocation/metadataStored/metadata/$ident.json"
