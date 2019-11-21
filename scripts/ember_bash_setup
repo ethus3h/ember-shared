@@ -725,7 +725,7 @@ ia() (
                     cat "$path"
                 else
                     rm "$path"
-                    die "Could not get files XML for $ident"
+                    die "Could not get metadata for $ident"
                 fi
             fi
         fi
