@@ -718,45 +718,7 @@ ia() (
             fi
         fi
     elif [[ "$1" == "metadataStored" ]]; then
-        backupLocation="$(crystallize-getconf BackupLocation)"
-        mkdir -p "$backupLocation/metadataStored/metadata"
-        ident="$(iaident "$2")"
-        if [[ "false" != "$propagateMetadataRetrieval" ]]; then
-            # Download and save the other metadata to ensure it's all available for the item
-            ia --no-propagate-metadata-retrieval listStored "$ident" > /dev/null
-            ia --no-propagate-metadata-retrieval filesXMLStored "$ident" > /dev/null
-            ia --no-propagate-metadata-retrieval metaXMLStored "$ident" > /dev/null
-        fi
-        path="$backupLocation/metadataStored/metadata/$ident.json"
-        if [[ -e "$path" ]] && [[ "$(wc -c < "$path")" -gt 3 ]]; then
-            cat "$path"
-        else
-            temp="$(tempFile)"
-            retryUntilSuccess 30 30 5 5 command ia metadata "$ident" > "$temp"
-            if [[ 0 != "$?" ]]; then
-                die "Could not get metadata for $ident: error first download."
-            fi
-            tempSha="$(sha512sum "$temp" | awk '{print $1;}')"
-            [[ -n "$tempSha" ]] || die "Checksum empty while getting metadata for $ident"
-            rm "$temp"
-            [[ -e "$temp" ]] && die "Temporary file unexpectedly exists while getting metadata for $ident"
-            retryUntilSuccess 30 30 5 5 command ia metadata "$ident" > "$temp"
-            if [[ 0 != "$?" ]]; then
-                die "Could not get metadata for $ident: error second download."
-            fi
-            [[ "$(sha512sum "$temp" | awk '{print $1;}')" == "$tempSha" ]] || die "metadata for $ident was different when downloaded twice"
-            mv "$temp" "$path"
-            if [[ 0 != "$?" ]]; then
-                die "Could not get metadata for $ident: error moving."
-            else
-                if [[ -e "$path" ]] && [[ "$(wc -c < "$path")" -gt 3 ]]; then
-                    cat "$path"
-                else
-                    rm "$path" || die "Could not remove path to failed retrieval of metadata for $ident"
-                    die "Could not get metadata for $ident"
-                fi
-            fi
-        fi
+        retryUntilSuccess 30 30 5 5 ia metadataStoredInner "$2"
     elif [[ "$1" == "metadataStoredInner" ]]; then
         backupLocation="$(crystallize-getconf BackupLocation)"
         mkdir -p "$backupLocation/metadataStored/metadata"
