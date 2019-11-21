@@ -649,11 +649,11 @@ ia() (
             ia --no-propagate-metadata-retrieval listStored "$ident" > /dev/null
             ia --no-propagate-metadata-retrieval filesXMLStored "$ident" > /dev/null
         fi
-        path="$backupLocation/metadataStored/filesXMLs/$ident"_files.xml
+        path="$backupLocation/metadataStored/metaXMLs/$ident"_files.xml
         if [[ -e "$path" ]] && [[ "$(wc -c < "$path")" -gt 1 ]]; then
             cat "$path"
         else
-            retryUntilSuccess 30 30 5 5 wget -qO - "https://archive.org/download/$ident/$ident"_files.xml > "$path"
+            retryUntilSuccess 30 30 5 5 ia downloadAsStream "https://archive.org/download/$ident/$ident"_meta.xml > "$path"
             if [[ 0 != "$?" ]]; then
                 die "Could not get files XML for $ident."
             else
