@@ -698,7 +698,7 @@ ia() (
                 if [[ -e "$path" ]] && [[ "$(wc -c < "$path")" -gt 1 ]]; then
                     cat "$path"
                 else
-                    rm "$path"
+                    rm "$path" || die "Could not remove path to failed retrieval of meta XML for $ident"
                     die "Could not get meta XML for $ident"
                 fi
             fi
