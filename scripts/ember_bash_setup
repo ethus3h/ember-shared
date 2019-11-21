@@ -625,7 +625,7 @@ ia() (
                 fi
                 [[ "$(sha512sum "$temp" | awk '{print $1;}')" == "$tempSha" ]] || die "files XML for $ident was different when downloaded twice"
                 mv "$temp" "$path"
-                retryUntilSuccess 30 30 5 5 command ia list "$ident" > "$path"
+                retryUntilSuccess 30 30 5 5 command ia list "$ident" > "$temp"
                 if [[ 0 != "$?" ]]; then
                     die "Could not get list for $ident: error moving."
                 else
