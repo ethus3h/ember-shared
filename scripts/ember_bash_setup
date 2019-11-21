@@ -718,7 +718,7 @@ ia() (
             fi
         fi
     elif [[ "$1" == "metadataStored" ]]; then
-        # ia metadata seems to be nondeterministic, so wrap it with retry until it matches
+        # ia metadata seems to be nondeterministic, so wrap it with retry and hopefully when it matches, the result will be sensible
         retryUntilSuccess 30 30 5 5 ia metadataStoredInner "${@:2}"
     elif [[ "$1" == "metadataStoredInner" ]]; then
         backupLocation="$(crystallize-getconf BackupLocation)"
