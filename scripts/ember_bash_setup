@@ -589,13 +589,13 @@ ia() (
         backupLocation="$(crystallize-getconf BackupLocation)"
         mkdir -p "$backupLocation/metadataStored/lists"
         ident="$2"
-        cacheMetadataOption="--cache-metadata"
-        if [[ "--no-cache-metadata" == "$ident" ]]; then
-            cacheMetadataOption="--no-cache-metadata"
-            ident="$3"
-        elif [[ "--cache-metadata" == "$ident" ]]; then
-            ident="$3"
-        fi
+#        cacheMetadataOption="--cache-metadata"
+#        if [[ "--no-cache-metadata" == "$ident" ]]; then
+#            cacheMetadataOption="--no-cache-metadata"
+#            ident="$3"
+#        elif [[ "--cache-metadata" == "$ident" ]]; then
+#            ident="$3"
+#        fi
         ident="$(iaident "$ident")"
         if [[ "false" != "$propagateMetadataRetrieval" ]]; then
             # Download and save the other metadata to ensure it's all available for the item
