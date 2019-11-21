@@ -674,7 +674,7 @@ ia() (
             if [[ 0 != "$?" ]]; then
                 die "Could not get meta XML for $ident."
             fi
-            [[ "$(sha512sum "$temp" | awk '{print $1;}')" == "$tempSha" ]] || die "files XML was different when downloaded twice"
+            [[ "$(sha512sum "$temp" | awk '{print $1;}')" == "$tempSha" ]] || die "meta XML was different when downloaded twice"
             mv "$temp" "$path"
             if [[ 0 != "$?" ]]; then
                 die "Could not get meta XML for $ident."
