@@ -757,7 +757,7 @@ ia() (
                 fi
             fi
         fi
-    elif [[ "$1" == "metadataStored" ]]; then
+    elif [[ "$1" == "metadataStoredInner" ]]; then
         backupLocation="$(crystallize-getconf BackupLocation)"
         mkdir -p "$backupLocation/metadataStored/metadata"
         ident="$(iaident "$2")"
