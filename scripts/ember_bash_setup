@@ -639,7 +639,7 @@ ia() (
         fi
     elif [[ "$1" == "metaXMLStored" ]]; then
         backupLocation="$(crystallize-getconf BackupLocation)"
-        mkdir -p "$backupLocation/metadataStored/filesXMLs"
+        mkdir -p "$backupLocation/metadataStored/metaXMLs"
         ident="$(iaident "$2")"
         if [[ "false" != "$propagateMetadataRetrieval" ]]; then
             # Download and save the other metadata to ensure it's all available for the item
