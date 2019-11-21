@@ -664,7 +664,18 @@ ia() (
         if [[ -e "$path" ]] && [[ "$(wc -c < "$path")" -gt 1 ]]; then
             cat "$path"
         else
-            ia downloadAsStream "https://archive.org/download/$ident/$ident"_meta.xml > "$path"
+            temp="$(tempFile)"
+            retryUntilSuccess 30 30 5 5 wget -qO - "https://archive.org/download/$ident/$ident"_files.xml > "$temp"
+            if [[ 0 != "$?" ]]; then
+                die "Could not get files XML for $ident."
+            fi
+            tempSha="$(sha512sum "$temp" | awk '{print $1;}')"
+            retryUntilSuccess 30 30 5 5 wget -qO - "https://archive.org/download/$ident/$ident"_files.xml > "$temp"
+            if [[ 0 != "$?" ]]; then
+                die "Could not get files XML for $ident."
+            fi
+            [[ "$(sha512sum "$temp" | awk '{print $1;}')" == "$tempSha" ]] || die "files XML was different when downloaded twice"
+            mv "$temp" "$path"
             if [[ 0 != "$?" ]]; then
                 die "Could not get meta XML for $ident."
             else
