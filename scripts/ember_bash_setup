@@ -634,7 +634,7 @@ ia() (
         else
             temp="$(tempFile)"
             retryUntilSuccess 30 30 5 5 wget -qO - "https://archive.org/download/$ident/$ident"_files.xml > "$temp"
-            tempSha="$(sha512sum "$firstFile" | awk '{print $1;}')"
+            tempSha="$(sha512sum "$temp" | awk '{print $1;}')"
             retryUntilSuccess 30 30 5 5 wget -qO - "https://archive.org/download/$ident/$ident"_files.xml > "$temp"
             mv "$temp" "$path"
             if [[ 0 != "$?" ]]; then
