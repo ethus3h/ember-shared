@@ -649,7 +649,7 @@ ia() (
             ia --no-propagate-metadata-retrieval listStored "$ident" > /dev/null
             ia --no-propagate-metadata-retrieval filesXMLStored "$ident" > /dev/null
         fi
-        path="$backupLocation/metadataStored/metaXMLs/$ident"_files.xml
+        path="$backupLocation/metadataStored/metaXMLs/$ident"_meta.xml
         if [[ -e "$path" ]] && [[ "$(wc -c < "$path")" -gt 1 ]]; then
             cat "$path"
         else
