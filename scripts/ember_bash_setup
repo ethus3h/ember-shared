@@ -617,7 +617,7 @@ ia() (
                 if [[ -e "$path" ]] && [[ "$(wc -c < "$path")" -gt 1 ]]; then
                     cat "$path"
                 else
-                    rm "$path" || die "Could not remove path to failed retrieval of metadata for $ident"
+                    rm "$path" || die "Could not remove path to failed retrieval of list for $ident"
                     die "Could not get list for $ident"
                 fi
                 fi
