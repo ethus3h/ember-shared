@@ -611,7 +611,7 @@ ia() (
                 cat "$path"
             else
                 temp="$(tempFile)"
-                retryUntilSuccess 30 30 5 5 wget -qO - "https://archive.org/download/$ident/$ident"_files.xml > "$temp"
+                retryUntilSuccess 30 30 5 5 command ia list "$ident" > "$temp"
                 if [[ 0 != "$?" ]]; then
                     die "Could not get files XML for $ident: error first download."
                 fi
@@ -619,13 +619,12 @@ ia() (
                 [[ -n "$tempSha" ]] || die "Checksum empty while getting files XML for $ident"
                 rm "$temp"
                 [[ -e "$temp" ]] && die "Temporary file unexpectedly exists while getting files XML for $ident"
-                retryUntilSuccess 30 30 5 5 wget -qO - "https://archive.org/download/$ident/$ident"_files.xml > "$temp"
+                retryUntilSuccess 30 30 5 5 command ia list "$ident" > "$temp"
                 if [[ 0 != "$?" ]]; then
                     die "Could not get files XML for $ident: error second download."
                 fi
                 [[ "$(sha512sum "$temp" | awk '{print $1;}')" == "$tempSha" ]] || die "files XML for $ident was different when downloaded twice"
                 mv "$temp" "$path"
-                retryUntilSuccess 30 30 5 5 command ia list "$ident" > "$temp"
                 if [[ 0 != "$?" ]]; then
                     die "Could not get list for $ident: error moving."
                 else
