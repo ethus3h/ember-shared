@@ -667,17 +667,17 @@ ia() (
             temp="$(tempFile)"
             retryUntilSuccess 30 30 5 5 wget -qO - "https://archive.org/download/$ident/$ident"_meta.xml > "$temp"
             if [[ 0 != "$?" ]]; then
-                die "Could not get meta XML for $ident."
+                die "Could not get meta XML for $ident: error first download."
             fi
             tempSha="$(sha512sum "$temp" | awk '{print $1;}')"
             retryUntilSuccess 30 30 5 5 wget -qO - "https://archive.org/download/$ident/$ident"_meta.xml > "$temp"
             if [[ 0 != "$?" ]]; then
-                die "Could not get meta XML for $ident."
+                die "Could not get meta XML for $ident: error second download."
             fi
             [[ "$(sha512sum "$temp" | awk '{print $1;}')" == "$tempSha" ]] || die "meta XML was different when downloaded twice"
             mv "$temp" "$path"
             if [[ 0 != "$?" ]]; then
-                die "Could not get meta XML for $ident."
+                die "Could not get meta XML for $ident: error moving."
             else
                 cat "$path"
             fi
