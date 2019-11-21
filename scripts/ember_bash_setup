@@ -650,7 +650,8 @@ ia() (
             if [[ 0 != "$?" ]]; then
                 die "Could not get files XML for $ident: error moving."
             else
-                cat "$path"
+if [[ -e "$path" ]] && [[ "$(wc -c < "$path")" -gt 1 ]]; then
+            cat "$path"                cat "$path"
             fi
         fi
     elif [[ "$1" == "metaXMLStored" ]]; then
