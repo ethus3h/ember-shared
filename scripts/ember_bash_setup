@@ -612,9 +612,14 @@ ia() (
             else
                 retryUntilSuccess 30 30 5 5 command ia list "$ident" > "$path"
                 if [[ 0 != "$?" ]]; then
-                    die "Could not get list for $ident."
+                    die "Could not get list for $ident: error fetching."
                 else
+                if [[ -e "$path" ]] && [[ "$(wc -c < "$path")" -gt 1 ]]; then
                     cat "$path"
+                else
+                    rm "$path"
+                    die "Could not get list for $ident"
+                fi
                 fi
             fi
         fi
