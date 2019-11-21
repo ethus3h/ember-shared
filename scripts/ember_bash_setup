@@ -617,7 +617,7 @@ ia() (
                 if [[ -e "$path" ]] && [[ "$(wc -c < "$path")" -gt 1 ]]; then
                     cat "$path"
                 else
-                    rm "$path"
+                    rm "$path" || die "Could not remove path to failed retrieval of metadata for $ident"
                     die "Could not get list for $ident"
                 fi
                 fi
@@ -658,7 +658,7 @@ ia() (
                 if [[ -e "$path" ]] && [[ "$(wc -c < "$path")" -gt 1 ]]; then
                     cat "$path"
                 else
-                    rm "$path"
+                    rm "$path" || die "Could not remove path to failed retrieval of files XML for $ident"
                     die "Could not get files XML for $ident"
                 fi
             fi
