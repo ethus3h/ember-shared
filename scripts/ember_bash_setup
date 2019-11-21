@@ -638,6 +638,9 @@ ia() (
                 die "Could not get files XML for $ident: error first download."
             fi
             tempSha="$(sha512sum "$temp" | awk '{print $1;}')"
+            [[ -n "$tempSha" ]] || die "Checksum empty while getting meta XML for $ident"
+            rm "$temp"
+            [[ -e "$temp" ]] && die "Temporary file unexpectedly exists while getting meta XML for $ident"
             retryUntilSuccess 30 30 5 5 wget -qO - "https://archive.org/download/$ident/$ident"_files.xml > "$temp"
             if [[ 0 != "$?" ]]; then
                 die "Could not get files XML for $ident: error second download."
