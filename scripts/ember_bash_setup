@@ -645,6 +645,7 @@ ia() (
             # Download and save the other metadata to ensure it's all available for the item
             ia --no-propagate-metadata-retrieval metadataStored "$ident" > /dev/null
             ia --no-propagate-metadata-retrieval listStored "$ident" > /dev/null
+            ia --no-propagate-metadata-retrieval listStored "$ident" > /dev/null
         fi
         path="$backupLocation/metadataStored/filesXMLs/$ident"_files.xml
         if [[ -e "$path" ]] && [[ "$(wc -c < "$path")" -gt 1 ]]; then
