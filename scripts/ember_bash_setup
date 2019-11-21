@@ -655,7 +655,7 @@ ia() (
         else
             ia downloadAsStream "https://archive.org/download/$ident/$ident"_meta.xml > "$path"
             if [[ 0 != "$?" ]]; then
-                die "Could not get files XML for $ident."
+                die "Could not get meta XML for $ident."
             else
                 cat "$path"
             fi
