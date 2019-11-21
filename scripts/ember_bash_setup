@@ -737,9 +737,9 @@ ia() (
                 die "Could not get metadata for $ident: error first download."
             fi
             tempSha="$(sha512sum "$temp" | awk '{print $1;}')"
-            [[ -n "$tempSha" ]] || die "Checksum empty while getting meta XML for $ident"
+            [[ -n "$tempSha" ]] || die "Checksum empty while getting metadata for $ident"
             rm "$temp"
-            [[ -e "$temp" ]] && die "Temporary file unexpectedly exists while getting meta XML for $ident"
+            [[ -e "$temp" ]] && die "Temporary file unexpectedly exists while getting metadata for $ident"
             retryUntilSuccess 30 30 5 5 command ia metadata "$ident" > "$temp"
             if [[ 0 != "$?" ]]; then
                 die "Could not get metadata for $ident: error second download."
