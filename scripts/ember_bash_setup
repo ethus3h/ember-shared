@@ -603,9 +603,9 @@ ia() (
             ia --no-propagate-metadata-retrieval filesXMLStored "$ident" > /dev/null
             ia --no-propagate-metadata-retrieval metaXMLStored "$ident" > /dev/null
         fi
-        if [[ "--no-cache-metadata" == "$cacheMetadataOption" ]]; then
-            retryUntilSuccess 30 30 5 5 command ia list "$ident"
-        else
+#        if [[ "--no-cache-metadata" == "$cacheMetadataOption" ]]; then
+#            retryUntilSuccess 30 30 5 5 command ia list "$ident"
+#        else
             path="$backupLocation/metadataStored/lists/$ident.lst"
             if [[ -e "$path" ]] && [[ "$(wc -c < "$path")" -gt 1 ]]; then
                 cat "$path"
@@ -622,7 +622,7 @@ ia() (
                     fi
                 fi
             fi
-        fi
+#        fi
     elif [[ "$1" == "filesXMLStored" ]]; then
         backupLocation="$(crystallize-getconf BackupLocation)"
         mkdir -p "$backupLocation/metadataStored/filesXMLs"
