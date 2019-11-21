@@ -737,7 +737,7 @@ iacontains() (
         if [[ "$desiredFile" == "$fileNameToCheck" ]]; then
             foundDesiredFile="true"
         fi
-    done
+    done <()
     if [[ "true" == "$foundDesiredFile" ]]; then
         return 0
     fi
