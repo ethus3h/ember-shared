@@ -653,7 +653,7 @@ ia() (
         if [[ -e "$path" ]] && [[ "$(wc -c < "$path")" -gt 1 ]]; then
             cat "$path"
         else
-            retryUntilSuccess 30 30 5 5 ia downloadAsStream "https://archive.org/download/$ident/$ident"_meta.xml > "$path"
+            ia downloadAsStream "https://archive.org/download/$ident/$ident"_meta.xml > "$path"
             if [[ 0 != "$?" ]]; then
                 die "Could not get files XML for $ident."
             else
