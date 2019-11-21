@@ -730,10 +730,10 @@ ia() (
             if [[ 0 != "$?" ]]; then
                 die "Could not get metadata for $ident: error second download."
             fi
-            [[ "$(sha512sum "$temp" | awk '{print $1;}')" == "$tempSha" ]] || die "meta XML for $ident was different when downloaded twice"
+            [[ "$(sha512sum "$temp" | awk '{print $1;}')" == "$tempSha" ]] || die "metadata for $ident was different when downloaded twice"
             mv "$temp" "$path"
             if [[ 0 != "$?" ]]; then
-                die "Could not get metadata for $ident."
+                die "Could not get metadata for $ident: error moving."
             else
                 if [[ -e "$path" ]] && [[ "$(wc -c < "$path")" -gt 3 ]]; then
                     cat "$path"
