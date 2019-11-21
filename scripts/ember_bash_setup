@@ -727,11 +727,6 @@ iacontains() (
         desiredFile="$(iapath "$desiredFile")"
     fi
     foundDesiredFile="false"
-    if [[ "$ident"_files.xml == "$desiredFile" ]]; then
-        # All items should have a _files.xml (I think)
-        # (items that don't exist probably wouldn't: FIXME)
-        return 0
-    fi
     # Won't work if the file name contains newline
     while IFS= read -r fileNameToCheck; do
         if [[ "$desiredFile" == "$fileNameToCheck" ]]; then
