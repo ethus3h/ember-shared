@@ -611,6 +611,9 @@ ia() (
             # Download and save the other metadata to ensure it's all available for the item
             ia --no-propagate-metadata-retrieval metadataStored "$ident" > /dev/null
             ia --no-propagate-metadata-retrieval filesXMLStored "$ident" > /dev/null
+            if [[ "--no-propagate-metaXMLStored" != "$propagateMetaXMLStored" ]]; then
+                ia --no-propagate-metadata-retrieval metaXMLStored "$ident" > /dev/null
+            fi
             ia --no-propagate-metadata-retrieval metaXMLStored "$ident" > /dev/null
         fi
 #        if [[ "--no-cache-metadata" == "$cacheMetadataOption" ]]; then
