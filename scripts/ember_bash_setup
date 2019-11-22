@@ -614,7 +614,6 @@ ia() (
             if [[ "--no-propagate-metaXMLStored" != "$propagateMetaXMLStored" ]]; then
                 ia --no-propagate-metadata-retrieval metaXMLStored "$ident" > /dev/null
             fi
-            ia --no-propagate-metadata-retrieval metaXMLStored "$ident" > /dev/null
         fi
 #        if [[ "--no-cache-metadata" == "$cacheMetadataOption" ]]; then
 #            retryUntilSuccess 30 30 5 5 command ia list "$ident"
