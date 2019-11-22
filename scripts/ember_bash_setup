@@ -321,14 +321,14 @@ ia() (
         shift
     fi
     propagateMetaXMLStored="true"
-    if [[ "$1" == "--no-propagate-metadata-retrieval" ]]; then
+    if [[ "$1" == "--no-propagate-metaXMLStored" ]]; then
         # This is an internal option used to avoid recursively looking up metadata (I doubt it's otherwise useful)
         propagateMetaXMLStored="false"
         shift
     elif [[ "$1" == "--propagate-metadata-retrieval" ]]; then
         shift
     fi
-    --no-propagate-metaXMLStored
+
     if [[ "$1" == "upload" ]]; then
         (
             # Retry wrapper for ia to work around https://github.com/jjjake/internetarchive/issues/183
