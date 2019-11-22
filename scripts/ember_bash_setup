@@ -594,7 +594,7 @@ ia() (
         elif [[ "--cache-metadata" == "$ident" ]]; then
             ident="$3"
         fi
-        ia "$listCommand" "$ident" | sed -E 's/^([^"]*,[^"]*)$/"\1"/g' | csvfix printf -fmt '%s'
+        ia "$propagateMetaXMLStored" "$listCommand" "$ident" | sed -E 's/^([^"]*,[^"]*)$/"\1"/g' | csvfix printf -fmt '%s'
     elif [[ "$1" == "listStored" ]]; then
         backupLocation="$(crystallize-getconf BackupLocation)"
         mkdir -p "$backupLocation/metadataStored/lists"
