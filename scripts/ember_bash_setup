@@ -831,6 +831,15 @@ iacontains() (
 )
 
 iasha1() (
+    propagateMetaXMLStored="--propagate-metaXMLStored"
+    if [[ "$1" == "--no-propagate-metaXMLStored" ]]; then
+        # This is an internal option used to avoid recursively looking up metadata (I doubt it's otherwise useful)
+        propagateMetaXMLStored="--no-propagate-metaXMLStored"
+        shift
+    elif [[ "$1" == "--propagate-metaXMLStored" ]]; then
+        shift
+    fi
+
     metadataCommand="metadataStored"
     if [[ "--no-cache-metadata" == "$1" ]]; then
         # This is for verifying freshly created items. Since the filesXML won't be downloaded in that case, don't bother overriding the filesXMLStored command.
