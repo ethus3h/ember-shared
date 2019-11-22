@@ -453,7 +453,7 @@ ia() (
 
                 # Download and save the metadata?
                 if [[ "--no-propagate-metaXMLStored" != "$propagateMetaXMLStored" ]]; then
-                    # Been invoked by 
+                    # Has not been invoked by metaXMLStored, so do it. (Otherwise, leave it to metaXMLStored to manage.)
                     ia --no-propagate-metadata-retrieval metadataStored "$ident" > /dev/null
                     ia --no-propagate-metadata-retrieval listStored "$ident" > /dev/null
                     ia --no-propagate-metadata-retrieval filesXMLStored "$ident" > /dev/null
