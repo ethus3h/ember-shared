@@ -451,8 +451,9 @@ ia() (
                 ident="$(iaident "$param")"
                 fileName="$(iapath "$param")"
 
-                # Download and save the metadata
+                # Download and save the metadata?
                 if [[ "--no-propagate-metaXMLStored" != "$propagateMetaXMLStored" ]]; then
+                    # Been invoked by 
                     ia --no-propagate-metadata-retrieval metadataStored "$ident" > /dev/null
                     ia --no-propagate-metadata-retrieval listStored "$ident" > /dev/null
                     ia --no-propagate-metadata-retrieval filesXMLStored "$ident" > /dev/null
