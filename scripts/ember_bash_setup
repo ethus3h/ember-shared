@@ -522,7 +522,7 @@ ia() (
                             succeeded="false"
                             continue
                         fi
-                        if [[ -f "$file" ]] && [[ "$localsha1" == "$(iasha1 "$file")" ]] && { [[ "$succeeded" == "true" ]] || [[ -z "$succeeded" ]]; }; then
+                        if [[ -f "$file" ]] && [[ "$localsha1" == "$(iasha1 "$propagateMetaXMLStored" "$file")" ]] && { [[ "$succeeded" == "true" ]] || [[ -z "$succeeded" ]]; }; then
                             succeeded="true"
                         else
                             succeeded="false"
@@ -538,13 +538,13 @@ ia() (
                                 succeeded="false"
                                 continue
                             fi
-                            if [[ -f "$file" ]] && [[ "$localsha1" == "$(iasha1 "$file")" ]] && { [[ "$succeeded" == "true" ]] || [[ -z "$succeeded" ]]; }; then
+                            if [[ -f "$file" ]] && [[ "$localsha1" == "$(iasha1 "$propagateMetaXMLStored" "$file")" ]] && { [[ "$succeeded" == "true" ]] || [[ -z "$succeeded" ]]; }; then
                                 succeeded="true"
                             else
                                 succeeded="false"
                                 continue
                             fi
-                        done < <(ia listplain "$ident")
+                        done < <(ia listplain "$propagateMetaXMLStored" "$ident")
                     fi
                 done
                 [[ "$succeeded" == "true" ]] || die
