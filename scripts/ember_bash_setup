@@ -692,7 +692,8 @@ ia() (
             cat "$path"
         else
             temp="$(tempFile)"
-            retryUntilSuccess 30 30 5 5 wget -qO - "https://archive.org/download/$ident/$ident"_meta.xml > "$temp"
+            #retryUntilSuccess 30 30 5 5 wget -qO - "https://archive.org/download/$ident/$ident"_meta.xml > "$temp"
+            ia downloadAsStream "https://archive.org/download/$ident/$ident"_meta.xml > "$temp"
             if [[ 0 != "$?" ]]; then
                 die "Could not get meta XML for $ident: error first download."
             fi
