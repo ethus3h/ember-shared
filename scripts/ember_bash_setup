@@ -455,7 +455,7 @@ ia() (
                 ia --no-propagate-metadata-retrieval metadataStored "$ident" > /dev/null
                 ia --no-propagate-metadata-retrieval listStored "$ident" > /dev/null
                 ia --no-propagate-metadata-retrieval filesXMLStored "$ident" > /dev/null
-                [[ "--no-propagate-metaXMLStored" != "$propagateMetaXMLStored" ]] && ia --no-propagate-metadata-retrieval metaXMLStored "$ident" > /dev/null
+                if [[ "--no-propagate-metaXMLStored" != "$propagateMetaXMLStored" ]] && ia --no-propagate-metadata-retrieval metaXMLStored "$ident" > /dev/null
 
                 while [[ "$succeeded" != "true" && "$retryCount" -lt 30 ]]; do
                     trap 'warn "A nonfatal error was reported on ${BASH_SOURCE[0]} line ${LINENO} in $(pwd) at $(emdate). Continuing attempt."' ERR
@@ -707,7 +707,6 @@ ia() (
         else
             temp="$(tempFile)"
             retryUntilSuccess 30 30 5 5 wget -qO - "https://archive.org/download/$ident/$ident"_meta.xml > "$temp"
-            #ia --no-propagate-metaXMLStored downloadAsStream "https://archive.org/download/$ident/$ident"_meta.xml > "$temp"
             if [[ 0 != "$?" ]]; then
                 die "Could not get meta XML for $ident: error first download."
             fi
@@ -715,7 +714,6 @@ ia() (
             [[ -n "$tempSha" ]] || die "Checksum empty while getting meta XML for $ident"
             rm "$temp"
             [[ -e "$temp" ]] && die "Temporary file unexpectedly exists while getting meta XML for $ident"
-            #retryUntilSuccess 30 30 5 5 wget -qO - "https://archive.org/download/$ident/$ident"_meta.xml > "$temp"
             ia --no-propagate-metaXMLStored downloadAsStream "https://archive.org/download/$ident/$ident"_meta.xml > "$temp"
             if [[ 0 != "$?" ]]; then
                 die "Could not get meta XML for $ident: error second download."
