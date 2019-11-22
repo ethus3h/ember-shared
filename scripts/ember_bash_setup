@@ -455,7 +455,7 @@ ia() (
                 ia metadataStored "$ident" > /dev/null
                 ia listStored "$ident" > /dev/null
                 ia filesXMLStored "$ident" > /dev/null
-                ia metaXMLStored "$ident" > /dev/null
+                [[ "true" == "$propagateMetaXMLStored"]] && ia metaXMLStored "$ident" > /dev/null
 
                 while [[ "$succeeded" != "true" && "$retryCount" -lt 30 ]]; do
                     trap 'warn "A nonfatal error was reported on ${BASH_SOURCE[0]} line ${LINENO} in $(pwd) at $(emdate). Continuing attempt."' ERR
