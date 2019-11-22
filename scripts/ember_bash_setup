@@ -320,6 +320,7 @@ ia() (
     elif [[ "$1" == "--propagate-metadata-retrieval" ]]; then
         shift
     fi
+    --no-propagate-metaXMLStored
     if [[ "$1" == "upload" ]]; then
         (
             # Retry wrapper for ia to work around https://github.com/jjjake/internetarchive/issues/183
