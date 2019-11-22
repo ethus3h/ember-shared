@@ -693,7 +693,7 @@ ia() (
         else
             temp="$(tempFile)"
             #retryUntilSuccess 30 30 5 5 wget -qO - "https://archive.org/download/$ident/$ident"_meta.xml > "$temp"
-            ia downloadAsStream --no-propagate-metadata-retrieval "https://archive.org/download/$ident/$ident"_meta.xml > "$temp"
+            ia --no-propagate-metadata-retrieval downloadAsStream "https://archive.org/download/$ident/$ident"_meta.xml > "$temp"
             if [[ 0 != "$?" ]]; then
                 die "Could not get meta XML for $ident: error first download."
             fi
