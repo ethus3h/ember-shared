@@ -737,7 +737,7 @@ ia() (
         # ia metadata seems to be nondeterministic, so wrap it with retry and hopefully when it matches, the result will be sensible
         propagateMetadataRetrievalArg="--propagate-metadata-retrieval"
         [[ "false" == "$propagateMetadataRetrieval" ]] && propagateMetadataRetrievalArg="--no-propagate-metadata-retrieval"
-        retryUntilSuccess 30 30 5 5 ia metadataStoredInner "${@:2}"
+        retryUntilSuccess 30 30 5 5 ia metadataStoredInner "$propagateMetadataRetrievalArg" "${@:2}"
     elif [[ "$1" == "metadataStoredInner" ]]; then
         backupLocation="$(crystallize-getconf BackupLocation)"
         mkdir -p "$backupLocation/metadataStored/metadata"
