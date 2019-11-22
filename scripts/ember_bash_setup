@@ -735,8 +735,8 @@ ia() (
         fi
     elif [[ "$1" == "metadataStored" ]]; then
         # ia metadata seems to be nondeterministic, so wrap it with retry and hopefully when it matches, the result will be sensible
-        #propagateMetadataRetrievalArg="--propagate-metadata-retrieval"
-        #[[ "false" != "$propagateMetadataRetrieval" ]] && propagateMetadataRetrievalArg="--no-propagate-metadata-retrieval"
+        propagateMetadataRetrievalArg="--propagate-metadata-retrieval"
+        [[ "false" != "$propagateMetadataRetrieval" ]] && propagateMetadataRetrievalArg="--no-propagate-metadata-retrieval"
         retryUntilSuccess 30 30 5 5 ia metadataStoredInner "${@:2}"
     elif [[ "$1" == "metadataStoredInner" ]]; then
         backupLocation="$(crystallize-getconf BackupLocation)"
@@ -744,7 +744,6 @@ ia() (
         ident="$(iaident "$2")"
         if [[ "false" != "$propagateMetadataRetrieval" ]]; then
             # Download and save the other metadata to ensure it's all available for the item
-            die  "Success!"
             ia --no-propagate-metadata-retrieval listStored "$ident" > /dev/null
             ia --no-propagate-metadata-retrieval filesXMLStored "$ident" > /dev/null
             ia --no-propagate-metadata-retrieval metaXMLStored "$ident" > /dev/null
