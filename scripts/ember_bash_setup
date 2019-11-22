@@ -569,7 +569,7 @@ ia() (
                 identifier="$(iaident "$requestUrl")"
                 fileName="$(iapath "$requestUrl")"
                 iacontains "$cacheMetadataOption" "$identifier" "$fileName" || die "The Internet Archive item $identifier does not seem to contain the requested path $fileName."
-                ia checkeddl "$requestUrl" > /dev/null || die
+                ia "$propagateMetaXMLStored" checkeddl "$requestUrl" > /dev/null || die
                 [[ -f "$identifier/$fileName" ]] || die
                 cat "$identifier/$fileName"
             ) || { rm -r "$tempDir"; die; }
