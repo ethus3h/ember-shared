@@ -320,6 +320,14 @@ ia() (
     elif [[ "$1" == "--propagate-metadata-retrieval" ]]; then
         shift
     fi
+    propagateMetadataRetrieval="true"
+    if [[ "$1" == "--no-propagate-metadata-retrieval" ]]; then
+        # This is an internal option used to avoid recursively looking up metadata (I doubt it's otherwise useful)
+        propagateMetadataRetrieval="false"
+        shift
+    elif [[ "$1" == "--propagate-metadata-retrieval" ]]; then
+        shift
+    fi
     --no-propagate-metaXMLStored
     if [[ "$1" == "upload" ]]; then
         (
