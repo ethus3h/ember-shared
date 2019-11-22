@@ -320,10 +320,10 @@ ia() (
     elif [[ "$1" == "--propagate-metadata-retrieval" ]]; then
         shift
     fi
-    propagateMetaXMLStored="true"
+    propagateMetaXMLStored="--propagate-metaXMLStored"
     if [[ "$1" == "--no-propagate-metaXMLStored" ]]; then
         # This is an internal option used to avoid recursively looking up metadata (I doubt it's otherwise useful)
-        propagateMetaXMLStored="false"
+        propagateMetaXMLStored="--no-propagate-metaXMLStored"
         shift
     elif [[ "$1" == "--propagate-metaXMLStored" ]]; then
         shift
