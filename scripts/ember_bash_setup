@@ -839,7 +839,7 @@ iacontains() (
         if [[ "$desiredFile" == "$fileNameToCheck" ]]; then
             foundDesiredFile="true"
         fi
-    done < <(ia listplain "$cacheMetadataOption" "$ident")
+    done < <(ia "$propagateMetaXMLStored" listplain "$cacheMetadataOption" "$ident")
     if [[ "true" == "$foundDesiredFile" ]]; then
         return 0
     fi
