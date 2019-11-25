@@ -811,6 +811,15 @@ iafilename() (
 )
 
 iacontains() (
+    propagateMetaXMLStored="--propagate-metaXMLStored"
+    if [[ "$1" == "--no-propagate-metaXMLStored" ]]; then
+        # This is an internal option used to avoid recursively looking up metadata (I doubt it's otherwise useful)
+        propagateMetaXMLStored="--no-propagate-metaXMLStored"
+        shift
+    elif [[ "$1" == "--propagate-metaXMLStored" ]]; then
+        shift
+    fi
+
     cacheMetadataOption="--cache-metadata"
     if [[ "--no-cache-metadata" == "$1" ]]; then
         cacheMetadataOption="--no-cache-metadata"
