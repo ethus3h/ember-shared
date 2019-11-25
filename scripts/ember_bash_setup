@@ -873,7 +873,7 @@ iasha1() (
     else
         iapathEscaped="$(iapath "$1")"
         iapathEscaped="${iapathEscaped//\"/\\\"}"
-        result="$(ia "$metadataCommand" "$(iaident "$1")" | { jq -r '.files[] | select(.name=="'"$iapathEscaped"'").'"$field" 2>/dev/null; };)"
+        result="$(ia "$propagateMetaXMLStored" "$metadataCommand" "$(iaident "$1")" | { jq -r '.files[] | select(.name=="'"$iapathEscaped"'").'"$field" 2>/dev/null; };)"
     fi
     # jq seems to exit 0 on at least some errors
     [[ -z "$result" ]] && exit 1
