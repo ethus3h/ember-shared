@@ -1326,7 +1326,7 @@ git-sync() {
                 )
             fi
         fi
-    } | tee -a "$logFile"
+    } 2>&1 | tee -a "$logFile"
 }
 
 asciiDecListToText() {
