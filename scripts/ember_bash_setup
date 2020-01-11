@@ -1306,7 +1306,7 @@ git-sync() {
     repoName="${repoName%.*}"
     local logFile
     logFile="git-synced-$(date-uuid)".log
-    echo  --version > "$logFile"
+    echo "$repo" > "$logFile"
     ember_bash_setup --version >> "$logFile"
     youtube-dl -i --geo-bypass --write-description --write-info-json --write-annotations --write-thumbnail --write-all-thumbnails --write-sub --write-auto-sub --all-subs -k "$@" | tee -a "$logFile"
     if [[ -n "$repoName" ]]; then
