@@ -1307,8 +1307,8 @@ git-sync() {
     local logFile
     logFile="git-synced-$(date-uuid)".log
     {
-    echo "$repo"
-    ember_bash_setup --version
+        echo "$repo"
+        ember_bash_setup --version
         if [[ -n "$repoName" ]]; then
             if [[ -e "$repoName.git" ]]; then
                 [[ -d "$repoName.git" ]] || die "$(pwd)/$repoName.git does not seem to be a directory."
