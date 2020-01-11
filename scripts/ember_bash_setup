@@ -1309,23 +1309,23 @@ git-sync() {
     echo "$repo" > "$logFile"
     ember_bash_setup --version >> "$logFile"
     {
-    if [[ -n "$repoName" ]]; then
-        if [[ -e "$repoName.git" ]]; then
-            [[ -d "$repoName.git" ]] || die "$(pwd)/$repoName.git does not seem to be a directory."
-            (
-                cd "$repoName.git" || die "Could not cd to repository directory $(pwd)/$repoName.git."
-                echo "Updating clone of the \"$repoName\" git repository..."
-                retryUntilSuccess 10 git fetch --all || die
-                git fsck || die "Git fsck of $repo failed"
-            )
-        else
-            retryUntilSuccess 10 git clone --mirror "$repo" || die
-            (
-                cd "$repoName.git" || die "Could not cd to repository directory $(pwd)/$repoName.git."
-                git fsck || die "Git fsck of newly cloned repo $repo failed"
-            )
+        if [[ -n "$repoName" ]]; then
+            if [[ -e "$repoName.git" ]]; then
+                [[ -d "$repoName.git" ]] || die "$(pwd)/$repoName.git does not seem to be a directory."
+                (
+                    cd "$repoName.git" || die "Could not cd to repository directory $(pwd)/$repoName.git."
+                    echo "Updating clone of the \"$repoName\" git repository..."
+                    retryUntilSuccess 10 git fetch --all || die
+                    git fsck || die "Git fsck of $repo failed"
+                )
+            else
+                retryUntilSuccess 10 git clone --mirror "$repo" || die
+                (
+                    cd "$repoName.git" || die "Could not cd to repository directory $(pwd)/$repoName.git."
+                    git fsck || die "Git fsck of newly cloned repo $repo failed"
+                )
+            fi
         fi
-    fi
     } | tee -a "$logFile"
 }
 
