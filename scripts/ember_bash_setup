@@ -1301,14 +1301,14 @@ crystallize-getconf() {
 }
 
 git-sync() {
-    local logFile
-    logFile="ytdl-quicked-$(date-uuid)".log
-    youtube-dl --version > "$logFile"
-    ember_bash_setup --version >> "$logFile"
-    youtube-dl -i --geo-bypass --write-description --write-info-json --write-annotations --write-thumbnail --write-all-thumbnails --write-sub --write-auto-sub --all-subs -k "$@" | tee -a "$logFile"
     repo="$1"
     repoName="$(basename "$repo")"
     repoName="${repoName%.*}"
+    local logFile
+    logFile="git-synced-$(date-uuid)".log
+    echo  --version > "$logFile"
+    ember_bash_setup --version >> "$logFile"
+    youtube-dl -i --geo-bypass --write-description --write-info-json --write-annotations --write-thumbnail --write-all-thumbnails --write-sub --write-auto-sub --all-subs -k "$@" | tee -a "$logFile"
     if [[ -n "$repoName" ]]; then
         if [[ -e "$repoName.git" ]]; then
             [[ -d "$repoName.git" ]] || die "$(pwd)/$repoName.git does not seem to be a directory."
