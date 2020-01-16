@@ -1265,9 +1265,9 @@ ytdl-quick() {
     local logFile
     logFile="ytdl-quicked-$(date-uuid)".log
     {
-    youtube-dl --version
-    ember_bash_setup --version
-    youtube-dl -i --geo-bypass --write-description --write-info-json --write-annotations --write-thumbnail --write-all-thumbnails --write-sub --write-auto-sub --all-subs -k "$@"
+        youtube-dl --version
+        ember_bash_setup --version
+        youtube-dl -i --geo-bypass --write-description --write-info-json --write-annotations --write-thumbnail --write-all-thumbnails --write-sub --write-auto-sub --all-subs -k "$@"
     } 2>&1 | tee -a "$logFile"
 }
 
@@ -1279,9 +1279,9 @@ nomerge-ytdl-quick-audio() {
     local logFile
     logFile="ytdl-quicked-$(date-uuid)".log
     {
-    youtube-dl --version
-    ember_bash_setup --version
-    youtube-dl -i --geo-bypass --write-description --write-info-json --write-annotations --write-thumbnail --write-all-thumbnails --write-sub --write-auto-sub --all-subs -k -f bestaudio/best -o '%(title)s-%(id)s.f%(format_id)s.%(ext)s' "$@"
+        youtube-dl --version
+        ember_bash_setup --version
+        youtube-dl -i --geo-bypass --write-description --write-info-json --write-annotations --write-thumbnail --write-all-thumbnails --write-sub --write-auto-sub --all-subs -k -f bestaudio/best -o '%(title)s-%(id)s.f%(format_id)s.%(ext)s' "$@"
     } 2>&1 | tee -a "$logFile"
 }
 
@@ -1289,9 +1289,9 @@ nomerge-ytdl-quick-video() {
     local logFile
     logFile="ytdl-quicked-$(date-uuid)".log
     {
-    youtube-dl --version
-    ember_bash_setup --version
-    youtube-dl -i --geo-bypass --write-description --write-info-json --write-annotations --write-thumbnail --write-all-thumbnails --write-sub --write-auto-sub --all-subs -k -f bestvideo/best -o '%(title)s-%(id)s.f%(format_id)s.%(ext)s' "$@"
+        youtube-dl --version
+        ember_bash_setup --version
+        youtube-dl -i --geo-bypass --write-description --write-info-json --write-annotations --write-thumbnail --write-all-thumbnails --write-sub --write-auto-sub --all-subs -k -f bestvideo/best -o '%(title)s-%(id)s.f%(format_id)s.%(ext)s' "$@"
     } 2>&1 | tee -a "$logFile"
 }
 
