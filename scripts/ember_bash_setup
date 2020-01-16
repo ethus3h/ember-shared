@@ -1267,6 +1267,7 @@ ytdl-quick() {
     youtube-dl --version > "$logFile"
     ember_bash_setup --version >> "$logFile"
     youtube-dl -i --geo-bypass --write-description --write-info-json --write-annotations --write-thumbnail --write-all-thumbnails --write-sub --write-auto-sub --all-subs -k "$@" | tee -a "$logFile"
+    } 2>&1 | tee -a "$logFile"
 }
 
 ytdl-quick-audio() {
@@ -1279,6 +1280,7 @@ nomerge-ytdl-quick-audio() {
     youtube-dl --version > "$logFile"
     ember_bash_setup --version >> "$logFile"
     youtube-dl -i --geo-bypass --write-description --write-info-json --write-annotations --write-thumbnail --write-all-thumbnails --write-sub --write-auto-sub --all-subs -k -f bestaudio/best -o '%(title)s-%(id)s.f%(format_id)s.%(ext)s' "$@" | tee -a "$logFile"
+    } 2>&1 | tee -a "$logFile"
 }
 
 nomerge-ytdl-quick-video() {
@@ -1287,6 +1289,7 @@ nomerge-ytdl-quick-video() {
     youtube-dl --version > "$logFile"
     ember_bash_setup --version >> "$logFile"
     youtube-dl -i --geo-bypass --write-description --write-info-json --write-annotations --write-thumbnail --write-all-thumbnails --write-sub --write-auto-sub --all-subs -k -f bestvideo/best -o '%(title)s-%(id)s.f%(format_id)s.%(ext)s' "$@" | tee -a "$logFile"
+    } 2>&1 | tee -a "$logFile"
 }
 
 # na- ones don't try to download annotations, for getting around videos with 404 error on annotation URL.
@@ -1294,9 +1297,9 @@ na-ytdl-quick() {
     local logFile
     logFile="ytdl-quick-naed-$(date-uuid)".log
     {
-    youtube-dl --version
-    ember_bash_setup --version
-    youtube-dl -i --geo-bypass --write-description --write-info-json --write-thumbnail --write-all-thumbnails --write-sub --write-auto-sub --all-subs -k "$@"
+        youtube-dl --version
+        ember_bash_setup --version
+        youtube-dl -i --geo-bypass --write-description --write-info-json --write-thumbnail --write-all-thumbnails --write-sub --write-auto-sub --all-subs -k "$@"
     } 2>&1 | tee -a "$logFile"
 }
 
