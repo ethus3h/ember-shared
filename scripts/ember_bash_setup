@@ -1293,9 +1293,11 @@ nomerge-ytdl-quick-video() {
 na-ytdl-quick() {
     local logFile
     logFile="ytdl-quick-naed-$(date-uuid)".log
-    youtube-dl --version > "$logFile"
-    ember_bash_setup --version >> "$logFile"
-    youtube-dl -i --geo-bypass --write-description --write-info-json --write-thumbnail --write-all-thumbnails --write-sub --write-auto-sub --all-subs -k "$@" | tee -a "$logFile"
+    {
+    youtube-dl --version
+    ember_bash_setup --version
+    youtube-dl -i --geo-bypass --write-description --write-info-json --write-thumbnail --write-all-thumbnails --write-sub --write-auto-sub --all-subs -k "$@"
+    } 2>&1 | tee -a "$logFile"
 }
 
 na-ytdl-quick-audio() {
