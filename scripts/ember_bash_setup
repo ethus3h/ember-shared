@@ -882,7 +882,11 @@ iasha1() (
     local iapathEscaped
     if [[ "$(iapath "$1")" == "$(iaident "$1")"_files.xml ]]; then
         # TODO: Decide whether this is the right way to go about this. Right now, because item files XMLs do not have checksums available for them from the Internet Archive (since the XML files are where the checksums are kept), iasha1 will retrieve it and calculate the checksum dynamically. This could be suboptimal (or even harmful) since there is no guarantee that the returned value is correct; this behavior may change in later versions. Also, check whether it works with on-the-fly derivative files, which may break when checked using this, e.g. when using crystallize-backup, because of the same issue of not having checksums listed in the XML (I don't know if they are).
-        result="$(ia "$propagateMetaXMLStored" filesXMLStored "$1" | sha1sum | awk '{print $1;}')"
+        if [[ "--no-cache-metadata" == "$metadataCommand" ]]; then
+            result="$(ia "$propagateMetaXMLStored" filesXMLStored "$1" | sha1sum | awk '{print $1;}')"
+        else
+            result="$(ia "$propagateMetaXMLStored" filesXMLStored "$1" | sha1sum | awk '{print $1;}')"
+        fi
     else
         iapathEscaped="$(iapath "$1")"
         iapathEscaped="${iapathEscaped//\"/\\\"}"
