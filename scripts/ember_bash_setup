@@ -438,6 +438,7 @@ ia() (
                 ia metadataStored "$identifier" > /dev/null
                 ia listStored "$identifier" > /dev/null
                 ia filesXMLStored "$identifier" > /dev/null
+                ia metaXMLStored "$identifier" > /dev/null
             fi
             if [[ "$outerSucceeded" == "true" ]] && [[ "$wantsDelete" == "true" ]]; then
                 for file in "${fileArgs[@]}"; do
@@ -532,7 +533,7 @@ ia() (
                             succeeded="false"
                             continue
                         fi
-                        if [[ -f "$file" ]] && [[ "$localsha1" == "$(iasha1 "$propagateMetaXMLStored" "$file")" ]] && { [[ "$succeeded" == "true" ]] || [[ -z "$succeeded" ]]; }; then
+                        if [[ -f "$file" ]] && [[ "$localsha1" == "$(iasha1 "$propagateMetaXMLStored" "$cacheMetadata" "$file")" ]] && { [[ "$succeeded" == "true" ]] || [[ -z "$succeeded" ]]; }; then
                             succeeded="true"
                         else
                             succeeded="false"
@@ -548,13 +549,13 @@ ia() (
                                 succeeded="false"
                                 continue
                             fi
-                            if [[ -f "$file" ]] && [[ "$localsha1" == "$(iasha1 "$propagateMetaXMLStored" "$file")" ]] && { [[ "$succeeded" == "true" ]] || [[ -z "$succeeded" ]]; }; then
+                            if [[ -f "$file" ]] && [[ "$localsha1" == "$(iasha1 "$propagateMetaXMLStored" "$cacheMetadata" "$file")" ]] && { [[ "$succeeded" == "true" ]] || [[ -z "$succeeded" ]]; }; then
                                 succeeded="true"
                             else
                                 succeeded="false"
                                 continue
                             fi
-                        done < <(ia "$propagateMetaXMLStored" listplain "$ident")
+                        done < <(ia "$propagateMetaXMLStored" "$cacheMetadata" listplain "$ident")
                     fi
                 done
                 [[ "$succeeded" == "true" ]] || die
