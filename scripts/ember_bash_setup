@@ -305,13 +305,6 @@ preadconf() {
 
 ia() (
     trap 'die "A fatal error was reported on ${BASH_SOURCE[0]} line ${LINENO} in $(pwd) at $(emdate)."' ERR
-    #cacheMetadata="false"
-    #if [[ "$1" == "--no-cache-metadata" ]]; then
-    #    shift
-    #elif [[ "$1" == "--cache-metadata" ]]; then
-    #    cacheMetadata="true"
-    #    shift
-    #fi
     uploadCacheMetadata="false"
     if [[ "$1" == "--upload-no-cache-metadata" ]]; then
         shift
@@ -334,6 +327,13 @@ ia() (
         shift
     elif [[ "$1" == "--propagate-metaXMLStored" ]]; then
         shift
+    fi
+    cacheMetadata="false"
+    if [[ "$1" == "--no-cache-metadata" ]]; then
+       shift
+    elif [[ "$1" == "--cache-metadata" ]]; then
+       cacheMetadata="true"
+       shift
     fi
 
     if [[ "$1" == "upload" ]]; then
