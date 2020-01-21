@@ -1,25 +1,25 @@
-compiz-extra-snowflake-textures
-compiz-plugins-community
-compiz-reloaded-overlay
-crystallize
-ember-history
-ember-information-technology-environment
-ember-library
-ember-library-2
-ember-shared
-ember-web-site-snapshots
-ember-web-site
-futuramerlin-web-toolkit
-gunmetal-gray
-wreathe-backgrounds
-wreathe-base
-wreathe-conf
-wreathe-file-manager
-wreathe-media-resources
-wreathe-office-resources
-wreathe-overlay
-wreathe-package-db
-wreathe-packages
-wreathe-typeface-family
-wreathe-typefaces-redist
-wreathe-web-filters
+compiz-extra-snowflake-textures</dt><dd><a href="/ancillary/wreathe/">Wreathe</a>: textures for use with the Compiz-Reloaded window manager</dd>
+compiz-plugins-community</dt><dd><a href="/ancillary/wreathe/">Wreathe</a>: Additional plugins for the Compiz-Reloaded window manager</dd>
+compiz-reloaded-overlay</dt><dd><a href="/ancillary/wreathe/">Wreathe</a>: Code used to build the Compiz-Reloaded window manager</dd>
+crystallize</dt><dd><a href="/ancillary/crystallize/">Crystallize</a></dd>
+ember-history</dt><dd><a href="/ancillary/ember-history/">Ember History</a>: meta-repository containing repositories and data that are no longer used by Ember</dd>
+ember-information-technology-environment</dt><dd><a href="/information-technology">Information technology environment</a></dd>
+ember-library</dt><dd><a href="/library">Library</a></dd>
+ember-library-2</dt><dd><a href="/library">Library</a>: Section 2 (not publicly available at this time)</dd>
+ember-shared</dt><dd>Code shared between various Ember software</dd>
+ember-web-site-snapshots</dt><dd>Snapshots of the contents of the Ember Web site, as retrieved from the server (not publicly available at this time)</dd>
+ember-web-site</dt><dd>This Web site</dd>
+futuramerlin-web-toolkit</dt><dd><a href="/ancillary/futuramerlin-web-toolkit/">Futuramerlin Web Toolkit</a></dd>
+gunmetal-gray</dt><dd><a href="/ancillary/wreathe/">Wreathe</a>: Platformer computer game</dd>
+wreathe-backgrounds</dt><dd><a href="/ancillary/wreathe/">Wreathe</a>: background images</dd>
+wreathe-base</dt><dd><a href="/ancillary/wreathe/">Wreathe</a> core repository</dd>
+wreathe-conf</dt><dd><a href="/ancillary/wreathe/">Wreathe</a>: Configuration files</dd>
+wreathe-file-manager</dt><dd><a href="/ancillary/wreathe/">Wreathe</a>: File manager (forked from discontinued code)</dd>
+wreathe-media-resources</dt><dd><a href="/ancillary/wreathe/">Wreathe</a>: Resources for media production</dd>
+wreathe-office-resources</dt><dd><a href="/ancillary/wreathe/">Wreathe</a>: Resources for office work</dd>
+wreathe-overlay</dt><dd><a href="/ancillary/wreathe/">Wreathe</a>: Code used to build some packages in Wreathe</dd>
+wreathe-package-db</dt><dd><a href="/ancillary/wreathe/">Wreathe</a>: Package information database (not exactly part of Wreathe; rather, this is information <em>regarding</em> Wreathe)</dd>
+wreathe-packages</dt><dd><a href="/ancillary/wreathe/">Wreathe</a>: Packages (forked from discontinued code)</dd>
+wreathe-typeface-family</dt><dd><a href="/ancillary/wreathe/">Wreathe</a>: Typefaces used in Wreathe</dd>
+wreathe-typefaces-redist</dt><dd><a href="/ancillary/wreathe/">Wreathe</a>: Redistributed typefaces used in Wreathe</dd>
+wreathe-web-filters</dt><dd><a href="/ancillary/wreathe/">Wreathe</a>: Web filters</dd>
