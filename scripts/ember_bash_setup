@@ -801,6 +801,7 @@ ia() (
 # These ia* functions need to run in subshells so die doesn't affect the caller.
 iaident() (
     local fullPath="${1#https:\/\/archive.org\/download\/}"
+    local fullPath="${fullPath#https:\/\/archive.org\/download\/}"
     local res="${fullPath%%\/*}"
     [[ -n "$res" ]] || exit 1
     print "$res"
