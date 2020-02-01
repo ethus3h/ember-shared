@@ -304,7 +304,7 @@ preadconf() {
 }
 
 iaOptionallyOfflineWraper() {
-    if [[ "true" == "$EMBER_IA_WRAPPER_RUN_OFFLINE" ]]; then
+    if [[ "true" == "$EMBER_IA_OFFLINE" ]]; then
 
 }
 
