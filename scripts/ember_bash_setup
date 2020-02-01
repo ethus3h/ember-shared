@@ -309,6 +309,7 @@ iaOptionallyOfflineWrapper() {
 }
 
 wgetOptionallyOfflineWrapper() {
+    # Use the same environment variable
     if [[ "true" == "$EMBER_IA_OFFLINE" ]]; then
     fi
 }
