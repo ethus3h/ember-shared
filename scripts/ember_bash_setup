@@ -405,7 +405,7 @@ ia() (
                     fi
 
                     # Use command to prevent calling this function again.
-                    command ia "${newParams[@]}" && succeeded="true"
+                    iaOptionallyOfflineWrapper "${newParams[@]}" && succeeded="true"
                 done
                 if [[ "$retryCount" -ge 30 ]]; then
                     exit 1
@@ -533,9 +533,9 @@ ia() (
                     else
                         # Use command to prevent calling this function again.
                         if [[ -n "$fileName" ]]; then
-                            command ia download "$ident" "$fileName" -C
+                            iaOptionallyOfflineWrapper download "$ident" "$fileName" -C
                         else
-                            command ia download "$ident" -C
+                            iaOptionallyOfflineWrapper download "$ident" -C
                         fi
                     fi
 
@@ -644,14 +644,14 @@ ia() (
             fi
         fi
 #        if [[ "--no-cache-metadata" == "$cacheMetadataOption" ]]; then
-#            retryUntilSuccess 30 30 5 5 command ia list "$ident"
+#            retryUntilSuccess 30 30 5 5 iaOptionallyOfflineWrapper list "$ident"
 #        else
             path="$backupLocation/metadataStored/lists/$ident.lst"
             if [[ -e "$path" ]] && [[ "$(wc -c < "$path")" -gt 1 ]]; then
                 cat "$path"
             else
                 temp="$(tempFile)"
-                retryUntilSuccess 30 30 5 5 command ia list "$ident" > "$temp"
+                retryUntilSuccess 30 30 5 5 iaOptionallyOfflineWrapper list "$ident" > "$temp"
                 if [[ 0 != "$?" ]]; then
                     die "Could not get list for $ident: error first download."
                 fi
@@ -659,7 +659,7 @@ ia() (
                 [[ -n "$tempSha" ]] || die "Checksum empty while getting list for $ident"
                 rm "$temp"
                 [[ -e "$temp" ]] && die "Temporary file unexpectedly exists while getting list for $ident"
-                retryUntilSuccess 30 30 5 5 command ia list "$ident" > "$temp"
+                retryUntilSuccess 30 30 5 5 iaOptionallyOfflineWrapper list "$ident" > "$temp"
                 if [[ 0 != "$?" ]]; then
                     die "Could not get list for $ident: error second download."
                 fi
@@ -781,7 +781,7 @@ ia() (
             cat "$path"
         else
             temp="$(tempFile)"
-            retryUntilSuccess 30 30 5 5 command ia metadata "$ident" > "$temp"
+            retryUntilSuccess 30 30 5 5 iaOptionallyOfflineWrapper metadata "$ident" > "$temp"
             if [[ 0 != "$?" ]]; then
                 die "Could not get metadata for $ident: error first download."
             fi
@@ -789,7 +789,7 @@ ia() (
             [[ -n "$tempSha" ]] || die "Checksum empty while getting metadata for $ident"
             rm "$temp"
             [[ -e "$temp" ]] && die "Temporary file unexpectedly exists while getting metadata for $ident"
-            retryUntilSuccess 30 30 5 5 command ia metadata "$ident" > "$temp"
+            retryUntilSuccess 30 30 5 5 iaOptionallyOfflineWrapper metadata "$ident" > "$temp"
             if [[ 0 != "$?" ]]; then
                 die "Could not get metadata for $ident: error second download."
             fi
@@ -807,9 +807,9 @@ ia() (
             fi
         fi
     elif [[ "$1" == "metadata" ]]; then
-        retryUntilSuccess 30 30 5 5 command ia "$@" || die
+        retryUntilSuccess 30 30 5 5 iaOptionallyOfflineWrapper "$@" || die
     else
-        command ia "$@" || die
+        iaOptionallyOfflineWrapper "$@" || die
     fi
 )
 
