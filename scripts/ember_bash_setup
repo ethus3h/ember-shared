@@ -303,6 +303,10 @@ preadconf() {
     print "${readconfValue[0]}"
 }
 
+iaOptionallyOfflineWraper() {
+
+}
+
 ia() (
     trap 'die "A fatal error was reported on ${BASH_SOURCE[0]} line ${LINENO} in $(pwd) at $(emdate)."' ERR
     uploadCacheMetadata="false"
