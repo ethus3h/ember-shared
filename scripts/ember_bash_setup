@@ -313,7 +313,7 @@ iaOptionallyOfflineWrapper() {
 wgetOptionallyOfflineWrapper() {
     # Use the same environment variable
     if [[ -z "$EMBER_IA_OFFLINE" ]]; then
-        wget "$@"
+        command wget "$@"
     fi
     die "wgetOptionallyOfflineWrapper called, but EMBER_IA_OFFLINE was set."
 }
