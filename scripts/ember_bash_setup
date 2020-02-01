@@ -318,6 +318,9 @@ wgetOptionallyOfflineWrapper() {
     die "wgetOptionallyOfflineWrapper called, but EMBER_IA_OFFLINE was set."
 }
 
+wget() {
+}
+
 ia() (
     trap 'die "A fatal error was reported on ${BASH_SOURCE[0]} line ${LINENO} in $(pwd) at $(emdate)."' ERR
     uploadCacheMetadata="false"
