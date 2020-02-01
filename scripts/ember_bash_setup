@@ -831,7 +831,7 @@ iapath() (
         # Doesn't contain a slash, so this is a bare identifier
         return 0
     fi
-    local fullPath="${url#https:\/\/archive.org\/download\/}"
+    local fullPath="${url#https:\/\/archive.org\/@(details|download)\/}"
     local res="${fullPath#*\/}"
     [[ -n "$res" ]] || exit 1
     print "$res"
