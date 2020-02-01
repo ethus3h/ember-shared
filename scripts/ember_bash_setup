@@ -309,7 +309,7 @@ iaOptionallyOfflineWraper() {
 }
 
 iaOptionallyOfflineWraper() {
-    if [[ "true" == "$EMBER_IA_OFFLINE" ]]; then
+    if [[ "true" == "$EMBER_WGET_OFFLINE" ]]; then
     fi
 }
 
