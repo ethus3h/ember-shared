@@ -308,7 +308,7 @@ iaOptionallyOfflineWraper() {
     fi
 }
 
-iaOptionallyOfflineWraper() {
+wgetOptionallyOfflineWraper() {
     if [[ "true" == "$EMBER_WGET_OFFLINE" ]]; then
     fi
 }
