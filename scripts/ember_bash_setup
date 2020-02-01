@@ -694,7 +694,7 @@ ia() (
             cat "$path"
         else
             temp="$(tempFile)"
-            retryUntilSuccess 30 30 5 5 wget -qO - "https://archive.org/download/$ident/$ident"_files.xml > "$temp"
+            retryUntilSuccess 30 30 5 5 wgetOptionallyOfflineWrapper -qO - "https://archive.org/download/$ident/$ident"_files.xml > "$temp"
             if [[ 0 != "$?" ]]; then
                 die "Could not get files XML for $ident: error first download."
             fi
@@ -702,7 +702,7 @@ ia() (
             [[ -n "$tempSha" ]] || die "Checksum empty while getting files XML for $ident"
             rm "$temp"
             [[ -e "$temp" ]] && die "Temporary file unexpectedly exists while getting files XML for $ident"
-            retryUntilSuccess 30 30 5 5 wget -qO - "https://archive.org/download/$ident/$ident"_files.xml > "$temp"
+            retryUntilSuccess 30 30 5 5 wgetOptionallyOfflineWrapper -qO - "https://archive.org/download/$ident/$ident"_files.xml > "$temp"
             if [[ 0 != "$?" ]]; then
                 die "Could not get files XML for $ident: error second download."
             fi
@@ -734,7 +734,7 @@ ia() (
             cat "$path"
         else
             temp="$(tempFile)"
-            retryUntilSuccess 30 30 5 5 wget -qO - "https://archive.org/download/$ident/$ident"_meta.xml > "$temp"
+            retryUntilSuccess 30 30 5 5 wgetOptionallyOfflineWrapper -qO - "https://archive.org/download/$ident/$ident"_meta.xml > "$temp"
             if [[ 0 != "$?" ]]; then
                 die "Could not get meta XML for $ident: error first download."
             fi
@@ -899,7 +899,7 @@ iasha1() (
         # TODO: Decide whether this is the right way to go about this. Right now, because item files XMLs do not have checksums available for them from the Internet Archive (since the XML files are where the checksums are kept), iasha1 will retrieve it and calculate the checksum dynamically. This could be suboptimal (or even harmful) since there is no guarantee that the returned value is correct; this behavior may change in later versions. Also, check whether it works with on-the-fly derivative files, which may break when checked using this, e.g. when using crystallize-backup, because of the same issue of not having checksums listed in the XML (I don't know if they are).
         if [[ "metadata" == "$metadataCommand" ]]; then
             ident="$(iaident "$1")"
-            result="$(wget -qO - "https://archive.org/download/$ident/$ident"_files.xml | sha1sum | awk '{print $1;}')"
+            result="$(wgetOptionallyOfflineWrapper -qO - "https://archive.org/download/$ident/$ident"_files.xml | sha1sum | awk '{print $1;}')"
         else
             result="$(ia "$propagateMetaXMLStored" filesXMLStored "$1" | sha1sum | awk '{print $1;}')"
         fi
