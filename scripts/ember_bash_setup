@@ -313,7 +313,7 @@ wgetOptionallyOfflineWrapper() {
     if [[ -z "$EMBER_IA_OFFLINE" ]]; then
         wget "$@"
     fi
-    die ""
+    die "wgetOptionallyOfflineWrapper called, but EMBER_IA_OFFLINE was set."
 }
 
 ia() (
