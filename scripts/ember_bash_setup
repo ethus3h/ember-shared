@@ -304,8 +304,10 @@ preadconf() {
 }
 
 iaOptionallyOfflineWrapper() {
-    if [[ "true" == "$EMBER_IA_OFFLINE" ]]; then
+    if [[ -z "$EMBER_IA_OFFLINE" ]]; then
+        wget "$@"
     fi
+    die "wgetOptionallyOfflineWrapper called, but EMBER_IA_OFFLINE was set."
 }
 
 wgetOptionallyOfflineWrapper() {
