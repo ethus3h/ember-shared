@@ -308,6 +308,11 @@ iaOptionallyOfflineWraper() {
     fi
 }
 
+iaOptionallyOfflineWraper() {
+    if [[ "true" == "$EMBER_IA_OFFLINE" ]]; then
+    fi
+}
+
 ia() (
     trap 'die "A fatal error was reported on ${BASH_SOURCE[0]} line ${LINENO} in $(pwd) at $(emdate)."' ERR
     uploadCacheMetadata="false"
