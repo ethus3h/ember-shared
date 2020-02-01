@@ -310,9 +310,10 @@ iaOptionallyOfflineWrapper() {
 
 wgetOptionallyOfflineWrapper() {
     # Use the same environment variable
-    if [[ "true" != "$EMBER_IA_OFFLINE" ]]; then
+    if [[ -z "$EMBER_IA_OFFLINE" ]]; then
         wget "$@"
     fi
+    die ""
 }
 
 ia() (
