@@ -109,9 +109,9 @@ abspath() (
     fi
     if [[ "$PWD" == "/" ]]; then
         # Avoid doubled slash
-        print "$PWD${basename:?}"
+        print "$PWD$basename"
     else
-        print "$PWD/${basename:?}"
+        print "$PWD/$basename"
     fi
 )
 
