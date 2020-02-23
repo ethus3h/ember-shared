@@ -49,7 +49,7 @@ case $action in
         path=".$(realpath -s "$arg")"
         argsRelativeToRoot+=(".$(realpath -s "$arg")")
         argsEncoded="$argsEncoded:$(print "$arg" | xxd -p | tr '\n' 'x')"
-        pathsEncoded="$"
+        argsEncoded="$argsEncoded:$(print "$arg" | xxd -p | tr '\n' 'x')"
     done
     # Do two passes to make sure nothing changed while reading and there weren't other errors
     # First pass
