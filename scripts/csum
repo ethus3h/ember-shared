@@ -60,6 +60,7 @@ case $action in
         argsRelativeToRoot+=("$path")
         argsEncoded="$argsEncoded:$(print "$arg" | xxd -p | tr '\n' 'x')"
         pathsEncoded="$pathsEncoded:$(print "$path" | xxd -p | tr '\n' 'x')"
+        pathsEncoded="$pathsEncoded:$(print "$path" | xxd -p | tr '\n' 'x')"
     done
 
     # Do two passes to make sure nothing changed while reading and there weren't other errors
