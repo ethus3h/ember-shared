@@ -107,6 +107,7 @@ case $action in
     trap finish EXIT
 
     offset="2" # original format
+    possibleUuid= "$(head -n 1 "$checksumFile")"
     if [[ "a2b2d0d9-a945-4582-8caa-8151f21fa977" == "$(head -n 1 "$checksumFile")" ]]; then
         # format after version 1.1.4.463
         offset="5"
