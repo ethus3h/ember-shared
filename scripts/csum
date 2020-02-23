@@ -34,9 +34,10 @@ fi
 
 case $action in
 --save)
-    setVariableToCommandOutput currentworkingdir pwd -P
-    currentworkingdir="${currentworkingdir:?}"
-    currentworkingdir="${currentworkingdir//$'\n'/'\n'}"
+    # original format:
+    # setVariableToCommandOutput currentworkingdir pwd -P
+    # currentworkingdir="${currentworkingdir:?}"
+    # currentworkingdir="${currentworkingdir//$'\n'/'\n'}"
     argsRelativeToRoot=()
     for arg in "${pathsToCsum[@]}"; do
         argsRelativeToRoot+=(".$(abspath "$arg")")
