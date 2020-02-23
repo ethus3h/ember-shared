@@ -48,6 +48,7 @@ case $action in
         # Format after version 1.1.4.463:
         # Note 2020m2d22: I think this will break with newlines.
         setVariableToCommandOutput path ".$(realpath -s "$arg")"
+        path=".$path"
         argsRelativeToRoot+=("$path")
         argsEncoded="$argsEncoded:$(print "$arg" | xxd -p | tr '\n' 'x')"
         pathsEncoded="$pathsEncoded:$(print "$path" | xxd -p | tr '\n' 'x')"
