@@ -46,6 +46,7 @@ case $action in
         # Format used through version 1.1.4.463:
         # argsRelativeToRoot+=(".$(abspath "$arg")")
         # Format after version 1.1.4.463:
+        # Note 2020m2d22: I think this will break with newlines.
         path=".$(realpath -s "$arg")"
         argsRelativeToRoot+=("$path")
         argsEncoded="$argsEncoded:$(print "$arg" | xxd -p | tr '\n' 'x')"
