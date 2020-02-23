@@ -42,7 +42,7 @@ case $action in
     argsRelativeToRoot=()
     pathsEncoded=""
     for arg in "${pathsToCsum[@]}"; do
-        pathsEncoded="$pathsEncoded:$(| xxd -p | tr '\n' 'x')"
+        pathsEncoded="$pathsEncoded:$(echo "$arg" | xxd -p | tr '\n' 'x')"
         argsRelativeToRoot+=(".$(abspath "$arg")")
     done
     # Do two passes to make sure nothing changed while reading and there weren't other errors
