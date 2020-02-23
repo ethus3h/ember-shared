@@ -55,6 +55,7 @@ case $action in
         echo "a2b2d0d9-a945-4582-8caa-8151f21fa977"
         pwd -P | xxd -p | tr '\n' 'x'
         echo
+        echo "$pathsEncoded"
         (
             cd / || die
             hashdeep -c md5,sha1,sha256,tiger,whirlpool -j0 -e -o fbsd -r -l "${argsRelativeToRoot[@]}"
