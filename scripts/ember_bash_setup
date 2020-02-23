@@ -94,7 +94,7 @@ embasename() (
 )
 
 abspath() (
-    # This is possibly terrible compared to realpath (lack of testing), but it has the advantage of preserving symlinks in the pwd.
+    # This is terrible compared to realpath (mostly untested; can't handle multiple ..s in argument etc), but it has the advantage of preserving symlinks in the pwd.
     setVariableToCommandOutput "enclosingDirectory" dirname -z "$1"
     if [[ "$2" == "--resolve-symlinks-in-enclosing-directory-path" ]]; then
         setVariableToCommandOutput "enclosingDirectory" readlink -fz "${enclosingDirectory:?}"
