@@ -108,7 +108,9 @@ case $action in
 
     offset="2" # original format
     if [[ "a2b2d0d9-a945-4582-8caa-8151f21fa977" == "$(head -n 1 "$checksumFile")" ]]; then
+        #
         offset="5"
+    else if
     fi
 
     if [[ -z "$checksumFile" ]]; then
