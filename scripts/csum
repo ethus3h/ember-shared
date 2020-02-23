@@ -51,6 +51,7 @@ case $action in
         # setVariableToCommandOutput path abspath "$arg"
         # Format after version 1.1.4.465:
         # (head -c -1: all but last byte)
+        setVariableToCommandOutput path abspath "$arg"
         setVariableToCommandOutput path realpath -s -z "$arg" | head -c -1
         path=".$path"
         argsRelativeToRoot+=("$path")
