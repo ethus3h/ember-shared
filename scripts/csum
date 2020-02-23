@@ -45,6 +45,7 @@ case $action in
     # First pass
     firstPass="$(tempFile)"
     {
+        echo "a2b2d0d9-a945-4582-8caa-8151f21fa977"
         printf '%s\n' "${currentworkingdir//$'\r'/'\r'}"
         (
             cd / || die
@@ -82,7 +83,7 @@ case $action in
 
     offset="2" # original format
     if [[ "a2b2d0d9-a945-4582-8caa-8151f21fa977" == "$(head -n 1 "$checksumFile")" ]]; then
-        offset="3"
+        offset="4"
     fi
 
     if [[ -z "$checksumFile" ]]; then
