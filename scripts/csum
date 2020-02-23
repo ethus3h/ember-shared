@@ -87,9 +87,9 @@ case $action in
 
     if [[ -z "$checksumFile" ]]; then
         cat > "/tmp/$streamId"
-        tail -n +2 < "/tmp/$streamId" | sponge "/tmp/$streamId"
+        tail -n +"$offset" < "/tmp/$streamId" | sponge "/tmp/$streamId"
     else
-        tail -n +2 "$checksumFile" > "/tmp/$streamId"
+        tail -n +"$offset" "$checksumFile" > "/tmp/$streamId"
     fi
 
     if [[ "$(tail -c 1 "/tmp/$streamId" | xxd -p)" == "00" ]]; then
