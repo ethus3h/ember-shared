@@ -56,8 +56,8 @@ case $action in
         # (head -c -1: all but last byte)
         setVariableToCommandOutput abspathForTheRecord abspath "$arg"
         # probably breaks on newlines, but setVariableToCommandOutput path realpath -s -z "$arg" | head -c -1 would need a shell (bash -c) wrapped around it
-        setVariableToCommandOutput path realpath -s "$arg"
-        path=".$path"
+        setVariableToCommandOutput path
+        path=".$(realpath -s "$arg")"
         argsRelativeToRoot+=("$path")
         argsEncoded="$argsEncoded:$(print "$arg" | xxd -p | tr '\n' 'x')"
         abspathsEncoded="$abspathsEncoded:$(print "$abspathForTheRecord" | xxd -p | tr '\n' 'x')"
