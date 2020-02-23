@@ -111,7 +111,8 @@ case $action in
     if [[ "a2b2d0d9-a945-4582-8caa-8151f21fa977" == "$possibleUuid" ]]; then
         # format after version 1.1.4.463
         offset="5"
-    elif [[ "8dcee8cf-535a-41b9-9eef-da3b73463939" ==  ]]
+    elif [[ "8dcee8cf-535a-41b9-9eef-da3b73463939" == "$possibleUuid" ]]; then
+        offset="6"
     fi
 
     if [[ -z "$checksumFile" ]]; then
