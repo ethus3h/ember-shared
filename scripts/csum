@@ -51,7 +51,7 @@ case $action in
         # printf '%s\n' "${currentworkingdir//$'\r'/'\r'}"
         # Format after version 1.1.4.463:
         echo "a2b2d0d9-a945-4582-8caa-8151f21fa977"
-        xxd -p < .bash_history | tr '\n' 'x'
+        xxd -p <<< "$currentworkingdir" | tr '\n' 'x'
         echo
         (
             cd / || die
