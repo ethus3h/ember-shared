@@ -41,8 +41,10 @@ case $action in
 
     argsRelativeToRoot=()
     argsEncoded=""
+    path=""
     for arg in "${pathsToCsum[@]}"; do
         argsEncoded="$argsEncoded:$(print "$arg" | xxd -p | tr '\n' 'x')"
+        path=".$(realpath -s "$arg")"
         argsRelativeToRoot+=(".$(realpath -s "$arg")")
         #argsRelativeToRoot+=(".$(abspath "$arg")")
         pathsEncoded="$"
