@@ -46,6 +46,7 @@ case $action in
         # Format used through version 1.1.4.463:
         # argsRelativeToRoot+=(".$(abspath "$arg")")
         # Format after version 1.1.4.463:
+        path=".$(realpath -s "$arg")"
         setVariableToCommandOutput path abspath "$arg"
         path=".$path"
         argsRelativeToRoot+=("$path")
