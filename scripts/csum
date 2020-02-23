@@ -59,7 +59,7 @@ case $action in
         path=".$path"
         argsRelativeToRoot+=("$path")
         argsEncoded="$argsEncoded:$(print "$arg" | xxd -p | tr '\n' 'x')"
-        pathsEncoded="$pathsEncoded:$(print "$path" | xxd -p | tr '\n' 'x')"
+        abspathsEncoded="$abspathsEncoded:$(print "$abspathForTheRecord" | xxd -p | tr '\n' 'x')"
         pathsEncoded="$pathsEncoded:$(print "$path" | xxd -p | tr '\n' 'x')"
     done
 
