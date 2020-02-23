@@ -63,8 +63,8 @@ case $action in
         # echo "a2b2d0d9-a945-4582-8caa-8151f21fa977"
         # Format after version 1.1.4.464:
         echo "8dcee8cf-535a-41b9-9eef-da3b73463939"
-        pwd -P | xxd -p | tr '\n' 'x'
         ember_bash_setup --version
+        pwd -P | xxd -p | tr '\n' 'x'
         echo
         echo "$argsEncoded"
         echo "$pathsEncoded"
