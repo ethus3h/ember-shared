@@ -40,9 +40,9 @@ case $action in
     # currentworkingdir="${currentworkingdir//$'\n'/'\n'}"
 
     argsRelativeToRoot=()
-    pathsEncoded=""
+    argsEncoded=""
     for arg in "${pathsToCsum[@]}"; do
-        pathsEncoded="$pathsEncoded:$(print "$arg" | xxd -p | tr '\n' 'x')"
+        argsEncoded="$argsEncoded:$(print "$arg" | xxd -p | tr '\n' 'x')"
         argsRelativeToRoot+=(".$(abspath "$arg")")
     done
     # Do two passes to make sure nothing changed while reading and there weren't other errors
@@ -55,7 +55,7 @@ case $action in
         echo "a2b2d0d9-a945-4582-8caa-8151f21fa977"
         pwd -P | xxd -p | tr '\n' 'x'
         echo
-        echo "$pathsEncoded"
+        echo "$argsEncoded"
         (
             cd / || die
             hashdeep -c md5,sha1,sha256,tiger,whirlpool -j0 -e -o fbsd -r -l "${argsRelativeToRoot[@]}"
