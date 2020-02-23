@@ -41,8 +41,8 @@ case $action in
 
     argsRelativeToRoot=()
     argsEncoded=""
-    pathsEncoded
     abspathsEncoded=""
+    pathsEncoded=""
     abspathForTheRecord=""
     path=""
     for arg in "${pathsToCsum[@]}"; do
