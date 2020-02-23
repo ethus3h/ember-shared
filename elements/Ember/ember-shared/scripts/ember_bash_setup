@@ -1,0 +1,1776 @@
+#!/usr/bin/env bash
+
+#set -x
+
+export emberSharedVersion='1.1.4.470'
+
+# The update script shown here requires there to be only one ebuild of ember-shared in the wreathe-overlay overlay.
+# ( sudo true; newVersion="1.1.4.470"; cd "/Ember/ember-shared"; eogup-single; git tag -a "v$newVersion" -m "version"; egup-single .; cd "/Ember/wreathe-overlay"; eogup-single; mv app-misc/ember-shared/ember-shared-*.ebuild "app-misc/ember-shared/ember-shared-$newVersion.ebuild"; repoman manifest; egup-single; sudo emerge --sync wreathe-overlay; sudo emerge ember-shared; sudo dispatch-conf )
+
+# To use the --version option of ember_bash_setup, it is necessary to have e8787d06e61943a6874e94985b53bc0a="2dee41bf-53fb-4f65-997f-33bf50bfbb4d" and run ember_bash_setup --version. It may be important to run unset e8787d06e61943a6874e94985b53bc0a afterwards.
+d1875509777f46809ff940e0aad970f0=""
+if [[ "$-" == *u* ]]; then
+    d1875509777f46809ff940e0aad970f0="true"
+    set +u
+fi
+# shellcheck disable=SC2154
+a9c9efb644e24ef5b9cb1ec95e279c02="$e8787d06e61943a6874e94985b53bc0a"
+
+if [[ "$1" == "--version" ]] && [[ "$a9c9efb644e24ef5b9cb1ec95e279c02" != "2dee41bf-53fb-4f65-997f-33bf50bfbb4d" ]]; then
+    esVersionA="$(sed '5q;d' "$(type -P ember_bash_setup)")"
+    esVersionB="${esVersionA%\'*}"
+    echo "${esVersionB##*\'}"
+    exit 0
+fi
+if [[ "$d1875509777f46809ff940e0aad970f0" == "true" ]]; then
+    set -u
+fi
+unset d1875509777f46809ff940e0aad970f0 a9c9efb644e24ef5b9cb1ec95e279c02
+
+# Allow problems to be caught within pipelines
+set -o pipefail
+if [[ -z "$PS1" ]]; then
+    # The shell is not interactive
+    # Make traps inherited, but only if the shell is non-interactive
+    set -o errtrace
+    set -o functrace
+    # Fail if glob doesn't match. Breaks bash completions for emerge, so non-interactive only.
+    shopt -s failglob
+else
+    # The shell is interactive
+    nano() {
+        nanoLocation="$(type -P nano)"
+        nanoFileToEdit="${!#}"
+        if [[ -w "$nanoFileToEdit" ]]; then
+            "$nanoLocation" -wLN "$@"
+        else
+            sudo -k "$nanoLocation" -wLN "$@"
+        fi
+    }
+fi
+
+#set -o nounset
+
+# More verbose debugging
+PS4='+($?) $BASH_SOURCE:$FUNCNAME:$LINENO:'
+export PS4
+
+# These may not be available on non-Wreathe systems
+# shellcheck disable=SC1091
+source crystallize-bash_setup &> /dev/null || true
+# shellcheck disable=SC1091
+source wreathe_bash_setup &> /dev/null || true
+# shellcheck disable=SC1091
+source bash_math_functions &> /dev/null || true
+# shellcheck disable=SC1091
+source egup-env &> /dev/null || true
+
+die() {
+    # shellcheck disable=SC1091
+    source error-notify "$@"
+    # Make error-notify and die no-ops (error-notify already should be from having sourced error-notify), and then trigger any traps that are set for ERR
+    # I'm not sure why error-notify isn't inheriting the calling script's traps.
+    error-notify() {
+        true
+    }
+    die() {
+        true
+    }
+    save_traps="$(trap)"
+    trap 'eval "$save_traps"; false; exit 1' ERR
+    ( exit 1 )
+    exit 1
+}
+
+embasename() (
+    path="$1"
+    if [[ "$path" == "/" ]]; then
+        printf "/"
+        exit 0
+    elif [[ "$1" =~ '/'$ ]]; then
+        path="${path::${#path}-1}"
+    fi
+    printf "%s" "${path##*/}"
+)
+
+abspath() (
+    # This is terrible compared to realpath (mostly untested; can't handle multiple ..s in argument etc), but it has the advantage of preserving symlinks in the pwd. Better to avoid it.
+    setVariableToCommandOutput "enclosingDirectory" dirname -z "$1"
+    if [[ "$2" == "--resolve-symlinks-in-enclosing-directory-path" ]]; then
+        setVariableToCommandOutput "enclosingDirectory" readlink -fz "${enclosingDirectory:?}"
+    fi
+    cd "${enclosingDirectory:?}" || exit 1
+    setVariableToCommandOutput "basename" embasename "$1"
+    if [[ "${basename:?}" == "." ]]; then
+        basename=""
+    elif [[ "${basename:?}" == ".." ]]; then
+        cd ..
+        basename=""
+    fi
+    if [[ "$PWD" == "/" ]]; then
+        # Avoid doubled slash
+        print "$PWD$basename"
+    else
+        print "$PWD/$basename"
+    fi
+)
+
+emreadlink() {
+    abspath "$@" "--resolve-symlinks-in-enclosing-directory-path"
+}
+
+setVariableToCommandOutput() {
+    if [[ "$1" == "emSetVariableToCommandOutputVar" ]]; then
+        return 1
+    fi
+    emSetVariableToCommandOutputVar="$1"
+    shift
+    save_traps="$(trap)"
+    trap - ERR
+    IFS= read -rd '' "$emSetVariableToCommandOutputVar" < <( "$@" )
+    trap 'die "A fatal error was reported on ${BASH_SOURCE[0]} line ${LINENO} in $(pwd) at $(emdate)."' ERR
+    eval "$save_traps"
+}
+
+print() {
+    printf "%s" "$@"
+}
+
+say() {
+    printf '%s\n' "$@"
+}
+
+trim() {
+    # Remove leading and trailing whitespace
+    normalizeWhitespace "$@"
+}
+
+tr() {
+    if [[ "$OSTYPE" = darwin* ]]; then
+        LC_CTYPE=C command tr "$@"
+    else
+        command tr "$@"
+    fi
+}
+
+getDefaultEditor() {
+    print "${FCEDIT:-${VISUAL:-${EDITOR:-nano}}}"
+}
+
+getDefaultEditorPath() {
+    type -P "$(getDefaultEditor)"
+}
+
+defaultEditor() {
+    "$(getDefaultEditorPath)" "$@"
+}
+
+emdate() (
+    # If changing this, also change the copy in the error-notify script and possibly also the copy in the emberMacGNUUpgrade script.
+    trap 'die "A fatal error was reported on ${BASH_SOURCE[0]} line ${LINENO} in $(pwd)."' ERR
+
+    local temp
+    temp="$(date -u +%Y-%m-%d-%H-%M-%S-%N)U$(xxd -pu <<< "$(date +%z)")"
+    echo "${temp//-/}"
+)
+
+date-uuid() (
+    trap 'die "A fatal error was reported on ${BASH_SOURCE[0]} line ${LINENO} in $(pwd) at $(emdate)."' ERR
+
+    local temp
+    temp="$(emdate)-$(python -c 'import uuid; print str(uuid.uuid4())')"
+    echo "${temp//-/}"
+)
+
+eescape() {
+    (
+        export eescapeString="$1"
+        local temp
+        # shellcheck disable=SC2016
+        setVariableToCommandOutput temp bash -c 'perl -0777 -e '\''print(quotemeta($ENV{eescapeString}))'\'' | sed '\''s/\\$//'\'' | sed '\''s/\\\r/\r/'\'
+        temp="${temp//$'\n'/'\n'}"
+        printf "%s" "${temp//$'\r'/'\r'}"
+    )
+}
+
+perl_ere_quote() {
+    eescape "$@"
+}
+
+prefixPipe() {
+    cat <(print "$1") <(cat -)
+}
+
+suffixPipe() {
+    cat <(cat -) <(print "$1")
+}
+
+surroundPipe() {
+    cat <(print "$1") <(cat -) <(print "$2")
+}
+
+removeDuplicateLines() {
+    awk '!seen[$0]++' "$@"
+}
+
+isEmptyDir() (
+    if [[ -d "$1" ]]; then
+        # shellcheck disable=SC2063
+        if find "$1" -maxdepth 0 -type d -empty | grep -E '.*' 2>/dev/null; then
+            exit 0
+        fi
+        exit 1
+    fi
+    exit 1
+)
+
+print_r() {
+    local arr=("$@")
+    declare -p arr
+}
+
+spushd() { # don't print directory by default
+    pushd "$@" > /dev/null || false
+}
+
+spopd() { # don't print directory by default
+    popd "$@" > /dev/null || false
+}
+
+ereplace() {
+    (
+        # Perl returns 0 even if it can't find the file (without extra perl code), so test first.
+        if [[ ! -e "$3" ]]; then
+            die "ereplace: The target file $3 does not exist."
+        fi
+        setVariableToCommandOutput ereplaceFrom eescape "$1"
+        export ereplaceFrom
+        ereplaceTo="$2"
+        export ereplaceTo
+        perl -0777 -p -i -e 's/$ENV{ereplaceFrom}/$ENV{ereplaceTo}/g' "$3"
+    )
+}
+
+ereplaceRegEx() {
+    (
+        # Perl returns 0 even if it can't find the file (without extra perl code), so test first.
+        if [[ ! -e "$3" ]]; then
+            die "ereplaceRegEx: The target file $3 does not exist."
+        fi
+        ereplaceFrom="$1"
+        ereplaceTo="$2"
+        perl -0777 -p -i -e 's/'"$ereplaceFrom"'/'"$ereplaceTo"'/g' "$3"
+    )
+}
+
+version_gt() {
+    # from https://stackoverflow.com/questions/16989598/bash-comparing-version-numbers
+    test "$(printf '%s\n' "$@" | sort -V | head -n 1)" != "$1"
+}
+
+isNonnegativeInteger() {
+    # Can just use [[ "$var" == +([0-9]) ]], but the version of bash provided by Homebrew on macOS doesn't handle this correctly, so it's reimplemented here.
+    local re='^[0-9]+$'
+    if [[ "$1" =~ $re ]]; then
+        return 0
+    else
+        return 1
+    fi
+}
+
+readconf() {
+    local key="$1"
+    local file="$2"
+    if [[ -z "$file" ]]; then
+        file="$1"
+        key=""
+    fi
+    readconfValue=()
+    while IFS= read -r line; do
+        if ! [[ "$line" =~ ^# ]]; then
+            if [[ -z "$key" ]]; then
+                readconfValue+=("$line")
+            else
+                if [[ "$(cut -f1 -d, <<< "$line")" == "$1" ]]; then
+                    readconfValue+=("$(cut -f2- -d, <<< "$line")")
+                fi
+            fi
+        fi
+    done < "$2"
+}
+
+preadconf() {
+    readconf "$@"
+    print "${readconfValue[0]}"
+}
+
+iaOptionallyOfflineWrapper() {
+    if [[ -z "$EMBER_IA_OFFLINE" ]]; then
+        command ia "$@"
+    else
+        die "iaOptionallyOfflineWrapper called, but EMBER_IA_OFFLINE was set."
+    fi
+}
+
+wgetOptionallyOfflineWrapper() {
+    # Use the same environment variable
+    if [[ -z "$EMBER_IA_OFFLINE" ]]; then
+        command wget "$@"
+    else
+        die "wgetOptionallyOfflineWrapper called, but EMBER_IA_OFFLINE was set."
+    fi
+}
+
+wget() {
+    wgetOptionallyOfflineWrapper "$@"
+}
+
+ia() (
+    trap 'die "A fatal error was reported on ${BASH_SOURCE[0]} line ${LINENO} in $(pwd) at $(emdate)."' ERR
+    uploadCacheMetadata="false"
+    if [[ "$1" == "--upload-no-cache-metadata" ]]; then
+        shift
+    elif [[ "$1" == "--upload-cache-metadata" ]]; then
+        uploadCacheMetadata="true"
+        shift
+    fi
+    propagateMetadataRetrieval="true"
+    if [[ "$1" == "--no-propagate-metadata-retrieval" ]]; then
+        # This is an internal option used to avoid recursively looking up metadata (I doubt it's otherwise useful)
+        propagateMetadataRetrieval="false"
+        shift
+    elif [[ "$1" == "--propagate-metadata-retrieval" ]]; then
+        shift
+    fi
+    propagateMetaXMLStored="--propagate-metaXMLStored"
+    if [[ "$1" == "--no-propagate-metaXMLStored" ]]; then
+        # This is an internal option used to avoid recursively looking up metadata (I doubt it's otherwise useful)
+        propagateMetaXMLStored="--no-propagate-metaXMLStored"
+        shift
+    elif [[ "$1" == "--propagate-metaXMLStored" ]]; then
+        shift
+    fi
+    cacheMetadata="--cache-metadata"
+    if [[ "$1" == "--no-cache-metadata" ]]; then
+       cacheMetadata="--no-cache-metadata"
+       propagateMetaXMLStored="--no-propagate-metaXMLStored"
+       shift
+    elif [[ "$1" == "--cache-metadata" ]]; then
+       shift
+    fi
+
+    if [[ "$1" == "upload" ]]; then
+        (
+            # Retry wrapper for ia to work around https://github.com/jjjake/internetarchive/issues/183
+            wantsDelete="false"
+            optionArgumentPattern="^--"
+            remoteNameTwopartArgumentPattern="^--remote-name="
+            newParams=()
+            fileArgs=()
+            iterCount=0
+            identifier=""
+            remoteNameOverride=""
+            remoteNameOverrideFound="false" # Is set to true when waiting for the second half of a two-part --remote-name option
+            outerSucceeded="false"
+            for param in "$@"; do
+                if [[ "$remoteNameOverrideFound" == "true" ]]; then
+                    # The previous argument was --remote-name, so this one is the remote name to use. Because ia only allows a single file when using --remote-name, this doesn't try to handle the case of multiple --remote-name options.
+                    remoteNameOverride="$param"
+                    remoteNameOverrideFound="false"
+                elif [[ "$param" == "--delete" ]]; then
+                    wantsDelete="true"
+                    continue # Don't pass the --delete argument to ia, since this wrapper should handle it instead
+                elif [[ "$param" == "--remote-name" ]]; then
+                    remoteNameOverrideFound="true"
+                elif [[ "$param" =~ $remoteNameTwopartArgumentPattern ]]; then
+                    # This is a --remote-name argument that looks like --remote-name=blah. So, remove the prefix and set the remote name.
+                    remoteNameOverride="${param#--remote-name=*}"
+                fi
+                if ! [[ "$param" =~ $optionArgumentPattern ]]; then
+                    # Skip first two arguments ("upload" and identifier). iterCount variable is needed to figure out where we are in the argument list.
+                    if [[ "$iterCount" == "0" ]]; then
+                        iterCount=1
+                    elif [[ "$iterCount" == "1" ]]; then
+                        identifier="$param"
+                        iterCount=2
+                    else
+                        if [[ "$param" != "-" ]]; then
+                            fileArgs+=("$param")
+                        fi
+                    fi
+                fi
+                newParams+=("$param")
+            done
+            uploadRetryInner() (
+                retryCount=0
+                succeeded="false"
+                while [[ "$succeeded" != "true" && "$retryCount" -lt 30 ]]; do
+                    retryCount=$(( retryCount + 1 ))
+                    if [[ "$retryCount" -gt 1 ]]; then
+                        warn "Something went wrong: retrying upload."
+                        sleep 60
+                    fi
+
+                    # Use command to prevent calling this function again.
+                    iaOptionallyOfflineWrapper "${newParams[@]}" && succeeded="true"
+                done
+                if [[ "$retryCount" -ge 30 ]]; then
+                    exit 1
+                fi
+
+                retryCount=0
+                succeeded="false"
+                while [[ "$succeeded" != "true" && "$retryCount" -lt 5 ]]; do
+                    retryCount=$(( retryCount + 1 ))
+                    if [[ "$retryCount" -gt 1 ]]; then
+                        warn "Something went wrong: retrying upload integrity check."
+                        sleep 60
+                    fi
+
+                    # Iterate through the uploaded files and check their checksums
+                    echo "Please wait: confirming upload integrity..."
+                    for file in "${fileArgs[@]}"; do
+                        local knownChecksum
+                        knownChecksum="$(sha1sum "$file" | awk '{print $1;}')"
+                        fileToQuery=""
+                        if [[ -z "$remoteNameOverride" ]]; then
+                            fileToQuery="$(basename "$file")"
+                        else
+                            fileToQuery="$remoteNameOverride"
+                        fi
+                        retryUntilSuccess 100 120 5 5 iasha1 --no-cache-metadata "$identifier/$fileToQuery" > /dev/null || die "Could not get checksum for uploaded file $identifier/$fileToQuery."
+                        checksumLine="$(iasha1 --no-cache-metadata "$identifier/$fileToQuery")"
+                        if [[ "$checksumLine" != "$knownChecksum" ]]; then
+                            die "ERROR! Checksum known by Internet Archive $checksumLine does not match saved checksum known locally $knownChecksum."
+                        fi
+                        knownChecksumNew="$(sha1sum "$file" | awk '{print $1;}')"
+                        if [[ "$checksumLine" != "$knownChecksumNew" ]]; then
+                            die "ERROR! Checksum known by the Internet Archive $checksumLine does not match new checksum known locally $knownChecksumNew."
+                        fi
+                    done && succeeded="true"
+                done
+                if [[ "$retryCount" -ge 5 ]]; then
+                    exit 1
+                fi
+                [[ "$succeeded" == "true" ]] || die "Error uploading in inner function!"
+            )
+            retryUntilSuccess 5 120 5 5 uploadRetryInner "$@" && outerSucceeded="true"
+            [[ "$outerSucceeded" == "true" ]] || die "Error uploading!"
+            if [[ "true" == "$uploadCacheMetadata" ]]; then
+                # Download and save the metadata
+                ia metadataStored "$identifier" > /dev/null
+                ia listStored "$identifier" > /dev/null
+                ia filesXMLStored "$identifier" > /dev/null
+                ia metaXMLStored "$identifier" > /dev/null
+            fi
+            if [[ "$outerSucceeded" == "true" ]] && [[ "$wantsDelete" == "true" ]]; then
+                for file in "${fileArgs[@]}"; do
+                    rm "${file:?}"
+                done
+            fi
+        )
+    elif [[ "$1" == "checkeddl" ]]; then
+        # Wrapper around ia download. TODO: Provide the ability to use local copies (not yet implemented)
+        (
+            # iterate over all but first argument
+            for param in "${@:2}"; do
+                retryCount=0
+                retryCheckedLocation=0
+                succeeded=""
+                ident=""
+                ident="$(iaident "$param")"
+                fileName="$(iapath "$param")"
+
+                # Download and save the metadata?
+                if [[ "--cache-metadata" == "$cacheMetadata" ]] && [[ "--no-propagate-metaXMLStored" != "$propagateMetaXMLStored" ]]; then
+                    # Has not been invoked by metaXMLStored, so do it. (Otherwise, leave it to metaXMLStored to manage.)
+                    ia --no-propagate-metadata-retrieval metadataStored "$ident" > /dev/null
+                    ia --no-propagate-metadata-retrieval listStored "$ident" > /dev/null
+                    ia --no-propagate-metadata-retrieval filesXMLStored "$ident" > /dev/null
+                    ia --no-propagate-metadata-retrieval metaXMLStored "$ident" > /dev/null
+                fi
+
+                while [[ "$succeeded" != "true" && "$retryCount" -lt 30 ]]; do
+                    trap 'warn "A nonfatal error was reported on ${BASH_SOURCE[0]} line ${LINENO} in $(pwd) at $(emdate). Continuing attempt."' ERR
+                    succeeded=""
+                    retryCount=$(( retryCount + 1 ))
+                    if [[ "$retryCount" -gt 3 ]]; then
+                        warn "Something went wrong: retrying download."
+                        sleep 60
+                    fi
+
+                    # Now, try to get the file from various possible places.
+                    if [[ "$retryCheckedLocation" == 0 ]]; then
+                        backupLocation="$(crystallize-getconf BackupLocation)"
+                        if [[ -d "$backupLocation/items/$ident" ]]; then
+                            # A bit more stubborn rsyncing to try to get things off of flaky sshfs mount.
+                            # sshfs is considered a local source, and --append-verify doesn't work for local files because it would need to read the first chunk of the file to get a checksum for comparison anyway (it would be nice if they put a note in the manpage, though).
+                            retryUntilSuccess 300 1 1 1 rsync -av --partial --progress --append "$backupLocation/items/$ident" ./ &>/dev/null
+                            retryCheckedLocation=1
+                        else
+                            # This crystal is not in the backup.
+                            retryCheckedLocation=1
+                            continue
+                        fi
+                    elif [[ "$retryCheckedLocation" == 1 ]]; then
+                        # Rsync is being really slow for some reason. Maybe because the remote computer is already uploading stuff? I wouldn't think it would be that bad, though; I can ssh in (although that's a bit laggy too)
+                        if false; then
+                            backupLocation="$(crystallize-getconf RsyncBackupLocation)"
+                            if [[ -n "$backupLocation" ]] && [[ "$backupLocation" != "exampleUser@example.hostname:'/Example/Path To Backup Directory/'" ]]; then
+                                # http://web.archive.org/web/20190402151655/https://stackoverflow.com/questions/12845206/check-if-file-exists-on-remote-host-with-ssh
+                                local backupLocTemp=""
+                                backupLocTemp="${backupLocation#*:}"
+                                backupLocTemp="${backupLocTemp#\'*}"
+                                backupLocTemp="${backupLocTemp%*\'}"
+                                if sshpass -p "$(crystallize-getconf RsyncBackupPassphrase)" ssh -q "${backupLocation%:*}" [[ -d \'"$backupLocTemp/items/$ident"\' ]]; then
+                                    # There's a rsync location configured, and it has the desired file.
+                                    sshpass -p "$(crystallize-getconf RsyncBackupPassphrase)" rsync -av --progress --append-verify --checksum "$backupLocation/items/$ident" ./ || sshpass -p "$(crystallize-getconf RsyncBackupPassphrase)" rsync -av --progress --append-verify --checksum "$backupLocation/items/$ident" ./ || sshpass -p "$(crystallize-getconf RsyncBackupPassphrase)" rsync -av --progress --append-verify --checksum "$backupLocation/items/$ident" ./ || [[ -d "$ident" ]] && retryUntilSuccess 30 1 1 1 sshpass -p "$(crystallize-getconf RsyncBackupPassphrase)" rsync -av --progress --append-verify --checksum "$backupLocation/items/$ident" ./
+                                    if [[ ! -d "$ident" ]]; then
+                                        retryCheckedLocation=2
+                                        continue
+                                    fi
+                                fi
+                            fi
+                            retryCheckedLocation=2
+                        else
+                            # This crystal is not in the backup.
+                            retryCheckedLocation=2
+                            continue
+                        fi
+                    else
+                        # Use command to prevent calling this function again.
+                        if [[ -n "$fileName" ]]; then
+                            iaOptionallyOfflineWrapper download "$ident" "$fileName" -C
+                        else
+                            iaOptionallyOfflineWrapper download "$ident" -C
+                        fi
+                    fi
+
+                    # Now, check the downloaded files
+                    if [[ -n "$fileName" ]]; then
+                        file="$ident/$fileName"
+                        localsha1="$(sha1sum "$file" | awk '{print $1;}')"
+                        if [[ -z "$localsha1" ]]; then
+                            error-notify "Got an empty sha1 for $file."
+                            succeeded="false"
+                            continue
+                        fi
+                        if [[ -f "$file" ]] && [[ "$localsha1" == "$(iasha1 "$propagateMetaXMLStored" "$cacheMetadata" "$file")" ]] && { [[ "$succeeded" == "true" ]] || [[ -z "$succeeded" ]]; }; then
+                            succeeded="true"
+                        else
+                            succeeded="false"
+                            continue
+                        fi
+                    else
+                        # TODO: See if IA items can hold files with newlines in their names, and figure out if this breaks on that.
+                        while read -r fileNameToCheck; do
+                            file="$ident/$fileNameToCheck"
+                            localsha1="$(sha1sum "$file" | awk '{print $1;}')"
+                            if [[ -z "$localsha1" ]]; then
+                                error-notify "Got an empty sha1 for $file."
+                                succeeded="false"
+                                continue
+                            fi
+                            if [[ -f "$file" ]] && [[ "$localsha1" == "$(iasha1 "$propagateMetaXMLStored" "$cacheMetadata" "$file")" ]] && { [[ "$succeeded" == "true" ]] || [[ -z "$succeeded" ]]; }; then
+                                succeeded="true"
+                            else
+                                succeeded="false"
+                                continue
+                            fi
+                        done < <(ia "$propagateMetaXMLStored" "$cacheMetadata" listplain "$ident")
+                    fi
+                done
+                [[ "$succeeded" == "true" ]] || die
+            done
+            set +x
+        ) || die
+    elif [[ "$1" == "downloadAsStream" ]]; then
+        # Wrapper around ia download. Provides the ability to get the result as a stream. Expects a URL rather than the ia download syntax, so it can act as a drop-in replacement for wgetting a file.
+        (
+            trap 'rm -r ${tempDir:?}; die "A fatal error was reported on ${BASH_SOURCE[0]} line ${LINENO} in $(pwd) at $(emdate)."' ERR
+            tempDir="$(bigTempDir)"
+            (
+                cd "$tempDir" || die
+                requestUrl="$2"
+                cacheMetadataOption="--cache-metadata"
+                if [[ "--no-cache-metadata" == "$requestUrl" ]]; then
+                    cacheMetadataOption="--no-cache-metadata"
+                    requestUrl="$3"
+                elif [[ "--cache-metadata" == "$requestUrl" ]]; then
+                    requestUrl="$3"
+                fi
+                identifier="$(iaident "$requestUrl")"
+                fileName="$(iapath "$requestUrl")"
+                iacontains "$propagateMetaXMLStored" "$cacheMetadataOption" "$identifier" "$fileName" || die "The Internet Archive item $identifier does not seem to contain the requested path $fileName."
+                ia "$propagateMetaXMLStored" checkeddl "$requestUrl" > /dev/null || die
+                [[ -f "$identifier/$fileName" ]] || die
+                cat "$identifier/$fileName"
+            ) || { rm -r "$tempDir"; die; }
+            rm -r "$tempDir"
+        ) || die
+    elif [[ "$1" == "downloadHere" ]]; then
+        # Wrapper around ia download. Expects a URL rather than the ia download syntax, so it can act as a drop-in replacement for wgetting a file.
+        (
+            requestUrl="$2"
+            fileName="${requestUrl#https:\/\/archive.org\/download\/}"
+            fileName="${fileName##*\/}"
+            ia downloadAsStream "$requestUrl" > "$fileName" || die
+        ) || die
+    elif [[ "$1" == "listplain" ]]; then
+        # Wrapper around ia list.
+        # Test items: UntilR2V232017june27447p has commas; futuramerlin.archival.data.24nov2013 is messy
+        ident="$2"
+        listCommand="listStored"
+        if [[ "--no-cache-metadata" == "$ident" ]] || [[ "--no-cache-metadata" == "$cacheMetadata" ]]; then
+            listCommand="list"
+            if [[ "--no-cache-metadata" == "$ident" ]]; then
+                ident="$3"
+            fi
+        elif [[ "--cache-metadata" == "$ident" ]]; then
+            ident="$3"
+        fi
+        ia "$propagateMetaXMLStored" "$listCommand" "$ident" | sed -E 's/^([^"]*,[^"]*)$/"\1"/g' | csvfix printf -fmt '%s'
+    elif [[ "$1" == "listStored" ]]; then
+        backupLocation="$(crystallize-getconf BackupLocation)"
+        mkdir -p "$backupLocation/metadataStored/lists"
+        ident="$2"
+#        cacheMetadataOption="--cache-metadata"
+#        if [[ "--no-cache-metadata" == "$ident" ]]; then
+#            cacheMetadataOption="--no-cache-metadata"
+#            ident="$3"
+#        elif [[ "--cache-metadata" == "$ident" ]]; then
+#            ident="$3"
+#        fi
+        ident="$(iaident "$ident")"
+        if [[ "false" != "$propagateMetadataRetrieval" ]]; then
+            # Download and save the other metadata to ensure it's all available for the item
+            ia --no-propagate-metadata-retrieval metadataStored "$ident" > /dev/null
+            ia --no-propagate-metadata-retrieval filesXMLStored "$ident" > /dev/null
+            if [[ "--no-propagate-metaXMLStored" != "$propagateMetaXMLStored" ]]; then
+                ia --no-propagate-metadata-retrieval metaXMLStored "$ident" > /dev/null
+            fi
+        fi
+#        if [[ "--no-cache-metadata" == "$cacheMetadataOption" ]]; then
+#            retryUntilSuccess 30 30 5 5 iaOptionallyOfflineWrapper list "$ident"
+#        else
+            path="$backupLocation/metadataStored/lists/$ident.lst"
+            if [[ -e "$path" ]] && [[ "$(wc -c < "$path")" -gt 1 ]]; then
+                cat "$path"
+            else
+                temp="$(tempFile)"
+                retryUntilSuccess 30 30 5 5 iaOptionallyOfflineWrapper list "$ident" > "$temp"
+                if [[ 0 != "$?" ]]; then
+                    die "Could not get list for $ident: error first download."
+                fi
+                tempSha="$(sha512sum "$temp" | awk '{print $1;}')"
+                [[ -n "$tempSha" ]] || die "Checksum empty while getting list for $ident"
+                rm "$temp"
+                [[ -e "$temp" ]] && die "Temporary file unexpectedly exists while getting list for $ident"
+                retryUntilSuccess 30 30 5 5 iaOptionallyOfflineWrapper list "$ident" > "$temp"
+                if [[ 0 != "$?" ]]; then
+                    die "Could not get list for $ident: error second download."
+                fi
+                [[ "$(sha512sum "$temp" | awk '{print $1;}')" == "$tempSha" ]] || die "list for $ident was different when downloaded twice"
+                mv "$temp" "$path"
+                if [[ 0 != "$?" ]]; then
+                    die "Could not get list for $ident: error moving."
+                else
+                    if [[ -e "$path" ]] && [[ "$(wc -c < "$path")" -gt 1 ]]; then
+                        cat "$path"
+                    else
+                        rm "$path" || die "Could not remove path to failed retrieval of list for $ident"
+                        die "Could not get list for $ident"
+                    fi
+                fi
+            fi
+#        fi
+    elif [[ "$1" == "filesXMLStored" ]]; then
+        backupLocation="$(crystallize-getconf BackupLocation)"
+        mkdir -p "$backupLocation/metadataStored/filesXMLs"
+        ident="$(iaident "$2")"
+        if [[ "false" != "$propagateMetadataRetrieval" ]]; then
+            # Download and save the other metadata to ensure it's all available for the item
+            ia --no-propagate-metadata-retrieval metadataStored "$ident" > /dev/null
+            ia --no-propagate-metadata-retrieval listStored "$ident" > /dev/null
+            if [[ "--no-propagate-metaXMLStored" != "$propagateMetaXMLStored" ]]; then
+                ia --no-propagate-metadata-retrieval metaXMLStored "$ident" > /dev/null
+            fi
+        fi
+        path="$backupLocation/metadataStored/filesXMLs/$ident"_files.xml
+        if [[ -e "$path" ]] && [[ "$(wc -c < "$path")" -gt 1 ]]; then
+            cat "$path"
+        else
+            temp="$(tempFile)"
+            retryUntilSuccess 30 30 5 5 wgetOptionallyOfflineWrapper -qO - "https://archive.org/download/$ident/$ident"_files.xml > "$temp"
+            if [[ 0 != "$?" ]]; then
+                die "Could not get files XML for $ident: error first download."
+            fi
+            tempSha="$(sha512sum "$temp" | awk '{print $1;}')"
+            [[ -n "$tempSha" ]] || die "Checksum empty while getting files XML for $ident"
+            rm "$temp"
+            [[ -e "$temp" ]] && die "Temporary file unexpectedly exists while getting files XML for $ident"
+            retryUntilSuccess 30 30 5 5 wgetOptionallyOfflineWrapper -qO - "https://archive.org/download/$ident/$ident"_files.xml > "$temp"
+            if [[ 0 != "$?" ]]; then
+                die "Could not get files XML for $ident: error second download."
+            fi
+            [[ "$(sha512sum "$temp" | awk '{print $1;}')" == "$tempSha" ]] || die "files XML for $ident was different when downloaded twice"
+            mv "$temp" "$path"
+            if [[ 0 != "$?" ]]; then
+                die "Could not get files XML for $ident: error moving."
+            else
+                if [[ -e "$path" ]] && [[ "$(wc -c < "$path")" -gt 1 ]]; then
+                    cat "$path"
+                else
+                    rm "$path" || die "Could not remove path to failed retrieval of files XML for $ident"
+                    die "Could not get files XML for $ident"
+                fi
+            fi
+        fi
+    elif [[ "$1" == "metaXMLStored" ]]; then
+        backupLocation="$(crystallize-getconf BackupLocation)"
+        mkdir -p "$backupLocation/metadataStored/metaXMLs"
+        ident="$(iaident "$2")"
+        if [[ "false" != "$propagateMetadataRetrieval" ]]; then
+            # Download and save the other metadata to ensure it's all available for the item
+            ia --no-propagate-metadata-retrieval metadataStored "$ident" > /dev/null
+            ia --no-propagate-metadata-retrieval listStored "$ident" > /dev/null
+            ia --no-propagate-metadata-retrieval filesXMLStored "$ident" > /dev/null
+        fi
+        path="$backupLocation/metadataStored/metaXMLs/$ident"_meta.xml
+        if [[ -e "$path" ]] && [[ "$(wc -c < "$path")" -gt 1 ]]; then
+            cat "$path"
+        else
+            temp="$(tempFile)"
+            retryUntilSuccess 30 30 5 5 wgetOptionallyOfflineWrapper -qO - "https://archive.org/download/$ident/$ident"_meta.xml > "$temp"
+            if [[ 0 != "$?" ]]; then
+                die "Could not get meta XML for $ident: error first download."
+            fi
+            tempSha="$(sha512sum "$temp" | awk '{print $1;}')"
+            [[ -n "$tempSha" ]] || die "Checksum empty while getting meta XML for $ident"
+            rm "$temp"
+            [[ -e "$temp" ]] && die "Temporary file unexpectedly exists while getting meta XML for $ident"
+            ia --no-propagate-metaXMLStored downloadAsStream "https://archive.org/download/$ident/$ident"_meta.xml > "$temp"
+            if [[ 0 != "$?" ]]; then
+                die "Could not get meta XML for $ident: error second download."
+            fi
+            [[ "$(sha512sum "$temp" | awk '{print $1;}')" == "$tempSha" ]] || die "meta XML for $ident was different when downloaded twice"
+            mv "$temp" "$path"
+            if [[ 0 != "$?" ]]; then
+                die "Could not get meta XML for $ident: error moving."
+            else
+                if [[ -e "$path" ]] && [[ "$(wc -c < "$path")" -gt 1 ]]; then
+                    cat "$path"
+                else
+                    rm "$path" || die "Could not remove path to failed retrieval of meta XML for $ident"
+                    die "Could not get meta XML for $ident"
+                fi
+            fi
+        fi
+    elif [[ "$1" == "metadataStored" ]]; then
+        # ia metadata seems to be nondeterministic, so wrap it with retry and hopefully when it matches, the result will be sensible
+        propagateMetadataRetrievalArg="--propagate-metadata-retrieval"
+        [[ "false" == "$propagateMetadataRetrieval" ]] && propagateMetadataRetrievalArg="--no-propagate-metadata-retrieval"
+        retryUntilSuccess 30 30 5 5 ia "$propagateMetadataRetrievalArg" "$propagateMetaXMLStored" metadataStoredInner "${@:2}"
+    elif [[ "$1" == "metadataStoredInner" ]]; then
+        backupLocation="$(crystallize-getconf BackupLocation)"
+        mkdir -p "$backupLocation/metadataStored/metadata"
+        ident="$(iaident "$2")"
+        if [[ "false" != "$propagateMetadataRetrieval" ]]; then
+            # Download and save the other metadata to ensure it's all available for the item
+            ia --no-propagate-metadata-retrieval listStored "$ident" > /dev/null
+            ia --no-propagate-metadata-retrieval filesXMLStored "$ident" > /dev/null
+            if [[ "--no-propagate-metaXMLStored" != "$propagateMetaXMLStored" ]]; then
+                ia --no-propagate-metadata-retrieval metaXMLStored "$ident" > /dev/null
+            fi
+        fi
+        path="$backupLocation/metadataStored/metadata/$ident.json"
+        if [[ -e "$path" ]] && [[ "$(wc -c < "$path")" -gt 3 ]]; then
+            cat "$path"
+        else
+            temp="$(tempFile)"
+            retryUntilSuccess 30 30 5 5 iaOptionallyOfflineWrapper metadata "$ident" > "$temp"
+            if [[ 0 != "$?" ]]; then
+                die "Could not get metadata for $ident: error first download."
+            fi
+            tempSha="$(sha512sum "$temp" | awk '{print $1;}')"
+            [[ -n "$tempSha" ]] || die "Checksum empty while getting metadata for $ident"
+            rm "$temp"
+            [[ -e "$temp" ]] && die "Temporary file unexpectedly exists while getting metadata for $ident"
+            retryUntilSuccess 30 30 5 5 iaOptionallyOfflineWrapper metadata "$ident" > "$temp"
+            if [[ 0 != "$?" ]]; then
+                die "Could not get metadata for $ident: error second download."
+            fi
+            [[ "$(sha512sum "$temp" | awk '{print $1;}')" == "$tempSha" ]] || die "metadata for $ident was different when downloaded twice"
+            mv "$temp" "$path"
+            if [[ 0 != "$?" ]]; then
+                die "Could not get metadata for $ident: error moving."
+            else
+                if [[ -e "$path" ]] && [[ "$(wc -c < "$path")" -gt 3 ]]; then
+                    cat "$path"
+                else
+                    rm "$path" || die "Could not remove path to failed retrieval of metadata for $ident"
+                    die "Could not get metadata for $ident"
+                fi
+            fi
+        fi
+    elif [[ "$1" == "metadata" ]]; then
+        retryUntilSuccess 30 30 5 5 iaOptionallyOfflineWrapper "$@" || die
+    else
+        iaOptionallyOfflineWrapper "$@" || die
+    fi
+)
+
+# These ia* functions need to run in subshells so die doesn't affect the caller.
+iaident() (
+    local url="$1"
+    local fullPath="${url#https:\/\/archive.org\/download\/}"
+    local fullPath="${fullPath#https:\/\/archive.org\/details\/}"
+    local fullPath="${fullPath#https:\/\/www.archive.org\/download\/}"
+    local fullPath="${fullPath#https:\/\/www.archive.org\/details\/}"
+    local res="${fullPath%%\/*}"
+    [[ -n "$res" ]] || exit 1
+    print "$res"
+)
+
+iapath() (
+    local url="$1"
+    if [[ "$url" != */* ]]; then
+        # Doesn't contain a slash, so this is a bare identifier
+        return 0
+    fi
+    local fullPath="${url#https:\/\/archive.org\/download\/}"
+    local fullPath="${fullPath#https:\/\/archive.org\/details\/}"
+    local fullPath="${fullPath#https:\/\/www.archive.org\/download\/}"
+    local fullPath="${fullPath#https:\/\/www.archive.org\/details\/}"
+    local res="${fullPath#*\/}"
+    [[ -n "$res" ]] || exit 1
+    print "$res"
+)
+
+iafilename() (
+    basename "$(iapath "$1")"
+)
+
+iacontains() (
+    propagateMetaXMLStored="--propagate-metaXMLStored"
+    if [[ "$1" == "--no-propagate-metaXMLStored" ]]; then
+        # This is an internal option used to avoid recursively looking up metadata (I doubt it's otherwise useful)
+        propagateMetaXMLStored="--no-propagate-metaXMLStored"
+        shift
+    elif [[ "$1" == "--propagate-metaXMLStored" ]]; then
+        shift
+    fi
+
+    cacheMetadataOption="--cache-metadata"
+    if [[ "--no-cache-metadata" == "$1" ]]; then
+        cacheMetadataOption="--no-cache-metadata"
+        shift
+    elif [[ "--cache-metadata" == "$1" ]]; then
+        shift
+    fi
+    ident="$(iaident "$1")"
+    desiredFile="$2"
+    if hasWebProtocol "$desiredFile"; then
+        # This is a URL to check, not a path, so get the path from it
+        desiredFile="$(iapath "$desiredFile")"
+    fi
+    foundDesiredFile="false"
+    # Won't work if the file name contains newline
+    while IFS= read -r fileNameToCheck; do
+        if [[ "$desiredFile" == "$fileNameToCheck" ]]; then
+            foundDesiredFile="true"
+        fi
+    done < <(ia "$propagateMetaXMLStored" listplain "$cacheMetadataOption" "$ident")
+    if [[ "true" == "$foundDesiredFile" ]]; then
+        return 0
+    fi
+    return 1
+)
+
+iasha1() (
+    propagateMetaXMLStored="--propagate-metaXMLStored"
+    if [[ "$1" == "--no-propagate-metaXMLStored" ]]; then
+        # This is an internal option used to avoid recursively looking up metadata (I doubt it's otherwise useful)
+        propagateMetaXMLStored="--no-propagate-metaXMLStored"
+        shift
+    elif [[ "$1" == "--propagate-metaXMLStored" ]]; then
+        shift
+    fi
+
+    metadataCommand="metadataStored"
+    if [[ "--no-cache-metadata" == "$1" ]]; then
+        # This is for verifying freshly created items. Since the filesXML won't be downloaded in that case, don't bother overriding the filesXMLStored command.
+        metadataCommand="metadata"
+        shift
+    elif [[ "--cache-metadata" == "$1" ]]; then
+        shift
+    fi
+    local field="sha1"
+    local result
+    local iapathEscaped
+    if [[ "$(iapath "$1")" == "$(iaident "$1")"_files.xml ]]; then
+        # TODO: Decide whether this is the right way to go about this. Right now, because item files XMLs do not have checksums available for them from the Internet Archive (since the XML files are where the checksums are kept), iasha1 will retrieve it and calculate the checksum dynamically. This could be suboptimal (or even harmful) since there is no guarantee that the returned value is correct; this behavior may change in later versions. Also, check whether it works with on-the-fly derivative files, which may break when checked using this, e.g. when using crystallize-backup, because of the same issue of not having checksums listed in the XML (I don't know if they are).
+        if [[ "metadata" == "$metadataCommand" ]]; then
+            ident="$(iaident "$1")"
+            result="$(wgetOptionallyOfflineWrapper -qO - "https://archive.org/download/$ident/$ident"_files.xml | sha1sum | awk '{print $1;}')"
+        else
+            result="$(ia "$propagateMetaXMLStored" filesXMLStored "$1" | sha1sum | awk '{print $1;}')"
+        fi
+    else
+        iapathEscaped="$(iapath "$1")"
+        iapathEscaped="${iapathEscaped//\"/\\\"}"
+        result="$(ia "$propagateMetaXMLStored" "$metadataCommand" "$(iaident "$1")" | { jq -r '.files[] | select(.name=="'"$iapathEscaped"'").'"$field" 2>/dev/null; };)"
+    fi
+    # jq seems to exit 0 on at least some errors
+    [[ -z "$result" ]] && exit 1
+    print "$result"
+)
+
+iamd5() (
+    local field="md5"
+    local result
+    local iapathEscaped
+    if [[ "$(iapath "$1")" == "$(iaident "$1")"_files.xml ]]; then
+        # TODO: Decide whether this is the right way to go about this. Right now, because item files XMLs do not have checksums available for them from the Internet Archive (since the XML files are where the checksums are kept), iamd5 will retrieve it and calculate the checksum dynamically. This could be suboptimal (or even harmful) since there is no guarantee that the returned value is correct; this behavior may change in later versions. Also, check whether it works with on-the-fly derivative files, which may break when checked using this, e.g. when using crystallize-backup, because of the same issue of not having checksums listed in the XML (I don't know if they are).
+        result="$(ia filesXMLStored "$1" | md5sum | awk '{print $1;}')"
+    else
+        iapathEscaped="$(iapath "$1")"
+        iapathEscaped="${iapathEscaped//\"/\\\"}"
+        result="$(ia metadataStored "$(iaident "$1")" | { jq -r '.files[] | select(.name=="'"$iapathEscaped"'").'"$field" 2>/dev/null; };)"
+    fi
+    # jq seems to exit 0 on at least some errors
+    [[ -z "$result" ]] && exit 1
+    print "$result"
+)
+
+iaurl() (
+    print "https://archive.org/download/"
+    iaident "$1"
+    print "/"
+    iapath "$1"
+)
+
+isIaName() (
+    local regex='^https:\/\/archive.org\/download\/.+$'
+    if [[ "$1" =~ $regex ]]; then
+        exit 0
+    fi
+    exit 1
+)
+
+hasWebProtocol() (
+    local httpRegex='^https?:\/\/.+$'
+    local ftpRegex='^ftp:\/\/.+$'
+    if [[ "$1" =~ $httpRegex ]] || [[ "$1" =~ $ftpRegex ]]; then
+        exit 0
+    fi
+    exit 1
+)
+
+getGrabSitePath() {
+    if command grab-site &> /dev/null; then
+        command grab-site
+    elif [[ -f "$HOME/gs-venv/bin/grab-site" ]]; then
+        echo "$HOME/gs-venv/bin/grab-site"
+    elif [[ -f "$HOME/gs-venv/gs-venv/bin/grab-site" ]]; then
+        echo "$HOME/gs-venv/gs-venv/bin/grab-site"
+    else
+        return 1
+    fi
+}
+
+getPhantomjsPath() {
+    if command phantomjs &> /dev/null; then
+        command phantomjs
+    elif [[ -f "$HOME/phantomjs-1.9.8-linux-x86_64/bin/phantomjs" ]]; then
+        echo "$HOME/phantomjs-1.9.8-linux-x86_64/bin/phantomjs"
+    elif [[ -f "/phantomjs-1.9.8-linux-x86_64/bin/phantomjs" ]]; then
+        echo "/phantomjs-1.9.8-linux-x86_64/bin/phantomjs"
+    elif [[ -f "$HOME/bin/phantomjs" ]]; then
+        echo "$HOME/bin/phantomjs"
+    else
+        return 1
+    fi
+}
+
+grab-site() {
+    "$(getGrabSitePath)" "$@"
+}
+
+phantomjs() {
+    "$(getPhantomjsPath)" "$@"
+}
+
+a() (
+    aq --add-wpull-args '--tries=1024' "$@"
+)
+
+o() {
+    aq --add-wpull-args '--tries=1024' --1 "$@"
+}
+
+aq() (
+    cd "$(getGrabSiteGrabLocation)" || die "Could not cd to grab-site grab location!"
+
+    local addWpullArgs=''
+    if [[ "$1" == "--add-wpull-args" ]]; then
+        shift
+        addWpullArgs=" $1"
+        shift
+    fi
+
+    local phantomjsArgs=''
+    if getPhantomjsPath &> /dev/null; then
+        phantomjsArgs='\ --phantomjs-scroll=50000\ --phantomjs-exe='"$(getPhantomjsPath)"
+    fi
+
+    # FIXME: Add \ --retry-connrefused\ --retry-dns-error
+    # See https://github.com/ludios/grab-site/issues/129
+    grab-site --no-dupespotter --concurrency=3 --wpull-args=--read-timeout=3600\ --connect-timeout=20\ --dns-timeout=20\ --max-redirect=128"$phantomjsArgs"\ --content-on-error"$addWpullArgs" "$@"
+)
+
+oq() {
+    aq --1 "$@"
+}
+
+ap() {
+    aq --add-wpull-args '--tries=1024 --phantomjs' "$@"
+}
+
+op() {
+    aq --add-wpull-args '--tries=1024 --phantomjs' --1 "$@"
+}
+
+getGrabSiteGrabLocation() {
+    local grabSiteLocation
+    grabSiteLocation="$(getWorkdirLocation)/.grab-site-grabs"
+
+    default() {
+        mkdir -p "$(getWorkdirLocation)/.grab-site-grabs/warcs" || return 1
+        echo "$grabSiteLocation" || return 1
+        return 0
+    }
+
+    if [[ -d "$grabSiteLocation" ]]; then
+        default
+        return 0
+    fi
+
+    if [[ -d "$HOME/gs-grabs/gs-grabs" ]]; then
+        echo "$HOME/gs-grabs/gs-grabs"
+        return 0
+    elif [[ -d "$HOME/gs-grabs" ]]; then
+        echo "$HOME/gs-grabs"
+        return 0
+    fi
+
+    default || return 1
+    return 0
+}
+
+getGrabSiteWarcLocation() {
+    die "Unimplemented!" # TODO: Add optional Warcdealer support to the grab-site wrappers here.
+
+    # TODO
+    #a() { cd /home/grabbot/grabs/ && grab-site --no-dupespotter --concurrency=5 --wpull-args=--warc-move=/home/grabbot/warcdealer/\ --read-timeout=3600\ --connect-timeout=20\ --dns-timeout=20\ --retry-connrefused\ --retry-dns-error\ --max-redirect=128\ --phantomjs-scroll=50000\ --phantomjs-exe=/phantomjs-1.9.8-linux-x86_64/bin/phantomjs\ --content-on-error\ --tries=1024 "$@"; }
+    #o() { cd /home/grabbot/grabs/ && grab-site --no-dupespotter --concurrency=5 --wpull-args=--warc-move=/home/grabbot/warcdealer/\ --read-timeout=3600\ --connect-timeout=20\ --dns-timeout=20\ --retry-connrefused\ --retry-dns-error\ --max-redirect=128\ --phantomjs-scroll=50000\ --phantomjs-exe=/phantomjs-1.9.8-linux-x86_64/bin/phantomjs\ --content-on-error\ --tries=1024 --1 "$@"; }
+    #aq() { cd /home/grabbot/grabs/ && grab-site --no-dupespotter --concurrency=5 --wpull-args=--warc-move=/home/grabbot/warcdealer/\ --read-timeout=3600\ --connect-timeout=20\ --dns-timeout=20\ --retry-connrefused\ --retry-dns-error\ --max-redirect=128\ --phantomjs-scroll=50000\ --phantomjs-exe=/phantomjs-1.9.8-linux-x86_64/bin/phantomjs\ --content-on-error "$@"; }
+    #oq() { cd /home/grabbot/grabs/ && grab-site --no-dupespotter --concurrency=5 --wpull-args=--warc-move=/home/grabbot/warcdealer/\ --read-timeout=3600\ --connect-timeout=20\ --dns-timeout=20\ --retry-connrefused\ --retry-dns-error\ --max-redirect=128\ --phantomjs-scroll=50000\ --phantomjs-exe=/phantomjs-1.9.8-linux-x86_64/bin/phantomjs\ --content-on-error --1 "$@"; }
+    #ap() { cd /home/grabbot/grabs/ && grab-site --no-dupespotter --concurrency=5 --wpull-args=--warc-move=/home/grabbot/warcdealer/\ --read-timeout=3600\ --connect-timeout=20\ --dns-timeout=20\ --retry-connrefused\ --retry-dns-error\ --max-redirect=128\ --phantomjs-scroll=50000\ --phantomjs-exe=/phantomjs-1.9.8-linux-x86_64/bin/phantomjs\ --content-on-error\ --tries=1024\ --phantomjs "$@"; }
+    #op() { cd /home/grabbot/grabs/ && grab-site --no-dupespotter --concurrency=5 --wpull-args=--warc-move=/home/grabbot/warcdealer/\ --read-timeout=3600\ --connect-timeout=20\ --dns-timeout=20\ --retry-connrefused\ --retry-dns-error\ --max-redirect=128\ --phantomjs-scroll=50000\ --phantomjs-exe=/phantomjs-1.9.8-linux-x86_64/bin/phantomjs\ --content-on-error\ --tries=1024\ --phantomjs --1 "$@"; }
+
+}
+
+urlencode() {
+    local LANG=C
+    for ((i=0; i < ${#1}; i++)); do
+        if [[ ${1:$i:1} =~ ^[a-zA-Z0-9\.\~_-]$ ]]; then
+            printf '%s' "${1:$i:1}"
+        else
+            printf '%%%02X' "'${1:$i:1}"
+        fi
+    done
+}
+
+urldecode() {
+    local url_encoded="${1//+/ }"
+    printf '%b' "${url_encoded//%/\\x}"
+}
+
+isSubdirOf() {
+    possibleEnclosingDir="$(readlink -f "$1")"
+    possibleSubdir="$(readlink -f "$2")"
+    if [[ "${possibleSubdir##$possibleEnclosingDir}" != "$possibleSubdir" ]]; then
+        # This is a subdirectory
+        return 0
+    else
+        return 1
+    fi
+}
+
+contains() {
+    local e
+    for e in "${@:2}"; do [[ "$e" == "$1" ]] && return 0; done
+    return 1
+}
+
+allElementsEqual() {
+    local e
+    for e in "${@:2}"; do [[ "$e" == "$1" ]] || return 1; done
+    return 0
+}
+
+join_by() {
+    # from https://stackoverflow.com/questions/1527049/join-elements-of-an-array
+    local d="$1"
+    shift
+    echo -n "$1"
+    shift
+    printf "%s" "${@/#/$d}"
+}
+
+pipecheck() {
+    allElementsEqual "0" "$@" || die "A failure status was reported by a call to pipecheck, with the reported exit statuses $(join_by ", " "$@")"
+}
+
+retryUntilSuccess() (
+    local numberRegex='^[0-9]+$'
+    local maximumRetries=-1
+    if [[ "$1" =~ $numberRegex ]]; then
+        maximumRetries="$1"
+        shift
+    fi
+    local maximumDelayTime=0
+    if [[ "$1" =~ $numberRegex ]]; then
+        maximumDelayTime="$1"
+        shift
+    fi
+    local delayTimeBackoffIncrement=1
+    if [[ "$1" =~ $numberRegex ]]; then
+        delayTimeBackoffIncrement="$1"
+        shift
+    fi
+    local retryDelayTime=0
+    if [[ "$1" =~ $numberRegex ]]; then
+        # This sets the initial delay time
+        retryDelayTime="$1"
+        shift
+    fi
+    local currentRetries="$maximumRetries"
+    local postExecCheckSuccess=""
+    postExecCheckFailHandler() {
+        if [[ -z "$postExecCheckSuccess" ]] || [[ "$postExecCheckSuccess" == "1" ]]; then
+            postExecCheckSuccess="1"
+        else
+            postExecCheckSuccess="0"
+        fi
+    }
+    until [[ "$currentRetries" -eq "0" ]]; do
+        if "$@"; then
+            postExecCheckFailHandler
+            break
+        fi
+        if [[ "$currentRetries" != "0" ]]; then
+            currentRetries=$((currentRetries-1))
+        fi
+        sleep "$retryDelayTime"
+        if [[ "$retryDelayTime" -lt "$maximumDelayTime" ]]; then
+            retryDelayTime=$((retryDelayTime + delayTimeBackoffIncrement))
+        fi
+    done
+    [[ "$postExecCheckSuccess" != "1" ]] && die "Number of allowed retries exceeded without success."
+    true # needed because the if statement executes with the exit status of the last command executed
+)
+
+findso() {
+    # based on https://unix.stackexchange.com/questions/22178/which-equivalent-for-shared-libraries
+    if [[ "$1" == "--plain" ]]; then
+        soname="$2"
+    else
+        soname="lib${1}.so"
+    fi
+    local ldpath="$LD_LIBRARY_PATH"
+    local found="false"
+    if [[ -z "$ldpath" ]]; then
+        ldpath="$(</etc/ld.so.conf)"
+    else
+        local IFS=:
+    fi
+    for libdir in $ldpath; do
+        if [[ -f "$libdir/$soname" ]]; then
+            echo "$libdir/$soname"
+            found="true"
+            break
+        fi
+    done
+    if [[ "$found" == "true" ]]; then
+        return 0
+    fi
+    /sbin/ldconfig -p | awk -v needle="$1" '$1 == needle {sub(/.* => /, ""); print}'
+}
+
+normalizeWhitespace() {
+    # BROKEN: doesn't exit (when run with blah as its string)
+    if [[ -n "$1" ]]; then
+        print "$1" | normalizeWhitespace
+    else
+        stdbuf -o0 tr '\n' ' ' | stdbuf -o0 tr '\r' ' ' | stdbuf -o0 tr -s '[:blank:]' | awk '{$1=$1};1'
+    fi
+}
+
+flacToWaveform() (
+    sourceFile="$1"
+    destinationFile="$sourceFile.png"
+    if [[ -e "$destinationFile" ]] || [[ -h "$destinationFile" ]]; then
+        die "The requested destination file, $destinationFile, already exists."
+    fi
+    tempWorkDirectory="$(tempDir)"
+    tempWavFile="$tempWorkDirectory/$sourceFile.wav"
+    tempPngFile="$tempWorkDirectory/$sourceFile.png"
+    resPngFile="$tempWorkDirectory/res-$sourceFile.png"
+    ffmpeg -v 0 -analyzeduration 900000000000 -probesize 200M  -threads 2 -i "$sourceFile" -ac 1 -ar 44100 -y "$tempWavFile" || die
+    (
+        cd "$tempWorkDirectory" || die
+        wav2png.py "$tempWavFile" > /dev/null 2>&1 || die
+    )
+    convert -background black "$tempPngFile" -gravity center -extent 800x200 -background black -fuzz 50% -transparent white "$resPngFile" || die
+    mv "$resPngFile" "$destinationFile" || die
+    rm -r "$tempWorkDirectory"
+)
+
+bulkFlacToWaveform() {
+    while [[ -n "$1" ]]; do
+        flacToWaveform "$(basename "$1")"
+        shift
+    done
+}
+
+invertReturnValue() {
+    if bash -c "$(join_by ' ' "$@")"; then
+        return 1
+    else
+        return 0
+    fi
+}
+
+getWorkdirLocation() {
+    local tempLocation;
+    tempLocation="$(ember-getconf WorkDirectory)"
+    [[ -n "$tempLocation" ]] || return 1
+    print "$tempLocation"
+}
+
+getBigTempLocation() {
+    local tempLocation="$EMBER_TEMPDIR"
+    [[ -z "$tempLocation" ]] && tempLocation="$(ember-getconf WorkDirectory)"
+    [[ -z "$tempLocation" ]] && tempLocation="$(getSystemTempLocation)"
+    print "$tempLocation"
+}
+
+getSystemTempLocation() {
+    if [[ -n "$TMPDIR" ]]; then
+        print "$TMPDIR"
+    else
+        dirname "$(mktemp tmp.XXXXXXXXXX -ut)"
+    fi
+    return 0
+}
+
+bigTempDir() {
+    local directoryId
+    directoryId="$(getBigTempLocation)/.tempDir-$(date-uuid)/"
+    mkdir -p "$directoryId"
+    echo "$directoryId"
+}
+
+bigTempFile() {
+    local fileId
+    fileId="$(getBigTempLocation)/.tempFile-$(date-uuid)"
+    touch "$fileId"
+    echo "$fileId"
+}
+
+tempDir() {
+    mktemp --tmpdir -d ".tempFile-$(date-uuid).XXXXXXXXXX"
+}
+
+tempFile() {
+    mktemp --tmpdir ".tempFile-$(date-uuid).XXXXXXXXXX"
+}
+
+ytdl-quick() {
+    local logFile
+    logFile="ytdl-quicked-$(date-uuid)".log
+    {
+        youtube-dl --version
+        ember_bash_setup --version
+        youtube-dl -i --geo-bypass --write-description --write-info-json --write-annotations --write-thumbnail --write-all-thumbnails --write-sub --write-auto-sub --all-subs -k "$@"
+    } 2>&1 | tee -a "$logFile"
+}
+
+ytdl-quick-audio() {
+    ytdl-quick -f bestaudio "$@"
+}
+
+nomerge-ytdl-quick-audio() {
+    local logFile
+    logFile="ytdl-quicked-$(date-uuid)".log
+    {
+        youtube-dl --version
+        ember_bash_setup --version
+        youtube-dl -i --geo-bypass --write-description --write-info-json --write-annotations --write-thumbnail --write-all-thumbnails --write-sub --write-auto-sub --all-subs -k -f bestaudio/best -o '%(title)s-%(id)s.f%(format_id)s.%(ext)s' "$@"
+    } 2>&1 | tee -a "$logFile"
+}
+
+nomerge-ytdl-quick-video() {
+    local logFile
+    logFile="ytdl-quicked-$(date-uuid)".log
+    {
+        youtube-dl --version
+        ember_bash_setup --version
+        youtube-dl -i --geo-bypass --write-description --write-info-json --write-annotations --write-thumbnail --write-all-thumbnails --write-sub --write-auto-sub --all-subs -k -f bestvideo/best -o '%(title)s-%(id)s.f%(format_id)s.%(ext)s' "$@"
+    } 2>&1 | tee -a "$logFile"
+}
+
+# na- ones don't try to download annotations, for getting around videos with 404 error on annotation URL.
+na-ytdl-quick() {
+    local logFile
+    logFile="ytdl-quick-naed-$(date-uuid)".log
+    {
+        youtube-dl --version
+        ember_bash_setup --version
+        youtube-dl -i --geo-bypass --write-description --write-info-json --write-thumbnail --write-all-thumbnails --write-sub --write-auto-sub --all-subs -k "$@"
+    } 2>&1 | tee -a "$logFile"
+}
+
+na-ytdl-quick-audio() {
+    na-ytdl-quick -f bestaudio "$@"
+}
+
+crystallize-getconf() {
+    [[ -n "$EmberWorkdirOverride54ae685dc782437c99bc46c7a1211377" ]] && export EmberWorkdirOverride54ae685dc782437c99bc46c7a1211377
+    command crystallize-getconf "$@"
+}
+
+git-sync() {
+    repo="$1"
+    repoName="$(basename "$repo")"
+    repoName="${repoName%.*}"
+    local logFile
+    logFile="git-synced-$(date-uuid)".log
+    {
+        echo "$repo"
+        ember_bash_setup --version
+        if [[ -n "$repoName" ]]; then
+            if [[ -e "$repoName.git" ]]; then
+                [[ -d "$repoName.git" ]] || die "$(pwd)/$repoName.git does not seem to be a directory."
+                (
+                    cd "$repoName.git" || die "Could not cd to repository directory $(pwd)/$repoName.git."
+                    echo "Updating clone of the \"$repoName\" git repository..."
+                    retryUntilSuccess 10 git fetch --all || die
+                    git fsck || die "Git fsck of $repo failed"
+                )
+            else
+                retryUntilSuccess 10 git clone --mirror "$repo" || die
+                (
+                    cd "$repoName.git" || die "Could not cd to repository directory $(pwd)/$repoName.git."
+                    git fsck || die "Git fsck of newly cloned repo $repo failed"
+                )
+            fi
+        fi
+        echo "Successfully retrieved $repo."
+    } 2>&1 | tee -a "$logFile"
+}
+
+asciiDecListToText() {
+    [[ -n "${1+x}" ]] && asciiDecListToText <<< "$1" && return
+    tr -s '[:blank:]' '[\n*]' | while read -r num; do
+        # shellcheck disable=SC2059
+        [[ -n "$num" ]] && [[ "$num" != "0" ]] && [[ "$num" =~ ^[0-9]+$ ]] && printf "\x$(printf "%x\n" "$num")" | tr -d '\0'
+        true
+    done
+}
+
+intIsBetween() {
+    # Checks whether $1 is within the range $2 and $3, including endpoints
+    [[ $(( $(( "$1" - "$2" )) * $(($1 - $3)) )) -le 0 ]]
+}
+
+asciiIsDigit() {
+    intIsBetween "$1" 48 57
+}
+
+asciiIsLetter() {
+    intIsBetween "$1" 65 90 || intIsBetween "$1" 97 122
+}
+
+asciiIsPrintable() {
+    intIsBetween "$1" 32 126
+}
+
+asciiIsSpace() {
+    [[ "$1" == 32 ]]
+}
+
+asciiIsNewline() {
+    [[ "$1" == 10 ]] || [[ "$1" == 13 ]]
+}
+
+#0  NUL    16 DLE    32 SP   48 0    64 @    80 P    96  `    112 p
+#1  SOH    17 DC1    33 !    49 1    65 A    81 Q    97  a    113 q
+#2  STX    18 DC2    34 "    50 2    66 B    82 R    98  b    114 r
+#3  ETX    19 DC3    35 #    51 3    67 C    83 S    99  c    115 s
+#4  EOT    20 DC4    36 $    52 4    68 D    84 T    100 d    116 t
+#5  ENQ    21 NAK    37 %    53 5    69 E    85 U    101 e    117 u
+#6  ACK    22 SYN    38 &    54 6    70 F    86 V    102 f    118 v
+#7  BEL    23 ETB    39 '    55 7    71 G    87 W    103 g    119 w
+#8  BS     24 CAN    40 (    56 8    72 H    88 X    104 h    120 x
+#9  HT     25 EM     41 )    57 9    73 I    89 Y    105 i    121 y
+#10 LF     26 SUB    42 *    58 :    74 J    90 Z    106 j    122 z
+#11 VT     27 ESC    43 +    59 ;    75 K    91 [    107 k    123 {
+#12 FF     28 FS     44 ,    60 <    76 L    92 \    108 l    124 |
+#13 CR     29 GS     45 -    61 =    77 M    93 ]    109 m    125 }
+#14 SO     30 RS     46 .    62 >    78 N    94 ^    110 n    126 ~
+#15 SI     31 US     47 /    63 ?    79 O    95 _    111 o    127 DEL
+
+git-bulk-sync() {
+    while read -r repo; do
+        git-sync "$repo"
+    done
+}
+
+newline-terminated-characters-from-text() {
+    sed 's/$/\n/g' | sed 's/\(.\)/\1\n/g'
+}
+
+newline-terminated-characters-to-text() {
+    local n
+    while read -r; do
+        if [[ -n "$REPLY" ]]; then
+            printf %s "$REPLY";
+            n=0;
+        else
+            if (( ++n % 2 )); then
+                printf '\n';
+            fi;
+        fi;
+    done
+}
+
+get-default-firefox-profile() (
+    # based on https://askubuntu.com/questions/239543/get-the-default-firefox-profile-directory-from-bash
+    if [[ -n "$1" ]]; then
+        cd "$1" || die "Could not cd to the specified directory"
+    else
+        cd ~/.mozilla/firefox || die "Could not cd to ~/.mozilla/firefox"
+    fi
+    pwd | head -c -1
+    print '/'
+    if grep -q '\[Profile[^0]\]' profiles.ini; then
+        grep -E '^\[Profile|^Path|^Default' profiles.ini | grep -1 '^Default=1' | grep '^Path' | cut -c6-
+    else
+        grep 'Path=' profiles.ini | sed 's/^Path=//'
+    fi
+)
+
+firefox-places-dump() {
+    # help from https://gist.github.com/kirang89/6541591
+    local firefoxProfile
+    if [[ -n "$1" ]]; then
+        firefoxProfile="$1"
+    else
+        # shellcheck disable=SC2119
+        firefoxProfile="$(cd ~ || die "Could not cd to home folder"; get-default-firefox-profile)"
+    fi
+    sqlite3 "$firefoxProfile/places.sqlite" '.sch' > firefox-places-dump.schema.sql-nltc
+    sqlite3 "$firefoxProfile/places.sqlite" '.dump' > firefox-places-dump.sql-nltc
+    cp "$firefoxProfile/sessionstore.js" firefox-places-dump.sessionstore.js-nltc
+    # Put newline every other character, to make it easier on git storage
+    newline-terminated-characters-from-text < firefox-places-dump.schema.sql-nltc | sponge firefox-places-dump.schema.sql-nltc
+    newline-terminated-characters-from-text < firefox-places-dump.sql-nltc | sponge firefox-places-dump.sql-nltc
+    newline-terminated-characters-from-text < firefox-places-dump.sessionstore.js-nltc | sponge firefox-places-dump.sessionstore.js-nltc
+}
+
+firefox-places-build() {
+    newline-terminated-characters-to-text < firefox-places-dump.sessionstore.js-nltc > sessionstore.js
+    newline-terminated-characters-to-text < firefox-places-dump.sql-nltc > firefox-places-dump.tmp.sql
+    sqlite3 places.sqlite < firefox-places-dump.tmp.sql
+    rm firefox-places-dump.tmp.sql
+}
+
+bigSponge() (
+    trap 'error-notify "An error was reported in the sponge wrapper with the arguments $* on ${BASH_SOURCE[0]} line ${LINENO} in $(pwd) at $(emdate)."' ERR
+    trap - EXIT
+    TMPDIR="$(getBigTempLocation)"
+    export TMPDIR
+    command sponge "$@"
+)
+
+checkedxz() (
+    checkedxzErr() {
+        rm -f "$output"
+        rm -f "${streamingInput:?}"
+    }
+    trap 'checkedxzErr; die "A fatal error was reported on ${BASH_SOURCE[0]} line ${LINENO} in $(pwd) at $(emdate)."' ERR
+    trap - EXIT
+    local quiet="false"
+    local requestWaitAfter="false"
+    if [[ "$1" == "--quiet" ]]; then
+        quiet="true"
+        pv() {
+            cat
+        }
+        shift
+    elif [[ "$1" == "--request-wait-after" ]]; then
+        requestWaitAfter="true"
+        shift
+    fi
+    local input="$1"
+    local useStdout=""
+    if [[ -n "$input" ]]; then
+        shift
+        if [[ "$1" == "--stdout" ]]; then
+            useStdout="true"
+            shift
+        fi
+    else
+        useStdout="true"
+    fi
+
+    local output
+    output="$(bigTempFile)"
+    local fileSize
+    local execMode=""
+    [[ "$quiet" != "true" ]] && echo "Packing..." >&2
+    if [[ -z "$input" ]] || [[ "$input" == "-" ]]; then
+        execMode="stdin"
+        if [[ "$input" == "-" ]]; then
+            useStdout="true"
+        fi
+        input="$(bigTempFile)"
+        streamingInput="$(bigTempFile)"
+        cat > "${input:?}"
+        fileSize="$(disk-size-in-bytes "$input")"
+        inputCsum="$(sha512sum "$input" | awk '{print $1;}')"
+    else
+        execMode="file"
+        fileSize="$(disk-size-in-bytes "$input")"
+        inputCsum="$(sha512sum "$input" | awk '{print $1;}')"
+    fi
+    checkedxzInner() (
+        if [[ "$execMode" == "stdin" ]]; then
+            pv -tparbIfei 0.1 -s "$fileSize" < "$input" | xz "$@" --stdout - > "$output"
+        else
+            xz -k "$@" --stdout "$input" | pv -tparbIfei 0.1 -s "$fileSize" > "$output"
+        fi
+        fileSize="$(disk-size-in-bytes "$output")"
+        [[ "$quiet" != "true" ]] && echo "Checking..." >&2
+        testOutputCsum="$(pv -tparbIfei 0.1 -s "$fileSize" < "$output" | unxz --stdout - | sha512sum | awk '{print $1;}')"
+        [[ "$requestWaitAfter" == "true" ]] && echo "Please wait..." >&2
+        assert equals "$inputCsum" "$testOutputCsum" || die
+    )
+    retryUntilSuccess 100 checkedxzInner "$@" || { [[ "$execMode" == "stdin" ]] && rm -f "${input:?}"; die; }
+    if [[ "$useStdout" == "true" ]]; then
+        cat "$output"
+        rm "$output"
+    else
+        mv "$output" "$input.xz"
+    fi
+    if { ! contains "-k" "$@"; } || [[ "$execMode" == "stdin" ]]; then
+        rm "${input:?}"
+    fi
+    if [[ -n "$streamingInput" ]]; then
+        rm "$streamingInput"
+    fi
+)
+
+# Test framework
+{
+    assert() {
+        local save_traps
+        save_traps="$(trap)"
+        trap 'die "Error during assertion test: $(join_by ", " "$@") '"on ${BASH_SOURCE[0]} line ${LINENO} in $(pwd) at $(emdate)."'"' ERR
+        local verbose=""
+        if [[ "$1" == "-v" ]]; then
+            verbose="true"
+            shift
+        elif [[ "$emberSharedAssertInheritVerbose" == "true" ]]; then
+            verbose="true"
+        fi
+        local assertionTest="$1"
+        shift
+
+        case $assertionTest in
+        directoryEquals)
+            # trap is workaround for what I think is https://lists.gnu.org/archive/html/bug-bash/2016-02/msg00140.html
+            trap 'die "Error during assertion test: $(join_by ", " "$@") '"on ${BASH_SOURCE[0]} line ${LINENO} in $(pwd) at $(emdate)."'"' ERR
+            firstDir="$1"
+            secondDir="$2"
+            if [[ -z "$firstDir" ]] || [[ -z "$secondDir" ]]; then
+                die "Both values must be non-empty."
+            fi
+            if [[ "$verbose" == "true" ]]; then
+                # || die is workaround for what I think is https://lists.gnu.org/archive/html/bug-bash/2016-02/msg00140.html
+                diff -uraN "$firstDir" "$secondDir" || die "Assertion failed: $(join_by ", " "$@") on ${BASH_SOURCE[0]} line ${LINENO} in $(pwd) at $(emdate)."
+            else
+                # || die is workaround for what I think is https://lists.gnu.org/archive/html/bug-bash/2016-02/msg00140.html
+                diff -uraN "$firstDir" "$secondDir" > /dev/null || die "Assertion failed: $(join_by ", " "$@") on ${BASH_SOURCE[0]} line ${LINENO} in $(pwd) at $(emdate)."
+            fi
+            ;;
+        fileEquals)
+            # trap is workaround for what I think is https://lists.gnu.org/archive/html/bug-bash/2016-02/msg00140.html
+            trap 'die "Error during assertion test: $(join_by ", " "$@") '"on ${BASH_SOURCE[0]} line ${LINENO} in $(pwd) at $(emdate)."'"' ERR
+            firstFile="$1"
+            secondFile="$2"
+            if [[ -z "$firstFile" ]] || [[ -z "$secondFile" ]]; then
+                die "Both values must be non-empty."
+            fi
+            # || die is workaround for what I think is https://lists.gnu.org/archive/html/bug-bash/2016-02/msg00140.html
+            assert equals "$(sha512sum "$firstFile" | awk '{print $1;}')" "$(sha512sum "$secondFile" | awk '{print $1;}')" || die "Assertion failed: $(join_by ", " "$@") on ${BASH_SOURCE[0]} line ${LINENO} in $(pwd) at $(emdate)."
+            ;;
+        equals)
+            # trap is workaround for what I think is https://lists.gnu.org/archive/html/bug-bash/2016-02/msg00140.html
+            trap 'die "Error during assertion test: $(join_by ", " "$@") '"on ${BASH_SOURCE[0]} line ${LINENO} in $(pwd) at $(emdate)."'"' ERR
+            # || die is workaround for what I think is https://lists.gnu.org/archive/html/bug-bash/2016-02/msg00140.html
+            [[ "${1:?}" == "${2:?}" ]] || die "Assertion failed: $(join_by ", " "$@") on ${BASH_SOURCE[0]} line ${LINENO} in $(pwd) at $(emdate)."
+            ;;
+        true)
+            trap 'die "Error during assertion test: $(join_by ", " "$@") '"on ${BASH_SOURCE[0]} line ${LINENO} in $(pwd) at $(emdate)."'"' ERR
+            bash -c 'source ember_bash_setup &> /dev/null; '"$(join_by ' ' "$@")"
+            ;;
+        false)
+            trap 'die "Error during assertion test: $(join_by ", " "$@") '"on ${BASH_SOURCE[0]} line ${LINENO} in $(pwd) at $(emdate)."'"' ERR
+            invertReturnValue bash -c "$(join_by ' ' "$@")"
+            ;;
+        matches_regex)
+            [[ "$1" =~ $2 ]]
+            ;;
+        *)
+            trap 'error-notify "An error was reported on ${BASH_SOURCE[0]} line ${LINENO} in $(pwd) at $(emdate)."' ERR
+            die "Unknown test."
+            ;;
+        esac
+        eval "$save_traps"
+    }
+
+    passedTests="0"
+    failedTests="0"
+    totalTests="0"
+
+    verboseTests=""
+
+    runTest() {
+        # This assumes that the test is a function, an external program, or a folder containing "exec" script. To force using an external program, use ./
+        local verbose="$verboseTests"
+        if [[ "$1" == "-v" ]]; then
+            verbose="true"
+            shift
+        fi
+        emberSharedAssertInheritVerbose=""
+        if [[ "$1" == "-vv" ]]; then
+            verbose="true"
+            emberSharedAssertInheritVerbose="true"
+            export emberSharedAssertInheritVerbose
+            shift
+        fi
+        totalTests=$(( totalTests + 1 ))
+        local testName="$1"
+        shift
+        testPass() {
+            echo "Test $testName passed."
+            passedTests=$(( passedTests + 1 ))
+        }
+        testFail() {
+            echo "Test $testName failed."
+            failedTests=$(( failedTests + 1 ))
+        }
+        local digitsRegex='^[0-9]+$'
+        if [[ -d "$testName" ]]; then
+            pushd "$testName" > /dev/null || die
+            chmod +x ./exec
+            if [[ "$verbose" == "true" ]]; then
+                if ./exec "$@"; then
+                    testPass
+                else
+                    testFail
+                fi
+            else
+                if ./exec "$@" &> /dev/null; then
+                    testPass
+                else
+                    testFail
+                fi
+            fi
+            popd > /dev/null || die
+        elif [[ -f "$testName" ]]; then
+            # The test is a file to run. If you want to test a function but its name is also used by a file, wrap it in braces (like: { foo }).
+            chmod +x ./"$testName"
+            if [[ "$verbose" == "true" ]]; then
+                if ./"$testName" "$@"; then
+                    testPass
+                else
+                    testFail
+                fi
+            else
+                if ./"$testName" "$@" &> /dev/null; then
+                    testPass
+                else
+                    testFail
+                fi
+            fi
+        elif type -t "$testName" > /dev/null; then
+            # The test is a function or command name.
+            if [[ "$verbose" == "true" ]]; then
+                if "$testName" "$@"; then
+                    testPass
+                else
+                    testFail
+                fi
+            else
+                if "$testName" "$@" &> /dev/null; then
+                    testPass
+                else
+                    testFail
+                fi
+            fi
+         elif [[ "$testName" =~ $digitsRegex ]]; then
+            # The test is an inline function like runTest { assert blah }, so all we have to do here is check the status code
+            if [[ "$testName" == "0" ]]; then
+                testPass
+            else
+                testFail
+            fi
+        else
+            warn "Could not find the test $testName."
+            testFail
+        fi
+    }
+
+    reportTests() {
+        local passedWord="tests"
+        if [[ "$passedTests" == 1 ]]; then
+            passedWord="test"
+        fi
+        local failedWord="tests"
+        if [[ "$failedTests" == 1 ]]; then
+            failedWord="test"
+        fi
+        local totalWord="tests"
+        if [[ "$totalTests" == 1 ]]; then
+            totalWord="test"
+        fi
+        passedPercentage="$(printf "%.3f\\n" "$(bc -l <<< "($passedTests / $totalTests) * 100")")"
+        failedPercentage="$(printf "%.3f\\n" "$(bc -l <<< "($failedTests / $totalTests) * 100")")"
+        echo "$passedTests $passedWord ($passedPercentage%) passed and $failedTests $failedWord ($failedPercentage%) failed out of a total of $totalTests $totalWord."
+        if [[ "$failedTests" != "0" ]]; then
+            totalWord="Some tests"
+            if [[ "$totalTests" == 1 ]]; then
+                totalWord="A test"
+            fi
+            error-notify "$totalWord ($failedPercentage%: $failedTests out of $totalTests) failed!"
+        fi
+        [[ $(( totalTests - failedTests )) == "$passedTests" ]] || die "There's a problem in the testing framework."
+    }
+}
+
+trap 'error-notify "An error was reported on ${BASH_SOURCE[0]} line ${LINENO} in $(pwd) at $(emdate)."' ERR
