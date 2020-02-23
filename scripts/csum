@@ -106,7 +106,7 @@ case $action in
     trap 'error-notify "A fatal error was reported on ${BASH_SOURCE[0]} line ${LINENO} in $(pwd) at $(emdate)."; finish; exit 1' ERR
     trap finish EXIT
 
-    offset="2" # original format
+    offset="2" # original format (no UUID header)
     possibleUuid="$(head -n 1 "$checksumFile")"
     if [[ "a2b2d0d9-a945-4582-8caa-8151f21fa977" == "$possibleUuid" ]]; then
         # format after version 1.1.4.463
