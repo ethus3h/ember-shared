@@ -40,6 +40,7 @@ case $action in
     # currentworkingdir="${currentworkingdir//$'\n'/'\n'}"
 
     argsRelativeToRoot=()
+    pathsEncoded=
     for arg in "${pathsToCsum[@]}"; do
         argsRelativeToRoot+=(".$(abspath "$arg")")
     done
