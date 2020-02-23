@@ -46,9 +46,9 @@ case $action in
         # Format used through version 1.1.4.463:
         # argsRelativeToRoot+=(".$(abspath "$arg")")
         # Format after version 1.1.4.463:
-        argsEncoded="$argsEncoded:$(print "$arg" | xxd -p | tr '\n' 'x')"
         path=".$(realpath -s "$arg")"
         argsRelativeToRoot+=(".$(realpath -s "$arg")")
+        argsEncoded="$argsEncoded:$(print "$arg" | xxd -p | tr '\n' 'x')"
         pathsEncoded="$"
     done
     # Do two passes to make sure nothing changed while reading and there weren't other errors
