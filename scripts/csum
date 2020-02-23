@@ -55,7 +55,8 @@ case $action in
         # Format after version 1.1.4.465:
         # (head -c -1: all but last byte)
         setVariableToCommandOutput abspathForTheRecord abspath "$arg"
-        setVariableToCommandOutput path realpath -s -z "$arg" | head -c -1
+        # probably breaks on newlines, but realpath -s "$arg" | head -c -1 would need a shell wrapped around it
+        setVariableToCommandOutput path realpath -s "$arg"
         path=".$path"
         argsRelativeToRoot+=("$path")
         argsEncoded="$argsEncoded:$(print "$arg" | xxd -p | tr '\n' 'x')"
