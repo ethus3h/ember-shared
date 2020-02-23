@@ -94,6 +94,7 @@ embasename() (
 )
 
 abspath() (
+    # Don't use this in new code at the moment! It's bad.
     setVariableToCommandOutput "enclosingDirectory" dirname -z "$1"
     if [[ "$2" == "--resolve-symlinks-in-enclosing-directory-path" ]]; then
         setVariableToCommandOutput "enclosingDirectory" readlink -fz "${enclosingDirectory:?}"
