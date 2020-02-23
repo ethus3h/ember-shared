@@ -360,7 +360,6 @@ ia() (
     fi
 
     if [[ "$1" == "upload" ]]; then
-        set -x
         (
             # Retry wrapper for ia to work around https://github.com/jjjake/internetarchive/issues/183
             wantsDelete="false"
@@ -469,7 +468,6 @@ ia() (
                     rm "${file:?}"
                 done
             fi
-            set +x
         )
     elif [[ "$1" == "checkeddl" ]]; then
         # Wrapper around ia download. TODO: Provide the ability to use local copies (not yet implemented)
