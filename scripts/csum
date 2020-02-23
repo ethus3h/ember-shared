@@ -52,6 +52,7 @@ case $action in
         # Format after version 1.1.4.463:
         echo "a2b2d0d9-a945-4582-8caa-8151f21fa977"
         xxd -p < .bash_history | tr '\n' 'x'
+        echo
         (
             cd / || die
             hashdeep -c md5,sha1,sha256,tiger,whirlpool -j0 -e -o fbsd -r -l "${argsRelativeToRoot[@]}"
