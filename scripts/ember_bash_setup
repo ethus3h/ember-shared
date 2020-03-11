@@ -549,55 +549,6 @@ tempFile() {
     mktemp --tmpdir ".tempFile-$(date-uuid).XXXXXXXXXX"
 }
 
-ytdl-quick() {
-    local logFile
-    logFile="ytdl-quicked-$(date-uuid)".log
-    {
-        youtube-dl --version
-        ember_bash_setup --version
-        youtube-dl -i --geo-bypass --write-description --write-info-json --write-annotations --write-thumbnail --write-all-thumbnails --write-sub --write-auto-sub --all-subs -k "$@"
-    } 2>&1 | tee -a "$logFile"
-}
-
-ytdl-quick-audio() {
-    ytdl-quick -f bestaudio "$@"
-}
-
-nomerge-ytdl-quick-audio() {
-    local logFile
-    logFile="ytdl-quicked-$(date-uuid)".log
-    {
-        youtube-dl --version
-        ember_bash_setup --version
-        youtube-dl -i --geo-bypass --write-description --write-info-json --write-annotations --write-thumbnail --write-all-thumbnails --write-sub --write-auto-sub --all-subs -k -f bestaudio/best -o '%(title)s-%(id)s.f%(format_id)s.%(ext)s' "$@"
-    } 2>&1 | tee -a "$logFile"
-}
-
-nomerge-ytdl-quick-video() {
-    local logFile
-    logFile="ytdl-quicked-$(date-uuid)".log
-    {
-        youtube-dl --version
-        ember_bash_setup --version
-        youtube-dl -i --geo-bypass --write-description --write-info-json --write-annotations --write-thumbnail --write-all-thumbnails --write-sub --write-auto-sub --all-subs -k -f bestvideo/best -o '%(title)s-%(id)s.f%(format_id)s.%(ext)s' "$@"
-    } 2>&1 | tee -a "$logFile"
-}
-
-# na- ones don't try to download annotations, for getting around videos with 404 error on annotation URL.
-na-ytdl-quick() {
-    local logFile
-    logFile="ytdl-quick-naed-$(date-uuid)".log
-    {
-        youtube-dl --version
-        ember_bash_setup --version
-        youtube-dl -i --geo-bypass --write-description --write-info-json --write-thumbnail --write-all-thumbnails --write-sub --write-auto-sub --all-subs -k "$@"
-    } 2>&1 | tee -a "$logFile"
-}
-
-na-ytdl-quick-audio() {
-    na-ytdl-quick -f bestaudio "$@"
-}
-
 crystallize-getconf() {
     [[ -n "$EmberWorkdirOverride54ae685dc782437c99bc46c7a1211377" ]] && export EmberWorkdirOverride54ae685dc782437c99bc46c7a1211377
     command crystallize-getconf "$@"
