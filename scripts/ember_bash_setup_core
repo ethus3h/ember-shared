@@ -2,7 +2,7 @@
 
 #set -x
 
-# Core subset of ember_bash_setup: all that is required to bootstrap StageL.
+# Core subset of ember_bash_setup: all that should be required to bootstrap StageL and for the buildsystem for Ember packages.
 
 # Depends: bash, coreutils, perl, (util-linux on GNU/Linux or Python on macOS), sed, awk, grep, nano, sudo, xxd, grep, diff.
 
