@@ -216,20 +216,6 @@ spopd() { # don't print directory by default
     popd "$@" > /dev/null || false
 }
 
-ereplace() {
-    (
-        # Perl returns 0 even if it can't find the file (without extra perl code), so test first.
-        if [[ ! -e "$3" ]]; then
-            die "ereplace: The target file $3 does not exist."
-        fi
-        setVariableToCommandOutput ereplaceFrom eescape "$1"
-        export ereplaceFrom
-        ereplaceTo="$2"
-        export ereplaceTo
-        perl -0777 -p -i -e 's/$ENV{ereplaceFrom}/$ENV{ereplaceTo}/g' "$3"
-    )
-}
-
 ereplaceRegEx() {
     (
         # Perl returns 0 even if it can't find the file (without extra perl code), so test first.
