@@ -833,12 +833,6 @@ git-sync() {
     } 2>&1 | tee -a "$logFile"
 }
 
-git-bulk-sync() {
-    while read -r repo; do
-        git-sync "$repo"
-    done
-}
-
 newline-terminated-characters-from-text() {
     sed 's/$/\n/g' | sed 's/\(.\)/\1\n/g'
 }

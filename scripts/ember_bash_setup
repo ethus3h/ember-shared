@@ -605,12 +605,6 @@ asciiIsNewline() {
 #14 SO     30 RS     46 .    62 >    78 N    94 ^    110 n    126 ~
 #15 SI     31 US     47 /    63 ?    79 O    95 _    111 o    127 DEL
 
-git-bulk-sync() {
-    while read -r repo; do
-        git-sync "$repo"
-    done
-}
-
 newline-terminated-characters-from-text() {
     sed 's/$/\n/g' | sed 's/\(.\)/\1\n/g'
 }
