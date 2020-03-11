@@ -487,33 +487,6 @@ retryUntilSuccess() (
     true # needed because the if statement executes with the exit status of the last command executed
 )
 
-findso() {
-    # based on https://unix.stackexchange.com/questions/22178/which-equivalent-for-shared-libraries
-    if [[ "$1" == "--plain" ]]; then
-        soname="$2"
-    else
-        soname="lib${1}.so"
-    fi
-    local ldpath="$LD_LIBRARY_PATH"
-    local found="false"
-    if [[ -z "$ldpath" ]]; then
-        ldpath="$(</etc/ld.so.conf)"
-    else
-        local IFS=:
-    fi
-    for libdir in $ldpath; do
-        if [[ -f "$libdir/$soname" ]]; then
-            echo "$libdir/$soname"
-            found="true"
-            break
-        fi
-    done
-    if [[ "$found" == "true" ]]; then
-        return 0
-    fi
-    /sbin/ldconfig -p | awk -v needle="$1" '$1 == needle {sub(/.* => /, ""); print}'
-}
-
 normalizeWhitespace() {
     # BROKEN: doesn't exit (when run with blah as its string)
     if [[ -n "$1" ]]; then

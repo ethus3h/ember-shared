@@ -727,15 +727,6 @@ findso() {
     /sbin/ldconfig -p | awk -v needle="$1" '$1 == needle {sub(/.* => /, ""); print}'
 }
 
-normalizeWhitespace() {
-    # BROKEN: doesn't exit (when run with blah as its string)
-    if [[ -n "$1" ]]; then
-        print "$1" | normalizeWhitespace
-    else
-        stdbuf -o0 tr '\n' ' ' | stdbuf -o0 tr '\r' ' ' | stdbuf -o0 tr -s '[:blank:]' | awk '{$1=$1};1'
-    fi
-}
-
 flacToWaveform() (
     sourceFile="$1"
     destinationFile="$sourceFile.png"
