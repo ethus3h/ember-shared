@@ -69,7 +69,7 @@ source egup-env &> /dev/null || true
 
 # Optional extra components
 # shellcheck disable=SC1091
-source egup-env &> /dev/null || true
+source ember_bash_setup_extra &> /dev/null || true
 
 
 die() {
