@@ -2,7 +2,7 @@
 
 #set -x
 
-# Routines that require extra packages: in addition to ember-shared and its dependencies, requires:
+# Routines that require extra packages: in addition to ember-shared and its dependencies, requires: ia, wget, rsync, sshpass, csvfix, ssh, jq,
 
 iaOptionallyOfflineWrapper() {
     if [[ -z "$EMBER_IA_OFFLINE" ]]; then
