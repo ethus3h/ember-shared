@@ -1,0 +1,849 @@
+#!/usr/bin/env bash
+
+#set -x
+
+export emberSharedVersion='1.1.4.472'
+
+# The update script shown here requires there to be only one ebuild of ember-shared in the wreathe-overlay overlay.
+# ( sudo true; newVersion="1.1.4.472"; cd "/Ember/ember-shared"; eogup-single; git tag -a "v$newVersion" -m "version"; egup-single .; cd "/Ember/wreathe-overlay"; eogup-single; mv app-misc/ember-shared/ember-shared-*.ebuild "app-misc/ember-shared/ember-shared-$newVersion.ebuild"; repoman manifest; egup-single; sudo emerge --sync wreathe-overlay; sudo emerge ember-shared; sudo dispatch-conf )
+
+# Depends: bash, coreutils, perl, (util-linux on GNU/Linux or Python on macOS), sed, awk, grep, nano, sudo, xxd, grep, diff.
+
+# To use the --version option of ember_bash_setup, it is necessary to have e8787d06e61943a6874e94985b53bc0a="2dee41bf-53fb-4f65-997f-33bf50bfbb4d" and run ember_bash_setup --version. It may be important to run unset e8787d06e61943a6874e94985b53bc0a afterwards.
+d1875509777f46809ff940e0aad970f0=""
+if [[ "$-" == *u* ]]; then
+    d1875509777f46809ff940e0aad970f0="true"
+    set +u
+fi
+# shellcheck disable=SC2154
+a9c9efb644e24ef5b9cb1ec95e279c02="$e8787d06e61943a6874e94985b53bc0a"
+
+if [[ "$1" == "--version" ]] && [[ "$a9c9efb644e24ef5b9cb1ec95e279c02" != "2dee41bf-53fb-4f65-997f-33bf50bfbb4d" ]]; then
+    esVersionA="$(sed '5q;d' "$(type -P ember_bash_setup)")"
+    esVersionB="${esVersionA%\'*}"
+    echo "${esVersionB##*\'}"
+    exit 0
+fi
+if [[ "$d1875509777f46809ff940e0aad970f0" == "true" ]]; then
+    set -u
+fi
+unset d1875509777f46809ff940e0aad970f0 a9c9efb644e24ef5b9cb1ec95e279c02
+
+# Allow problems to be caught within pipelines
+set -o pipefail
+if [[ -z "$PS1" ]]; then
+    # The shell is not interactive
+    # Make traps inherited, but only if the shell is non-interactive
+    set -o errtrace
+    set -o functrace
+    # Fail if glob doesn't match. Breaks bash completions for emerge, so non-interactive only.
+    shopt -s failglob
+else
+    # The shell is interactive
+    nano() {
+        nanoLocation="$(type -P nano)"
+        nanoFileToEdit="${!#}"
+        if [[ -w "$nanoFileToEdit" ]]; then
+            "$nanoLocation" -wLN "$@"
+        else
+            sudo -k "$nanoLocation" -wLN "$@"
+        fi
+    }
+fi
+
+#set -o nounset
+
+# More verbose debugging
+PS4='+($?) $BASH_SOURCE:$FUNCNAME:$LINENO:'
+export PS4
+
+# Required core tools
+# shellcheck disable=SC1091
+source ember_bash_setup_core &> /dev/null
+
+# These may not be available on non-Wreathe systems
+# shellcheck disable=SC1091
+source crystallize-bash_setup &> /dev/null || true
+# shellcheck disable=SC1091
+source wreathe_bash_setup &> /dev/null || true
+# shellcheck disable=SC1091
+source bash_math_functions &> /dev/null || true
+# shellcheck disable=SC1091
+source egup-env &> /dev/null || true
+
+# Optional extra components
+# shellcheck disable=SC1091
+source ember_bash_setup_extra &> /dev/null || true
+
+
+die() {
+    # shellcheck disable=SC1091
+    source error-notify "$@"
+    # Make error-notify and die no-ops (error-notify already should be from having sourced error-notify), and then trigger any traps that are set for ERR
+    # I'm not sure why error-notify isn't inheriting the calling script's traps.
+    error-notify() {
+        true
+    }
+    die() {
+        true
+    }
+    save_traps="$(trap)"
+    trap 'eval "$save_traps"; false; exit 1' ERR
+    ( exit 1 )
+    exit 1
+}
+
+embasename() (
+    path="$1"
+    if [[ "$path" == "/" ]]; then
+        printf "/"
+        exit 0
+    elif [[ "$1" =~ '/'$ ]]; then
+        path="${path::${#path}-1}"
+    fi
+    printf "%s" "${path##*/}"
+)
+
+abspath() (
+    # This is terrible compared to realpath (mostly untested; can't handle multiple ..s in argument etc), but it has the advantage of preserving symlinks in the pwd. Better to avoid it.
+    setVariableToCommandOutput "enclosingDirectory" dirname -z "$1"
+    if [[ "$2" == "--resolve-symlinks-in-enclosing-directory-path" ]]; then
+        setVariableToCommandOutput "enclosingDirectory" readlink -fz "${enclosingDirectory:?}"
+    fi
+    cd "${enclosingDirectory:?}" || exit 1
+    setVariableToCommandOutput "basename" embasename "$1"
+    if [[ "${basename:?}" == "." ]]; then
+        basename=""
+    elif [[ "${basename:?}" == ".." ]]; then
+        cd ..
+        basename=""
+    fi
+    if [[ "$PWD" == "/" ]]; then
+        # Avoid doubled slash
+        print "$PWD$basename"
+    else
+        print "$PWD/$basename"
+    fi
+)
+
+emreadlink() {
+    abspath "$@" "--resolve-symlinks-in-enclosing-directory-path"
+}
+
+setVariableToCommandOutput() {
+    if [[ "$1" == "emSetVariableToCommandOutputVar" ]]; then
+        return 1
+    fi
+    emSetVariableToCommandOutputVar="$1"
+    shift
+    save_traps="$(trap)"
+    trap - ERR
+    IFS= read -rd '' "$emSetVariableToCommandOutputVar" < <( "$@" )
+    trap 'die "A fatal error was reported on ${BASH_SOURCE[0]} line ${LINENO} in $(pwd) at $(emdate)."' ERR
+    eval "$save_traps"
+}
+
+print() {
+    printf "%s" "$@"
+}
+
+say() {
+    printf '%s\n' "$@"
+}
+
+trim() {
+    # Remove leading and trailing whitespace
+    normalizeWhitespace "$@"
+}
+
+tr() {
+    if [[ "$OSTYPE" = darwin* ]]; then
+        LC_CTYPE=C command tr "$@"
+    else
+        command tr "$@"
+    fi
+}
+
+getDefaultEditor() {
+    print "${FCEDIT:-${VISUAL:-${EDITOR:-nano}}}"
+}
+
+getDefaultEditorPath() {
+    type -P "$(getDefaultEditor)"
+}
+
+defaultEditor() {
+    "$(getDefaultEditorPath)" "$@"
+}
+
+emdate() (
+    # If changing this, also change the copy in the error-notify script and possibly also the copy in the emberMacGNUUpgrade script.
+    trap 'die "A fatal error was reported on ${BASH_SOURCE[0]} line ${LINENO} in $(pwd)."' ERR
+
+    local temp
+    temp="$(date -u +%Y-%m-%d-%H-%M-%S-%N)U$(xxd -pu <<< "$(date +%z)")"
+    echo "${temp//-/}"
+)
+
+date-uuid() (
+    trap 'die "A fatal error was reported on ${BASH_SOURCE[0]} line ${LINENO} in $(pwd) at $(emdate)."' ERR
+
+    local uuid
+    if [[ "$OSTYPE" = darwin* ]]; then
+        uuid="$(python -c 'import uuid; print str(uuid.uuid4())')"
+    else
+        uuid="$(uuidgen -r)"
+    fi
+
+    local temp
+    temp="$(emdate)-$uuid"
+    echo "${temp//-/}"
+)
+
+eescape() {
+    (
+        export eescapeString="$1"
+        local temp
+        # shellcheck disable=SC2016
+        setVariableToCommandOutput temp bash -c 'perl -0777 -e '\''print(quotemeta($ENV{eescapeString}))'\'' | sed '\''s/\\$//'\'' | sed '\''s/\\\r/\r/'\'
+        temp="${temp//$'\n'/'\n'}"
+        printf "%s" "${temp//$'\r'/'\r'}"
+    )
+}
+
+perl_ere_quote() {
+    eescape "$@"
+}
+
+prefixPipe() {
+    cat <(print "$1") <(cat -)
+}
+
+suffixPipe() {
+    cat <(cat -) <(print "$1")
+}
+
+surroundPipe() {
+    cat <(print "$1") <(cat -) <(print "$2")
+}
+
+removeDuplicateLines() {
+    awk '!seen[$0]++' "$@"
+}
+
+isEmptyDir() (
+    if [[ -d "$1" ]]; then
+        # shellcheck disable=SC2063
+        if find "$1" -maxdepth 0 -type d -empty | grep -E '.*' 2>/dev/null; then
+            exit 0
+        fi
+        exit 1
+    fi
+    exit 1
+)
+
+print_r() {
+    local arr=("$@")
+    declare -p arr
+}
+
+spushd() { # don't print directory by default
+    pushd "$@" > /dev/null || false
+}
+
+spopd() { # don't print directory by default
+    popd "$@" > /dev/null || false
+}
+
+ereplace() {
+    (
+        # Perl returns 0 even if it can't find the file (without extra perl code), so test first.
+        if [[ ! -e "$3" ]]; then
+            die "ereplace: The target file $3 does not exist."
+        fi
+        setVariableToCommandOutput ereplaceFrom eescape "$1"
+        export ereplaceFrom
+        ereplaceTo="$2"
+        export ereplaceTo
+        perl -0777 -p -i -e 's/$ENV{ereplaceFrom}/$ENV{ereplaceTo}/g' "$3"
+    )
+}
+
+ereplaceRegEx() {
+    (
+        # Perl returns 0 even if it can't find the file (without extra perl code), so test first.
+        if [[ ! -e "$3" ]]; then
+            die "ereplaceRegEx: The target file $3 does not exist."
+        fi
+        ereplaceFrom="$1"
+        ereplaceTo="$2"
+        perl -0777 -p -i -e 's/'"$ereplaceFrom"'/'"$ereplaceTo"'/g' "$3"
+    )
+}
+
+version_gt() {
+    # from https://stackoverflow.com/questions/16989598/bash-comparing-version-numbers
+    test "$(printf '%s\n' "$@" | sort -V | head -n 1)" != "$1"
+}
+
+isNonnegativeInteger() {
+    # Can just use [[ "$var" == +([0-9]) ]], but the version of bash provided by Homebrew on macOS doesn't handle this correctly, so it's reimplemented here.
+    local re='^[0-9]+$'
+    if [[ "$1" =~ $re ]]; then
+        return 0
+    else
+        return 1
+    fi
+}
+
+readconf() {
+    local key="$1"
+    local file="$2"
+    if [[ -z "$file" ]]; then
+        file="$1"
+        key=""
+    fi
+    readconfValue=()
+    while IFS= read -r line; do
+        if ! [[ "$line" =~ ^# ]]; then
+            if [[ -z "$key" ]]; then
+                readconfValue+=("$line")
+            else
+                if [[ "$(cut -f1 -d, <<< "$line")" == "$1" ]]; then
+                    readconfValue+=("$(cut -f2- -d, <<< "$line")")
+                fi
+            fi
+        fi
+    done < "$2"
+}
+
+preadconf() {
+    readconf "$@"
+    print "${readconfValue[0]}"
+}
+
+# These ia* functions need to run in subshells so die doesn't affect the caller.
+iaident() (
+    local url="$1"
+    local fullPath="${url#https:\/\/archive.org\/download\/}"
+    local fullPath="${fullPath#https:\/\/archive.org\/details\/}"
+    local fullPath="${fullPath#https:\/\/www.archive.org\/download\/}"
+    local fullPath="${fullPath#https:\/\/www.archive.org\/details\/}"
+    local res="${fullPath%%\/*}"
+    [[ -n "$res" ]] || exit 1
+    print "$res"
+)
+
+iapath() (
+    local url="$1"
+    if [[ "$url" != */* ]]; then
+        # Doesn't contain a slash, so this is a bare identifier
+        return 0
+    fi
+    local fullPath="${url#https:\/\/archive.org\/download\/}"
+    local fullPath="${fullPath#https:\/\/archive.org\/details\/}"
+    local fullPath="${fullPath#https:\/\/www.archive.org\/download\/}"
+    local fullPath="${fullPath#https:\/\/www.archive.org\/details\/}"
+    local res="${fullPath#*\/}"
+    [[ -n "$res" ]] || exit 1
+    print "$res"
+)
+
+iafilename() (
+    basename "$(iapath "$1")"
+)
+
+iaurl() (
+    print "https://archive.org/download/"
+    iaident "$1"
+    print "/"
+    iapath "$1"
+)
+
+isIaName() (
+    local regex='^https:\/\/archive.org\/download\/.+$'
+    if [[ "$1" =~ $regex ]]; then
+        exit 0
+    fi
+    exit 1
+)
+
+hasWebProtocol() (
+    local httpRegex='^https?:\/\/.+$'
+    local ftpRegex='^ftp:\/\/.+$'
+    if [[ "$1" =~ $httpRegex ]] || [[ "$1" =~ $ftpRegex ]]; then
+        exit 0
+    fi
+    exit 1
+)
+
+getGrabSiteGrabLocation() {
+    local grabSiteLocation
+    grabSiteLocation="$(getWorkdirLocation)/.grab-site-grabs"
+
+    default() {
+        mkdir -p "$(getWorkdirLocation)/.grab-site-grabs/warcs" || return 1
+        echo "$grabSiteLocation" || return 1
+        return 0
+    }
+
+    if [[ -d "$grabSiteLocation" ]]; then
+        default
+        return 0
+    fi
+
+    if [[ -d "$HOME/gs-grabs/gs-grabs" ]]; then
+        echo "$HOME/gs-grabs/gs-grabs"
+        return 0
+    elif [[ -d "$HOME/gs-grabs" ]]; then
+        echo "$HOME/gs-grabs"
+        return 0
+    fi
+
+    default || return 1
+    return 0
+}
+
+urlencode() {
+    local LANG=C
+    for ((i=0; i < ${#1}; i++)); do
+        if [[ ${1:$i:1} =~ ^[a-zA-Z0-9\.\~_-]$ ]]; then
+            printf '%s' "${1:$i:1}"
+        else
+            printf '%%%02X' "'${1:$i:1}"
+        fi
+    done
+}
+
+urldecode() {
+    local url_encoded="${1//+/ }"
+    printf '%b' "${url_encoded//%/\\x}"
+}
+
+isSubdirOf() {
+    possibleEnclosingDir="$(readlink -f "$1")"
+    possibleSubdir="$(readlink -f "$2")"
+    if [[ "${possibleSubdir##$possibleEnclosingDir}" != "$possibleSubdir" ]]; then
+        # This is a subdirectory
+        return 0
+    else
+        return 1
+    fi
+}
+
+contains() {
+    local e
+    for e in "${@:2}"; do [[ "$e" == "$1" ]] && return 0; done
+    return 1
+}
+
+allElementsEqual() {
+    local e
+    for e in "${@:2}"; do [[ "$e" == "$1" ]] || return 1; done
+    return 0
+}
+
+join_by() {
+    # from https://stackoverflow.com/questions/1527049/join-elements-of-an-array
+    local d="$1"
+    shift
+    echo -n "$1"
+    shift
+    printf "%s" "${@/#/$d}"
+}
+
+pipecheck() {
+    allElementsEqual "0" "$@" || die "A failure status was reported by a call to pipecheck, with the reported exit statuses $(join_by ", " "$@")"
+}
+
+retryUntilSuccess() (
+    local numberRegex='^[0-9]+$'
+    local maximumRetries=-1
+    if [[ "$1" =~ $numberRegex ]]; then
+        maximumRetries="$1"
+        shift
+    fi
+    local maximumDelayTime=0
+    if [[ "$1" =~ $numberRegex ]]; then
+        maximumDelayTime="$1"
+        shift
+    fi
+    local delayTimeBackoffIncrement=1
+    if [[ "$1" =~ $numberRegex ]]; then
+        delayTimeBackoffIncrement="$1"
+        shift
+    fi
+    local retryDelayTime=0
+    if [[ "$1" =~ $numberRegex ]]; then
+        # This sets the initial delay time
+        retryDelayTime="$1"
+        shift
+    fi
+    local currentRetries="$maximumRetries"
+    local postExecCheckSuccess=""
+    postExecCheckFailHandler() {
+        if [[ -z "$postExecCheckSuccess" ]] || [[ "$postExecCheckSuccess" == "1" ]]; then
+            postExecCheckSuccess="1"
+        else
+            postExecCheckSuccess="0"
+        fi
+    }
+    until [[ "$currentRetries" -eq "0" ]]; do
+        if "$@"; then
+            postExecCheckFailHandler
+            break
+        fi
+        if [[ "$currentRetries" != "0" ]]; then
+            currentRetries=$((currentRetries-1))
+        fi
+        sleep "$retryDelayTime"
+        if [[ "$retryDelayTime" -lt "$maximumDelayTime" ]]; then
+            retryDelayTime=$((retryDelayTime + delayTimeBackoffIncrement))
+        fi
+    done
+    [[ "$postExecCheckSuccess" != "1" ]] && die "Number of allowed retries exceeded without success."
+    true # needed because the if statement executes with the exit status of the last command executed
+)
+
+normalizeWhitespace() {
+    # BROKEN: doesn't exit (when run with blah as its string)
+    if [[ -n "$1" ]]; then
+        print "$1" | normalizeWhitespace
+    else
+        stdbuf -o0 tr '\n' ' ' | stdbuf -o0 tr '\r' ' ' | stdbuf -o0 tr -s '[:blank:]' | awk '{$1=$1};1'
+    fi
+}
+
+invertReturnValue() {
+    if bash -c "$(join_by ' ' "$@")"; then
+        return 1
+    else
+        return 0
+    fi
+}
+
+getWorkdirLocation() {
+    local tempLocation;
+    tempLocation="$(ember-getconf WorkDirectory)"
+    [[ -n "$tempLocation" ]] || return 1
+    print "$tempLocation"
+}
+
+getBigTempLocation() {
+    local tempLocation="$EMBER_TEMPDIR"
+    [[ -z "$tempLocation" ]] && tempLocation="$(ember-getconf WorkDirectory)"
+    [[ -z "$tempLocation" ]] && tempLocation="$(getSystemTempLocation)"
+    print "$tempLocation"
+}
+
+getSystemTempLocation() {
+    if [[ -n "$TMPDIR" ]]; then
+        print "$TMPDIR"
+    else
+        dirname "$(mktemp tmp.XXXXXXXXXX -ut)"
+    fi
+    return 0
+}
+
+bigTempDir() {
+    local directoryId
+    directoryId="$(getBigTempLocation)/.tempDir-$(date-uuid)/"
+    mkdir -p "$directoryId"
+    echo "$directoryId"
+}
+
+bigTempFile() {
+    local fileId
+    fileId="$(getBigTempLocation)/.tempFile-$(date-uuid)"
+    touch "$fileId"
+    echo "$fileId"
+}
+
+tempDir() {
+    mktemp --tmpdir -d ".tempFile-$(date-uuid).XXXXXXXXXX"
+}
+
+tempFile() {
+    mktemp --tmpdir ".tempFile-$(date-uuid).XXXXXXXXXX"
+}
+
+crystallize-getconf() {
+    [[ -n "$EmberWorkdirOverride54ae685dc782437c99bc46c7a1211377" ]] && export EmberWorkdirOverride54ae685dc782437c99bc46c7a1211377
+    command crystallize-getconf "$@"
+}
+
+asciiDecListToText() {
+    [[ -n "${1+x}" ]] && asciiDecListToText <<< "$1" && return
+    tr -s '[:blank:]' '[\n*]' | while read -r num; do
+        # shellcheck disable=SC2059
+        [[ -n "$num" ]] && [[ "$num" != "0" ]] && [[ "$num" =~ ^[0-9]+$ ]] && printf "\x$(printf "%x\n" "$num")" | tr -d '\0'
+        true
+    done
+}
+
+intIsBetween() {
+    # Checks whether $1 is within the range $2 and $3, including endpoints
+    [[ $(( $(( "$1" - "$2" )) * $(($1 - $3)) )) -le 0 ]]
+}
+
+asciiIsDigit() {
+    intIsBetween "$1" 48 57
+}
+
+asciiIsLetter() {
+    intIsBetween "$1" 65 90 || intIsBetween "$1" 97 122
+}
+
+asciiIsPrintable() {
+    intIsBetween "$1" 32 126
+}
+
+asciiIsSpace() {
+    [[ "$1" == 32 ]]
+}
+
+asciiIsNewline() {
+    [[ "$1" == 10 ]] || [[ "$1" == 13 ]]
+}
+
+#0  NUL    16 DLE    32 SP   48 0    64 @    80 P    96  `    112 p
+#1  SOH    17 DC1    33 !    49 1    65 A    81 Q    97  a    113 q
+#2  STX    18 DC2    34 "    50 2    66 B    82 R    98  b    114 r
+#3  ETX    19 DC3    35 #    51 3    67 C    83 S    99  c    115 s
+#4  EOT    20 DC4    36 $    52 4    68 D    84 T    100 d    116 t
+#5  ENQ    21 NAK    37 %    53 5    69 E    85 U    101 e    117 u
+#6  ACK    22 SYN    38 &    54 6    70 F    86 V    102 f    118 v
+#7  BEL    23 ETB    39 '    55 7    71 G    87 W    103 g    119 w
+#8  BS     24 CAN    40 (    56 8    72 H    88 X    104 h    120 x
+#9  HT     25 EM     41 )    57 9    73 I    89 Y    105 i    121 y
+#10 LF     26 SUB    42 *    58 :    74 J    90 Z    106 j    122 z
+#11 VT     27 ESC    43 +    59 ;    75 K    91 [    107 k    123 {
+#12 FF     28 FS     44 ,    60 <    76 L    92 \    108 l    124 |
+#13 CR     29 GS     45 -    61 =    77 M    93 ]    109 m    125 }
+#14 SO     30 RS     46 .    62 >    78 N    94 ^    110 n    126 ~
+#15 SI     31 US     47 /    63 ?    79 O    95 _    111 o    127 DEL
+
+newline-terminated-characters-from-text() {
+    sed 's/$/\n/g' | sed 's/\(.\)/\1\n/g'
+}
+
+newline-terminated-characters-to-text() {
+    local n
+    while read -r; do
+        if [[ -n "$REPLY" ]]; then
+            printf %s "$REPLY";
+            n=0;
+        else
+            if (( ++n % 2 )); then
+                printf '\n';
+            fi;
+        fi;
+    done
+}
+
+get-default-firefox-profile() (
+    # based on https://askubuntu.com/questions/239543/get-the-default-firefox-profile-directory-from-bash
+    if [[ -n "$1" ]]; then
+        cd "$1" || die "Could not cd to the specified directory"
+    else
+        cd ~/.mozilla/firefox || die "Could not cd to ~/.mozilla/firefox"
+    fi
+    pwd | head -c -1
+    print '/'
+    if grep -q '\[Profile[^0]\]' profiles.ini; then
+        grep -E '^\[Profile|^Path|^Default' profiles.ini | grep -1 '^Default=1' | grep '^Path' | cut -c6-
+    else
+        grep 'Path=' profiles.ini | sed 's/^Path=//'
+    fi
+)
+
+# Test framework
+{
+    assert() {
+        local save_traps
+        save_traps="$(trap)"
+        trap 'die "Error during assertion test: $(join_by ", " "$@") '"on ${BASH_SOURCE[0]} line ${LINENO} in $(pwd) at $(emdate)."'"' ERR
+        local verbose=""
+        if [[ "$1" == "-v" ]]; then
+            verbose="true"
+            shift
+        elif [[ "$emberSharedAssertInheritVerbose" == "true" ]]; then
+            verbose="true"
+        fi
+        local assertionTest="$1"
+        shift
+
+        case $assertionTest in
+        directoryEquals)
+            # trap is workaround for what I think is https://lists.gnu.org/archive/html/bug-bash/2016-02/msg00140.html
+            trap 'die "Error during assertion test: $(join_by ", " "$@") '"on ${BASH_SOURCE[0]} line ${LINENO} in $(pwd) at $(emdate)."'"' ERR
+            firstDir="$1"
+            secondDir="$2"
+            if [[ -z "$firstDir" ]] || [[ -z "$secondDir" ]]; then
+                die "Both values must be non-empty."
+            fi
+            if [[ "$verbose" == "true" ]]; then
+                # || die is workaround for what I think is https://lists.gnu.org/archive/html/bug-bash/2016-02/msg00140.html
+                diff -uraN "$firstDir" "$secondDir" || die "Assertion failed: $(join_by ", " "$@") on ${BASH_SOURCE[0]} line ${LINENO} in $(pwd) at $(emdate)."
+            else
+                # || die is workaround for what I think is https://lists.gnu.org/archive/html/bug-bash/2016-02/msg00140.html
+                diff -uraN "$firstDir" "$secondDir" > /dev/null || die "Assertion failed: $(join_by ", " "$@") on ${BASH_SOURCE[0]} line ${LINENO} in $(pwd) at $(emdate)."
+            fi
+            ;;
+        fileEquals)
+            # trap is workaround for what I think is https://lists.gnu.org/archive/html/bug-bash/2016-02/msg00140.html
+            trap 'die "Error during assertion test: $(join_by ", " "$@") '"on ${BASH_SOURCE[0]} line ${LINENO} in $(pwd) at $(emdate)."'"' ERR
+            firstFile="$1"
+            secondFile="$2"
+            if [[ -z "$firstFile" ]] || [[ -z "$secondFile" ]]; then
+                die "Both values must be non-empty."
+            fi
+            # || die is workaround for what I think is https://lists.gnu.org/archive/html/bug-bash/2016-02/msg00140.html
+            assert equals "$(sha512sum "$firstFile" | awk '{print $1;}')" "$(sha512sum "$secondFile" | awk '{print $1;}')" || die "Assertion failed: $(join_by ", " "$@") on ${BASH_SOURCE[0]} line ${LINENO} in $(pwd) at $(emdate)."
+            ;;
+        equals)
+            # trap is workaround for what I think is https://lists.gnu.org/archive/html/bug-bash/2016-02/msg00140.html
+            trap 'die "Error during assertion test: $(join_by ", " "$@") '"on ${BASH_SOURCE[0]} line ${LINENO} in $(pwd) at $(emdate)."'"' ERR
+            # || die is workaround for what I think is https://lists.gnu.org/archive/html/bug-bash/2016-02/msg00140.html
+            [[ "${1:?}" == "${2:?}" ]] || die "Assertion failed: $(join_by ", " "$@") on ${BASH_SOURCE[0]} line ${LINENO} in $(pwd) at $(emdate)."
+            ;;
+        true)
+            trap 'die "Error during assertion test: $(join_by ", " "$@") '"on ${BASH_SOURCE[0]} line ${LINENO} in $(pwd) at $(emdate)."'"' ERR
+            bash -c 'source ember_bash_setup &> /dev/null; '"$(join_by ' ' "$@")"
+            ;;
+        false)
+            trap 'die "Error during assertion test: $(join_by ", " "$@") '"on ${BASH_SOURCE[0]} line ${LINENO} in $(pwd) at $(emdate)."'"' ERR
+            invertReturnValue bash -c "$(join_by ' ' "$@")"
+            ;;
+        matches_regex)
+            [[ "$1" =~ $2 ]]
+            ;;
+        *)
+            trap 'error-notify "An error was reported on ${BASH_SOURCE[0]} line ${LINENO} in $(pwd) at $(emdate)."' ERR
+            die "Unknown test."
+            ;;
+        esac
+        eval "$save_traps"
+    }
+
+    passedTests="0"
+    failedTests="0"
+    totalTests="0"
+
+    verboseTests=""
+
+    runTest() {
+        # This assumes that the test is a function, an external program, or a folder containing "exec" script. To force using an external program, use ./
+        local verbose="$verboseTests"
+        if [[ "$1" == "-v" ]]; then
+            verbose="true"
+            shift
+        fi
+        emberSharedAssertInheritVerbose=""
+        if [[ "$1" == "-vv" ]]; then
+            verbose="true"
+            emberSharedAssertInheritVerbose="true"
+            export emberSharedAssertInheritVerbose
+            shift
+        fi
+        totalTests=$(( totalTests + 1 ))
+        local testName="$1"
+        shift
+        testPass() {
+            echo "Test $testName passed."
+            passedTests=$(( passedTests + 1 ))
+        }
+        testFail() {
+            echo "Test $testName failed."
+            failedTests=$(( failedTests + 1 ))
+        }
+        local digitsRegex='^[0-9]+$'
+        if [[ -d "$testName" ]]; then
+            pushd "$testName" > /dev/null || die
+            chmod +x ./exec
+            if [[ "$verbose" == "true" ]]; then
+                if ./exec "$@"; then
+                    testPass
+                else
+                    testFail
+                fi
+            else
+                if ./exec "$@" &> /dev/null; then
+                    testPass
+                else
+                    testFail
+                fi
+            fi
+            popd > /dev/null || die
+        elif [[ -f "$testName" ]]; then
+            # The test is a file to run. If you want to test a function but its name is also used by a file, wrap it in braces (like: { foo }).
+            chmod +x ./"$testName"
+            if [[ "$verbose" == "true" ]]; then
+                if ./"$testName" "$@"; then
+                    testPass
+                else
+                    testFail
+                fi
+            else
+                if ./"$testName" "$@" &> /dev/null; then
+                    testPass
+                else
+                    testFail
+                fi
+            fi
+        elif type -t "$testName" > /dev/null; then
+            # The test is a function or command name.
+            if [[ "$verbose" == "true" ]]; then
+                if "$testName" "$@"; then
+                    testPass
+                else
+                    testFail
+                fi
+            else
+                if "$testName" "$@" &> /dev/null; then
+                    testPass
+                else
+                    testFail
+                fi
+            fi
+         elif [[ "$testName" =~ $digitsRegex ]]; then
+            # The test is an inline function like runTest { assert blah }, so all we have to do here is check the status code
+            if [[ "$testName" == "0" ]]; then
+                testPass
+            else
+                testFail
+            fi
+        else
+            warn "Could not find the test $testName."
+            testFail
+        fi
+    }
+
+    reportTests() {
+        local passedWord="tests"
+        if [[ "$passedTests" == 1 ]]; then
+            passedWord="test"
+        fi
+        local failedWord="tests"
+        if [[ "$failedTests" == 1 ]]; then
+            failedWord="test"
+        fi
+        local totalWord="tests"
+        if [[ "$totalTests" == 1 ]]; then
+            totalWord="test"
+        fi
+        passedPercentage="$(printf "%.3f\\n" "$(bc -l <<< "($passedTests / $totalTests) * 100")")"
+        failedPercentage="$(printf "%.3f\\n" "$(bc -l <<< "($failedTests / $totalTests) * 100")")"
+        echo "$passedTests $passedWord ($passedPercentage%) passed and $failedTests $failedWord ($failedPercentage%) failed out of a total of $totalTests $totalWord."
+        if [[ "$failedTests" != "0" ]]; then
+            totalWord="Some tests"
+            if [[ "$totalTests" == 1 ]]; then
+                totalWord="A test"
+            fi
+            error-notify "$totalWord ($failedPercentage%: $failedTests out of $totalTests) failed!"
+        fi
+        [[ $(( totalTests - failedTests )) == "$passedTests" ]] || die "There's a problem in the testing framework."
+    }
+}
+
+trap 'error-notify "An error was reported on ${BASH_SOURCE[0]} line ${LINENO} in $(pwd) at $(emdate)."' ERR
