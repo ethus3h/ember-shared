@@ -496,33 +496,6 @@ normalizeWhitespace() {
     fi
 }
 
-flacToWaveform() (
-    sourceFile="$1"
-    destinationFile="$sourceFile.png"
-    if [[ -e "$destinationFile" ]] || [[ -h "$destinationFile" ]]; then
-        die "The requested destination file, $destinationFile, already exists."
-    fi
-    tempWorkDirectory="$(tempDir)"
-    tempWavFile="$tempWorkDirectory/$sourceFile.wav"
-    tempPngFile="$tempWorkDirectory/$sourceFile.png"
-    resPngFile="$tempWorkDirectory/res-$sourceFile.png"
-    ffmpeg -v 0 -analyzeduration 900000000000 -probesize 200M  -threads 2 -i "$sourceFile" -ac 1 -ar 44100 -y "$tempWavFile" || die
-    (
-        cd "$tempWorkDirectory" || die
-        wav2png.py "$tempWavFile" > /dev/null 2>&1 || die
-    )
-    convert -background black "$tempPngFile" -gravity center -extent 800x200 -background black -fuzz 50% -transparent white "$resPngFile" || die
-    mv "$resPngFile" "$destinationFile" || die
-    rm -r "$tempWorkDirectory"
-)
-
-bulkFlacToWaveform() {
-    while [[ -n "$1" ]]; do
-        flacToWaveform "$(basename "$1")"
-        shift
-    done
-}
-
 invertReturnValue() {
     if bash -c "$(join_by ' ' "$@")"; then
         return 1
