@@ -521,37 +521,6 @@ ia() (
     fi
 )
 
-# These ia* functions need to run in subshells so die doesn't affect the caller.
-iaident() (
-    local url="$1"
-    local fullPath="${url#https:\/\/archive.org\/download\/}"
-    local fullPath="${fullPath#https:\/\/archive.org\/details\/}"
-    local fullPath="${fullPath#https:\/\/www.archive.org\/download\/}"
-    local fullPath="${fullPath#https:\/\/www.archive.org\/details\/}"
-    local res="${fullPath%%\/*}"
-    [[ -n "$res" ]] || exit 1
-    print "$res"
-)
-
-iapath() (
-    local url="$1"
-    if [[ "$url" != */* ]]; then
-        # Doesn't contain a slash, so this is a bare identifier
-        return 0
-    fi
-    local fullPath="${url#https:\/\/archive.org\/download\/}"
-    local fullPath="${fullPath#https:\/\/archive.org\/details\/}"
-    local fullPath="${fullPath#https:\/\/www.archive.org\/download\/}"
-    local fullPath="${fullPath#https:\/\/www.archive.org\/details\/}"
-    local res="${fullPath#*\/}"
-    [[ -n "$res" ]] || exit 1
-    print "$res"
-)
-
-iafilename() (
-    basename "$(iapath "$1")"
-)
-
 iacontains() (
     propagateMetaXMLStored="--propagate-metaXMLStored"
     if [[ "$1" == "--no-propagate-metaXMLStored" ]]; then
