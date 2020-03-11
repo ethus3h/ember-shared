@@ -67,6 +67,11 @@ source bash_math_functions &> /dev/null || true
 # shellcheck disable=SC1091
 source egup-env &> /dev/null || true
 
+# Optional extra components
+# shellcheck disable=SC1091
+source egup-env &> /dev/null || true
+
+
 die() {
     # shellcheck disable=SC1091
     source error-notify "$@"
