@@ -76,23 +76,6 @@ source egup-env &> /dev/null || true
 source ember_bash_setup_extra &> /dev/null || true
 
 
-die() {
-    # shellcheck disable=SC1091
-    source error-notify "$@"
-    # Make error-notify and die no-ops (error-notify already should be from having sourced error-notify), and then trigger any traps that are set for ERR
-    # I'm not sure why error-notify isn't inheriting the calling script's traps.
-    error-notify() {
-        true
-    }
-    die() {
-        true
-    }
-    save_traps="$(trap)"
-    trap 'eval "$save_traps"; false; exit 1' ERR
-    ( exit 1 )
-    exit 1
-}
-
 embasename() (
     path="$1"
     if [[ "$path" == "/" ]]; then
@@ -128,19 +111,6 @@ abspath() (
 
 emreadlink() {
     abspath "$@" "--resolve-symlinks-in-enclosing-directory-path"
-}
-
-setVariableToCommandOutput() {
-    if [[ "$1" == "emSetVariableToCommandOutputVar" ]]; then
-        return 1
-    fi
-    emSetVariableToCommandOutputVar="$1"
-    shift
-    save_traps="$(trap)"
-    trap - ERR
-    IFS= read -rd '' "$emSetVariableToCommandOutputVar" < <( "$@" )
-    trap 'die "A fatal error was reported on ${BASH_SOURCE[0]} line ${LINENO} in $(pwd) at $(emdate)."' ERR
-    eval "$save_traps"
 }
 
 print() {
