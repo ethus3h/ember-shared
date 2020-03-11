@@ -119,40 +119,6 @@ asciiIsNewline() {
 #14 SO     30 RS     46 .    62 >    78 N    94 ^    110 n    126 ~
 #15 SI     31 US     47 /    63 ?    79 O    95 _    111 o    127 DEL
 
-newline-terminated-characters-from-text() {
-    sed 's/$/\n/g' | sed 's/\(.\)/\1\n/g'
-}
-
-newline-terminated-characters-to-text() {
-    local n
-    while read -r; do
-        if [[ -n "$REPLY" ]]; then
-            printf %s "$REPLY";
-            n=0;
-        else
-            if (( ++n % 2 )); then
-                printf '\n';
-            fi;
-        fi;
-    done
-}
-
-get-default-firefox-profile() (
-    # based on https://askubuntu.com/questions/239543/get-the-default-firefox-profile-directory-from-bash
-    if [[ -n "$1" ]]; then
-        cd "$1" || die "Could not cd to the specified directory"
-    else
-        cd ~/.mozilla/firefox || die "Could not cd to ~/.mozilla/firefox"
-    fi
-    pwd | head -c -1
-    print '/'
-    if grep -q '\[Profile[^0]\]' profiles.ini; then
-        grep -E '^\[Profile|^Path|^Default' profiles.ini | grep -1 '^Default=1' | grep '^Path' | cut -c6-
-    else
-        grep 'Path=' profiles.ini | sed 's/^Path=//'
-    fi
-)
-
 # Test framework
 {
     assert() {
