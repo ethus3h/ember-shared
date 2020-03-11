@@ -152,17 +152,6 @@ date-uuid() (
     echo "${temp//-/}"
 )
 
-eescape() {
-    (
-        export eescapeString="$1"
-        local temp
-        # shellcheck disable=SC2016
-        setVariableToCommandOutput temp bash -c 'perl -0777 -e '\''print(quotemeta($ENV{eescapeString}))'\'' | sed '\''s/\\$//'\'' | sed '\''s/\\\r/\r/'\'
-        temp="${temp//$'\n'/'\n'}"
-        printf "%s" "${temp//$'\r'/'\r'}"
-    )
-}
-
 perl_ere_quote() {
     eescape "$@"
 }
