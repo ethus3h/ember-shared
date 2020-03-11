@@ -187,7 +187,7 @@ date-uuid() (
     fi
 
     local temp
-    temp="$(emdate)-$(python -c 'import uuid; print str(uuid.uuid4())')"
+    temp="$(emdate)-$uuid"
     echo "${temp//-/}"
 )
 
