@@ -199,7 +199,7 @@ asciiIsNewline() {
             ;;
         true)
             trap 'die "Error during assertion test: $(join_by ", " "$@") '"on ${BASH_SOURCE[0]} line ${LINENO} in $(pwd) at $(emdate)."'"' ERR
-            bash -c 'source ember_bash_setup &> /dev/null; '"$(join_by ' ' "$@")"
+            bash -c 'source ember_bash_setup_core &> /dev/null; '"$(join_by ' ' "$@")"
             ;;
         false)
             trap 'die "Error during assertion test: $(join_by ", " "$@") '"on ${BASH_SOURCE[0]} line ${LINENO} in $(pwd) at $(emdate)."'"' ERR
