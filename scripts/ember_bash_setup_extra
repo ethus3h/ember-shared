@@ -833,39 +833,11 @@ git-sync() {
     } 2>&1 | tee -a "$logFile"
 }
 
-newline-terminated-characters-from-text() {
-    sed 's/$/\n/g' | sed 's/\(.\)/\1\n/g'
-}
-
-newline-terminated-characters-to-text() {
-    local n
-    while read -r; do
-        if [[ -n "$REPLY" ]]; then
-            printf %s "$REPLY";
-            n=0;
-        else
-            if (( ++n % 2 )); then
-                printf '\n';
-            fi;
-        fi;
+git-bulk-sync() {
+    while read -r repo; do
+        git-sync "$repo"
     done
 }
-
-get-default-firefox-profile() (
-    # based on https://askubuntu.com/questions/239543/get-the-default-firefox-profile-directory-from-bash
-    if [[ -n "$1" ]]; then
-        cd "$1" || die "Could not cd to the specified directory"
-    else
-        cd ~/.mozilla/firefox || die "Could not cd to ~/.mozilla/firefox"
-    fi
-    pwd | head -c -1
-    print '/'
-    if grep -q '\[Profile[^0]\]' profiles.ini; then
-        grep -E '^\[Profile|^Path|^Default' profiles.ini | grep -1 '^Default=1' | grep '^Path' | cut -c6-
-    else
-        grep 'Path=' profiles.ini | sed 's/^Path=//'
-    fi
-)
 
 firefox-places-dump() {
     # help from https://gist.github.com/kirang89/6541591
