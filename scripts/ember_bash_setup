@@ -443,14 +443,6 @@ normalizeWhitespace() {
     fi
 }
 
-invertReturnValue() {
-    if bash -c "$(join_by ' ' "$@")"; then
-        return 1
-    else
-        return 0
-    fi
-}
-
 getWorkdirLocation() {
     local tempLocation;
     tempLocation="$(ember-getconf WorkDirectory)"

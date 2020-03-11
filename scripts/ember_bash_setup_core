@@ -77,6 +77,14 @@ join_by() {
     printf "%s" "${@/#/$d}"
 }
 
+invertReturnValue() {
+    if bash -c "$(join_by ' ' "$@")"; then
+        return 1
+    else
+        return 0
+    fi
+}
+
 asciiDecListToText() {
     [[ -n "${1+x}" ]] && asciiDecListToText <<< "$1" && return
     tr -s '[:blank:]' '[\n*]' | while read -r num; do
