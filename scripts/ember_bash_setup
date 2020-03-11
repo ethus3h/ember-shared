@@ -137,15 +137,6 @@ defaultEditor() {
     "$(getDefaultEditorPath)" "$@"
 }
 
-emdate() (
-    # If changing this, also change the copy in the error-notify script and possibly also the copy in the emberMacGNUUpgrade script.
-    trap 'die "A fatal error was reported on ${BASH_SOURCE[0]} line ${LINENO} in $(pwd)."' ERR
-
-    local temp
-    temp="$(date -u +%Y-%m-%d-%H-%M-%S-%N)U$(xxd -pu <<< "$(date +%z)")"
-    echo "${temp//-/}"
-)
-
 date-uuid() (
     trap 'die "A fatal error was reported on ${BASH_SOURCE[0]} line ${LINENO} in $(pwd) at $(emdate)."' ERR
 
