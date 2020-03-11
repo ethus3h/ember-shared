@@ -113,17 +113,8 @@ emreadlink() {
     abspath "$@" "--resolve-symlinks-in-enclosing-directory-path"
 }
 
-print() {
-    printf "%s" "$@"
-}
-
 say() {
     printf '%s\n' "$@"
-}
-
-trim() {
-    # Remove leading and trailing whitespace
-    normalizeWhitespace "$@"
 }
 
 tr() {
