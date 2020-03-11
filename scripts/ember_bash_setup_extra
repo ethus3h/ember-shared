@@ -2,7 +2,7 @@
 
 #set -x
 
-
+# Routines that require extra packages
 die() {
     # shellcheck disable=SC1091
     source error-notify "$@"
