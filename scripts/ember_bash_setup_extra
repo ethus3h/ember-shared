@@ -687,33 +687,6 @@ op() {
     aq --add-wpull-args '--tries=1024 --phantomjs' --1 "$@"
 }
 
-getGrabSiteGrabLocation() {
-    local grabSiteLocation
-    grabSiteLocation="$(getWorkdirLocation)/.grab-site-grabs"
-
-    default() {
-        mkdir -p "$(getWorkdirLocation)/.grab-site-grabs/warcs" || return 1
-        echo "$grabSiteLocation" || return 1
-        return 0
-    }
-
-    if [[ -d "$grabSiteLocation" ]]; then
-        default
-        return 0
-    fi
-
-    if [[ -d "$HOME/gs-grabs/gs-grabs" ]]; then
-        echo "$HOME/gs-grabs/gs-grabs"
-        return 0
-    elif [[ -d "$HOME/gs-grabs" ]]; then
-        echo "$HOME/gs-grabs"
-        return 0
-    fi
-
-    default || return 1
-    return 0
-}
-
 getGrabSiteWarcLocation() {
     die "Unimplemented!" # TODO: Add optional Warcdealer support to the grab-site wrappers here.
 
