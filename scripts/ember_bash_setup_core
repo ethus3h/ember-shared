@@ -3,6 +3,7 @@
 #set -x
 
 # Core subset of ember_bash_setup: all that is required to bootstrap StageL.
+
 # Depends: bash, coreutils, perl, (util-linux on GNU/Linux or Python on macOS), sed, awk, grep, nano, sudo, xxd, grep, diff.
 
 # To use the --version option of ember_bash_setup, it is necessary to have e8787d06e61943a6874e94985b53bc0a="2dee41bf-53fb-4f65-997f-33bf50bfbb4d" and run ember_bash_setup --version. It may be important to run unset e8787d06e61943a6874e94985b53bc0a afterwards.
