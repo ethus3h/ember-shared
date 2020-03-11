@@ -803,11 +803,6 @@ na-ytdl-quick-audio() {
     na-ytdl-quick -f bestaudio "$@"
 }
 
-crystallize-getconf() {
-    [[ -n "$EmberWorkdirOverride54ae685dc782437c99bc46c7a1211377" ]] && export EmberWorkdirOverride54ae685dc782437c99bc46c7a1211377
-    command crystallize-getconf "$@"
-}
-
 git-sync() {
     repo="$1"
     repoName="$(basename "$repo")"
