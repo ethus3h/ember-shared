@@ -754,59 +754,6 @@ bulkFlacToWaveform() {
     done
 }
 
-invertReturnValue() {
-    if bash -c "$(join_by ' ' "$@")"; then
-        return 1
-    else
-        return 0
-    fi
-}
-
-getWorkdirLocation() {
-    local tempLocation;
-    tempLocation="$(ember-getconf WorkDirectory)"
-    [[ -n "$tempLocation" ]] || return 1
-    print "$tempLocation"
-}
-
-getBigTempLocation() {
-    local tempLocation="$EMBER_TEMPDIR"
-    [[ -z "$tempLocation" ]] && tempLocation="$(ember-getconf WorkDirectory)"
-    [[ -z "$tempLocation" ]] && tempLocation="$(getSystemTempLocation)"
-    print "$tempLocation"
-}
-
-getSystemTempLocation() {
-    if [[ -n "$TMPDIR" ]]; then
-        print "$TMPDIR"
-    else
-        dirname "$(mktemp tmp.XXXXXXXXXX -ut)"
-    fi
-    return 0
-}
-
-bigTempDir() {
-    local directoryId
-    directoryId="$(getBigTempLocation)/.tempDir-$(date-uuid)/"
-    mkdir -p "$directoryId"
-    echo "$directoryId"
-}
-
-bigTempFile() {
-    local fileId
-    fileId="$(getBigTempLocation)/.tempFile-$(date-uuid)"
-    touch "$fileId"
-    echo "$fileId"
-}
-
-tempDir() {
-    mktemp --tmpdir -d ".tempFile-$(date-uuid).XXXXXXXXXX"
-}
-
-tempFile() {
-    mktemp --tmpdir ".tempFile-$(date-uuid).XXXXXXXXXX"
-}
-
 ytdl-quick() {
     local logFile
     logFile="ytdl-quicked-$(date-uuid)".log
