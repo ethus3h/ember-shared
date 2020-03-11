@@ -613,30 +613,6 @@ iamd5() (
     print "$result"
 )
 
-iaurl() (
-    print "https://archive.org/download/"
-    iaident "$1"
-    print "/"
-    iapath "$1"
-)
-
-isIaName() (
-    local regex='^https:\/\/archive.org\/download\/.+$'
-    if [[ "$1" =~ $regex ]]; then
-        exit 0
-    fi
-    exit 1
-)
-
-hasWebProtocol() (
-    local httpRegex='^https?:\/\/.+$'
-    local ftpRegex='^ftp:\/\/.+$'
-    if [[ "$1" =~ $httpRegex ]] || [[ "$1" =~ $ftpRegex ]]; then
-        exit 0
-    fi
-    exit 1
-)
-
 getGrabSitePath() {
     if command grab-site &> /dev/null; then
         command grab-site
