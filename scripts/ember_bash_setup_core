@@ -4,7 +4,7 @@
 
 # Core subset of ember_bash_setup: all that should be required to bootstrap StageL and for the buildsystem for Ember packages. (autodep and macOS may require full ember_bash_setup)
 
-# Depends: bash, coreutils, perl, awk, xxd, diff.
+# Depends: bash, coreutils, perl, gawk, xxd, diff.
 
 die() {
     # shellcheck disable=SC1091
