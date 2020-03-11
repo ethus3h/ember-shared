@@ -2,68 +2,6 @@
 
 #set -x
 
-export emberSharedVersion='1.1.4.472'
-
-# The update script shown here requires there to be only one ebuild of ember-shared in the wreathe-overlay overlay.
-# ( sudo true; newVersion="1.1.4.472"; cd "/Ember/ember-shared"; eogup-single; git tag -a "v$newVersion" -m "version"; egup-single .; cd "/Ember/wreathe-overlay"; eogup-single; mv app-misc/ember-shared/ember-shared-*.ebuild "app-misc/ember-shared/ember-shared-$newVersion.ebuild"; repoman manifest; egup-single; sudo emerge --sync wreathe-overlay; sudo emerge ember-shared; sudo dispatch-conf )
-
-# To use the --version option of ember_bash_setup, it is necessary to have e8787d06e61943a6874e94985b53bc0a="2dee41bf-53fb-4f65-997f-33bf50bfbb4d" and run ember_bash_setup --version. It may be important to run unset e8787d06e61943a6874e94985b53bc0a afterwards.
-d1875509777f46809ff940e0aad970f0=""
-if [[ "$-" == *u* ]]; then
-    d1875509777f46809ff940e0aad970f0="true"
-    set +u
-fi
-# shellcheck disable=SC2154
-a9c9efb644e24ef5b9cb1ec95e279c02="$e8787d06e61943a6874e94985b53bc0a"
-
-if [[ "$1" == "--version" ]] && [[ "$a9c9efb644e24ef5b9cb1ec95e279c02" != "2dee41bf-53fb-4f65-997f-33bf50bfbb4d" ]]; then
-    esVersionA="$(sed '5q;d' "$(type -P ember_bash_setup)")"
-    esVersionB="${esVersionA%\'*}"
-    echo "${esVersionB##*\'}"
-    exit 0
-fi
-if [[ "$d1875509777f46809ff940e0aad970f0" == "true" ]]; then
-    set -u
-fi
-unset d1875509777f46809ff940e0aad970f0 a9c9efb644e24ef5b9cb1ec95e279c02
-
-# Allow problems to be caught within pipelines
-set -o pipefail
-if [[ -z "$PS1" ]]; then
-    # The shell is not interactive
-    # Make traps inherited, but only if the shell is non-interactive
-    set -o errtrace
-    set -o functrace
-    # Fail if glob doesn't match. Breaks bash completions for emerge, so non-interactive only.
-    shopt -s failglob
-else
-    # The shell is interactive
-    nano() {
-        nanoLocation="$(type -P nano)"
-        nanoFileToEdit="${!#}"
-        if [[ -w "$nanoFileToEdit" ]]; then
-            "$nanoLocation" -wLN "$@"
-        else
-            sudo -k "$nanoLocation" -wLN "$@"
-        fi
-    }
-fi
-
-#set -o nounset
-
-# More verbose debugging
-PS4='+($?) $BASH_SOURCE:$FUNCNAME:$LINENO:'
-export PS4
-
-# These may not be available on non-Wreathe systems
-# shellcheck disable=SC1091
-source crystallize-bash_setup &> /dev/null || true
-# shellcheck disable=SC1091
-source wreathe_bash_setup &> /dev/null || true
-# shellcheck disable=SC1091
-source bash_math_functions &> /dev/null || true
-# shellcheck disable=SC1091
-source egup-env &> /dev/null || true
 
 die() {
     # shellcheck disable=SC1091
