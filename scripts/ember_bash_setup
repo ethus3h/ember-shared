@@ -179,6 +179,12 @@ emdate() (
 date-uuid() (
     trap 'die "A fatal error was reported on ${BASH_SOURCE[0]} line ${LINENO} in $(pwd) at $(emdate)."' ERR
 
+    if [[ "$OSTYPE" = darwin* ]]; then
+        LC_CTYPE=C command tr "$@"
+    else
+        command tr "$@"
+    fi
+
     local temp
     temp="$(emdate)-$(python -c 'import uuid; print str(uuid.uuid4())')"
     echo "${temp//-/}"
