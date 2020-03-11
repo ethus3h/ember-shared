@@ -390,15 +390,6 @@ allElementsEqual() {
     return 0
 }
 
-join_by() {
-    # from https://stackoverflow.com/questions/1527049/join-elements-of-an-array
-    local d="$1"
-    shift
-    echo -n "$1"
-    shift
-    printf "%s" "${@/#/$d}"
-}
-
 pipecheck() {
     allElementsEqual "0" "$@" || die "A failure status was reported by a call to pipecheck, with the reported exit statuses $(join_by ", " "$@")"
 }
