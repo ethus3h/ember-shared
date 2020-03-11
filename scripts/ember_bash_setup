@@ -639,31 +639,6 @@ get-default-firefox-profile() (
     fi
 )
 
-firefox-places-dump() {
-    # help from https://gist.github.com/kirang89/6541591
-    local firefoxProfile
-    if [[ -n "$1" ]]; then
-        firefoxProfile="$1"
-    else
-        # shellcheck disable=SC2119
-        firefoxProfile="$(cd ~ || die "Could not cd to home folder"; get-default-firefox-profile)"
-    fi
-    sqlite3 "$firefoxProfile/places.sqlite" '.sch' > firefox-places-dump.schema.sql-nltc
-    sqlite3 "$firefoxProfile/places.sqlite" '.dump' > firefox-places-dump.sql-nltc
-    cp "$firefoxProfile/sessionstore.js" firefox-places-dump.sessionstore.js-nltc
-    # Put newline every other character, to make it easier on git storage
-    newline-terminated-characters-from-text < firefox-places-dump.schema.sql-nltc | sponge firefox-places-dump.schema.sql-nltc
-    newline-terminated-characters-from-text < firefox-places-dump.sql-nltc | sponge firefox-places-dump.sql-nltc
-    newline-terminated-characters-from-text < firefox-places-dump.sessionstore.js-nltc | sponge firefox-places-dump.sessionstore.js-nltc
-}
-
-firefox-places-build() {
-    newline-terminated-characters-to-text < firefox-places-dump.sessionstore.js-nltc > sessionstore.js
-    newline-terminated-characters-to-text < firefox-places-dump.sql-nltc > firefox-places-dump.tmp.sql
-    sqlite3 places.sqlite < firefox-places-dump.tmp.sql
-    rm firefox-places-dump.tmp.sql
-}
-
 bigSponge() (
     trap 'error-notify "An error was reported in the sponge wrapper with the arguments $* on ${BASH_SOURCE[0]} line ${LINENO} in $(pwd) at $(emdate)."' ERR
     trap - EXIT
