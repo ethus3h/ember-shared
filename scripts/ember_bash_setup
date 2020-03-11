@@ -57,7 +57,7 @@ fi
 PS4='+($?) $BASH_SOURCE:$FUNCNAME:$LINENO:'
 export PS4
 
-# Mandatory core tools
+# Required core tools
 # shellcheck disable=SC1091
 source ember_bash_setup_core &> /dev/null
 
