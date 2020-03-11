@@ -183,7 +183,7 @@ date-uuid() (
     if [[ "$OSTYPE" = darwin* ]]; then
         uuid="$(python -c 'import uuid; print str(uuid.uuid4())')"
     else
-        command tr "$@"
+        uuid="$(uuidgen -r)"
     fi
 
     local temp
