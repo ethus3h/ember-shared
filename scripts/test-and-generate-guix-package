@@ -5,7 +5,7 @@ source ember_bash_setup &> /dev/null || { printf '%b' '\033[1;31m' >&2; echo "A 
 
 eogup-single
 mkdir -p ~/ember-auto-build-temp
-    rn="$(<package-name)"
+repositoryName="$(<package-name)"
 if [[ -n "$1" ]]; then
     pn="$1"
 else
