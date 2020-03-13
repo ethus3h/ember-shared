@@ -9,7 +9,7 @@ repository="$(<package-name)"
 if [[ -n "$1" ]]; then
     pn="$1"
 else
-    pn="$(<package-name)"
+    pn="$repository"
 fi
 cp package.scm.tpl ~/ember-auto-build-temp/"$pn".scm
 (
