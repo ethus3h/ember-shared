@@ -29,8 +29,8 @@ cp package.scm.tpl ~/ember-auto-build-temp/"$pn".scm
     ereplace "TEMPLATE-PLACEHOLDER-HASH" "$hash" "$pn".scm
     ereplace "TEMPLATE-PLACEHOLDER-COMMIT" "$pn" "$pn".scm
     cd ~/guix || die
-    cp /var/lib/ember/ember-shared/data/module-head.scm
-    cp ~/ember-auto-build-temp/"$pn".scm
+    cp /var/lib/ember/ember-shared/data/module-head.scm ./gnu/packages/dce.scm
+    cat ~/ember-auto-build-temp/"$pn".scm >> ./gnu/packages/dce.scm
 )
 cp ~/ember-auto-build-temp/"$pn".scm ./."$pn".scm
 eogup-single
