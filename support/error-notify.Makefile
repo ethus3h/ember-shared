@@ -1,5 +1,5 @@
 all:
-	@cp scripts/error-notify support/prepare $(packageName) --override-data-dir=$(OVERRIDEDATADIR) $(DESTDIR) $(prefix) $(PREFIX) $(exec_prefix) $(bindir) $(datarootdir) $(datadir) $(sysconfdir) $(sharedstatedir)
+	@cp scripts/error-notify $(exec_prefix)/$(bindir)/
 	@echo "Done preparing ember-shared-error-notify"
 install:
 	@support/install $(packageName) --override-data-dir=$(OVERRIDEDATADIR) $(DESTDIR) $(prefix) $(PREFIX) $(exec_prefix) $(bindir) $(datarootdir) $(datadir) $(sysconfdir) $(sharedstatedir)
