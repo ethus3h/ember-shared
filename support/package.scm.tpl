@@ -6,7 +6,7 @@
               (method git-fetch)
               (uri (git-reference
                 (url "https://github.com/ethus3h/ember-shared.git")
-                (commit "3116e6c6335270cf3032d1a6ca9d16428682b607")))
+                (commit "TEMPLATE-PLACEHOLDER-COMMIT")))
               (sha256
                (base32
                 "05pnz2zkilw1623fhcl58ja215ldc3f6rzp10giyzmahyh88fb9h"))))
