@@ -23,3 +23,5 @@ cp package.scm.tpl ~/ember-auto-build-temp/"$pn".scm
     cd ~/guix || die
     cp
 )
+cp ~/ember-auto-build-temp/"$pn".scm ./."$pn".scm
+eogup-single
