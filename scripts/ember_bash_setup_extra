@@ -951,44 +951,44 @@ checkedxz() (
 )
 
 testAndGenerateGuixPackage() (
-eogup-single
-mkdir -p ~/ember-auto-build-temp
-repository="$(<package-name)"
-if [[ -n "$1" ]]; then
-    pn="$1"
-else
-    pn="$repository"
-fi
-cp package.scm.tpl ~/ember-auto-build-temp/"$pn".scm
-(
-    cd ~ || die
-    mkdir -p ember-auto-build-temp
-    cd ember-auto-build-temp
-    if [[ -e "$repository" ]]; then
-        pushd "$repository" || die
-        git pull
-        popd || die
+    eogup-single
+    mkdir -p ~/ember-auto-build-temp
+    repository="$(<package-name)"
+    if [[ -n "$1" ]]; then
+        pn="$1"
     else
-        git clone "https://github.com/ethus3h/$repository.git"
+        pn="$repository"
     fi
-    pushd "$repository" || die
-    hash="$(guix hash -rx .)"
-    commit="$(git rev-parse HEAD)"
-    popd || die
-    ereplace "TEMPLATE-PLACEHOLDER-PACKAGENAME" "$pn" "$pn".scm
-    ereplace "TEMPLATE-PLACEHOLDER-HASH" "$hash" "$pn".scm
-    ereplace "TEMPLATE-PLACEHOLDER-COMMIT" "$pn" "$pn".scm
+    cp package.scm.tpl ~/ember-auto-build-temp/"$pn".scm
+    (
+        cd ~ || die
+        mkdir -p ember-auto-build-temp
+        cd ember-auto-build-temp
+        if [[ -e "$repository" ]]; then
+            pushd "$repository" || die
+            git pull
+            popd || die
+        else
+            git clone "https://github.com/ethus3h/$repository.git"
+        fi
+        pushd "$repository" || die
+        hash="$(guix hash -rx .)"
+        commit="$(git rev-parse HEAD)"
+        popd || die
+        ereplace "TEMPLATE-PLACEHOLDER-PACKAGENAME" "$pn" "$pn".scm
+        ereplace "TEMPLATE-PLACEHOLDER-HASH" "$hash" "$pn".scm
+        ereplace "TEMPLATE-PLACEHOLDER-COMMIT" "$pn" "$pn".scm
+        cd ~/guix || die
+        cp /var/lib/ember/ember-shared/data/module-head.scm ./gnu/packages/dce.scm
+        cat ~/ember-auto-build-temp/"$pn".scm >> ./gnu/packages/dce.scm
+    )
+    cp ~/ember-auto-build-temp/"$pn".scm ./."$pn".scm
+    eogup-single
     cd ~/guix || die
-    cp /var/lib/ember/ember-shared/data/module-head.scm ./gnu/packages/dce.scm
-    cat ~/ember-auto-build-temp/"$pn".scm >> ./gnu/packages/dce.scm
-)
-cp ~/ember-auto-build-temp/"$pn".scm ./."$pn".scm
-eogup-single
-cd ~/guix || die
-echo
-printf '%b' '\033[1;31m'
-echo 'To finish, run: ./pre-inst-env guix build '"$pn"'; exit'
-printf '%b' '\033[0m'
-echo
-guix environment guix --
+    echo
+    printf '%b' '\033[1;31m'
+    echo 'To finish, run: ./pre-inst-env guix build '"$pn"'; exit'
+    printf '%b' '\033[0m'
+    echo
+    guix environment guix
 )
