@@ -980,6 +980,9 @@ testAndGenerateGuixPackage() (
         pushd "$repository" || die
         hash="$(guix hash -rx .)"
         commit="$(git rev-parse HEAD)"
+        if [[ -z "$version" ]]; then
+            version="0-$commit"
+        fi
         popd || die
         ereplace "TEMPLATE-PLACEHOLDER-PACKAGENAME" "$pn" "$pn".scm
         ereplace "TEMPLATE-PLACEHOLDER-HASH" "$hash" "$pn".scm
