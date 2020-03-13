@@ -987,7 +987,8 @@ testAndGenerateGuixPackage() (
     cd ~/guix || die
     echo
     printf '%b' '\033[1;31m'
-    echo 'To finish, run: ./pre-inst-env guix build '"$pn"'; exit'
+    echo 'To finish, run:'
+    echo './pre-inst-env guix build '"$pn"'; exit'
     printf '%b' '\033[0m'
     echo
     guix environment guix
