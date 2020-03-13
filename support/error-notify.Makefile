@@ -1,4 +1,5 @@
 #PREFIX is environment variable, but if it is not set, then set default value
+# from https://stackoverflow.com/a/39895302 by igagis
 ifeq ($(PREFIX),)
     #PREFIX := /usr/local
     PREFIX=`cat support/.prefix`
