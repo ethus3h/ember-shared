@@ -1,7 +1,7 @@
 (define-public TEMPLATE-PLACEHOLDER-PACKAGENAME
   (package
     (name "TEMPLATE-PLACEHOLDER-PACKAGENAME")
-    (version "0-")
+    (version "0-TEMPLATE-PLACEHOLDER-COMMIT")
     (source (origin
               (method git-fetch)
               (uri (git-reference
