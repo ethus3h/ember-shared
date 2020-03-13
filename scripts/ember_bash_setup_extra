@@ -991,5 +991,5 @@ testAndGenerateGuixPackage() (
     echo './pre-inst-env guix build '"$pn"'; exit'
     printf '%b' '\033[0m'
     echo
-    guix environment guix
+    guix environment guix || true
 )
