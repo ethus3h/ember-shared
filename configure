@@ -45,36 +45,36 @@ done
 
 echo "Success will be indicated by printing"' "Configuring complete".'
 if [[ -n "$module" ]]; then
-if [[ -e "./.ember-build" ]]; then
-    rm -rf "./.ember-build"
-    true
-fi
-mkdir "./.ember-build"
-originalGlobignore="$GLOBIGNORE"
-GLOBIGNORE="./.:./..:./.ember-build:./.git"
-cp -r ./* ./.ember-build/ || true
-GLOBIGNORE="$originalGlobignore"
-pushd ./.ember-build || exit 1
+    if [[ -e "./.ember-build" ]]; then
+        rm -rf "./.ember-build"
+        true
+    fi
+    mkdir "./.ember-build"
+    originalGlobignore="$GLOBIGNORE"
+    GLOBIGNORE="./.:./..:./.ember-build:./.git"
+    cp -r ./* ./.ember-build/ || true
+    GLOBIGNORE="$originalGlobignore"
+    pushd ./.ember-build || exit 1
 
-case $module in
-error-notify)
-    find scripts -type f -not -name 'error-notify' -print || exit 1
-    mv support/error-notify.Makefile Makefile
-    rm -r ./data ./support || exit 1
-    ;;
-core)
-    printf '%s' "${1#*=}" > support/.mandir
-    ;;
-main)
-    printf '%s' "${1#*=}" > support/.infodir
-    ;;
-extra)
-    printf '%s' "${1#*=}" > support/.datadir
-    ;;
-*)
-    true
-    ;;
-esac
+    case $module in
+    error-notify)
+        find scripts -type f -not -name 'error-notify' -print || exit 1
+        mv support/error-notify.Makefile Makefile
+        rm -r ./data ./support || exit 1
+        ;;
+    core)
+        printf '%s' "${1#*=}" > support/.mandir
+        ;;
+    main)
+        printf '%s' "${1#*=}" > support/.infodir
+        ;;
+    extra)
+        printf '%s' "${1#*=}" > support/.datadir
+        ;;
+    *)
+        true
+        ;;
+    esac
 fi
 
 if ! fmwtk_loc="$(type -P "futuramerlin-web-toolkit-build")" || [[ -z $fmwtk_loc ]]; then
