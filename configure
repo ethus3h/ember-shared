@@ -50,7 +50,7 @@ if [[ -z "$module" ]]; then
 fi
 
 if [[ -e "./.ember-build" ]]; then
-    #rm -r "./.ember-build"
+    rm -r "./.ember-build"
     true
 fi
 mkdir "./.ember-build"
