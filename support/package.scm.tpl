@@ -1,6 +1,6 @@
-(define-public ember-shared-error-notify
+(define-public TEMPLATE-PLACEHOLDER-PACKAGENAME
   (package
-    (name "ember-shared-error-notify")
+    (name "TEMPLATE-PLACEHOLDER-PACKAGENAME")
     (version "0-")
     (source (origin
               (method git-fetch)
@@ -13,8 +13,7 @@
     (build-system gnu-build-system)
     (arguments '(#:configure-flags '("--module" "error-notify") #:phases (modify-phases %standard-phases (delete 'check))))
     (inputs `(("xxd" ,xxd)))
-    (synopsis "ember-shared error-notify script")
+    (synopsis "Ember package: TEMPLATE-PLACEHOLDER-PACKAGENAME")
     (description "Shell script to notify of errors")
     (home-page "http://futuramerlin.com/ancillary/ember-shared/")
     (license agpl3+)))
-ember-shared-error-notify
