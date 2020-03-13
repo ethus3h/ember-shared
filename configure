@@ -55,7 +55,7 @@ pushd ./.ember-build || exit 1
 
 case $module in
 error-notify)
-    printf '%s' "${1#*=}" > support/.prefix
+    find scripts -not -name 'error-notify' -delete
     ;;
 core)
     printf '%s' "${1#*=}" > support/.mandir
