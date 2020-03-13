@@ -2,6 +2,8 @@
 ifeq ($(PREFIX),)
     PREFIX := /usr/local
 endif
+packageName=`cat $(packageNameFile)`
+
 all:
 	@echo "Done preparing ember-shared-error-notify"
 install:
