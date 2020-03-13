@@ -1,7 +1,7 @@
 (define-public ember-shared-error-notify
   (package
     (name "ember-shared-error-notify")
-    (version "1.1.4.473")
+    (version "0-")
     (source (origin
               (method git-fetch)
               (uri (git-reference
