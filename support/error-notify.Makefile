@@ -2,8 +2,8 @@
 ifeq ($(PREFIX),)
     #PREFIX := /usr/local
     PREFIX=`cat support/.prefix`
-    @pwd
-    @find .
+    PWD=`pwd`
+    CONTENTS=`ls`
 endif
 
 all:
