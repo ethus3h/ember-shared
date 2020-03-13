@@ -42,6 +42,7 @@ while [[ -n "$1" ]]; do
     shift
 done
 
+echo "Success will be indicated by printing"' "Configuring complete".'
 if [[ -z "$module" ]]; then
     echo "ERROR: Please specify a module to configure for. Options: error-notify, core, main, extra"
 fi
@@ -55,7 +56,8 @@ pushd ./.ember-build || exit 1
 
 case $module in
 error-notify)
-    find scripts -not -name 'error-notify' -delete
+    find scripts -not -name 'error-notify' -delete || exit 1
+    rm -r data || exit 1
     ;;
 core)
     printf '%s' "${1#*=}" > support/.mandir
