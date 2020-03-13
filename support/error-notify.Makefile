@@ -1,7 +1,7 @@
 #PREFIX is environment variable, but if it is not set, then set default value
 ifeq ($(PREFIX),)
     #PREFIX := /usr/local
-    #PREFIX=`cat support/.prefix`
+    PREFIX=`cat support/.prefix`
     PWD=`pwd`
     CONTENTS=`ls`
 endif
