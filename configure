@@ -55,7 +55,7 @@ if [[ -e "./.ember-build" ]]; then
 fi
 mkdir "./.ember-build"
 originalGlobignore="$GLOBIGNORE"
-GLOBIGNORE="./.git"
+GLOBIGNORE="./.:./..:./.ember-build:./.git:"
 cp -r ./* ./.* ./.ember-build/ || true
 GLOBIGNORE="$originalGlobignore"
 pushd ./.ember-build || exit 1
