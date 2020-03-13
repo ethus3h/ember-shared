@@ -1,0 +1,154 @@
+#!/usr/bin/env bash
+# shellcheck disable=SC1091
+source ember_bash_setup &> /dev/null || { printf '%b' '\033[1;31m' >&2; echo "A fatal error was reported on ${BASH_SOURCE[0]} line ${LINENO} in $(pwd): The required dependency ember-shared could not be found (or ember_bash_setup could not be sourced for some other reason)." >&2; printf '%b' '\033[0m' >&2; exit 1; }
+#set -x
+
+((EUID)) && exec sudo -- "$0" "$@"
+
+trap 'error-notify "A fatal error was reported on ${BASH_SOURCE[0]} line ${LINENO} in $(pwd) at $(emdate)."; exit 1' ERR
+
+action="--save"
+if [[ "$1" == "--save" ]]; then
+    shift
+elif [[ "$1" == "--check" ]]; then
+    action="--check"
+    shift
+fi
+
+# No arguments: Csum current dir to stdout. One argument: Csum to stdout. Two+ arguments: last is csum file.
+
+if [[ "$#" == "0" ]]; then
+    pathsToCsum=(".")
+    checksumFile=""
+elif [[ "$#" == "1" ]]; then
+    pathsToCsum=("$1")
+    checksumFile=""
+else
+    pathsToCsum=("${@:1:$(($#-1))}") # all but last argument
+    checksumFile="${!#}" # last argument
+fi
+
+if [[ "$checksumFile" == "-" ]]; then
+    checksumFile=""
+fi
+
+case $action in
+--save)
+    # Format used through version 1.1.4.463:
+    # setVariableToCommandOutput currentworkingdir pwd -P
+    # currentworkingdir="${currentworkingdir:?}"
+    # currentworkingdir="${currentworkingdir//$'\n'/'\n'}"
+
+    argsRelativeToRoot=()
+    argsEncoded=""
+    abspathsEncoded=""
+    pathsEncoded=""
+    abspathForTheRecord=""
+    path=""
+    for arg in "${pathsToCsum[@]}"; do
+        # Format used through version 1.1.4.463:
+        # argsRelativeToRoot+=(".$(abspath "$arg")")
+        # Format after version 1.1.4.463:
+        # path=".$(realpath -s "$arg")"
+        # Format after version 1.1.4.464:
+        # setVariableToCommandOutput path abspath "$arg"
+        # Format after version 1.1.4.465:
+        # (head -c -1: all but last byte)
+        setVariableToCommandOutput abspathForTheRecord abspath "$arg"
+        # probably breaks on newlines (?), but setVariableToCommandOutput path realpath -s -z "$arg" | head -c -1 would need a shell (bash -c) wrapped around it
+        path=".$(realpath -s "$arg")"
+        argsRelativeToRoot+=("$path")
+        argsEncoded="$argsEncoded:$(print "$arg" | xxd -p | tr '\n' 'x')"
+        abspathsEncoded="$abspathsEncoded:$(print "$abspathForTheRecord" | xxd -p | tr '\n' 'x')"
+        pathsEncoded="$pathsEncoded:$(print "$path" | xxd -p | tr '\n' 'x')"
+    done
+    pathsEncoded="$pathsEncoded/$abspathsEncoded"
+
+    # Do two passes to make sure nothing changed while reading and there weren't other errors
+    # First pass
+    firstPass="$(tempFile)"
+    {
+        # Format used through version 1.1.4.463:
+        # printf '%s\n' "${currentworkingdir//$'\r'/'\r'}"
+        # Format after version 1.1.4.463:
+        # echo "a2b2d0d9-a945-4582-8caa-8151f21fa977"
+        # Format after version 1.1.4.464:
+        echo "8dcee8cf-535a-41b9-9eef-da3b73463939"
+        ember_bash_setup --version
+        pwd -P | xxd -p | tr '\n' 'x'
+        echo
+        echo "$argsEncoded"
+        echo "$pathsEncoded"
+        (
+            cd / || die
+            hashdeep -c md5,sha1,sha256,tiger,whirlpool -j0 -e -o fbsd -r -l "${argsRelativeToRoot[@]}"
+        ) || die
+    } > "$firstPass"
+    # Second pass
+    secondPass="$(tempFile)"
+    {
+        echo "8dcee8cf-535a-41b9-9eef-da3b73463939"
+        ember_bash_setup --version
+        pwd -P | xxd -p | tr '\n' 'x'
+        echo
+        echo "$argsEncoded"
+        echo "$pathsEncoded"
+        (
+            cd / || die
+            hashdeep -c md5,sha1,sha256,tiger,whirlpool -j0 -e -o fbsd -r -l "${argsRelativeToRoot[@]}"
+        ) || die
+    } > "$secondPass"
+    assert fileEquals "$firstPass" "$secondPass" || die
+    if [[ -z "$checksumFile" ]]; then
+        cat "$firstPass"
+        rm "$firstPass"
+    else
+        mv "$firstPass" "$checksumFile"
+    fi
+    rm "$secondPass"
+    ;;
+--check)
+    streamId="csum-$(date-uuid)"
+
+    finish() {
+        if [[ -e "/tmp/${streamId:?}" ]]; then
+            rm "/tmp/${streamId:?}"
+        fi
+    }
+    trap 'error-notify "A fatal error was reported on ${BASH_SOURCE[0]} line ${LINENO} in $(pwd) at $(emdate)."; finish; exit 1' ERR
+    trap finish EXIT
+
+    offset="2" # original format (no UUID version header)
+    possibleUuid="$(head -n 1 "$checksumFile")"
+    if [[ "a2b2d0d9-a945-4582-8caa-8151f21fa977" == "$possibleUuid" ]]; then
+        # format after version 1.1.4.463
+        offset="5"
+    elif [[ "8dcee8cf-535a-41b9-9eef-da3b73463939" == "$possibleUuid" ]]; then
+        # format after version 1.1.4.464
+        offset="6"
+    fi
+
+    if [[ -z "$checksumFile" ]]; then
+        cat > "/tmp/$streamId"
+        tail -n +"$offset" < "/tmp/$streamId" | sponge "/tmp/$streamId"
+    else
+        tail -n +"$offset" "$checksumFile" > "/tmp/$streamId"
+    fi
+
+    if [[ "$(tail -c 1 "/tmp/$streamId" | xxd -p)" == "00" ]]; then
+        # FIXME: Auditing null-delimited hash files isn't supported by hashdeep yet. See https://github.com/jessek/hashdeep/issues/384.
+        hashdeep -0 -k "/tmp/$streamId" -e -o fbsd -r -l -a -v -v "${pathsToCsum[@]}" || {
+                die "Hashdeep failed checksum verification! Reported on ${BASH_SOURCE[0]} line ${LINENO} in $(pwd) at $(emdate). Hashdeep version: $(hashdeep -V)."
+            }
+    else
+       hashdeep -k "/tmp/$streamId" -e -o fbsd -r -l -a -v -v "${pathsToCsum[@]}" || {
+                die "Hashdeep failed checksum verification! Reported on ${BASH_SOURCE[0]} line ${LINENO} in $(pwd) at $(emdate). Hashdeep version: $(hashdeep -V)."
+            }
+    fi
+    finish
+    ;;
+*)
+    echo "Unknown action."
+    exit 1
+    ;;
+esac

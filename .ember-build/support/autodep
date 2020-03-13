@@ -1,0 +1,152 @@
+#!/usr/bin/env bash
+#set -x
+
+# Special autodep for ember-shared.
+
+# Should work without ember-shared (or crystallize), just in case, so don't source ember_bash_setup or set traps that need it
+
+#NOTE: MAINTENANCE: Manual error printing
+trap 'printf '\''%b'\'' '\''\033[1;31m'\'' >&2; echo "A fatal error was reported on ${BASH_SOURCE[0]} line ${LINENO} in $(pwd)." >&2; printf '\''%b'\'' '\''\033[0m'\'' >&2; exit 1' ERR
+
+((EUID)) && exec sudo -- "$0" "$@"
+
+# Basic packages
+
+if [[ "$OSTYPE" != darwin* ]]; then
+    if ! emerge_loc="$(type -P "emerge")" || [[ -z $emerge_loc ]]; then
+        # If we have emerge, should just use the ebuild.
+        if ! apt install build-essential coreutils moreutils findutils tar sed gawk gnutls-bin indent wdiff rsync wget tmux hashdeep git jq pv ncdu xxd bash xz-utils gnupg perl csvfix sshfs &> /dev/null; then
+            # Try this for Debian-ish distributions
+            apt-get install build-essential coreutils moreutils findutils tar sed gawk gnutls-bin indent wdiff rsync wget tmux hashdeep git jq pv ncdu xxd bash xz-utils gnupg perl csvfix sshfs &> /dev/null || echo "WARNING: Unknown package manager, or package manager failed to run. Please install the dependencies manually."
+        fi
+    fi
+fi
+
+# Install pip
+
+pip_command=""
+pip_needed="true"
+if [[ "$pip_needed" == "true" ]]; then
+    if ! pip_loc="$(type -P "pip")" || [[ -z $pip_loc ]]; then
+        pip_needed="true"
+    else
+        pip_command="pip"
+        pip_needed="false"
+    fi
+fi
+if [[ "$pip_needed" == "true" ]]; then
+    if ! pip_loc="$(type -P "pip3")" || [[ -z $pip_loc ]]; then
+        pip_needed="true"
+    else
+        pip_command="pip3"
+        pip_needed="false"
+    fi
+fi
+if [[ "$pip_needed" == "true" ]]; then
+    if ! pip_loc="$(type -P "pip2")" || [[ -z $pip_loc ]]; then
+        pip_needed="true"
+    else
+        pip_command="pip2"
+        pip_needed="false"
+    fi
+fi
+if [[ "$pip_needed" == "true" ]]; then
+    if emerge pip &> /dev/null; then
+        if ! pip_loc="$(type -P "pip3")" || [[ -z $pip_loc ]]; then
+            pip_needed="true"
+        else
+            pip_command="pip3"
+            pip_needed="false"
+        fi
+        if ! pip_loc="$(type -P "pip")" || [[ -z $pip_loc ]]; then
+            pip_needed="true"
+        else
+            pip_command="pip"
+            pip_needed="false"
+        fi
+        if ! pip_loc="$(type -P "pip2")" || [[ -z $pip_loc ]]; then
+            pip_needed="true"
+        else
+            pip_command="pip2"
+            pip_needed="false"
+        fi
+    fi
+fi
+if [[ "$pip_needed" == "true" ]]; then
+    if apt install python-pip &> /dev/null; then
+        if ! pip_loc="$(type -P "pip")" || [[ -z $pip_loc ]]; then
+            pip_needed="true"
+        else
+            pip_command="pip"
+            pip_needed="false"
+        fi
+    fi
+fi
+if [[ "$pip_needed" == "true" ]]; then
+    if apt-get install python-pip &> /dev/null; then
+        if ! pip_loc="$(type -P "pip")" || [[ -z $pip_loc ]]; then
+            pip_needed="true"
+        else
+            pip_command="pip"
+            pip_needed="false"
+        fi
+    fi
+fi
+if [[ "$pip_needed" == "true" ]]; then
+    if apt install python-pip3 &> /dev/null; then
+        if ! pip_loc="$(type -P "pip3")" || [[ -z $pip_loc ]]; then
+            pip_needed="true"
+        else
+            pip_command="pip3"
+            pip_needed="false"
+        fi
+    fi
+fi
+if [[ "$pip_needed" == "true" ]]; then
+    if apt-get install python-pip3 &> /dev/null; then
+        if ! pip_loc="$(type -P "pip3")" || [[ -z $pip_loc ]]; then
+            pip_needed="true"
+        else
+            pip_command="pip3"
+            pip_needed="false"
+        fi
+    fi
+fi
+if [[ "$pip_needed" == "true" ]]; then
+    curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
+    python get-pip.py
+    if ! pip_loc="$(type -P "pip")" || [[ -z $pip_loc ]]; then
+        pip_needed="true"
+    else
+        pip_command="pip"
+        pip_needed="false"
+    fi
+    if ! pip_loc="$(type -P "pip3")" || [[ -z $pip_loc ]]; then
+        pip_needed="true"
+    else
+        pip_command="pip3"
+        pip_needed="false"
+    fi
+    if ! pip_loc="$(type -P "pip2")" || [[ -z $pip_loc ]]; then
+        pip_needed="true"
+    else
+        pip_command="pip2"
+        pip_needed="false"
+    fi
+fi
+
+if [[ "$pip_needed" == "true" ]]; then
+    echo "ERROR: Could not find or install pip."
+    exit 1
+fi
+
+# Install internetarchive
+
+if ! ia_loc="$(type -P "ia")" || [[ -z $ia_loc ]]; then
+    if ! sudo "$pip_command" install internetarchive; then
+        if ! sudo -H "$pip_command" install internetarchive; then
+            echo "ERROR: Could not find or install internetarchive."
+            exit 1
+        fi
+    fi
+fi
