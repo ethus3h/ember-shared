@@ -11,6 +11,7 @@ trap 'printf '\''%b'\'' '\''\033[1;31m'\'' >&2; echo "A fatal error was reported
 rm -f support/.{prefix,mandir,infodir,datadir,sysconfdir,localstatedir}
 
 currentArgPrefix=""
+module=""
 while [[ -n "$1" ]]; do
     currentArgPrefix="${1%%=*}"
     case $currentArgPrefix in
@@ -32,12 +33,20 @@ while [[ -n "$1" ]]; do
     --localstatedir)
         printf '%s' "${1#*=}" > support/.localstatedir
         ;;
+    --module)
+        module="${1#*=}"
     *)
         true
         ;;
     esac
     shift
 done
+
+if [[ -z "$module" ]]; then
+    echo "ERROR: Please specify a module to configure for. Options: error-notify, core, main, extra"
+fi
+
+
 
 if ! fmwtk_loc="$(type -P "futuramerlin-web-toolkit-build")" || [[ -z $fmwtk_loc ]]; then
     echo $'\n'"futuramerlin-web-toolkit not found: documentation will not be built."$'\n'
