@@ -34,6 +34,7 @@ while [[ -n "$1" ]]; do
         printf '%s' "${1#*=}" > support/.localstatedir
         ;;
     --module)
+        shift
         module="${1#*=}"
         ;;
     *)
