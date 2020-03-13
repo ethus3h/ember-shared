@@ -53,7 +53,10 @@ if [[ -e "./.ember-build" ]]; then
     rm -r "./.ember-build"
 fi
 mkdir "./.ember-build"
+originalGlobignore="$GLOBIGNORE"
+GLOBIGNORE="./.git"
 cp -r ./* ./.* ./.ember-build/ || true
+GLOBIGNORE="$originalGlobignore"
 pushd ./.ember-build || exit 1
 
 case $module in
