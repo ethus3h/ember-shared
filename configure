@@ -56,7 +56,7 @@ fi
 mkdir "./.ember-build"
 originalGlobignore="$GLOBIGNORE"
 GLOBIGNORE="./.:./..:./.ember-build:./.git:"
-cp -r ./* ./.* ./.ember-build/ || true
+cp -r ./* ./.ember-build/ || true
 GLOBIGNORE="$originalGlobignore"
 pushd ./.ember-build || exit 1
 
