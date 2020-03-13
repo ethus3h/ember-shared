@@ -62,7 +62,7 @@ pushd ./.ember-build || exit 1
 
 case $module in
 error-notify)
-    find scripts -not -name 'error-notify' -print || exit 1
+    find scripts -type f -not -name 'error-notify' -print || exit 1
     mv support/error-notify.Makefile Makefile
     #rm -r data support || exit 1
     ;;
