@@ -35,4 +35,4 @@ cp package.scm.tpl ~/ember-auto-build-temp/"$pn".scm
 cp ~/ember-auto-build-temp/"$pn".scm ./."$pn".scm
 eogup-single
 cd ~/guix || die
-    guix environment guix -- ./pre-inst-env guix build ember-shared-error-notify
+guix environment guix -- ./pre-inst-env guix build ember-shared-error-notify
