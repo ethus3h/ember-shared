@@ -20,9 +20,9 @@ cp package.scm.tpl ~/ember-auto-build-temp/"$pn".scm
         git pull
         popd || die
     else
-        git clone "https://github.com/ethus3h/$pn.git"
+        git clone "https://github.com/ethus3h/$repository.git"
     fi
-    pushd "$pn" || die
+    pushd "$repository" || die
     hash="$(guix hash -rx .)"
     commit="$(git rev-parse HEAD)"
     popd || die
