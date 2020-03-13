@@ -46,6 +46,7 @@ done
 echo "Success will be indicated by printing"' "Configuring complete".'
 if [[ -z "$module" ]]; then
     echo "ERROR: Please specify a module to configure for. Options: error-notify, core, main, extra"
+    exit 1
 fi
 
 if [[ -e "./.ember-build" ]]; then
