@@ -2,7 +2,7 @@
 ifeq ($(PREFIX),)
     PREFIX := /usr/local
 endif
-packageName=`cat $(packageNameFile)`
+packageName=`cat support/.prefix`
 
 all:
 	@echo "Done preparing ember-shared-error-notify"
