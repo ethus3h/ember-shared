@@ -9,7 +9,7 @@
                 (commit "TEMPLATE-PLACEHOLDER-COMMIT")))
               (sha256
                (base32
-                "05pnz2zkilw1623fhcl58ja215ldc3f6rzp10giyzmahyh88fb9h"))))
+                "TEMPLATE-PLACEHOLDER-HASH"))))
     (build-system gnu-build-system)
     (arguments '(#:configure-flags '("--module" "error-notify") #:phases (modify-phases %standard-phases (delete 'check))))
     (inputs `(("xxd" ,xxd)))
