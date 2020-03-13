@@ -959,7 +959,7 @@ testAndGenerateGuixPackage() (
     else
         pn="$repository"
     fi
-    cp package.scm.tpl ~/ember-auto-build-temp/"$pn".scm
+    cp support/package.scm.tpl ~/ember-auto-build-temp/"$pn".scm
     (
         cd ~ || die
         mkdir -p ember-auto-build-temp
