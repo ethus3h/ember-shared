@@ -18,5 +18,6 @@ cp package.scm.tpl ~/ember-auto-build-temp/"$pn".scm
     cd "$pn" || die
     hash="$(guix hash -rx .)"
     cd .. || die
-    ereplace ""
+    ereplace "TEMPLATE-PLACEHOLDER-PACKAGENAME" "$pn" "$pn".scm
+
 )
