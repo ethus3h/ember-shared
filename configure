@@ -45,9 +45,6 @@ done
 
 echo "Success will be indicated by printing"' "Configuring complete".'
 if [[ -n "$module" ]]; then
-    echo "BE CAREFUL: Module build will modify the source tree. Back up first."
-    exit 1
-fi
 
 if [[ -e "./.ember-build" ]]; then
     rm -rf "./.ember-build"
