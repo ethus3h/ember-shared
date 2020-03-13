@@ -51,6 +51,7 @@ fi
 
 if [[ -e "./.ember-build" ]]; then
     #rm -r "./.ember-build"
+    true
 fi
 mkdir "./.ember-build"
 originalGlobignore="$GLOBIGNORE"
