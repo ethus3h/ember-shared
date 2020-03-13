@@ -45,7 +45,6 @@ done
 
 echo "Success will be indicated by printing"' "Configuring complete".'
 if [[ -n "$module" ]]; then
-
 if [[ -e "./.ember-build" ]]; then
     rm -rf "./.ember-build"
     true
