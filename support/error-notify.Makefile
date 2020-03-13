@@ -7,8 +7,8 @@ ifeq ($(PREFIX),)
 endif
 
 all:
-	@echo "PWD"
-	@echo "CONTENTS"
+	@echo $(PWD)
+	@echo $(CONTENTS)
 	@echo "Done preparing ember-shared-error-notify"
 install:
 	@install -d $(DESTDIR)$(PREFIX)/usr/bin/
