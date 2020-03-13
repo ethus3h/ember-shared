@@ -53,27 +53,19 @@ mkdir "./.ember-build"
 cp -r ./* ./.* ./.ember-build/ || true
 cd ./.ember-build || exit 1
 
-case $currentArgPrefix in
---prefix)
+case $module in
+error-notify)
     printf '%s' "${1#*=}" > support/.prefix
     ;;
---mandir)
+core)
     printf '%s' "${1#*=}" > support/.mandir
     ;;
---infodir)
+main)
     printf '%s' "${1#*=}" > support/.infodir
     ;;
---datadir)
+extra)
     printf '%s' "${1#*=}" > support/.datadir
     ;;
---sysconfdir)
-    printf '%s' "${1#*=}" > support/.sysconfdir
-    ;;
---localstatedir)
-    printf '%s' "${1#*=}" > support/.localstatedir
-    ;;
---module)
-    module="${1#*=}"
 *)
     true
     ;;
