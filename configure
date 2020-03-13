@@ -49,9 +49,7 @@ if [[ -n "$module" ]]; then
 
     case $module in
     error-notify)
-        find scripts -type f -not -name 'error-notify' -print || exit 1
         mv support/error-notify.Makefile Makefile
-        rm -r ./data ./support || exit 1
         ;;
     core)
         printf '%s' "${1#*=}" > support/.mandir
