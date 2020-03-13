@@ -57,7 +57,8 @@ pushd ./.ember-build || exit 1
 case $module in
 error-notify)
     find scripts -not -name 'error-notify' -delete || exit 1
-    rm -r data || exit 1
+    rm -r data support || exit 1
+    cp error-notify.Makefile Makefile
     ;;
 core)
     printf '%s' "${1#*=}" > support/.mandir
