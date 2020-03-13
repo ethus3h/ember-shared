@@ -957,6 +957,8 @@ testAndGenerateGuixPackage() (
     repository="$(<package-name)"
     if [[ -e "version" ]]; then
         version="$(<version)"
+    else
+        version="0"
     fi
     if [[ -n "$1" ]]; then
         pn="$1"
