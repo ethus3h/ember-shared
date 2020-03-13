@@ -15,6 +15,7 @@ cp package.scm.tpl ~/ember-auto-build-temp/"$pn".scm
 (
     cd ~ || die
     mkdir -p ember-auto-build-temp
+    cd ember-auto-build-temp
     if [[ -e "$pn" ]]; then
         pushd "$pn" || die
         git pull
