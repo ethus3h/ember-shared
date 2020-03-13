@@ -45,11 +45,6 @@ done
 
 echo "Success will be indicated by printing"' "Configuring complete".'
 if [[ -n "$module" ]]; then
-    originalGlobignore="$GLOBIGNORE"
-    GLOBIGNORE="./.:./..:./.ember-build:./.git"
-    cp -r ./* ./.ember-build/ || true
-    GLOBIGNORE="$originalGlobignore"
-    pushd ./.ember-build || exit 1
 
     case $module in
     error-notify)
