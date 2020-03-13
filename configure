@@ -46,6 +46,12 @@ if [[ -z "$module" ]]; then
     echo "ERROR: Please specify a module to configure for. Options: error-notify, core, main, extra"
 fi
 
+if [[ -e "./.ember-build" ]]; then
+    rm -r "./.ember-build"
+fi
+mkdir "./.ember-build"
+cp -r ./* ./.* ./.ember-build/ || true
+cd ./.ember-build || exit 1
 
 
 if ! fmwtk_loc="$(type -P "futuramerlin-web-toolkit-build")" || [[ -z $fmwtk_loc ]]; then
