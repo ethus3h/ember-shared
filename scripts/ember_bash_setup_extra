@@ -949,3 +949,7 @@ checkedxz() (
         rm "$streamingInput"
     fi
 )
+
+testAndGenerateGuixPackage() {
+
+}
