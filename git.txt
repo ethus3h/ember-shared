@@ -4,7 +4,8 @@ source ember_bash_setup &> /dev/null || { printf '%b' '\033[1;31m' >&2; echo "A 
 #set -x
 
 eogup-single
-cp package.scm.tpl package.scm
+mkdir -p ~/ember-auto-build-temp
+cp package.scm.tpl ~/ember-auto-build-temp/package.scm
 (
     cd ~ || die
     mkdir -p ember-auto-build-temp
