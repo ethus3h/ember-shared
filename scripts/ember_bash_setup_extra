@@ -955,6 +955,9 @@ testAndGenerateGuixPackage() (
     git push
     mkdir -p ~/ember-auto-build-temp
     repository="$(<package-name)"
+    if [[ -e "version" ]]; then
+        version="$(<version)"
+    fi
     if [[ -n "$1" ]]; then
         pn="$1"
     else
