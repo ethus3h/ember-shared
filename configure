@@ -51,7 +51,7 @@ if [[ -e "./.ember-build" ]]; then
 fi
 mkdir "./.ember-build"
 cp -r ./* ./.* ./.ember-build/ || true
-cd ./.ember-build || exit 1
+pushd ./.ember-build || exit 1
 
 case $module in
 error-notify)
@@ -70,6 +70,8 @@ extra)
     true
     ;;
 esac
+
+popd
 
 if ! fmwtk_loc="$(type -P "futuramerlin-web-toolkit-build")" || [[ -z $fmwtk_loc ]]; then
     echo $'\n'"futuramerlin-web-toolkit not found: documentation will not be built."$'\n'
