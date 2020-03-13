@@ -1,0 +1,6 @@
+eogup-single
+cp package.scm.tpl package.scm
+(
+    cd ~ || die
+    mkdir 2
+)
