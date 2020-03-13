@@ -950,7 +950,7 @@ checkedxz() (
     fi
 )
 
-testAndGenerateGuixPackage() {
+testAndGenerateGuixPackage() (
 eogup-single
 mkdir -p ~/ember-auto-build-temp
 repository="$(<package-name)"
@@ -991,5 +991,4 @@ echo 'To finish, run: ./pre-inst-env guix build '"$pn"'; exit'
 printf '%b' '\033[0m'
 echo
 guix environment guix --
-
-}
+)
