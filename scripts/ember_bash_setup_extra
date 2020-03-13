@@ -979,6 +979,7 @@ testAndGenerateGuixPackage() (
         ereplace "TEMPLATE-PLACEHOLDER-PACKAGENAME" "$pn" "$pn".scm
         ereplace "TEMPLATE-PLACEHOLDER-HASH" "$hash" "$pn".scm
         ereplace "TEMPLATE-PLACEHOLDER-COMMIT" "$commit" "$pn".scm
+        ereplace "TEMPLATE-PLACEHOLDER-VERSION" "$commit" "$pn".scm
         cd ~/guix || die
         cp /var/lib/ember/ember-shared/data/module-head.scm ./gnu/packages/dce.scm
         cat ~/ember-auto-build-temp/"$pn".scm >> ./gnu/packages/dce.scm
