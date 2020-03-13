@@ -79,7 +79,7 @@ extra)
     ;;
 esac
 
-popd
+popd || exit 1
 #rm -r "./.ember-build"
 
 if ! fmwtk_loc="$(type -P "futuramerlin-web-toolkit-build")" || [[ -z $fmwtk_loc ]]; then
