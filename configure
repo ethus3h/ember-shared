@@ -44,7 +44,7 @@ while [[ -n "$1" ]]; do
 done
 
 echo "Success will be indicated by printing"' "Configuring complete".'
-if [[ -z "$module" ]]; then
+if [[ -n "$module" ]]; then
     echo "ERROR: Please specify a module to configure for. Options: error-notify, core, main, extra. CAREFUL: This will modify the source tree. Back up first."
     exit 1
 fi
