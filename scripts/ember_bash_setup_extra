@@ -982,6 +982,7 @@ testAndGenerateGuixPackage() (
         cd ~/guix || die
         cp /var/lib/ember/ember-shared/data/module-head.scm ./gnu/packages/dce.scm
         cat ~/ember-auto-build-temp/"$pn".scm >> ./gnu/packages/dce.scm
+        git add . ;git commit -m blah
     )
     cp ~/ember-auto-build-temp/"$pn".scm ./"$pn".scm
     eogup-single
