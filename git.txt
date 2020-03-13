@@ -17,11 +17,13 @@ cp package.scm.tpl ~/ember-auto-build-temp/"$pn".scm
     if [[ -d "$pn" ]]; then
         pushd "$pn" || die
         git pull
-        g
+        popd || die
+    else
         git clone "https://github.com/ethus3h/$pn.git"
-    cd "$pn" || die
+    fi
+    pushd "$pn" || die
     hash="$(guix hash -rx .)"
-    cd .. || die
+    popd || die
     ereplace "TEMPLATE-PLACEHOLDER-PACKAGENAME" "$pn" "$pn".scm
     ereplace "TEMPLATE-PLACEHOLDER-HASH" "$hash" "$pn".scm
     cd ~/guix || die
