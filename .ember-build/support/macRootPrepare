@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+
+if ! grep -q "ember_bash_setup" /etc/bashrc; then
+    {
+        echo '#!/usr/bin/env bash'
+        echo 'PATH="${PATH}:/usr/local/bin/"'
+        echo 'if [[ "${BASH_VERSINFO:-0}" -ge 4 ]]; then'
+        echo '    source ember_bash_setup'
+        echo 'fi'
+        echo '# eval $(thefuck --alias)'
+    } >> /etc/bashrc
+fi
+grep -q "/usr/local/bin/bash" /etc/shells || echo "/usr/local/bin/bash" >> /etc/shells
+chsh -s /usr/local/bin/bash "$USER"
