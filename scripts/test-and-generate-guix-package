@@ -31,7 +31,6 @@ cp package.scm.tpl ~/ember-auto-build-temp/"$pn".scm
     cd ~/guix || die
     cp /var/lib/ember/ember-shared/data/module-head.scm ./gnu/packages/dce.scm
     cat ~/ember-auto-build-temp/"$pn".scm >> ./gnu/packages/dce.scm
-    guix environment guix -- ./pre-inst-env guix build ember-shared-error-notify
 )
 cp ~/ember-auto-build-temp/"$pn".scm ./."$pn".scm
 eogup-single
