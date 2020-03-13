@@ -37,5 +37,5 @@ cp package.scm.tpl ~/ember-auto-build-temp/"$pn".scm
 cp ~/ember-auto-build-temp/"$pn".scm ./."$pn".scm
 eogup-single
 cd ~/guix || die
-echo 'To test, run: ./pre-inst-env guix build '"$pn"'; exit'
+echo 'To finish, run: ./pre-inst-env guix build '"$pn"'; exit'
 guix environment guix --
