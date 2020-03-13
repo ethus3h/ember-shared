@@ -14,7 +14,11 @@ cp package.scm.tpl ~/ember-auto-build-temp/"$pn".scm
 (
     cd ~ || die
     mkdir -p ember-auto-build-temp
-    git clone "https://github.com/ethus3h/$pn.git"
+    if [[ -d "$pn" ]]; then
+        pushd "$pn" || die
+        git pull
+        g
+        git clone "https://github.com/ethus3h/$pn.git"
     cd "$pn" || die
     hash="$(guix hash -rx .)"
     cd .. || die
