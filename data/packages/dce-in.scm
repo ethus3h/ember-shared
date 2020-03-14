@@ -58,7 +58,7 @@
         ("util-linux" ,util-linux)
         ("perl" ,perl)
         ("xxd" ,xxd)
-        ("xxd" ,xxd)
+        ("diffutils" ,diffutils)
     ))
     (synopsis "ember-shared core")
     (description "Shell script library core module")
