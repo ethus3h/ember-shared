@@ -114,9 +114,10 @@
         ; inputs this needs are implicit in the build system: grep, findutils
         ; csum (depends hashdeep), ember_bash_setup_extra (see for dependencies), ember-shared-update, findq/findq-update (depend locate), htmlToText.pl (depends HTML::Restrict), serve-ember-web-site (depends PHP), wave2png.py (depends wave, matplotlib, pylab). ia, wget, rsync, sshpass, csvfix, ssh, jq, grab-site, phantomjs, ldconfig, python, ffmpeg, youtube-dl, git, sqlite3, moreutils, imagemagick, xz
         ; Miscellaneous scripts' dependencies:
-        ;("hashdeep" ,hashdeep)
-        ("mlocate" ,mlocate)
-        ;("perl-html-restrict" ,perl-html-restrict)
+        ;("hashdeep" ,hashdeep) ; csum
+        ("mlocate" ,mlocate) ; findq/findq-update
+        ;("perl-html-restrict" ,perl-html-restrict) ; htmlToText.pl
+
         ("glibc" ,glibc)
         ; Main ember_bash_setup_extra dependencies:
         ("glibc" ,glibc) ; available but not propagated by default, I think?? Not sure how to tell for sure. For ldconfig
