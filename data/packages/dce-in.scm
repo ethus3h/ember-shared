@@ -16,7 +16,8 @@
   #:use-module (guix git-download)
   #:use-module (guix build-system gnu)
   #:use-module (guix licenses)
-  #:use-module (gnu packages vim))
+  #:use-module (gnu packages vim)
+  (use-modules (gnu packages linux)))
 
 (define-public ember-shared-error-notify
   (package
