@@ -965,11 +965,11 @@ testAndGenerateGuixPackage() (
     else
         pn="$repository"
     fi
+    packagesDir="$emberPath/ember-shared/data/packages/"
     cp data/packages/dce.scm.tpl ~/ember-auto-build-temp/dce.scm
     echo "$pn" >> data/packages/packages.lst
     cat data/packages/packages.lst | removeDuplicateLines | sponge data/packages/packages.lst
     emberPath="$(ember-getconf EmberLibrary)"
-    packagesDir="$emberPath/ember-shared/data/packages/"
     mkdir -p "$packageDir/$pn/"
     (
         cd ~ || die
