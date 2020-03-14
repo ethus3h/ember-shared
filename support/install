@@ -91,7 +91,6 @@ if [[ ! -e "$emberEmberdir" ]]; then
 fi
 
 mkdir -p "$emberBindir"
-mkdir -p "$emberDatadir"
 
 if [[ -e data ]]; then
     mkdir -p "$emberDatadir/$packageName"
@@ -124,6 +123,9 @@ if [[ -e "support/$packageName.conf" ]]; then
 fi
 
 #### End of Makefile install script template (fragment) ####
+
+mkdir -p "$emberDatadir"
+mkdir -p "$emberDatadir"
 
 moduleName="$(<module-name)"
 if [[ "extra" != "$moduleName" ]]; then
