@@ -64,6 +64,7 @@ if [[ -n "$module" ]]; then
     esac
 else
     # Not using module-split installation
+    mv scripts scripts.bak
     mv modules/error-notify/* scripts/
     mv modules/core/* scripts/
     mv modules/main/* scripts/
