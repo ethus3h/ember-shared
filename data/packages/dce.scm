@@ -21,15 +21,15 @@
 (define-public ember-shared-error-notify
   (package
     (name "ember-shared-error-notify")
-    (version "")
+    (version "1.1.4.475-5b4f1e8b52221a3b21ef91e159c711f674c88985")
     (source (origin
               (method git-fetch)
               (uri (git-reference
                 (url "https://github.com/ethus3h/ember-shared.git")
-                (commit "")))
+                (commit "5b4f1e8b52221a3b21ef91e159c711f674c88985")))
               (sha256
                (base32
-                ""))))
+                "1zgs35shbgcvz1c7962rqcpgxvaf373n8i3x1lpfan3f5v3pqcyq"))))
     (build-system gnu-build-system)
     (arguments '(#:configure-flags '("--module" "error-notify") #:phases (modify-phases %standard-phases (delete 'check))))
     (inputs `(("xxd" ,xxd)))
@@ -41,15 +41,15 @@
 (define-public ember-shared-error-notify
   (package
     (name "ember-shared-error-notify")
-    (version "")
+    (version "1.1.4.475-5b4f1e8b52221a3b21ef91e159c711f674c88985")
     (source (origin
               (method git-fetch)
               (uri (git-reference
                 (url "https://github.com/ethus3h/ember-shared.git")
-                (commit "")))
+                (commit "5b4f1e8b52221a3b21ef91e159c711f674c88985")))
               (sha256
                (base32
-                ""))))
+                "1zgs35shbgcvz1c7962rqcpgxvaf373n8i3x1lpfan3f5v3pqcyq"))))
     (build-system gnu-build-system)
     (arguments '(#:configure-flags '("--module" "error-notify") #:phases (modify-phases %standard-phases (delete 'check))))
     (inputs `(("xxd" ,xxd)))
