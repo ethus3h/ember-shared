@@ -54,7 +54,8 @@
     (arguments '(#:configure-flags '("--module" "core") #:phases (modify-phases %standard-phases (delete 'check))))
     (propagated-inputs `(
         ("ember-shared-error-notify" ,ember-shared-error-notify)
-        ; many inputs are implicit in the build system: bash, coreutils, util-linux
+        ; many inputs are implicit in the build system: bash, coreutils, util-linux, sed, gawk
+        ("util-linux" ,util-linux)
         ("util-linux" ,util-linux)
     ))
     (synopsis "ember-shared core")
