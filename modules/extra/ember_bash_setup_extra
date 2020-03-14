@@ -951,6 +951,8 @@ checkedxz() (
 )
 
 testGuixPackage() (
+    cd ~/guix
+
 )
 
 testAndGenerateGuixPackage() (
