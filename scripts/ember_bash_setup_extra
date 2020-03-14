@@ -1017,7 +1017,7 @@ testAndGenerateGuixPackage() (
     eogup-single
     cd ~/guix || die
     echo
-    echo './pre-inst-env guix environment --container --ad-hoc -e '\''(@ (gnu) %base-packages)'\'' ember-shared-core'
+    echo './pre-inst-env guix environment --container --ad-hoc -e '\''(@ (gnu) %base-packages ember-shared-core)'\'''
     echo
     printf '%b' '\033[1;31m'
     echo 'To finish, run:'
