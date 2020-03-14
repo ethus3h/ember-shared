@@ -23,6 +23,7 @@
   #:use-module (gnu packages admin)
   #:use-module (gnu packages search)
   #:use-module (gnu packages package-management)
+  #:use-module (gnu packages python)
 )
 
 (define-public ember-shared-error-notify
