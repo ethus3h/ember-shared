@@ -62,6 +62,9 @@ if [[ -n "$module" ]]; then
         ;;
     extra)
         # extra module should not install duplicate copies of things
+        mv data data.bak
+        mkdir support.bak
+        mv support/*.conf support.bak/
         ;;
     *)
         true
