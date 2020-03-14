@@ -52,7 +52,9 @@
                 "TEMPLATE-PLACEHOLDER-HASH:ember-shared-core"))))
     (build-system gnu-build-system)
     (arguments '(#:configure-flags '("--module" "core") #:phases (modify-phases %standard-phases (delete 'check))))
-    (propagated-inputs `(("ember-shared-error-notify" ,ember-shared-error-notify) ("ember-shared-error-notify" ,ember-shared-error-notify)))
+    (propagated-inputs `(
+        ("ember-shared-error-notify" ,ember-shared-error-notify)
+        ("ember-shared-error-notify" ,ember-shared-error-notify)))
     (synopsis "ember-shared core")
     (description "Shell script library core module")
     (home-page "http://futuramerlin.com/ancillary/ember-shared/")
