@@ -128,7 +128,7 @@ mkdir -p "$emberDatadir"
 mkdir -p "$emberSysconfdir"
 
 moduleName=""
-if [[ -e "" ]]
+if [[ -e "module-name" ]]
 moduleName="$(<module-name)"
 if [[ "extra" != "$moduleName" ]]; then
     ereplace "73FAB73B-EEE4-4992-8622-4F3FCEC9823A" "$(date-uuid)" support/ember-shared.conf
