@@ -58,7 +58,7 @@ if [[ -n "$module" ]]; then
         rm scripts/{csum,ember_bash_setup_core,ember_bash_setup_extra,ember-shared-update,error-notify,findq,findq-update,htmlToText.pl,serve-ember-web-site,wav2png.py}
         ;;
     extra)
-        printf '%s' "${1#*=}" > support/.datadir
+        rm scripts/{csum,ember_bash_setup_core,ember_bash_setup_extra,ember-shared-update,error-notify,findq,findq-update,htmlToText.pl,serve-ember-web-site,wav2png.py}
         ;;
     *)
         true
