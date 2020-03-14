@@ -987,11 +987,11 @@ testAndGenerateGuixPackage() (
         fi
         pushd "$repository" || die
         hash="$(guix hash -rx .)"
-        echo "$hash" > "$packagesDir/hash"
+        echo "$hash" > "$packagesDir/$pn/hash"
         commit="$(git rev-parse HEAD)"
-        echo "$commit" > "$packagesDir/commit"
+        echo "$commit" > "$packagesDir/$pn/commit"
         version="$version-$commit"
-        echo "$version" > "$packagesDir/version"
+        echo "$version" > "$packagesDir/$pn/version"
         popd || die
         while IFS= read -r line; do
             (
