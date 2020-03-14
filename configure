@@ -65,6 +65,7 @@ if [[ -n "$module" ]]; then
 else
     # Not using module-split installation
     mv scripts scripts.bak
+    cp -r scripts.bak scripts
     mv modules/error-notify/* scripts/
     mv modules/core/* scripts/
     mv modules/main/* scripts/
