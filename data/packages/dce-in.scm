@@ -84,9 +84,8 @@
     (propagated-inputs `(
         ("ember-shared-core" ,ember-shared-core)
         ; inputs this needs are implicit in the build system: grep, findutils
-        ("util-linux" ,util-linux)
-        ("perl" ,perl)
-        ("xxd" ,xxd)
+        ("nano" ,nano)
+        ("sudo" ,sudo)
     ))
     (synopsis "ember-shared core")
     (description "Shell script library core module")
