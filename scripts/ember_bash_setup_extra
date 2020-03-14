@@ -992,7 +992,7 @@ testAndGenerateGuixPackage() (
         popd || die
         while IFS= read -r line; do
             (
-                hash="$(<"$packagesDir"/)"
+                hash="$(<"$packagesDir"/pn)"
                 ereplace "TEMPLATE-PLACEHOLDER-HASH:$pn" "$hash" dce.scm
                 ereplace "TEMPLATE-PLACEHOLDER-COMMIT:$pn" "$commit" dce.scm
                 ereplace "TEMPLATE-PLACEHOLDER-VERSION:$pn" "$version" dce.scm
