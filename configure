@@ -67,6 +67,9 @@ if [[ -n "$module" ]]; then
 else
     # Not using module-split installation
     mv modules/core/* scripts/
+    mv modules/core/* scripts/
+    mv modules/core/* scripts/
+    mv modules/core/* scripts/
 fi
 
 if ! fmwtk_loc="$(type -P "futuramerlin-web-toolkit-build")" || [[ -z $fmwtk_loc ]]; then
