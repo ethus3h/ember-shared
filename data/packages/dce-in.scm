@@ -55,7 +55,7 @@
     (propagated-inputs `(
         ("ember-shared-error-notify" ,ember-shared-error-notify)
         ; many inputs are implicit in the build system: bash, coreutils, util-linux
-        ("ember-shared-error-notify" ,ember-shared-error-notify)
+        ("util-linux" ,util-linux)
     ))
     (synopsis "ember-shared core")
     (description "Shell script library core module")
