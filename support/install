@@ -125,10 +125,12 @@ fi
 #### End of Makefile install script template (fragment) ####
 
 moduleName="$(<module-name)"
+if [[ "extra" != "$moduleName" ]]; then
 ereplace "73FAB73B-EEE4-4992-8622-4F3FCEC9823A" "$(date-uuid)" support/ember-shared.conf
 ereplace "/usr/local/var" "$emberSharedstatedir" support/ember-shared.conf
 ereplace '/var/lib/ember' "$emberEmberdir" support/ember-shared.conf
 ereplace "/usr/local/etc" "$emberSysconfdir" scripts/ember-getconf
+fi
 
 mkdir -p "$emberSharedstatedir"/ember
 
