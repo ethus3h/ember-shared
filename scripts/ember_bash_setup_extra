@@ -973,7 +973,7 @@ testAndGenerateGuixPackage() (
     cp "$packagesDir"/dce.scm.tpl ~/ember-auto-build-temp/dce.scm
     echo "$pn" >> "$packagesDir"/packages.lst
     cat "$packagesDir"/packages.lst | removeDuplicateLines | sponge "$packagesDir"/packages.lst
-    mkdir -p "$packageDir/$pn/"
+    mkdir -p "$packagesDir/$pn/"
     (
         cd ~ || die
         mkdir -p ember-auto-build-temp
