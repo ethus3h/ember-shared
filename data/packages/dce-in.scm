@@ -96,18 +96,18 @@
 
 (define-public ember-shared-extra
   (package
-    (name "ember-shared-main")
-    (version "TEMPLATE-PLACEHOLDER-VERSION:ember-shared-main")
+    (name "ember-shared-extra")
+    (version "TEMPLATE-PLACEHOLDER-VERSION:ember-shared-extra")
     (source (origin
               (method git-fetch)
               (uri (git-reference
                 (url "https://github.com/ethus3h/ember-shared.git")
-                (commit "TEMPLATE-PLACEHOLDER-COMMIT:ember-shared-main")))
+                (commit "TEMPLATE-PLACEHOLDER-COMMIT:ember-shared-extra")))
               (sha256
                (base32
-                "TEMPLATE-PLACEHOLDER-HASH:ember-shared-main"))))
+                "TEMPLATE-PLACEHOLDER-HASH:ember-shared-extra"))))
     (build-system gnu-build-system)
-    (arguments '(#:configure-flags '("--module" "main") #:phases (modify-phases %standard-phases (delete 'check))))
+    (arguments '(#:configure-flags '("--module" "extra") #:phases (modify-phases %standard-phases (delete 'check))))
     (propagated-inputs `(
         ("ember-shared-core" ,ember-shared-core)
         ; inputs this needs are implicit in the build system: grep, findutils
