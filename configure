@@ -81,6 +81,7 @@ else
             echo "scripts.bak.2 already exists. Is this not a clean source tree?"
             exit 1
         fi
+        mv scripts.bak scripts.bak.2
     fi
     mv scripts scripts.bak
     cp -r scripts.bak scripts
