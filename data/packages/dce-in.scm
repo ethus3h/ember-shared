@@ -22,6 +22,7 @@
   #:use-module (gnu packages nano)
   #:use-module (gnu packages admin)
   #:use-module (gnu packages search)
+  #:use-module (gnu packages php)
   #:use-module (gnu packages python)
   #:use-module (gnu packages python-xyz)
   #:use-module (gnu packages wget)
