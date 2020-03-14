@@ -58,12 +58,6 @@ if [[ -n "$module" ]]; then
     core)
         mv support/core.Makefile Makefile
         ;;
-    main)
-        rm scripts/{csum,ember_bash_setup_core,ember_bash_setup_extra,ember-shared-update,error-notify,findq,findq-update,htmlToText.pl,serve-ember-web-site,wav2png.py}
-        ;;
-    extra)
-        rm scripts/{crystallize-getconf,die,disk-size-in-bytes,}
-        ;;
     *)
         true
         ;;
