@@ -28,6 +28,7 @@
   #:use-module (gnu packages wget)
   #:use-module (gnu packages rsync)
   #:use-module (gnu packages ssh)
+  #:use-module (gnu packages video)
 )
 
 (define-public ember-shared-error-notify
@@ -139,6 +140,7 @@
         ;("grab-site" ,grab-site)
         ;("phantomjs" ,phantomjs)
         ("glibc" ,glibc) ; available but not propagated by default, I think?? Not sure how to tell for sure. Provides ldconfig
+        ("ffmpeg" ,ffmpeg)
 
         ("guix" ,guix)
     ))
