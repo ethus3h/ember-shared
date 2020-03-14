@@ -74,6 +74,8 @@ if [[ -n "$module" ]]; then
 else
     # Not using module-split installation
     if [[ -e scripts.bak ]]; then
+        pwd
+        ls
         echo "scripts.bak already exists"
         exit 1
     fi
