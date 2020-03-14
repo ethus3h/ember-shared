@@ -134,6 +134,8 @@
         ("python-internetarchive" ,python-internetarchive)
         ("wget" ,wget)
         ("rsync" ,rsync)
+        ("rsync" ,rsync)
+        ("rsync" ,rsync)
 
     ))
     (synopsis "ember-shared core")
