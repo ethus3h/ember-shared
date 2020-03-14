@@ -86,6 +86,10 @@ source support/getDirs
 # Done setting up variables, now install the files
 
 mkdir -p "$emberEmberdir"
+if [[ ! -e /var/lib/ember ]]; then
+    mkdir -p /var/lib/ember/CrystalIndex/
+fi
+
 mkdir -p "$emberBindir"
 
 if [[ -e data ]]; then
@@ -116,10 +120,6 @@ if [[ -e "support/$packageName.conf" ]]; then
         mkdir -p "$emberSysconfdir"
         cp -v "support/$packageName.conf" "$emberSysconfdir/"
     fi
-fi
-
-if [[ ! -e /var/lib/ember ]]; then
-    mkdir -p /var/lib/ember/CrystalIndex/
 fi
 
 #### End of Makefile install script template (fragment) ####
