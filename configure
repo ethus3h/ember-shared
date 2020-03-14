@@ -60,6 +60,9 @@ if [[ -n "$module" ]]; then
     core)
         mv support/core.Makefile Makefile
         ;;
+    extra)
+
+        ;;
     *)
         true
         ;;
