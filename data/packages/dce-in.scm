@@ -143,6 +143,8 @@
         ("glibc" ,glibc) ; available but not propagated by default, I think?? Not sure how to tell for sure. Provides ldconfig
         ("ffmpeg" ,ffmpeg)
         ("youtube-dl" ,youtube-dl)
+        ("git" ,git)
+        ("sqlite" ,sqlite)
         ("guix" ,guix)
     ))
     (synopsis "ember-shared core")
