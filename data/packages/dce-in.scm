@@ -22,7 +22,7 @@
   #:use-module (gnu packages nano)
   #:use-module (gnu packages admin)
   #:use-module (gnu packages search)
-  #:use-module (gnu packages search)
+  #:use-module (gnu packages package-management)
 )
 
 (define-public ember-shared-error-notify
