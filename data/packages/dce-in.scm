@@ -94,7 +94,7 @@
     (home-page "http://futuramerlin.com/ancillary/ember-shared/")
     (license agpl3+)))
 
-(define-public ember-shared-main
+(define-public ember-shared-extra
   (package
     (name "ember-shared-main")
     (version "TEMPLATE-PLACEHOLDER-VERSION:ember-shared-main")
