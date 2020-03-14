@@ -21,15 +21,35 @@
 (define-public ember-shared-error-notify
   (package
     (name "ember-shared-error-notify")
-    (version "1.1.4.475-a7b3025f99862b338617130c98985e6a5fbcfe3a")
+    (version "")
     (source (origin
               (method git-fetch)
               (uri (git-reference
                 (url "https://github.com/ethus3h/ember-shared.git")
-                (commit "a7b3025f99862b338617130c98985e6a5fbcfe3a")))
+                (commit "")))
               (sha256
                (base32
-                "0d930wrgi1110rs0y7vyvc8vpd7lnygkyrndwzv0vypzlqnwgcgy"))))
+                ""))))
+    (build-system gnu-build-system)
+    (arguments '(#:configure-flags '("--module" "error-notify") #:phases (modify-phases %standard-phases (delete 'check))))
+    (inputs `(("xxd" ,xxd)))
+    (synopsis "ember-shared error-notify script")
+    (description "Shell script to notify of errors")
+    (home-page "http://futuramerlin.com/ancillary/ember-shared/")
+    (license agpl3+)))
+
+(define-public ember-shared-error-notify
+  (package
+    (name "ember-shared-error-notify")
+    (version "")
+    (source (origin
+              (method git-fetch)
+              (uri (git-reference
+                (url "https://github.com/ethus3h/ember-shared.git")
+                (commit "")))
+              (sha256
+               (base32
+                ""))))
     (build-system gnu-build-system)
     (arguments '(#:configure-flags '("--module" "error-notify") #:phases (modify-phases %standard-phases (delete 'check))))
     (inputs `(("xxd" ,xxd)))
