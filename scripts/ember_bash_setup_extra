@@ -985,7 +985,6 @@ testAndGenerateGuixPackage() (
             version="0-$commit"
         fi
         popd || die
-        ereplace "TEMPLATE-PLACEHOLDER-PACKAGENAME:$pn" "$pn" dce.scm
         ereplace "TEMPLATE-PLACEHOLDER-HASH:$pn" "$hash" dce.scm
         ereplace "TEMPLATE-PLACEHOLDER-COMMIT:$pn" "$commit" dce.scm
         ereplace "TEMPLATE-PLACEHOLDER-VERSION:$pn" "$version" dce.scm
