@@ -116,6 +116,7 @@
         ; Miscellaneous scripts' dependencies:
         ;("hashdeep" ,hashdeep) ; csum
         ("mlocate" ,mlocate) ; findq/findq-update
+        ("perl" ,perl)
         ;("perl-html-restrict" ,perl-html-restrict) ; htmlToText.pl
 
         ("glibc" ,glibc)
