@@ -25,6 +25,7 @@
   #:use-module (gnu packages php)
   #:use-module (gnu packages python)
   #:use-module (gnu packages python-xyz)
+  #:use-module (gnu packages web)
   #:use-module (gnu packages wget)
   #:use-module (gnu packages rsync)
   #:use-module (gnu packages ssh)
