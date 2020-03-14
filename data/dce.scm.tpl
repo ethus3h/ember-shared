@@ -20,8 +20,8 @@
 
 (define-public ember-shared-error-notify
   (package
-    (name "TEMPLATE-PLACEHOLDER-PACKAGENAME")
-    (version "TEMPLATE-PLACEHOLDER-VERSION")
+    (name "ember-shared-error-notify")
+    (version "TEMPLATE-PLACEHOLDER-VERSION:ember-shared-error-notify")
     (source (origin
               (method git-fetch)
               (uri (git-reference
