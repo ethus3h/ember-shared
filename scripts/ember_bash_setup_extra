@@ -983,6 +983,7 @@ testAndGenerateGuixPackage() (
         fi
         pushd "$repository" || die
         hash="$(guix hash -rx .)"
+        print "$hash" >
         commit="$(git rev-parse HEAD)"
         version="$version-$commit"
         popd || die
