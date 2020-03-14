@@ -138,6 +138,9 @@
         ("sshpass" ,sshpass)
         ;("csvfix" ,csvfix)
         ("jq" ,jq)
+        ;("grab-site" ,grab-site)
+        ;("phantomjs" ,phantomjs)
+
     ))
     (synopsis "ember-shared core")
     (description "Shell script library extra module")
