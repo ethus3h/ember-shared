@@ -990,8 +990,9 @@ testAndGenerateGuixPackage() (
         [[ -z "$hash" ]] && die "hash was empty"
         echo "$hash" > "$packagesDir/$pn/hash"
         commit="$(git rev-parse HEAD)"
-        [[ -z "$commit" ]] && die "hash was empty"
+        [[ -z "$commit" ]] && die "commit was empty"
         echo "$commit" > "$packagesDir/$pn/commit"
+
         version="$version-$commit"
         [[ -z "$version" ]] && die "hash was empty"
         echo "$version" > "$packagesDir/$pn/version"
