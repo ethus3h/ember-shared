@@ -52,7 +52,7 @@ if [[ -n "$module" ]]; then
         mv support/error-notify.Makefile Makefile
         ;;
     core)
-        printf '%s' "${1#*=}" > support/.mandir
+        mv support/core.Makefile Makefile
         ;;
     main)
         printf '%s' "${1#*=}" > support/.infodir
