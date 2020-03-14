@@ -149,6 +149,7 @@
         ("git" ,git)
         ("sqlite" ,sqlite)
         ("moreutils" ,moreutils)
+        ("imagemagick" ,imagemagick)
         ("guix" ,guix)
     ))
     (synopsis "ember-shared core")
