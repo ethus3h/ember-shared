@@ -987,6 +987,7 @@ testAndGenerateGuixPackage() (
         fi
         pushd "$repository" || die
         hash="$(guix hash -rx .)"
+        [[ -z "$hash" ]] && die "hash was empty"
         echo "$hash" > "$packagesDir/$pn/hash"
         commit="$(git rev-parse HEAD)"
         echo "$commit" > "$packagesDir/$pn/commit"
