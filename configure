@@ -65,7 +65,7 @@ if [[ -n "$module" ]]; then
         ;;
     esac
 else
-    # Not using modular installation
+    # Not using module-split installation
     mv modules/core/* scripts/
 fi
 
