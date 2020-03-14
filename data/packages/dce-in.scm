@@ -82,7 +82,7 @@
                (base32
                 "TEMPLATE-PLACEHOLDER-HASH:ember-shared-main"))))
     (build-system gnu-build-system)
-    (arguments '(#:configure-flags '("--module" "core") #:phases (modify-phases %standard-phases (delete 'check))))
+    (arguments '(#:configure-flags '("--module" "main") #:phases (modify-phases %standard-phases (delete 'check))))
     (propagated-inputs `(
         ("ember-shared-core" ,ember-shared-core)
         ; inputs this needs are implicit in the build system: grep, findutils
