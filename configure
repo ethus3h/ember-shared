@@ -55,7 +55,7 @@ if [[ -n "$module" ]]; then
         mv support/core.Makefile Makefile
         ;;
     main)
-        printf '%s' "${1#*=}" > support/.infodir
+        rm scripts/
         ;;
     extra)
         printf '%s' "${1#*=}" > support/.datadir
