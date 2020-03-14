@@ -19,7 +19,7 @@
   #:use-module (gnu packages vim)
   #:use-module (gnu packages linux)
   #:use-module (gnu packages perl)
-  #:use-module (gnu packages linux)
+  #:use-module (gnu packages nano)
 )
 
 (define-public ember-shared-error-notify
