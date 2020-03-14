@@ -55,7 +55,7 @@ if [[ -n "$module" ]]; then
         mv support/core.Makefile Makefile
         ;;
     main)
-        rm scripts/{}
+        rm scripts/{csum,ember_bash_setup_extra,ember-shared-update,findq,findq-update,htmlToText.pl,serve-ember-web-site,wave2png.py}
         ;;
     extra)
         printf '%s' "${1#*=}" > support/.datadir
