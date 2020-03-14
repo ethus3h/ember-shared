@@ -970,6 +970,7 @@ testAndGenerateGuixPackage() (
     cat data/packages/packages.lst | removeDuplicateLines | sponge data/packages/packages.lst
     emberPath="$(ember-getconf EmberLibrary)"
     packageDir="$emberPath/ember-shared/data/packages/$pn/"
+    mkdir -p "$packageDir"
     (
         cd ~ || die
         mkdir -p ember-auto-build-temp
@@ -983,7 +984,7 @@ testAndGenerateGuixPackage() (
         fi
         pushd "$repository" || die
         hash="$(guix hash -rx .)"
-        echo "$hash" >
+        echo "$hash" > "$packageDir"
         commit="$(git rev-parse HEAD)"
         version="$version-$commit"
         popd || die
