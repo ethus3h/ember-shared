@@ -993,9 +993,9 @@ testAndGenerateGuixPackage() (
         while IFS= read -r line; do
             (
                 hash="$(<"$packagesDir/$line/hash")"
-                ereplace "TEMPLATE-PLACEHOLDER-HASH:$pn" "$hash" dce.scm
-                ereplace "TEMPLATE-PLACEHOLDER-COMMIT:$pn" "$commit" dce.scm
-                ereplace "TEMPLATE-PLACEHOLDER-VERSION:$pn" "$version" dce.scm
+                ereplace "TEMPLATE-PLACEHOLDER-HASH:$line" "$hash" dce.scm
+                ereplace "TEMPLATE-PLACEHOLDER-COMMIT:$line" "$commit" dce.scm
+                ereplace "TEMPLATE-PLACEHOLDER-VERSION:$line" "$version" dce.scm
             )
         done < "$packagesDir"/packages.lst
         cd ~/guix || die
