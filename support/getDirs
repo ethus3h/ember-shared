@@ -105,6 +105,6 @@ else
 fi
 #echo "emberSharedstatedir: $emberSharedstatedir"
 
-emberEmberdir="$emberPrefix"/Ember\ Library
+emberEmberdir="$emberSharedstatedir"/lib/ember
 
 # Done setting up variables
