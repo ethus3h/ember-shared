@@ -16,7 +16,10 @@
   #:use-module (guix git-download)
   #:use-module (guix build-system gnu)
   #:use-module (guix licenses)
-  #:use-module (gnu packages vim))
+  #:use-module (gnu packages vim)
+  #:use-module (gnu packages linux)
+  #:use-module (gnu packages perl)
+)
 
 (define-public ember-shared-error-notify
   (package
@@ -41,15 +44,15 @@
 (define-public ember-shared-core
   (package
     (name "ember-shared-core")
-    (version "1.1.4.476-3357ea18d9f6f8029a8def5ebabcab7f40e4a346")
+    (version "1.1.4.476-8a323eadd899a3b946871c79dbc6ccd5b4762f25")
     (source (origin
               (method git-fetch)
               (uri (git-reference
                 (url "https://github.com/ethus3h/ember-shared.git")
-                (commit "3357ea18d9f6f8029a8def5ebabcab7f40e4a346")))
+                (commit "8a323eadd899a3b946871c79dbc6ccd5b4762f25")))
               (sha256
                (base32
-                "1zd334b1gh8chp47kcpn9pw8szpihpybj2sarvr7r60k01h5wvb0"))))
+                "0s2j4nvhg564y6man5i3zxsj3rvarsp5skiv2avyiwfmgzc16lm2"))))
     (build-system gnu-build-system)
     (arguments '(#:configure-flags '("--module" "core") #:phases (modify-phases %standard-phases (delete 'check))))
     (propagated-inputs `(
