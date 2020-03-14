@@ -61,7 +61,7 @@ if [[ -n "$module" ]]; then
         mv support/core.Makefile Makefile
         ;;
     extra)
-        # extra module should not install a duplicate copy of
+        # extra module should not install duplicate copies of things
         ;;
     *)
         true
