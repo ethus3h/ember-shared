@@ -21,6 +21,19 @@
   #:use-module (gnu packages perl)
   #:use-module (gnu packages nano)
   #:use-module (gnu packages admin)
+  #:use-module (gnu packages search)
+  #:use-module (gnu packages python)
+  #:use-module (gnu packages python-xyz)
+  #:use-module (gnu packages wget)
+  #:use-module (gnu packages rsync)
+  #:use-module (gnu packages ssh)
+  #:use-module (gnu packages video)
+  #:use-module (gnu packages version-control)
+  #:use-module (gnu packages sqlite)
+  #:use-module (gnu packages moreutils)
+  #:use-module (gnu packages imagemagick)
+  #:use-module (gnu packages compression)
+  #:use-module (gnu packages package-management)
 )
 
 (define-public ember-shared-error-notify
@@ -72,15 +85,15 @@
 (define-public ember-shared-main
   (package
     (name "ember-shared-main")
-    (version "1.1.4.476-c4f360f447e8e83fbe92a8ab730e0473c25b9879")
+    (version "1.1.4.477-ab9a8e3b07df171274f2f51fb1faf370d7107600")
     (source (origin
               (method git-fetch)
               (uri (git-reference
                 (url "https://github.com/ethus3h/ember-shared.git")
-                (commit "c4f360f447e8e83fbe92a8ab730e0473c25b9879")))
+                (commit "ab9a8e3b07df171274f2f51fb1faf370d7107600")))
               (sha256
                (base32
-                "1rzdkrflpgz2smf6x548348wxfjz1nfqmd09wwyfbpmr7icsn1hk"))))
+                "0dc2jccf03wsy4dcps30p78q3l10zng9h8wzq46kvf8sqbgax58i"))))
     (build-system gnu-build-system)
     (arguments '(#:configure-flags '("--module" "main") #:phases (modify-phases %standard-phases (delete 'check))))
     (propagated-inputs `(
@@ -90,6 +103,58 @@
         ("sudo" ,sudo)
     ))
     (synopsis "ember-shared core")
-    (description "Shell script library core module")
+    (description "Shell script library main module")
+    (home-page "http://futuramerlin.com/ancillary/ember-shared/")
+    (license agpl3+)))
+
+(define-public ember-shared-extra
+  (package
+    (name "ember-shared-extra")
+    (version "TEMPLATE-PLACEHOLDER-VERSION:ember-shared-extra")
+    (source (origin
+              (method git-fetch)
+              (uri (git-reference
+                (url "https://github.com/ethus3h/ember-shared.git")
+                (commit "TEMPLATE-PLACEHOLDER-COMMIT:ember-shared-extra")))
+              (sha256
+               (base32
+                "TEMPLATE-PLACEHOLDER-HASH:ember-shared-extra"))))
+    (build-system gnu-build-system)
+    (arguments '(#:configure-flags '("--module" "extra") #:phases (modify-phases %standard-phases (delete 'check))))
+    (propagated-inputs `(
+        ("ember-shared-main" ,ember-shared-main)
+        ; inputs this needs are implicit in the build system: grep, findutils
+        ; csum (depends hashdeep), ember_bash_setup_extra (see for dependencies), ember-shared-update, findq/findq-update (depend locate), htmlToText.pl (depends HTML::Restrict), serve-ember-web-site (depends PHP & futuramerlin-web-toolkit), wave2png.py (depends wave, matplotlib, pylab (part of matplotlib)). ia, wget, rsync, sshpass, ssh, csvfix, jq, grab-site, phantomjs, ldconfig, python, ffmpeg, youtube-dl, git, sqlite3, moreutils, imagemagick, xz; guix
+        ; Miscellaneous scripts' dependencies:
+        ;("hashdeep" ,hashdeep) ; csum
+        ("mlocate" ,mlocate) ; findq/findq-update
+        ("perl" ,perl) ; htmlToText.pl
+        ;("perl-html-restrict" ,perl-html-restrict) ; htmlToText.pl
+        ("php" ,php) ; serve-ember-web-site
+        ;("futuramerlin-web-toolkit" ,futuramerlin-web-toolkit) ; serve-ember-web-site
+        ("python" ,python) ; wave2png.py
+        ("python-matplotlib" ,python-matplotlib) ; wave2png.py
+        ; Main ember_bash_setup_extra dependencies:
+        ("python-internetarchive" ,python-internetarchive)
+        ("wget" ,wget)
+        ("rsync" ,rsync)
+        ("openssh" ,openssh)
+        ("sshpass" ,sshpass)
+        ;("csvfix" ,csvfix)
+        ("jq" ,jq)
+        ;("grab-site" ,grab-site)
+        ;("phantomjs" ,phantomjs)
+        ("glibc" ,glibc) ; available but not propagated by default, I think?? Not sure how to tell for sure. Provides ldconfig
+        ("ffmpeg" ,ffmpeg)
+        ("youtube-dl" ,youtube-dl)
+        ("git" ,git)
+        ("sqlite" ,sqlite)
+        ("moreutils" ,moreutils)
+        ("imagemagick" ,imagemagick)
+        ("xz" ,xz)
+        ("guix" ,guix)
+    ))
+    (synopsis "ember-shared core")
+    (description "Shell script library extra module")
     (home-page "http://futuramerlin.com/ancillary/ember-shared/")
     (license agpl3+)))
