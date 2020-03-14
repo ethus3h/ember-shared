@@ -93,6 +93,7 @@
     (description "Shell script library core module")
     (home-page "http://futuramerlin.com/ancillary/ember-shared/")
     (license agpl3+)))
+
 (define-public ember-shared-main
   (package
     (name "ember-shared-main")
