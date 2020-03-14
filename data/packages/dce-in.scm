@@ -83,7 +83,7 @@
     (arguments '(#:configure-flags '("--module" "core") #:phases (modify-phases %standard-phases (delete 'check))))
     (propagated-inputs `(
         ("ember-shared-core" ,ember-shared-core)
-        ; many inputs this needs are implicit in the build system: findutils
+        ; input this needs are implicit in the build system: findutils
         ("util-linux" ,util-linux)
         ("perl" ,perl)
         ("xxd" ,xxd)
