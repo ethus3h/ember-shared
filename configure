@@ -94,4 +94,5 @@ fi
 if ! fmwtk_loc="$(type -P "futuramerlin-web-toolkit-build")" || [[ -z $fmwtk_loc ]]; then
     echo $'\n'"futuramerlin-web-toolkit not found: documentation will not be built."$'\n'
 fi
+touch "configured"
 echo "Configuring complete."
