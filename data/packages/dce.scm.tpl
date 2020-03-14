@@ -32,7 +32,7 @@
                 "TEMPLATE-PLACEHOLDER-HASH:ember-shared-error-notify"))))
     (build-system gnu-build-system)
     (arguments '(#:configure-flags '("--module" "error-notify") #:phases (modify-phases %standard-phases (delete 'check))))
-    (inputs `(("xxd" ,xxd)))
+    (propagated-inputs `(("xxd" ,xxd)))
     (synopsis "ember-shared error-notify script")
     (description "Shell script to notify of errors")
     (home-page "http://futuramerlin.com/ancillary/ember-shared/")
