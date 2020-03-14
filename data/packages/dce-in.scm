@@ -124,8 +124,8 @@
         ("php" ,php) ; serve-ember-web-site
         ;("futuramerlin-web-toolkit" ,futuramerlin-web-toolkit) ; serve-ember-web-site
         ("python" ,python) ; wave2png.py
-        ("python-matplotlib" ,python-matplotlib)
-        ("" ,)
+        ("python-matplotlib" ,python-matplotlib) ; wave2png.py
+        ("" ,) ; wave2png.py
         ("glibc" ,glibc)
         ; Main ember_bash_setup_extra dependencies:
         ("glibc" ,glibc) ; available but not propagated by default, I think?? Not sure how to tell for sure. For ldconfig
