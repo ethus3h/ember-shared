@@ -93,3 +93,27 @@
     (description "Shell script library core module")
     (home-page "http://futuramerlin.com/ancillary/ember-shared/")
     (license agpl3+)))
+(define-public ember-shared-main
+  (package
+    (name "ember-shared-main")
+    (version "TEMPLATE-PLACEHOLDER-VERSION:ember-shared-main")
+    (source (origin
+              (method git-fetch)
+              (uri (git-reference
+                (url "https://github.com/ethus3h/ember-shared.git")
+                (commit "TEMPLATE-PLACEHOLDER-COMMIT:ember-shared-main")))
+              (sha256
+               (base32
+                "TEMPLATE-PLACEHOLDER-HASH:ember-shared-main"))))
+    (build-system gnu-build-system)
+    (arguments '(#:configure-flags '("--module" "main") #:phases (modify-phases %standard-phases (delete 'check))))
+    (propagated-inputs `(
+        ("ember-shared-core" ,ember-shared-core)
+        ; inputs this needs are implicit in the build system: grep, findutils
+        ("nano" ,nano)
+        ("sudo" ,sudo)
+    ))
+    (synopsis "ember-shared core")
+    (description "Shell script library core module")
+    (home-page "http://futuramerlin.com/ancillary/ember-shared/")
+    (license agpl3+)))
