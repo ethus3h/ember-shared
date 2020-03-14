@@ -38,9 +38,9 @@
     (home-page "http://futuramerlin.com/ancillary/ember-shared/")
     (license agpl3+)))
 
-(define-public ember-shared-error-notify
+(define-public ember-shared-core
   (package
-    (name "ember-shared-error-notify")
+    (name "ember-shared-core")
     (version "TEMPLATE-PLACEHOLDER-VERSION:ember-shared-error-notify")
     (source (origin
               (method git-fetch)
