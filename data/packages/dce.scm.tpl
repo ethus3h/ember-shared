@@ -41,19 +41,19 @@
 (define-public ember-shared-core
   (package
     (name "ember-shared-core")
-    (version "TEMPLATE-PLACEHOLDER-VERSION:ember-shared-error-notify")
+    (version "TEMPLATE-PLACEHOLDER-VERSION:ember-shared-core")
     (source (origin
               (method git-fetch)
               (uri (git-reference
                 (url "https://github.com/ethus3h/ember-shared.git")
-                (commit "TEMPLATE-PLACEHOLDER-COMMIT:ember-shared-error-notify")))
+                (commit "TEMPLATE-PLACEHOLDER-COMMIT:ember-shared-core")))
               (sha256
                (base32
-                "TEMPLATE-PLACEHOLDER-HASH:ember-shared-error-notify"))))
+                "TEMPLATE-PLACEHOLDER-HASH:ember-shared-core"))))
     (build-system gnu-build-system)
-    (arguments '(#:configure-flags '("--module" "error-notify") #:phases (modify-phases %standard-phases (delete 'check))))
+    (arguments '(#:configure-flags '("--module" "core") #:phases (modify-phases %standard-phases (delete 'check))))
     (inputs `(("xxd" ,xxd)))
-    (synopsis "ember-shared error-notify script")
+    (synopsis "ember-shared core")
     (description "Shell script to notify of errors")
     (home-page "http://futuramerlin.com/ancillary/ember-shared/")
     (license agpl3+)))
