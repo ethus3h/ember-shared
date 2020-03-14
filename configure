@@ -46,10 +46,11 @@ done
 
 echo "Success will be indicated by printing"' "Configuring complete".'
 if [[ -n "$module" ]]; then
-    rm -r scripts/*
+    rm scripts/*
     if [[ ! -d modules/"$module" ]]; then
         echo "Module $module not found."
     fi
+    mv modules/"$module"/* scripts/
     case $module in
     error-notify)
         mv support/error-notify.Makefile Makefile
