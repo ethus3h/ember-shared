@@ -151,7 +151,7 @@
         ("sqlite" ,sqlite)
         ("moreutils" ,moreutils)
         ("imagemagick" ,imagemagick)
-        ("guix" ,guix)
+        ("xz" ,xz)
         ("guix" ,guix)
     ))
     (synopsis "ember-shared core")
