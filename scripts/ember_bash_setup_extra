@@ -965,7 +965,7 @@ testAndGenerateGuixPackage() (
     else
         pn="$repository"
     fi
-    # .tpl: template
+    # .tpl: abbreviation for template
     cp data/dce.scm.tpl ~/ember-auto-build-temp/dce.scm
     emberPath="$(ember-getconf EmberLibrary)"
     (
