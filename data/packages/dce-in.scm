@@ -114,6 +114,8 @@
         ; csum (depends hashdeep), ember_bash_setup_extra (see for dependencies), ember-shared-update, findq/findq-update (depend locate), htmlToText.pl (depends HTML::Restrict), serve-ember-web-site (depends PHP), wave2png.py (depends wave, matplotlib, pylab). ia, wget, rsync, sshpass, csvfix, ssh, jq, grab-site, phantomjs, ldconfig, python, ffmpeg, youtube-dl, git, sqlite3, moreutils, imagemagick, xz
         ; Miscellaneous scripts' dependencies:
         ;("hashdeep" ,hashdeep)
+        ("mlocate" ,mlocate)
+        ("glibc" ,glibc)
         ; Main ember_bash_setup_extra dependencies:
         ("glibc" ,glibc) ; available but not propagated by default, I think?? Not sure how to tell for sure. For ldconfig
     ))
