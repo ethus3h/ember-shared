@@ -990,6 +990,8 @@ testAndGenerateGuixPackage() (
         version="$version-$commit"
         echo "$version" > "$packageDir/version"
         popd || die
+        while read var; do
+            hash=
         ereplace "TEMPLATE-PLACEHOLDER-HASH:$pn" "$hash" dce.scm
         ereplace "TEMPLATE-PLACEHOLDER-COMMIT:$pn" "$commit" dce.scm
         ereplace "TEMPLATE-PLACEHOLDER-VERSION:$pn" "$version" dce.scm
