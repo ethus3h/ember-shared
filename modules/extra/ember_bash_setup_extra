@@ -955,7 +955,7 @@ testGuixPackage() (
     if [[ -n "$1" ]]; then
         pn="$1"
     else
-        pn="$repository"
+        pn="$(<package-name)"
     fi
 )
 
