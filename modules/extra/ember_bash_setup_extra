@@ -1033,4 +1033,5 @@ testAndGenerateGuixPackage() (
     )
     cp ~/ember-auto-build-temp/dce.scm "$packagesDir"/dce.scm
     eogup-single
+    testGuixPackage "$pn"
 )
