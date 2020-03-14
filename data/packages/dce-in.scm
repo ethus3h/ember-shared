@@ -116,9 +116,9 @@
         ; Miscellaneous scripts' dependencies:
         ;("hashdeep" ,hashdeep) ; csum
         ("mlocate" ,mlocate) ; findq/findq-update
-        ("perl" ,perl)
+        ("perl" ,perl) ; htmlToText.pl
         ;("perl-html-restrict" ,perl-html-restrict) ; htmlToText.pl
-
+        ("php" ,php)
         ("glibc" ,glibc)
         ; Main ember_bash_setup_extra dependencies:
         ("glibc" ,glibc) ; available but not propagated by default, I think?? Not sure how to tell for sure. For ldconfig
