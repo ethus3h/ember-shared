@@ -147,6 +147,7 @@
         ("youtube-dl" ,youtube-dl)
         ("git" ,git)
         ("sqlite" ,sqlite)
+        ("moreutils" ,moreutils)
         ("guix" ,guix)
     ))
     (synopsis "ember-shared core")
