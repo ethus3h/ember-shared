@@ -19,6 +19,8 @@
   #:use-module (gnu packages vim)
   #:use-module (gnu packages linux)
   #:use-module (gnu packages perl)
+  #:use-module (gnu packages nano)
+  #:use-module (gnu packages admin)
 )
 
 (define-public ember-shared-error-notify
@@ -70,15 +72,15 @@
 (define-public ember-shared-main
   (package
     (name "ember-shared-main")
-    (version "1.1.4.476-e98dd6d0d4907dc909a2590bdccbaae9424fc217")
+    (version "1.1.4.476-b227d279795bb9ef95186f22dd9e69ed433b657c")
     (source (origin
               (method git-fetch)
               (uri (git-reference
                 (url "https://github.com/ethus3h/ember-shared.git")
-                (commit "e98dd6d0d4907dc909a2590bdccbaae9424fc217")))
+                (commit "b227d279795bb9ef95186f22dd9e69ed433b657c")))
               (sha256
                (base32
-                "1518b8hkgbch95wibban5s2rannk96w9kxvmv1ihrbq0b3db7qz7"))))
+                "00fljxk9hhskzbmg7hd8scc5mvmf0h1qbk8way26lana55rbfmr0"))))
     (build-system gnu-build-system)
     (arguments '(#:configure-flags '("--module" "core") #:phases (modify-phases %standard-phases (delete 'check))))
     (propagated-inputs `(
