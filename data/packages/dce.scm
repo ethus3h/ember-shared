@@ -25,6 +25,7 @@
   #:use-module (gnu packages php)
   #:use-module (gnu packages python)
   #:use-module (gnu packages python-xyz)
+  #:use-module (gnu packages web)
   #:use-module (gnu packages wget)
   #:use-module (gnu packages rsync)
   #:use-module (gnu packages ssh)
@@ -111,15 +112,15 @@
 (define-public ember-shared-extra
   (package
     (name "ember-shared-extra")
-    (version "1.1.4.477-62166cabaddf3d3ce63fce35dc64082a6fa2497a")
+    (version "1.1.4.477-decd1cd6b0895c1cf79fe451c0715982d8d2b3ac")
     (source (origin
               (method git-fetch)
               (uri (git-reference
                 (url "https://github.com/ethus3h/ember-shared.git")
-                (commit "62166cabaddf3d3ce63fce35dc64082a6fa2497a")))
+                (commit "decd1cd6b0895c1cf79fe451c0715982d8d2b3ac")))
               (sha256
                (base32
-                "0hd663ygdhdp8jzy4ksw204vwm5q3ifdlz950mz5pj807xisliyp"))))
+                "0khj3j459wc6dx7irj6dmjfi8nqc7nxdn0j13q8r9dqbv63y3b8z"))))
     (build-system gnu-build-system)
     (arguments '(#:configure-flags '("--module" "extra") #:phases (modify-phases %standard-phases (delete 'check))))
     (propagated-inputs `(
