@@ -981,8 +981,7 @@ testAndGenerateGuixPackage() (
         pushd "$repository" || die
         hash="$(guix hash -rx .)"
         commit="$(git rev-parse HEAD)"
-        if [[ -z "$version" ]]; then
-            version="0-$commit"
+        version="0-$commit"
         fi
         popd || die
         ereplace "TEMPLATE-PLACEHOLDER-HASH:$pn" "$hash" dce.scm
