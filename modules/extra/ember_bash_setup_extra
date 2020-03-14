@@ -951,6 +951,8 @@ checkedxz() (
 )
 
 testAndGenerateGuixPackage() (
+)
+testAndGenerateGuixPackage() (
     eogup-single
     git push
     mkdir -p ~/ember-auto-build-temp
