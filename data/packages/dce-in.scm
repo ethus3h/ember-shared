@@ -129,8 +129,6 @@
         ("python" ,python) ; wave2png.py
         ("python-matplotlib" ,python-matplotlib) ; wave2png.py
         ; Main ember_bash_setup_extra dependencies:
-        ("glibc" ,glibc) ; available but not propagated by default, I think?? Not sure how to tell for sure. For ldconfig
-        ("guix" ,guix)
         ("python-internetarchive" ,python-internetarchive)
         ("wget" ,wget)
         ("rsync" ,rsync)
@@ -140,6 +138,8 @@
         ("jq" ,jq)
         ;("grab-site" ,grab-site)
         ;("phantomjs" ,phantomjs)
+        ("glibc" ,glibc) ; available but not propagated by default, I think?? Not sure how to tell for sure. For ldconfig
+        ("guix" ,guix)
 
     ))
     (synopsis "ember-shared core")
