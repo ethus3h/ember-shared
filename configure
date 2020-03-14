@@ -5,6 +5,7 @@ set -x
 
 if [[ -e "configured" ]]; then
     echo "Warning: This source tree has already been configured once. Running configure logic again would not work. Stopping."
+    exit
 fi
 
 packageName="$(cat package-name)"
