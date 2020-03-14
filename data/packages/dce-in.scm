@@ -29,6 +29,7 @@
   #:use-module (gnu packages rsync)
   #:use-module (gnu packages ssh)
   #:use-module (gnu packages video)
+  #:use-module (gnu packages version-control)
 )
 
 (define-public ember-shared-error-notify
