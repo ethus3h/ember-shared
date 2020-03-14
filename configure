@@ -73,11 +73,11 @@ if [[ -n "$module" ]]; then
     esac
 else
     # Not using module-split installation
-    if [[ -e scripts.bak ]]; then
+    if [[ -e 'scripts.bak' ]]; then
         pwd
         ls
         echo "scripts.bak already exists. Is this not a clean source tree?"
-    if [[ -e scripts.bak.2 ]]; then
+    if [[ -e 'scripts.bak.2' ]]; then
         echo "scripts.bak.2 already exists. Is this not a clean source tree?"
         exit 1
     fi
