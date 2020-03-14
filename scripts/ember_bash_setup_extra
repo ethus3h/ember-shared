@@ -993,9 +993,9 @@ testAndGenerateGuixPackage() (
         while IFS= read -r line; do
             (
             hash=
-        ereplace "TEMPLATE-PLACEHOLDER-HASH:$pn" "$hash" dce.scm
-        ereplace "TEMPLATE-PLACEHOLDER-COMMIT:$pn" "$commit" dce.scm
-        ereplace "TEMPLATE-PLACEHOLDER-VERSION:$pn" "$version" dce.scm
+            ereplace "TEMPLATE-PLACEHOLDER-HASH:$pn" "$hash" dce.scm
+            ereplace "TEMPLATE-PLACEHOLDER-COMMIT:$pn" "$commit" dce.scm
+            ereplace "TEMPLATE-PLACEHOLDER-VERSION:$pn" "$version" dce.scm
             )
         done < "$emberPath/ember-shared/data/packages/packages.lst"
         cd ~/guix || die
