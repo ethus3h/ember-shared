@@ -73,7 +73,7 @@ ereplace() {
     )
 }
 
-#### Beginning of Makefile install script template (fragment — don't just replace this with the whole one!) ####
+#### Beginning of Makefile install script template (fragment — don't just replace this with the whole one!) (Modified for ember-shared, anyway.) ####
 
 skipConfigFile="false"
 if [[ "$1" == "--skip-config-file" ]]; then
