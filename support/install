@@ -125,7 +125,7 @@ fi
 #### End of Makefile install script template (fragment) ####
 
 mkdir -p "$emberDatadir"
-mkdir -p "$emberDatadir"
+mkdir -p "$emberSysconfdir"
 
 moduleName="$(<module-name)"
 if [[ "extra" != "$moduleName" ]]; then
