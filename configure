@@ -77,6 +77,7 @@ else
         pwd
         ls
         echo "scripts.bak already exists. Is this not a clean source tree?"
+        echo "scripts.bak already exists. Is this not a clean source tree?"
         exit 1
     fi
     mv scripts scripts.bak
