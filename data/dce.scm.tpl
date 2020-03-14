@@ -26,10 +26,10 @@
               (method git-fetch)
               (uri (git-reference
                 (url "https://github.com/ethus3h/ember-shared.git")
-                (commit "TEMPLATE-PLACEHOLDER-COMMIT")))
+                (commit "TEMPLATE-PLACEHOLDER-COMMIT:ember-shared-error-notify")))
               (sha256
                (base32
-                "TEMPLATE-PLACEHOLDER-HASH"))))
+                "TEMPLATE-PLACEHOLDER-HASH:ember-shared-error-notify"))))
     (build-system gnu-build-system)
     (arguments '(#:configure-flags '("--module" "error-notify") #:phases (modify-phases %standard-phases (delete 'check))))
     (inputs `(("xxd" ,xxd)))
