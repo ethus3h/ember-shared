@@ -950,8 +950,9 @@ checkedxz() (
     fi
 )
 
-testAndGenerateGuixPackage() (
+testGuixPackage() (
 )
+
 testAndGenerateGuixPackage() (
     eogup-single
     git push
