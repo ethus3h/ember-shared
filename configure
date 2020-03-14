@@ -52,7 +52,7 @@ if [[ -n "$module" ]]; then
         exit 1
     fi
     mv modules/"$module"/* scripts/
-    # Simple modules use a simpler Makefile
+    # Simple modules use a simple Makefile
     case $module in
     error-notify)
         mv support/error-notify.Makefile Makefile
