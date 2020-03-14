@@ -136,7 +136,7 @@
         ("rsync" ,rsync)
         ("openssh" ,openssh)
         ("sshpass" ,sshpass)
-
+        ; ("csvfix" ,csvfix)
     ))
     (synopsis "ember-shared core")
     (description "Shell script library extra module")
