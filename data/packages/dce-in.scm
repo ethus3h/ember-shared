@@ -137,6 +137,7 @@
         ("openssh" ,openssh)
         ("sshpass" ,sshpass)
         ;("csvfix" ,csvfix)
+        ("jq" ,jq)
     ))
     (synopsis "ember-shared core")
     (description "Shell script library extra module")
