@@ -152,6 +152,7 @@
         ("moreutils" ,moreutils)
         ("imagemagick" ,imagemagick)
         ("guix" ,guix)
+        ("guix" ,guix)
     ))
     (synopsis "ember-shared core")
     (description "Shell script library extra module")
