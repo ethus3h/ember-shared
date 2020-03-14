@@ -33,6 +33,7 @@
   #:use-module (gnu packages sqlite)
   #:use-module (gnu packages moreutils)
   #:use-module (gnu packages imagemagick)
+  #:use-module (gnu packages compression)
 )
 
 (define-public ember-shared-error-notify
