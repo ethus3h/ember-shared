@@ -49,6 +49,7 @@ if [[ -n "$module" ]]; then
     rm scripts/*
     if [[ ! -d modules/"$module" ]]; then
         echo "Module $module not found."
+        exit 1
     fi
     mv modules/"$module"/* scripts/
     case $module in
@@ -64,7 +65,10 @@ if [[ -n "$module" ]]; then
     esac
 else
     # Not using module-split installation
-    if [[ -e scripts.bak ]]
+    if [[ -e scripts.bak ]]; then
+        echo "scripts.bak already exists"
+        exit 1
+    fi
     mv scripts scripts.bak || exit 1
     cp -r scripts.bak scripts
     mv modules/error-notify/* scripts/
