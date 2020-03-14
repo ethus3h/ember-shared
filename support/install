@@ -85,6 +85,7 @@ source support/getDirs
 
 # Done setting up variables, now install the files
 
+emberEmberdir=""
 mkdir -p "$emberEmberdir"
 if [[ ! -e /var/lib/ember ]]; then
     mkdir -p /var/lib/ember/CrystalIndex/
