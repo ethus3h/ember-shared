@@ -18,7 +18,7 @@
   #:use-module (guix licenses)
   #:use-module (gnu packages vim))
 
-(define-public TEMPLATE-PLACEHOLDER-PACKAGENAME
+(define-public TEMPLATE-PLACEHOLDER-PACKAGENAME:ember-shared-error-notify
   (package
     (name "TEMPLATE-PLACEHOLDER-PACKAGENAME")
     (version "TEMPLATE-PLACEHOLDER-VERSION")
