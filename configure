@@ -47,6 +47,7 @@ done
 echo "Success will be indicated by printing"' "Configuring complete".'
 if [[ -n "$module" ]]; then
     rm -r scripts/*
+    if [[ ! -d "$module" ]]
     case $module in
     error-notify)
         mv support/error-notify.Makefile Makefile
