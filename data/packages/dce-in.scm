@@ -56,7 +56,7 @@
         ("ember-shared-error-notify" ,ember-shared-error-notify)
         ; many inputs are implicit in the build system: bash, coreutils, util-linux, sed, gawk
         ("util-linux" ,util-linux)
-        ("util-linux" ,util-linux)
+        ("perl" ,perl)
     ))
     (synopsis "ember-shared core")
     (description "Shell script library core module")
