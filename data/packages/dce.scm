@@ -21,39 +21,42 @@
 (define-public ember-shared-error-notify
   (package
     (name "ember-shared-error-notify")
-    (version "1.1.4.475-5b4f1e8b52221a3b21ef91e159c711f674c88985")
+    (version "1.1.4.476-98b0db377326750912538f8e268fae0d5634095f")
     (source (origin
               (method git-fetch)
               (uri (git-reference
                 (url "https://github.com/ethus3h/ember-shared.git")
-                (commit "5b4f1e8b52221a3b21ef91e159c711f674c88985")))
+                (commit "98b0db377326750912538f8e268fae0d5634095f")))
               (sha256
                (base32
-                "1zgs35shbgcvz1c7962rqcpgxvaf373n8i3x1lpfan3f5v3pqcyq"))))
+                "0r0ykq48wzj72j9kqij575v1vfpkf01r836m3galznv0dkb9b9ch"))))
     (build-system gnu-build-system)
     (arguments '(#:configure-flags '("--module" "error-notify") #:phases (modify-phases %standard-phases (delete 'check))))
-    (inputs `(("xxd" ,xxd)))
+    (propagated-inputs `(("xxd" ,xxd)))
     (synopsis "ember-shared error-notify script")
     (description "Shell script to notify of errors")
     (home-page "http://futuramerlin.com/ancillary/ember-shared/")
     (license agpl3+)))
 
-(define-public ember-shared-error-notify
+(define-public ember-shared-core
   (package
-    (name "ember-shared-error-notify")
-    (version "1.1.4.475-5b4f1e8b52221a3b21ef91e159c711f674c88985")
+    (name "ember-shared-core")
+    (version "TEMPLATE-PLACEHOLDER-VERSION:ember-shared-core")
     (source (origin
               (method git-fetch)
               (uri (git-reference
                 (url "https://github.com/ethus3h/ember-shared.git")
-                (commit "5b4f1e8b52221a3b21ef91e159c711f674c88985")))
+                (commit "TEMPLATE-PLACEHOLDER-COMMIT:ember-shared-core")))
               (sha256
                (base32
-                "1zgs35shbgcvz1c7962rqcpgxvaf373n8i3x1lpfan3f5v3pqcyq"))))
+                "TEMPLATE-PLACEHOLDER-HASH:ember-shared-core"))))
     (build-system gnu-build-system)
-    (arguments '(#:configure-flags '("--module" "error-notify") #:phases (modify-phases %standard-phases (delete 'check))))
-    (inputs `(("xxd" ,xxd)))
-    (synopsis "ember-shared error-notify script")
-    (description "Shell script to notify of errors")
+    (arguments '(#:configure-flags '("--module" "core") #:phases (modify-phases %standard-phases (delete 'check))))
+    (propagated-inputs `(
+        ("ember-shared-error-notify" ,ember-shared-error-notify)
+        ("ember-shared-error-notify" ,ember-shared-error-notify)
+    ))
+    (synopsis "ember-shared core")
+    (description "Shell script library core module")
     (home-page "http://futuramerlin.com/ancillary/ember-shared/")
     (license agpl3+)))
