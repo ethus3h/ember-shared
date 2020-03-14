@@ -21,15 +21,15 @@
 (define-public ember-shared-error-notify
   (package
     (name "ember-shared-error-notify")
-    (version "1.1.4.476-97fb20c2e5b9b7c2051e2a0512e799883ee889d5")
+    (version "1.1.4.476-dcd0100376027e41a420ef32b96ebc48b4087f52")
     (source (origin
               (method git-fetch)
               (uri (git-reference
                 (url "https://github.com/ethus3h/ember-shared.git")
-                (commit "97fb20c2e5b9b7c2051e2a0512e799883ee889d5")))
+                (commit "dcd0100376027e41a420ef32b96ebc48b4087f52")))
               (sha256
                (base32
-                "0fzxl8jcp99yafjqvdyf8syhv5dlyyfrb73y5zrq4h4qnlg741px"))))
+                "1wbwi6gjbiql5zis7qvawqm45q60z6q5lhla86190rz9kz4adrbn"))))
     (build-system gnu-build-system)
     (arguments '(#:configure-flags '("--module" "error-notify") #:phases (modify-phases %standard-phases (delete 'check))))
     (propagated-inputs `(("xxd" ,xxd)))
@@ -54,7 +54,10 @@
     (arguments '(#:configure-flags '("--module" "core") #:phases (modify-phases %standard-phases (delete 'check))))
     (propagated-inputs `(
         ("ember-shared-error-notify" ,ember-shared-error-notify)
-        ("ember-shared-error-notify" ,ember-shared-error-notify)
+        ; many inputs this needs are implicit in the build system: bash, coreutils, util-linux, sed, gawk, diffutils
+        ("util-linux" ,util-linux)
+        ("perl" ,perl)
+        ("xxd" ,xxd)
     ))
     (synopsis "ember-shared core")
     (description "Shell script library core module")
