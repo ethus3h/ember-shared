@@ -64,6 +64,8 @@ if [[ -n "$module" ]]; then
         true
         ;;
     esac
+else
+    mv modules/core/* scripts/
 fi
 
 if ! fmwtk_loc="$(type -P "futuramerlin-web-toolkit-build")" || [[ -z $fmwtk_loc ]]; then
