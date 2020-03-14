@@ -123,6 +123,7 @@
         ("glibc" ,glibc)
         ; Main ember_bash_setup_extra dependencies:
         ("glibc" ,glibc) ; available but not propagated by default, I think?? Not sure how to tell for sure. For ldconfig
+        ("guix" ,guix)
     ))
     (synopsis "ember-shared core")
     (description "Shell script library extra module")
