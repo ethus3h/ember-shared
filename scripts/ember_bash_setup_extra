@@ -969,7 +969,7 @@ testAndGenerateGuixPackage() (
     echo "$pn" >> data/packages/packages.lst
     cat data/packages/packages.lst | removeDuplicateLines | sponge data/packages/packages.lst
     emberPath="$(ember-getconf EmberLibrary)"
-    packagesDir="$emberPath/ember-shared/data/packages/$pn/"
+    packagesDir="$emberPath/ember-shared/data/packages/"
     mkdir -p "$packageDir"
     (
         cd ~ || die
