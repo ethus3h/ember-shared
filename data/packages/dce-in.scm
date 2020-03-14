@@ -67,18 +67,18 @@
     (home-page "http://futuramerlin.com/ancillary/ember-shared/")
     (license agpl3+)))
 
-(define-public ember-shared-core
+(define-public ember-shared-main
   (package
-    (name "ember-shared-core")
-    (version "TEMPLATE-PLACEHOLDER-VERSION:ember-shared-core")
+    (name "ember-shared-main")
+    (version "TEMPLATE-PLACEHOLDER-VERSION:ember-shared-main")
     (source (origin
               (method git-fetch)
               (uri (git-reference
                 (url "https://github.com/ethus3h/ember-shared.git")
-                (commit "TEMPLATE-PLACEHOLDER-COMMIT:ember-shared-core")))
+                (commit "TEMPLATE-PLACEHOLDER-COMMIT:ember-shared-main")))
               (sha256
                (base32
-                "TEMPLATE-PLACEHOLDER-HASH:ember-shared-core"))))
+                "TEMPLATE-PLACEHOLDER-HASH:ember-shared-main"))))
     (build-system gnu-build-system)
     (arguments '(#:configure-flags '("--module" "core") #:phases (modify-phases %standard-phases (delete 'check))))
     (propagated-inputs `(
