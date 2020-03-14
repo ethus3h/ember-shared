@@ -4,7 +4,7 @@ set -x
 # Special configure for ember-shared.
 
 if [[ -e "configured" ]]; then
-    echo "ERROR: This source tree has already been configured once. Please use a clean source tree to configure. Stopping."
+    echo "Warning: This source tree has already been configured once. Please use a clean source tree to configure. Stopping."
 
 packageName="$(cat package-name)"
 
