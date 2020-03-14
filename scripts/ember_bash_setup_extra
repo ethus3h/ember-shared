@@ -966,8 +966,8 @@ testAndGenerateGuixPackage() (
         pn="$repository"
     fi
     cp data/packages/dce.scm.tpl ~/ember-auto-build-temp/dce.scm
-    packageDir="$emberPath/ember-shared/data/packages/$pn/"
     emberPath="$(ember-getconf EmberLibrary)"
+    packageDir="$emberPath/ember-shared/data/packages/$pn/"
     (
         cd ~ || die
         mkdir -p ember-auto-build-temp
