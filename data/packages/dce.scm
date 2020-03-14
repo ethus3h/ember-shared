@@ -57,10 +57,35 @@
     (arguments '(#:configure-flags '("--module" "core") #:phases (modify-phases %standard-phases (delete 'check))))
     (propagated-inputs `(
         ("ember-shared-error-notify" ,ember-shared-error-notify)
-        ; many inputs this needs are implicit in the build system: bash, coreutils, util-linux, sed, gawk, diffutils
+        ; many inputs this needs are implicit in the build system: bash, coreutils, sed, gawk, diffutils
         ("util-linux" ,util-linux)
         ("perl" ,perl)
         ("xxd" ,xxd)
+    ))
+    (synopsis "ember-shared core")
+    (description "Shell script library core module")
+    (home-page "http://futuramerlin.com/ancillary/ember-shared/")
+    (license agpl3+)))
+
+(define-public ember-shared-main
+  (package
+    (name "ember-shared-main")
+    (version "1.1.4.476-e98dd6d0d4907dc909a2590bdccbaae9424fc217")
+    (source (origin
+              (method git-fetch)
+              (uri (git-reference
+                (url "https://github.com/ethus3h/ember-shared.git")
+                (commit "e98dd6d0d4907dc909a2590bdccbaae9424fc217")))
+              (sha256
+               (base32
+                "1518b8hkgbch95wibban5s2rannk96w9kxvmv1ihrbq0b3db7qz7"))))
+    (build-system gnu-build-system)
+    (arguments '(#:configure-flags '("--module" "core") #:phases (modify-phases %standard-phases (delete 'check))))
+    (propagated-inputs `(
+        ("ember-shared-core" ,ember-shared-core)
+        ; inputs this needs are implicit in the build system: grep, findutils
+        ("nano" ,nano)
+        ("sudo" ,sudo)
     ))
     (synopsis "ember-shared core")
     (description "Shell script library core module")
