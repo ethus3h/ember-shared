@@ -22,7 +22,6 @@
   #:use-module (gnu packages nano)
   #:use-module (gnu packages admin)
   #:use-module (gnu packages search)
-  #:use-module (gnu packages package-management)
   #:use-module (gnu packages python)
   #:use-module (gnu packages python-xyz)
   #:use-module (gnu packages wget)
@@ -34,6 +33,7 @@
   #:use-module (gnu packages moreutils)
   #:use-module (gnu packages imagemagick)
   #:use-module (gnu packages compression)
+  #:use-module (gnu packages package-management)
 )
 
 (define-public ember-shared-error-notify
