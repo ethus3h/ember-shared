@@ -69,7 +69,7 @@ else
         echo "scripts.bak already exists"
         exit 1
     fi
-    mv scripts scripts.bak || exit 1
+    mv scripts scripts.bak
     cp -r scripts.bak scripts
     mv modules/error-notify/* scripts/
     mv modules/core/* scripts/
