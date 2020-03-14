@@ -950,9 +950,6 @@ checkedxz() (
     fi
 )
 
-refreshGuixPackageMetadata() (
-)
-
 testAndGenerateGuixPackage() (
     eogup-single
     git push
