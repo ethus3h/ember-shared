@@ -966,9 +966,9 @@ testAndGenerateGuixPackage() (
         pn="$repository"
     fi
     packagesDir="$emberPath/ember-shared/data/packages/"
-    cp data/packages/dce.scm.tpl ~/ember-auto-build-temp/dce.scm
-    echo "$pn" >> data/packages/packages.lst
-    cat data/packages/packages.lst | removeDuplicateLines | sponge data/packages/packages.lst
+    cp "$packagesDir"/dce.scm.tpl ~/ember-auto-build-temp/dce.scm
+    echo "$pn" >> "$packagesDir"/packages.lst
+    cat "$packagesDir"/packages.lst | removeDuplicateLines | sponge "$packagesDir"/packages.lst
     emberPath="$(ember-getconf EmberLibrary)"
     mkdir -p "$packageDir/$pn/"
     (
