@@ -138,9 +138,9 @@
         ("jq" ,jq)
         ;("grab-site" ,grab-site)
         ;("phantomjs" ,phantomjs)
-        ("glibc" ,glibc) ; available but not propagated by default, I think?? Not sure how to tell for sure. For ldconfig
-        ("guix" ,guix)
+        ("glibc" ,glibc) ; available but not propagated by default, I think?? Not sure how to tell for sure. Provides ldconfig
 
+        ("guix" ,guix)
     ))
     (synopsis "ember-shared core")
     (description "Shell script library extra module")
