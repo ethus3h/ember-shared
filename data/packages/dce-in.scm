@@ -27,6 +27,7 @@
   #:use-module (gnu packages python-xyz)
   #:use-module (gnu packages wget)
   #:use-module (gnu packages rsync)
+  #:use-module (gnu packages ssh)
 )
 
 (define-public ember-shared-error-notify
