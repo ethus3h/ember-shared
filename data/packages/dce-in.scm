@@ -25,6 +25,7 @@
   #:use-module (gnu packages package-management)
   #:use-module (gnu packages python)
   #:use-module (gnu packages python-xyz)
+  #:use-module (gnu packages wget)
 )
 
 (define-public ember-shared-error-notify
@@ -130,6 +131,7 @@
         ("glibc" ,glibc) ; available but not propagated by default, I think?? Not sure how to tell for sure. For ldconfig
         ("guix" ,guix)
         ("python-internetarchive" ,python-internetarchive)
+        ("wget" ,wget)
     ))
     (synopsis "ember-shared core")
     (description "Shell script library extra module")
