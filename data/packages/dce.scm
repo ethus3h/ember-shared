@@ -72,15 +72,15 @@
 (define-public ember-shared-main
   (package
     (name "ember-shared-main")
-    (version "1.1.4.476-c6dc25bcb969f5e12c60b7e5a392bc47395f4a01")
+    (version "1.1.4.476-c4f360f447e8e83fbe92a8ab730e0473c25b9879")
     (source (origin
               (method git-fetch)
               (uri (git-reference
                 (url "https://github.com/ethus3h/ember-shared.git")
-                (commit "c6dc25bcb969f5e12c60b7e5a392bc47395f4a01")))
+                (commit "c4f360f447e8e83fbe92a8ab730e0473c25b9879")))
               (sha256
                (base32
-                "165b848h7dgyxar6n57mjjwwl0cc1mwvd40c7pv5129ra2rb2yhh"))))
+                "1rzdkrflpgz2smf6x548348wxfjz1nfqmd09wwyfbpmr7icsn1hk"))))
     (build-system gnu-build-system)
     (arguments '(#:configure-flags '("--module" "main") #:phases (modify-phases %standard-phases (delete 'check))))
     (propagated-inputs `(
