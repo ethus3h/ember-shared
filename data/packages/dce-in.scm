@@ -109,7 +109,7 @@
     (build-system gnu-build-system)
     (arguments '(#:configure-flags '("--module" "extra") #:phases (modify-phases %standard-phases (delete 'check))))
     (propagated-inputs `(
-        ("ember-shared-core" ,ember-shared-core)
+        ("ember-shared-main" ,ember-shared-main)
         ; inputs this needs are implicit in the build system: grep, findutils
         ("nano" ,nano)
         ("sudo" ,sudo)
