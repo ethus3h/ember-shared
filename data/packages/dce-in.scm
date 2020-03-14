@@ -82,7 +82,7 @@
     (build-system gnu-build-system)
     (arguments '(#:configure-flags '("--module" "core") #:phases (modify-phases %standard-phases (delete 'check))))
     (propagated-inputs `(
-        ("ember-shared-error-notify" ,ember-shared-error-notify)
+        ("ember-shared-core" ,ember-shared-core)
         ; many inputs this needs are implicit in the build system: bash, coreutils, util-linux, sed, gawk, diffutils
         ("util-linux" ,util-linux)
         ("perl" ,perl)
