@@ -12,7 +12,7 @@ fi
 emberPath="$(ember-getconf EmberLibrary)"
 cd "$emberPath"/ember-web-site
 if [[ "$update" == "true" ]]; then
-    /Ember\ Library/Ember\ satellite\ projects/futuramerlin-web-toolkit/scripts/futuramerlin-web-toolkit-build
+    "$emberPath"/futuramerlin-web-toolkit/scripts/futuramerlin-web-toolkit-build
 fi
 
 cd futuramerlin-web-toolkit-output
