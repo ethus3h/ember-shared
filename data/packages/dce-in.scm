@@ -29,6 +29,7 @@
   #:use-module (gnu packages wget)
   #:use-module (gnu packages rsync)
   #:use-module (gnu packages ssh)
+  #:use-module (gnu packages base)
   #:use-module (gnu packages video)
   #:use-module (gnu packages version-control)
   #:use-module (gnu packages sqlite)
