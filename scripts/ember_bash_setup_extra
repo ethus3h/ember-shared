@@ -993,7 +993,7 @@ testAndGenerateGuixPackage() (
         cat ~/ember-auto-build-temp/dce.scm >> ./gnu/packages/dce.scm
         git add .; git commit -m "Automatic update of $pn from $repository (version $commit)"
     )
-    cp ~/ember-auto-build-temp/"$pn".scm ./"$pn".scm
+    cp ~/ember-auto-build-temp/dce.scm ./"$pn".scm
     eogup-single
     cd ~/guix || die
     echo
