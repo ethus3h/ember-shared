@@ -994,7 +994,9 @@ testAndGenerateGuixPackage() (
             (
                 hash="$(<"$packagesDir/$line/hash")"
                 ereplace "TEMPLATE-PLACEHOLDER-HASH:$line" "$hash" dce.scm
+                hash="$(<"$packagesDir/$line/hash")"
                 ereplace "TEMPLATE-PLACEHOLDER-COMMIT:$line" "$commit" dce.scm
+                hash="$(<"$packagesDir/$line/hash")"
                 ereplace "TEMPLATE-PLACEHOLDER-VERSION:$line" "$version" dce.scm
             )
         done < "$packagesDir"/packages.lst
