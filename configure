@@ -1,12 +1,12 @@
 #!/usr/bin/env bash
 set -x
 
-    if [[ -e scripts.bak ]]; then
-        pwd
-        ls
-        echo "scripts.bak already exists"
-        exit 1
-    fi
+if [[ -e scripts.bak ]]; then
+    pwd
+    ls
+    echo "scripts.bak already exists"
+    exit 1
+fi
 
 # Special configure for ember-shared.
 
