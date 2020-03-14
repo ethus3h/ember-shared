@@ -118,7 +118,7 @@
         ("mlocate" ,mlocate) ; findq/findq-update
         ("perl" ,perl) ; htmlToText.pl
         ;("perl-html-restrict" ,perl-html-restrict) ; htmlToText.pl
-        ("php" ,php)
+        ("php" ,php) ; serve-ember-web-site
         ("glibc" ,glibc)
         ; Main ember_bash_setup_extra dependencies:
         ("glibc" ,glibc) ; available but not propagated by default, I think?? Not sure how to tell for sure. For ldconfig
