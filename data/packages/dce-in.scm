@@ -54,6 +54,7 @@
     (arguments '(#:configure-flags '("--module" "core") #:phases (modify-phases %standard-phases (delete 'check))))
     (propagated-inputs `(
         ("ember-shared-error-notify" ,ember-shared-error-notify)
+        ; most inputs are handled by c
         ("ember-shared-error-notify" ,ember-shared-error-notify)
     ))
     (synopsis "ember-shared core")
