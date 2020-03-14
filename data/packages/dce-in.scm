@@ -90,7 +90,7 @@
         ("sudo" ,sudo)
     ))
     (synopsis "ember-shared core")
-    (description "Shell script library core module")
+    (description "Shell script library main module")
     (home-page "http://futuramerlin.com/ancillary/ember-shared/")
     (license agpl3+)))
 
@@ -115,6 +115,6 @@
         ("sudo" ,sudo)
     ))
     (synopsis "ember-shared core")
-    (description "Shell script library core module")
+    (description "Shell script library extra module")
     (home-page "http://futuramerlin.com/ancillary/ember-shared/")
     (license agpl3+)))
