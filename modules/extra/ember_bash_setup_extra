@@ -951,7 +951,6 @@ checkedxz() (
 )
 
 testGuixPackage() (
-    cd ~/guix
     if [[ -n "$1" ]]; then
         pn="$1"
     else
