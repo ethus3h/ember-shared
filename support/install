@@ -91,6 +91,7 @@ if [[ ! -e "$emberEmberdir" ]]; then
 fi
 
 mkdir -p "$emberBindir"
+mkdir -p "$emberDatadir"
 
 if [[ -e data ]]; then
     mkdir -p "$emberDatadir/$packageName"
