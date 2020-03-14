@@ -31,6 +31,7 @@
   #:use-module (gnu packages video)
   #:use-module (gnu packages version-control)
   #:use-module (gnu packages sqlite)
+  #:use-module (gnu packages moreutils)
 )
 
 (define-public ember-shared-error-notify
