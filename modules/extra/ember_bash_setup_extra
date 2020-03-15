@@ -1037,11 +1037,11 @@ generateGuixPackage() (
             (
                 # line: package name
                 packageHash="$(<"$packagesDir/$line/hash")"
-                ereplace "TEMPLATE-PLACEHOLDER-HASH:$line" "$hash" dce.scm
+                ereplace "TEMPLATE-PLACEHOLDER-HASH:$line" "$packageHash" dce.scm
                 packageCommit="$(<"$packagesDir/$line/commit")"
-                ereplace "TEMPLATE-PLACEHOLDER-COMMIT:$line" "$commit" dce.scm
+                ereplace "TEMPLATE-PLACEHOLDER-COMMIT:$line" "$packageCommit" dce.scm
                 packageVersion="$(<"$packagesDir/$line/version")"
-                ereplace "TEMPLATE-PLACEHOLDER-VERSION:$line" "$version" dce.scm
+                ereplace "TEMPLATE-PLACEHOLDER-VERSION:$line" "$packageVersion" dce.scm
             )
         done < "$packagesDir"/packages.lst
         cd "$buildDir"/guix || die
