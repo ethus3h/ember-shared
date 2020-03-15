@@ -9,3 +9,4 @@
 #NOTE: MAINTENANCE: Manual error printing
 trap 'echo "Error preparing module"; exit 1' ERR
 
+module="$(<support/.module)"
