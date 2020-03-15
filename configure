@@ -41,8 +41,6 @@ while [[ -n "$1" ]]; do
         ;;
     --module)
         printf '%s' "${1#*=}" > support/.module
-        shift
-        module="${1#*=}"
         ;;
     *)
         true
