@@ -954,6 +954,13 @@ updateGuixRepo() (
     workDir="$(crystallize-getconf WorkDirectory)"
     mkdir -p "$workDir"/ember-auto-build
     cd "$workDir"/ember-auto-build || die
+        if [[ -e "$repository" ]]; then
+            pushd "$repository" || die
+            git pull
+            popd || die
+        else
+            git clone "https://github.com/ethus3h/$repository.git"
+        fi
 )
 
 testGuixPackage() (
