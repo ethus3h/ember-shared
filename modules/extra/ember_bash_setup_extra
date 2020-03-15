@@ -960,7 +960,7 @@ updateGuixRepo() (
         git pull
         popd || die
     else
-        git clone "https://github.com/ethus3h/$repository.git"
+        git clone "https://git.savannah.gnu.org/git/guix.git"
     fi
 )
 
