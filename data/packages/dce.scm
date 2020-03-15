@@ -42,17 +42,17 @@
 (define-public ember-shared-error-notify
   (package
     (name "ember-shared-error-notify")
-    (version "1.1.4.476-dcd0100376027e41a420ef32b96ebc48b4087f52")
+    (version "1.1.4.490-09e4217e74ae7a997d490a7bd9c74464b38f19af")
     (source (origin
               (method git-fetch)
               (uri (git-reference
                 (url "https://github.com/ethus3h/ember-shared.git")
-                (commit "dcd0100376027e41a420ef32b96ebc48b4087f52")))
+                (commit "09e4217e74ae7a997d490a7bd9c74464b38f19af")))
               (sha256
                (base32
-                "1wbwi6gjbiql5zis7qvawqm45q60z6q5lhla86190rz9kz4adrbn"))))
+                "0z70a90fnh1am4vdbaq0hgq4bvb0kaap4xpm0s0130r9bysbx3zi"))))
     (build-system gnu-build-system)
-    (arguments '(#:configure-flags '("--module" "error-notify") #:phases (modify-phases %standard-phases (delete 'check))))
+    (arguments '(#:configure-flags '("--module=error-notify") #:phases (modify-phases %standard-phases (delete 'check))))
     (propagated-inputs `(("xxd" ,xxd)))
     (synopsis "ember-shared error-notify script")
     (description "Shell script to notify of errors")
@@ -72,7 +72,7 @@
                (base32
                 "0gjvnvfi0m7i1vhbrqf878z5i2amhxhphyaz5kbfqa2p9bkqr7z0"))))
     (build-system gnu-build-system)
-    (arguments '(#:configure-flags '("--module" "core") #:phases (modify-phases %standard-phases (delete 'check))))
+    (arguments '(#:configure-flags '("--module=core") #:phases (modify-phases %standard-phases (delete 'check))))
     (propagated-inputs `(
         ("ember-shared-error-notify" ,ember-shared-error-notify)
         ; many inputs this needs are implicit in the build system: bash, coreutils, sed, gawk, diffutils
@@ -98,7 +98,7 @@
                (base32
                 "0dc2jccf03wsy4dcps30p78q3l10zng9h8wzq46kvf8sqbgax58i"))))
     (build-system gnu-build-system)
-    (arguments '(#:configure-flags '("--module" "main") #:phases (modify-phases %standard-phases (delete 'check))))
+    (arguments '(#:configure-flags '("--module=main") #:phases (modify-phases %standard-phases (delete 'check))))
     (propagated-inputs `(
         ("ember-shared-core" ,ember-shared-core)
         ; inputs this needs are implicit in the build system: grep, findutils
@@ -123,7 +123,7 @@
                (base32
                 "116z3qv317djp760822v86hdyaib26q2ajabhpv6376nmig0fifn"))))
     (build-system gnu-build-system)
-    (arguments '(#:configure-flags '("--module" "extra") #:phases (modify-phases %standard-phases (delete 'check))))
+    (arguments '(#:configure-flags '("--module=extra") #:phases (modify-phases %standard-phases (delete 'check))))
     (propagated-inputs `(
         ("ember-shared-main" ,ember-shared-main)
         ; inputs this needs are implicit in the build system: grep, findutils
