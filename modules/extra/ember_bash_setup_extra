@@ -981,6 +981,10 @@ testGuixPackaging() (
     printf '%b' '\033[1;31m'
     echo 'To build, run:'
     echo './pre-inst-env guix build '"$pn"'; exit'
+    if ! [[ -e "./pre-inst-env" ]]; then
+        echo
+        echo "It appears this is the first time using this copy of Guix. To set it up:"
+
     printf '%b' '\033[0m'
     echo
     guix environment guix || true
