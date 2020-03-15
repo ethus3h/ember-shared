@@ -43,6 +43,8 @@ while [[ -n "$1" ]]; do
     shift
 done
 
+touch support/.module
+
 echo "Success will be indicated by printing"' "Configuring complete".'
 
 if ! fmwtk_loc="$(type -P "futuramerlin-web-toolkit-build")" || [[ -z $fmwtk_loc ]]; then
