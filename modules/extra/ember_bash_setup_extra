@@ -1057,7 +1057,7 @@ generateGuixPackage() (
     testGuixPackage "$pn"
 )
 
-testAndGenerateGuixPackage() (
+generateAndTestGuixPackage() (
     generateGuixPackage "$pn"
     if [[ -n "$1" ]]; then
         pn="$1"
