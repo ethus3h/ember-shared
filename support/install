@@ -128,7 +128,7 @@ mkdir -p "$emberDatadir"
 mkdir -p "$emberSysconfdir"
 
 moduleName=""
-if [[ -e "support/.module" ]]; then
+if [[ -e support/.module ]]; then
     moduleName="$(<support/.module)"
 fi
 if [[ "extra" != "$moduleName" ]]; then
