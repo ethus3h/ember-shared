@@ -986,7 +986,7 @@ testGuixPackage() (
 generateGuixPackage() (
     eogup-single
     git push
-    workDir="$(crystallize-getconf WorkDirectory)"
+    buildDir="$(crystallize-getconf WorkDirectory)"
     repository="$(<package-name)"
     if [[ -z "$repository" ]]; then
         die "Please make sure you are in a repository directory."
