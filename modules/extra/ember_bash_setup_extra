@@ -952,6 +952,7 @@ checkedxz() (
 
 updateGuixRepo() (
     workDir="$(crystallize-getconf WorkDirectory)"
+    cd "$workdir" || die
 )
 
 testGuixPackage() (
