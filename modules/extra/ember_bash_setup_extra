@@ -1052,7 +1052,7 @@ generateGuixPackaging() (
     eogup-single
 )
 
-generateAndTestGuixPackage() (
+generateAndTestGuixPackaging() (
     if [[ -n "$1" ]]; then
         pn="$1"
     else
