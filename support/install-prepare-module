@@ -17,7 +17,6 @@ if [[ -n "$module" ]]; then
         echo "Module $module not found."
         exit 1
     fi
-    echo "$module" > module-name
     mv modules/"$module"/* scripts/
     # Simple modules use a simple Makefile for reduced dependencies
     case $module in
