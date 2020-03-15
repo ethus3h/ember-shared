@@ -983,8 +983,8 @@ testGuixPackaging() (
     echo './pre-inst-env guix build '"$pn"'; exit'
     if ! [[ -e "./pre-inst-env" ]]; then
         echo
-        echo "It appears this is the first time using this clone of Guix. To set it up:, run"
-        ./bootstrap
+        echo "It appears this is the first time using this clone of Guix. To set it up, run:"
+        echo './bootstrap || die "Bootstrap failed"; ./configure --localstatedir=/var'
     fi
     printf '%b' '\033[0m'
     echo
