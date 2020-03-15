@@ -44,51 +44,6 @@ while [[ -n "$1" ]]; do
 done
 
 echo "Success will be indicated by printing"' "Configuring complete".'
-if [[ -n "$module" ]]; then
-    rm scripts/*
-    if [[ ! -d modules/"$module" ]]; then
-        echo "Module $module not found."
-        exit 1
-    fi
-    echo "$module" > module-name
-    mv modules/"$module"/* scripts/
-    # Simple modules use a simple Makefile for reduced dependencies
-    case $module in
-    error-notify)
-        mv support/error-notify.Makefile Makefile
-        ;;
-    core)
-        mv support/core.Makefile Makefile
-        ;;
-    extra)
-        # "extra" module should not install duplicate copies of things
-        mv data data.bak
-        mkdir support.bak
-        mv support/*.conf support.bak/
-        ;;
-    *)
-        true
-        ;;
-    esac
-else
-    # Not using module-split installation
-    if [[ -e 'scripts.bak' ]]; then
-        pwd
-        ls
-        echo "scripts.bak already exists. Is this not a clean source tree?"
-        if [[ -e 'scripts.bak.2' ]]; then
-            echo "scripts.bak.2 already exists. Is this not a clean source tree?"
-            exit 1
-        fi
-        mv scripts.bak scripts.bak.2
-    fi
-    mv scripts scripts.bak
-    cp -r scripts.bak scripts
-    mv modules/error-notify/* scripts/
-    mv modules/core/* scripts/
-    mv modules/main/* scripts/
-    mv modules/extra/* scripts/
-fi
 
 if ! fmwtk_loc="$(type -P "futuramerlin-web-toolkit-build")" || [[ -z $fmwtk_loc ]]; then
     echo $'\n'"futuramerlin-web-toolkit not found: documentation will not be built."$'\n'
