@@ -1038,4 +1038,9 @@ generateGuixPackage() (
 
 testAndGenerateGuixPackage() (
     generateGuixPackage "$pn"
+    if [[ -n "$1" ]]; then
+        pn="$1"
+    else
+        pn="$(<package-name)"
+    fi
 )
