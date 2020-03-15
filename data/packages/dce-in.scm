@@ -52,7 +52,7 @@
                (base32
                 "TEMPLATE-PLACEHOLDER-HASH:ember-shared-error-notify"))))
     (build-system gnu-build-system)
-    (arguments '(#:configure-flags '("--module" "error-notify") #:phases (modify-phases %standard-phases (delete 'check))))
+    (arguments '(#:configure-flags '("--module=error-notify") #:phases (modify-phases %standard-phases (delete 'check))))
     (propagated-inputs `(("xxd" ,xxd)))
     (synopsis "ember-shared error-notify script")
     (description "Shell script to notify of errors")
@@ -72,7 +72,7 @@
                (base32
                 "TEMPLATE-PLACEHOLDER-HASH:ember-shared-core"))))
     (build-system gnu-build-system)
-    (arguments '(#:configure-flags '("--module" "core") #:phases (modify-phases %standard-phases (delete 'check))))
+    (arguments '(#:configure-flags '("--module=core") #:phases (modify-phases %standard-phases (delete 'check))))
     (propagated-inputs `(
         ("ember-shared-error-notify" ,ember-shared-error-notify)
         ; many inputs this needs are implicit in the build system: bash, coreutils, sed, gawk, diffutils
@@ -98,7 +98,7 @@
                (base32
                 "TEMPLATE-PLACEHOLDER-HASH:ember-shared-main"))))
     (build-system gnu-build-system)
-    (arguments '(#:configure-flags '("--module" "main") #:phases (modify-phases %standard-phases (delete 'check))))
+    (arguments '(#:configure-flags '("--module=main") #:phases (modify-phases %standard-phases (delete 'check))))
     (propagated-inputs `(
         ("ember-shared-core" ,ember-shared-core)
         ; inputs this needs are implicit in the build system: grep, findutils
@@ -123,7 +123,7 @@
                (base32
                 "TEMPLATE-PLACEHOLDER-HASH:ember-shared-extra"))))
     (build-system gnu-build-system)
-    (arguments '(#:configure-flags '("--module" "extra") #:phases (modify-phases %standard-phases (delete 'check))))
+    (arguments '(#:configure-flags '("--module=extra") #:phases (modify-phases %standard-phases (delete 'check))))
     (propagated-inputs `(
         ("ember-shared-main" ,ember-shared-main)
         ; inputs this needs are implicit in the build system: grep, findutils
