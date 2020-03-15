@@ -969,9 +969,6 @@ testGuixPackage() (
 )
 
 generateGuixPackage() (
-)
-
-testAndGenerateGuixPackage() (
     eogup-single
     git push
     mkdir -p ~/ember-auto-build-temp
@@ -1037,4 +1034,7 @@ testAndGenerateGuixPackage() (
     cp ~/ember-auto-build-temp/dce.scm "$packagesDir"/dce.scm
     eogup-single
     testGuixPackage "$pn"
+)
+
+testAndGenerateGuixPackage() (
 )
