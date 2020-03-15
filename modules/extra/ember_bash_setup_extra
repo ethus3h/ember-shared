@@ -952,8 +952,8 @@ checkedxz() (
 
 updateGuixRepo() (
     workDir="$(crystallize-getconf WorkDirectory)"
-    mkdir -p "$workDir"/ember-auto-build-temp
-    cd "$workDir" || die
+    mkdir -p "$workDir"/ember-auto-build
+    cd "$workDir"/ember-auto-build || die
 )
 
 testGuixPackage() (
