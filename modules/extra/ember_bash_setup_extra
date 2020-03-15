@@ -994,9 +994,6 @@ generateGuixPackage() (
     git push
     buildDir="$(crystallize-getconf WorkDirectory)"/ember-auto-build
     repository="$(<package-name)"
-    if [[ -z "$repository" ]]; then
-        die "Please make sure you are in a repository directory."
-    fi
     if [[ -e "version" ]]; then
         version="$(<version)"
     else
