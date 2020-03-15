@@ -10,6 +10,7 @@
 trap 'echo "Error preparing module"; exit 1' ERR
 
 module="$(<support/.module)"
+
 if [[ -n "$module" ]]; then
     rm scripts/*
     if [[ ! -d modules/"$module" ]]; then
