@@ -34,7 +34,6 @@ while [[ -n "$1" ]]; do
         printf '%s' "${1#*=}" > support/.localstatedir
         ;;
     --module)
-        # Shift is required in this case because this has a space after it instead of an eq
         shift
         printf '%s' "${1}" > support/.module
         ;;
