@@ -972,7 +972,7 @@ generateGuixPackage() (
     eogup-single
     git push
     workDir="$(crystallize-getconf WorkDirectory)"
-    mkdir -p "$(cyrstal)"/ember-auto-build-temp
+    mkdir -p "$workDir"/ember-auto-build-temp
     repository="$(<package-name)"
     if [[ -z "$repository" ]]; then
         die "Please make sure you are in a repository directory."
