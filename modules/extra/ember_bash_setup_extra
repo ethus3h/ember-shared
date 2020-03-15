@@ -970,7 +970,7 @@ testGuixPackage() (
     else
         pn="$(<package-name)"
     fi
-    cd ~/guix || die
+    cd "$(crystallize-getconf WorkDirectory)"/ember-auto-build/guix || die
     echo
     echo './pre-inst-env guix environment --container --ad-hoc -e '\''(list (@ (gnu) %base-packages) (@ (gnu packages dce) ember-shared-core))'\''' # how to get the environment to put ember_bash_setup_core in the PATH? It's not in the container. Running ./pre-inst-env guix install ember-shared-core surprisingly seems to link it in /home/kyan/.guix-profile/usr/bin.
     echo
