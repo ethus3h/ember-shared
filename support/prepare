@@ -40,6 +40,8 @@ if [[ "$OSTYPE" = darwin* ]]; then
     sudo chsh -s /usr/local/bin/bash "$USER"
 fi
 
+support/install-prepare-module
+
 source support/getDirs
 
 #NOTE: MAINTENANCE: Remainder copied from "prepare" template file
