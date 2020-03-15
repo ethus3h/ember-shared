@@ -985,6 +985,7 @@ testGuixPackaging() (
         echo
         echo "It appears this is the first time using this clone of Guix. To set it up, run:"
         echo './bootstrap || die "Bootstrap failed"; ./configure --localstatedir=/var'
+        echo "(the localstatedir option should be changed to correspond to that of your installed Guix installation: the folder containing guix/db)"
     fi
     printf '%b' '\033[0m'
     echo
