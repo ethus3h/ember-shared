@@ -964,7 +964,7 @@ updateGuixRepo() (
     fi
 )
 
-testGuixPackage() (
+testGuixPackaging() (
     if ! [[ -f "package-name" ]]; then
         die "Please make sure you're in a package directory."
     fi
