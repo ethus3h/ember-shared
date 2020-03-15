@@ -1054,7 +1054,7 @@ generateGuixPackaging() (
         cp "$buildDir"/dce.scm ./gnu/packages/dce.scm
         git add .; git commit -m "Automatic update of $pn from $repository (version $commit)"
     )
-    cp "$buildDir"/ember-auto-build-temp/dce.scm "$packagesDir"/dce.scm
+    cp "$buildDir"/dce.scm "$packagesDir"/dce.scm
     eogup-single
 )
 
