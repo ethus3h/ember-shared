@@ -986,7 +986,7 @@ testGuixPackage() (
     guix environment guix || true
 )
 
-generateGuixPackage() (
+generateGuixPackaging() (
     if ! [[ -f "package-name" ]]; then
         die "Please make sure you're in a package directory."
     fi
