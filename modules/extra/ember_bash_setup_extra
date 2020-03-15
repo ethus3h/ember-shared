@@ -1036,11 +1036,11 @@ generateGuixPackage() (
         while IFS= read -r line; do
             (
                 # line: package name
-                hash="$(<"$packagesDir/$line/hash")"
+                packageHash="$(<"$packagesDir/$line/hash")"
                 ereplace "TEMPLATE-PLACEHOLDER-HASH:$line" "$hash" dce.scm
-                commit="$(<"$packagesDir/$line/commit")"
+                packageCommit="$(<"$packagesDir/$line/commit")"
                 ereplace "TEMPLATE-PLACEHOLDER-COMMIT:$line" "$commit" dce.scm
-                version="$(<"$packagesDir/$line/version")"
+                packageVersion="$(<"$packagesDir/$line/version")"
                 ereplace "TEMPLATE-PLACEHOLDER-VERSION:$line" "$version" dce.scm
             )
         done < "$packagesDir"/packages.lst
