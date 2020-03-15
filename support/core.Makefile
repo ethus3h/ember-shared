@@ -9,7 +9,6 @@ all:
 	@support/install-prepare-modules
 	@echo "Done preparing ember-shared-core"
 install:
-	@support/install-prepare-modules
 	@install -d $(DESTDIR)$(PREFIX)/usr/bin/
 	@install -m 755 scripts/ember_bash_setup_core $(DESTDIR)$(PREFIX)/usr/bin/
 	@echo "Done installing or updating" ember-shared-core
