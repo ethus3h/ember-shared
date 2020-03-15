@@ -968,6 +968,9 @@ testGuixPackage() (
     guix environment guix || true
 )
 
+generateGuixPackage() (
+)
+
 testAndGenerateGuixPackage() (
     eogup-single
     git push
