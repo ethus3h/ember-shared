@@ -1060,5 +1060,5 @@ generateAndTestGuixPackage() (
         pn="$(<package-name)"
     fi
     generateGuixPackage "$pn"
-    generateGuixPackage "$pn"
+    testGuixPackage "$pn"
 )
