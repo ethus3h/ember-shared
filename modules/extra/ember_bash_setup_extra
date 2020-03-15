@@ -950,6 +950,9 @@ checkedxz() (
     fi
 )
 
+updateGuixRepo() (
+)
+
 testGuixPackage() (
     if [[ -n "$1" ]]; then
         pn="$1"
