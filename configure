@@ -3,12 +3,6 @@ set -x
 
 # Special configure for ember-shared.
 
-if [[ -e "configured" ]]; then
-    echo "Warning: This source tree has already been configured once. Running configure logic again would not work. Stopping."
-    # do not exit 1 because Portage seems to be running configure twice (??)
-    exit
-fi
-
 packageName="$(cat package-name)"
 
 #NOTE: MAINTENANCE: Manual error printing
