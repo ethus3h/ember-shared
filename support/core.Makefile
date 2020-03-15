@@ -6,6 +6,7 @@ ifeq ($(PREFIX),)
 endif
 
 all:
+	@support/install-prepare-modules
 	@echo "Done preparing ember-shared-core"
 install:
 	@install -d $(DESTDIR)$(PREFIX)/usr/bin/
