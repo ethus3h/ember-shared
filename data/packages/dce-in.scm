@@ -202,7 +202,6 @@
     (inputs `(
         ("autoconf" ,autoconf)
         ("automake" ,automake)
-        ("unzip" ,unzip)
     ))
     (synopsis "recursively calculate file hashes in a directory tree")
     (description "Recursively calculates file hashes in a directory tree.")
