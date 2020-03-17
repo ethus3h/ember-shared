@@ -175,7 +175,7 @@
                 (commit "TEMPLATE-PLACEHOLDER-COMMIT:ember-shared-core")))
               (sha256
                (base32
-                "TEMPLATE-PLACEHOLDER-HASH:ember-shared-core"))))
+                "1g3xyrr2gjb6h511m0wwjhk5s1v5wz16nd377ykscnsfwwrmks6m"))))
     (build-system gnu-build-system)
     (arguments '(#:configure-flags '("--module=core") #:phases (modify-phases %standard-phases (delete 'check))))
     (propagated-inputs `(
