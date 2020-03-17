@@ -42,6 +42,8 @@ fi
 
 support/install-prepare-module
 
+datadir="$(<support/.datadir)"
+
 module="$(<support/.module)"
 if [[ "error-notify" == "$module" ]] || [[ "core" == "$module" ]]; then
     # Nothing more to do for these modules, to avoid dependency on perl in the substitutePath tool below, and on futuramerlin-web-toolkit for the documentation (if any is later added)
