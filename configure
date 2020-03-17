@@ -29,8 +29,8 @@ while [[ -n "$1" ]]; do
     --datadir)
         printf '%s' "${1#*=}" > support/.datadir
         ;;
-    --datadir)
-        printf '%s' "${1#*=}" > support/.datadir
+    --datarootdir)
+        printf '%s' "${1#*=}" > support/.datarootdir
         ;;
     --sysconfdir)
         printf '%s' "${1#*=}" > support/.sysconfdir
