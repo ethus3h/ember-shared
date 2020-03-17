@@ -184,7 +184,7 @@
         ))
     ))
     (inputs `(
-        ("ember-shared-error-notify" ,ember-shared-error-notify)
+        ("unzip" ,unzip)
         ; many inputs this needs are implicit in the build system: bash, coreutils, sed, gawk, diffutils
         ("util-linux" ,util-linux)
         ("perl" ,perl)
