@@ -45,15 +45,15 @@
 (define-public ember-shared-error-notify
   (package
     (name "ember-shared-error-notify")
-    (version "1.1.4.491-e280ea9e1fff956c88f59b61afc80f954d7f41d5")
+    (version "1.1.4.491-c7db649c8334557ceddaed1457c44acd6fefa008")
     (source (origin
               (method git-fetch)
               (uri (git-reference
                 (url "https://github.com/ethus3h/ember-shared.git")
-                (commit "e280ea9e1fff956c88f59b61afc80f954d7f41d5")))
+                (commit "c7db649c8334557ceddaed1457c44acd6fefa008")))
               (sha256
                (base32
-                "1yva0q33k58adpmiingiy5m8zn2q5ji4g9n1yixv8kdgfsm48dxy"))))
+                "1qb99p90a0nb6ndbx5i5jiaawm5zcmzvcm40yr74rwlaiiwy3n0r"))))
     (build-system gnu-build-system)
     (arguments '(#:configure-flags '("--module=error-notify") #:phases (modify-phases %standard-phases (delete 'check))))
     (propagated-inputs `(("xxd" ,xxd)))
@@ -132,7 +132,7 @@
         ; inputs this needs are implicit in the build system: grep, findutils
         ; csum (depends hashdeep), ember_bash_setup_extra (see for dependencies), ember-shared-update, findq/findq-update (depend locate), htmlToText.pl (depends HTML::Restrict), serve-ember-web-site (depends PHP & futuramerlin-web-toolkit), wave2png.py (depends wave, matplotlib, pylab (part of matplotlib)). ia, wget, rsync, sshpass, ssh, csvfix, jq, grab-site, phantomjs, ldconfig, python, ffmpeg, youtube-dl, git, sqlite3, moreutils, imagemagick, xz; guix
         ; Miscellaneous scripts' dependencies:
-        ;("hashdeep" ,hashdeep) ; csum
+        ("hashdeep" ,hashdeep) ; csum
         ("mlocate" ,mlocate) ; findq/findq-update
         ("perl" ,perl) ; htmlToText.pl
         ;("perl-html-restrict" ,perl-html-restrict) ; htmlToText.pl
@@ -181,21 +181,16 @@
               ; Also remove the test suite, since it depends on a pre-build known good binary to test against
               (modules '((guix build utils)))
               (snippet '(begin
-                    (
-                        for-each delete-file-recursively '("dist" "tests")
+                    (for-each delete-file-recursively '("dist" "tests"))
+                    (substitute* "bootstrap.sh" (("/bin/rm") "rm"))
+                    (substitute* "Makefile.am"
+                        (("src tests man tests/testfiles") "src man")
                     )
-                    (
-                        substitute* "bootstrap.sh" (("/bin/rm") "rm")
-                    )
-                    (
-                        substitute* "Makefile.am" (("src tests man tests/testfiles") "src man")
-                    )
-                    (
-                        substitute* "configure.ac" (("tests/Makefile tests/testfiles/Makefile") "")
+                    (substitute* "configure.ac"
+                        (("tests/Makefile tests/testfiles/Makefile") "")
                     )
                     #t
               ))
-              ;(snippet '(begin (invoke "bash" "-c" "rm -r dist tests/*.zip") #t))
             ))
     (build-system gnu-build-system)
     (arguments '(
