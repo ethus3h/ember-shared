@@ -4,6 +4,8 @@
 ifeq ($(PREFIX),)
     PREFIX=`cat support/.prefix`
 endif
+ifeq($(datarootdir),)
+    datarootdir=$(datadir)
 
 all:
 	@support/install-prepare-modules
