@@ -34,14 +34,6 @@ if ! ebs_loc="$(type -P "ember_bash_setup_core")" || [[ -z "$ebs_loc" ]]; then
     exit 1
 fi
 
-if ! ebs_loc="$(type -P "ember_bash_setup")" || [[ -z "$ebs_loc" ]]; then
-    eiteDie || exit 1
-fi
-
-if [[ -z "$(ember-getconf emberSharedVersion)" ]]; then
-    eiteDie || exit 1
-fi
-
 #NOTE: MAINTENANCE: Manual error printing
 trap 'printf '\''%b'\'' '\''\033[1;31m'\'' >&2; echo "A fatal error was reported on ${BASH_SOURCE[0]} line ${LINENO} in $(pwd)." >&2; printf '\''%b'\'' '\''\033[0m'\'' >&2; exit 1' ERR
 
