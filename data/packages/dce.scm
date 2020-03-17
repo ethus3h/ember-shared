@@ -38,20 +38,21 @@
   #:use-module (gnu packages imagemagick)
   #:use-module (gnu packages compression)
   #:use-module (gnu packages package-management)
+  #:use-module (gnu packages bash)
 )
 
 (define-public ember-shared-error-notify
   (package
     (name "ember-shared-error-notify")
-    (version "1.1.4.491-300a230d5855115b46e8dd304828dabb38772803")
+    (version "1.1.4.491-fcedcac98dd3c734e2029b4f9d0e6aaf246b0c3d")
     (source (origin
               (method git-fetch)
               (uri (git-reference
                 (url "https://github.com/ethus3h/ember-shared.git")
-                (commit "300a230d5855115b46e8dd304828dabb38772803")))
+                (commit "fcedcac98dd3c734e2029b4f9d0e6aaf246b0c3d")))
               (sha256
                (base32
-                "1jiqirlvrys9rjhjhx9cf78qgiznlwfxqywcm4wkgn7v7kqn6s74"))))
+                "0vd2gwjc6qn9qyv50fa7vsv4q12sbl8csf2vc8wk3cylwq4jzk8m"))))
     (build-system gnu-build-system)
     (arguments '(#:configure-flags '("--module=error-notify") #:phases (modify-phases %standard-phases (delete 'check))))
     (propagated-inputs `(("xxd" ,xxd)))
