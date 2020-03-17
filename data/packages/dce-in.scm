@@ -185,10 +185,6 @@
     ))
     (inputs `(
         ("unzip" ,unzip)
-        ; many inputs this needs are implicit in the build system: bash, coreutils, sed, gawk, diffutils
-        ("util-linux" ,util-linux)
-        ("perl" ,perl)
-        ("xxd" ,xxd)
     ))
     (synopsis "recursively calculate file hashes in a directory tree")
     (description "Recursively calculates file hashes in a directory tree.")
