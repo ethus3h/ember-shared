@@ -6,6 +6,7 @@ ifeq ($(PREFIX),)
 endif
 ifeq($(datarootdir),)
     datarootdir=$(datadir)
+endif
 
 all:
 	@support/install-prepare-modules
