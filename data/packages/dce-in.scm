@@ -187,6 +187,9 @@
                     (
                         substitute* "bootstrap.sh" (("/bin/rm") "rm")
                     )
+                    (
+                        substitute* "bootstrap.sh" (("/bin/rm") "rm")
+                    )
                     #t
               ))
               ;(snippet '(begin (invoke "bash" "-c" "rm -r dist tests/*.zip") #t))
