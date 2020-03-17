@@ -13,6 +13,7 @@
 
 (define-module (gnu packages dce)
   #:use-module (guix packages)
+  #:use-module (guix download)
   #:use-module (guix git-download)
   #:use-module (guix build-system gnu)
   #:use-module (guix licenses)
@@ -42,15 +43,15 @@
 (define-public ember-shared-error-notify
   (package
     (name "ember-shared-error-notify")
-    (version "1.1.4.490-b75b76e6dfb731116bd2e3f4716b705b8680a428")
+    (version "1.1.4.491-2983bdbbf6b0eb6332e44ec0078e91c3f5c1f585")
     (source (origin
               (method git-fetch)
               (uri (git-reference
                 (url "https://github.com/ethus3h/ember-shared.git")
-                (commit "b75b76e6dfb731116bd2e3f4716b705b8680a428")))
+                (commit "2983bdbbf6b0eb6332e44ec0078e91c3f5c1f585")))
               (sha256
                (base32
-                "0k0jnbmrlzym3gz43bf7v0j2xiv41vy60hqj58725vmccbz296bf"))))
+                "0acnj2n7kgs6lpgv3capmy50v4n1nr8a5km0jcydlqmjpq421liw"))))
     (build-system gnu-build-system)
     (arguments '(#:configure-flags '("--module=error-notify") #:phases (modify-phases %standard-phases (delete 'check))))
     (propagated-inputs `(("xxd" ,xxd)))
