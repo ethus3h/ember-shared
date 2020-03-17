@@ -170,7 +170,7 @@
     (version "TEMPLATE-PLACEHOLDER-VERSION:ember-shared-core")
     (source (origin
               (method url-fetch)
-              (uri (string-append "https://github.com/jessek/hashdeep/releases/download/v4.4/md5deep-4.4.zip""mirror://gnu/hello/hello-" version
+              (uri (string-append "https://github.com/jessek/hashdeep/releases/download/v" version "/md5deep-" version ".zip""mirror://gnu/hello/hello-" version
                                 ".tar.gz"))
               (sha256
                (base32
