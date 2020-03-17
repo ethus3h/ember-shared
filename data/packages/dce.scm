@@ -45,15 +45,15 @@
 (define-public ember-shared-error-notify
   (package
     (name "ember-shared-error-notify")
-    (version "1.1.4.491-ead0fd5acb65822d7677c5030ee01f8d973b4099")
+    (version "1.1.4.491-7c02205e0c0a4f0c792afd4e5b468fb4a93e507d")
     (source (origin
               (method git-fetch)
               (uri (git-reference
                 (url "https://github.com/ethus3h/ember-shared.git")
-                (commit "ead0fd5acb65822d7677c5030ee01f8d973b4099")))
+                (commit "7c02205e0c0a4f0c792afd4e5b468fb4a93e507d")))
               (sha256
                (base32
-                "0a4zak18k3dfchz1q80l8sv0zpgdx6jfrs84icp9j13071fq0bh9"))))
+                "0h0dr103mybdrsmmp3xxl4wn32mvql2ipryjc2i69pgil6kr0090"))))
     (build-system gnu-build-system)
     (arguments '(#:configure-flags '("--module=error-notify") #:phases (modify-phases %standard-phases (delete 'check))))
     (propagated-inputs `(("xxd" ,xxd)))
@@ -173,22 +173,19 @@
     (version "4.4")
     (source (origin
               (method url-fetch)
-              (uri (string-append "http://web.archive.org/web/20200317013929/https://codeload.github.com/jessek/hashdeep/zip/v" version))
-              (file-name (string-append name "-v" version ".zip"))
+              (uri (string-append "https://github.com/jessek/hashdeep/archive/release-" version ".tar.gz"))
               (sha256
                (base32
-                "0gvprsdqgmx2w1ad5i5gl82nnjp29lcimvifas8qkzl9lkq11kyr"))
+                "0inciwf5av0jzb5z2cp75vaw7n12s20fkjmdcr2qsy4w5as8mnnv"))
               ; Remove bundled dependencies and binaries
+              ; Also remove the test suite, since it depends on a pre-build known good binary to test against
               (modules '((guix build utils)))
               (snippet '(begin
                     (
-                        for-each delete-file-recursively (append '("dist") (find-files "tests" ".*\\.zip"))
+                        for-each delete-file-recursively '("dist" "tests")
                     )
                     (
                         substitute* "bootstrap.sh" (("/bin/rm") "rm")
-                    )
-                    (
-                        substitute* "tests/tests.sh" (("/bin/rm") "rm")
                     )
                     #t
               ))
@@ -205,7 +202,6 @@
     (inputs `(
         ("autoconf" ,autoconf)
         ("automake" ,automake)
-        ("unzip" ,unzip)
     ))
     (synopsis "recursively calculate file hashes in a directory tree")
     (description "Recursively calculates file hashes in a directory tree.")
