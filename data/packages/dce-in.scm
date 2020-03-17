@@ -174,7 +174,7 @@
               (uri (string-append "http://web.archive.org/web/20200317013929/https://codeload.github.com/jessek/hashdeep/zip/v" version))
               (sha256
                (base32
-                "1g3xyrr2gjb6h511m0wwjhk5s1v5wz16nd377ykscnsfwwrmks6m"))
+                "0gvprsdqgmx2w1ad5i5gl82nnjp29lcimvifas8qkzl9lkq11kyr"))
               ; Remove bundled dependencies and binaries
               (snippet (lambda _ (invoke "bash" "-c" "rm -r dist tests/*.zip")))
             ))
