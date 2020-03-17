@@ -43,6 +43,10 @@ fi
 support/install-prepare-module
 
 datadir="$(<support/.datadir)"
+if [[ -z "$datadir" ]]; then
+    datadir="$(<support/.datarootdir)"
+fi
+echo "getEmberSharedDataDir() { echo  }"
 
 module="$(<support/.module)"
 if [[ "error-notify" == "$module" ]] || [[ "core" == "$module" ]]; then
