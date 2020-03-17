@@ -174,7 +174,6 @@
     (source (origin
               (method url-fetch)
               (uri (string-append "https://github.com/jessek/hashdeep/archive/release-" version ".tar.gz"))
-              (file-name (string-append name "-v" version ".zip"))
               (sha256
                (base32
                 "0gvprsdqgmx2w1ad5i5gl82nnjp29lcimvifas8qkzl9lkq11kyr"))
