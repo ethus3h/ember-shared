@@ -180,9 +180,10 @@
                 "0gvprsdqgmx2w1ad5i5gl82nnjp29lcimvifas8qkzl9lkq11kyr"))
               ; Remove bundled dependencies and binaries
               (modules '((guix build utils)))
-              (snippet '(begin (
-                for-each delete-file-recursively (append '("dist") (find-files "tests" ".*\\.zip"))
-                )
+              (snippet '(begin
+                    (
+                        for-each delete-file-recursively (append '("dist") (find-files "tests" ".*\\.zip"))
+                    )
                 #t
               ))
               (snippet '(begin (
