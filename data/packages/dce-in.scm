@@ -186,7 +186,7 @@
                 #t
               ))
               (snippet '(begin (
-                substitute* "bootstrap" "/bin/rm" "rm"
+                substitute* "bootstrap" (("/bin/rm") "rm")
                 )
                 #t
               ))
