@@ -183,11 +183,11 @@
               (snippet '(begin
                     (for-each delete-file-recursively '("dist" "tests"))
                     (substitute* "bootstrap.sh" (("/bin/rm") "rm"))
-                    (
-                        substitute* "Makefile.am" (("src tests man tests/testfiles") "src man")
+                    (substitute* "Makefile.am"
+                        (("src tests man tests/testfiles") "src man")
                     )
-                    (
-                        substitute* "configure.ac" (("tests/Makefile tests/testfiles/Makefile") "")
+                    (substitute* "configure.ac"
+                        (("tests/Makefile tests/testfiles/Makefile") "")
                     )
                     #t
               ))
