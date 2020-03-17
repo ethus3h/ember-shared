@@ -39,20 +39,21 @@
   #:use-module (gnu packages compression)
   #:use-module (gnu packages package-management)
   #:use-module (gnu packages bash)
+  #:use-module (gnu packages autotools)
 )
 
 (define-public ember-shared-error-notify
   (package
     (name "ember-shared-error-notify")
-    (version "1.1.4.491-0e8d7b25816723be0aafd9de1868553ee3bcf277")
+    (version "1.1.4.491-d60f1df62bba9fce1e7d886a557974d2d7c5cb74")
     (source (origin
               (method git-fetch)
               (uri (git-reference
                 (url "https://github.com/ethus3h/ember-shared.git")
-                (commit "0e8d7b25816723be0aafd9de1868553ee3bcf277")))
+                (commit "d60f1df62bba9fce1e7d886a557974d2d7c5cb74")))
               (sha256
                (base32
-                "0p1idkbvficlhnb07q9502syr3d1ldn1p13kjimwgkbyfzlp9vaf"))))
+                "0jimpgiqm7s7m73ydigg02qfx0k2y00s4g8nb4a0rc664vhp28kn"))))
     (build-system gnu-build-system)
     (arguments '(#:configure-flags '("--module=error-notify") #:phases (modify-phases %standard-phases (delete 'check))))
     (propagated-inputs `(("xxd" ,xxd)))
@@ -180,7 +181,14 @@
               ; Remove bundled dependencies and binaries
               (modules '((guix build utils)))
               (snippet '(begin (
-                for-each delete-file-recursively (append '("dist") (find-files "tests" ".*\\.zip")))
+                for-each delete-file-recursively (append '("dist") (find-files "tests" ".*\\.zip"))
+                )
+                #t
+              ))
+              (snippet '(begin (
+                substitute* "bootstrap" (("/bin/rm") "rm")
+                )
+                #t
               ))
               ;(snippet '(begin (invoke "bash" "-c" "rm -r dist tests/*.zip") #t))
             ))
@@ -193,7 +201,8 @@
         ))
     ))
     (inputs `(
-        ("bash" ,bash)
+        ("autoconf" ,autoconf)
+        ("automake" ,automake)
         ("unzip" ,unzip)
     ))
     (synopsis "recursively calculate file hashes in a directory tree")
