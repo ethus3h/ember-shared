@@ -189,7 +189,7 @@
         ("perl" ,perl)
         ("xxd" ,xxd)
     ))
-    (synopsis "ember-shared core")
+    (synopsis "recursively calculate file hashes in a directory tree")
     (description "Shell script library core module")
     (home-page "http://futuramerlin.com/ancillary/ember-shared/")
     (license agpl3+)))
