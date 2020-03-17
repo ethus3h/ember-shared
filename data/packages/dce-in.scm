@@ -196,6 +196,8 @@
         ))
     ))
     (inputs `(
+        ("autoconf" ,autoconf)
+        ("automake" ,automake)
         ("bash" ,bash)
         ("unzip" ,unzip)
     ))
