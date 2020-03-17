@@ -1,7 +1,5 @@
 #!/usr/bin/env bash
 
-# This is a little weird: it's run by the default Makefile's calling the prepare script, which then replaces the default Makefile with the module Makefile. That Makefile then calls this script again.
-
 # Should work without ember-shared (or crystallize), just in case, so don't depend on ember_bash_setup or set traps that need it
 
 #NOTE: MAINTENANCE: Manual error printing
