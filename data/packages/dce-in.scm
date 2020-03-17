@@ -13,7 +13,7 @@
 
 (define-module (gnu packages dce)
   #:use-module (guix packages)
-  (use-modules (guix download))
+  #:use-module (guix download)
   #:use-module (guix git-download)
   #:use-module (guix build-system gnu)
   #:use-module (guix licenses)
