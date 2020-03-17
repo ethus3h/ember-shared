@@ -182,12 +182,11 @@
     (arguments '(
         #:phases (modify-phases %standard-phases (
             add-after 'patch-source-shebangs 'run-bootstrap-script (
-                lambda _ (invoke "/bin/bash" "./bootstrap")
+                lambda _ (invoke "bash" "./bootstrap")
             )
         ))
     ))
     (inputs `(
-        ("bash" ,bash)
         ("unzip" ,unzip)
     ))
     (synopsis "recursively calculate file hashes in a directory tree")
