@@ -51,8 +51,8 @@ if [[ -z "$datadir" ]]; then
         datadir="/usr/local/share/"
     fi
 fi
-if [[ -e "support/.destdir" ]]; then
 if [[ -e "support/.prefix" ]]; then
+if [[ -e "support/.destdir" ]]; then
 if [[ "/" != "${datadir: -1}" ]]; then
     datadir="$datadir/"
 fi
