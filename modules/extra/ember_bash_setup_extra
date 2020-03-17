@@ -957,7 +957,8 @@ updateGuixRepo() (
     repository="guix"
     if [[ -e "$repository" ]]; then
         pushd "$repository" || die
-        git pull
+        true
+        #git pull
         popd || die
     else
         git clone "https://git.savannah.gnu.org/git/guix.git"
