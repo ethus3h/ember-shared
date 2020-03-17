@@ -181,12 +181,8 @@
               ; Also remove the test suite, since it depends on a pre-build known good binary to test against
               (modules '((guix build utils)))
               (snippet '(begin
-                    (
-                        for-each delete-file-recursively '("dist" "tests")
-                    )
-                    (
-                        substitute* "bootstrap.sh" (("/bin/rm") "rm")
-                    )
+                    (for-each delete-file-recursively '("dist" "tests"))
+                    (substitute* "bootstrap.sh" (("/bin/rm") "rm"))
                     (
                         substitute* "Makefile.am" (("src tests man tests/testfiles") "src man")
                     )
