@@ -42,15 +42,15 @@
 (define-public ember-shared-error-notify
   (package
     (name "ember-shared-error-notify")
-    (version "1.1.4.490-09e4217e74ae7a997d490a7bd9c74464b38f19af")
+    (version "1.1.4.490-b75b76e6dfb731116bd2e3f4716b705b8680a428")
     (source (origin
               (method git-fetch)
               (uri (git-reference
                 (url "https://github.com/ethus3h/ember-shared.git")
-                (commit "09e4217e74ae7a997d490a7bd9c74464b38f19af")))
+                (commit "b75b76e6dfb731116bd2e3f4716b705b8680a428")))
               (sha256
                (base32
-                "0z70a90fnh1am4vdbaq0hgq4bvb0kaap4xpm0s0130r9bysbx3zi"))))
+                "0k0jnbmrlzym3gz43bf7v0j2xiv41vy60hqj58725vmccbz296bf"))))
     (build-system gnu-build-system)
     (arguments '(#:configure-flags '("--module=error-notify") #:phases (modify-phases %standard-phases (delete 'check))))
     (propagated-inputs `(("xxd" ,xxd)))
@@ -161,3 +161,35 @@
     (description "Shell script library extra module")
     (home-page "http://futuramerlin.com/ancillary/ember-shared/")
     (license agpl3+)))
+
+; Dependencies
+
+(define-public hashdeep
+  (package
+    (name "hashdeep")
+    (version "4.4")
+    (source (origin
+              (method url-fetch)
+              (uri (string-append "https://github.com/jessek/hashdeep/releases/download/v" version "/md5deep-" version ".zip"))
+              (sha256
+               (base32
+                "1g3xyrr2gjb6h511m0wwjhk5s1v5wz16nd377ykscnsfwwrmks6m"))))
+    (build-system gnu-build-system)
+    (arguments '(
+        #:phases (modify-phases %standard-phases (
+            add-after 'patch-source-shebangs 'run-bootstrap-script (
+                lambda _ (invoke bash (string-append srcdir "/bootstrap"))
+            )
+        ))
+    ))
+    (propagated-inputs `(
+        ("ember-shared-error-notify" ,ember-shared-error-notify)
+        ; many inputs this needs are implicit in the build system: bash, coreutils, sed, gawk, diffutils
+        ("util-linux" ,util-linux)
+        ("perl" ,perl)
+        ("xxd" ,xxd)
+    ))
+    (synopsis "recursively calculate file hashes in a directory tree")
+    (description "Recursively calculates file hashes in a directory tree.")
+    (home-page "https://github.com/jessek/hashdeep")
+    (license (list public-domain gpl2 lgpl2.1+))))
