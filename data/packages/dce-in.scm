@@ -175,7 +175,7 @@
               (sha256
                (base32
                 "1g3xyrr2gjb6h511m0wwjhk5s1v5wz16nd377ykscnsfwwrmks6m"))
-              (snippet (lambda _ ))
+              (snippet (lambda _ (invoke "/bin/rm" "-r" "dist")))
             ))
     (build-system gnu-build-system)
     (arguments '(
