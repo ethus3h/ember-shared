@@ -13,6 +13,6 @@ all:
 install:
 	@install -d $(DESTDIR)$(PREFIX)/usr/bin/
 	@install -m 755 scripts/ember_bash_setup_core $(DESTDIR)$(PREFIX)/usr/bin/
-	@install -d $(DESTDIR)$(PREFIX)$(DATADIR)/ember/
-	@find data -mindepth 1 -maxdepth 1 -exec cp -r {} $(DESTDIR)$(PREFIX)$(DATADIR)/ember/ \;
+	@install -d $(DESTDIR)$(PREFIX)$(datarootdir)/ember/
+	@find data -mindepth 1 -maxdepth 1 -exec cp -r {} $(DESTDIR)$(PREFIX)$(datarootdir)/ember/ \;
 	@echo "Done installing or updating" ember-shared-core
