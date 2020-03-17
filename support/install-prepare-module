@@ -23,6 +23,9 @@ if [[ -n "$module" ]]; then
     core)
         mv support/core.Makefile Makefile
         ;;
+    main)
+        mv data data.bak
+        ;;
     extra)
         # "extra" module should not install duplicate copies of things
         mv data data.bak
