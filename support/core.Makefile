@@ -8,7 +8,7 @@ ifeq ($(datadir),)
     datadir=`cat support/.datadir`
 endif
 ifeq ($(datadir),)
-    datadir=`cat support/.datadir`
+    datadir=`cat support/.datarootdir`
 endif
 
 all:
