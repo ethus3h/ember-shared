@@ -184,12 +184,10 @@
                     (
                         for-each delete-file-recursively (append '("dist") (find-files "tests" ".*\\.zip"))
                     )
-                #t
-              ))
-              (snippet '(begin (
-                substitute* "bootstrap" (("/bin/rm") "rm")
-                )
-                #t
+                    (
+                        substitute* "bootstrap" (("/bin/rm") "rm")
+                    )
+                    #t
               ))
               ;(snippet '(begin (invoke "bash" "-c" "rm -r dist tests/*.zip") #t))
             ))
