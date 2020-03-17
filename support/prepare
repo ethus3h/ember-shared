@@ -40,9 +40,11 @@ if [[ "$OSTYPE" = darwin* ]]; then
     sudo chsh -s /usr/local/bin/bash "$USER"
 fi
 
+datadir=""
 if [[ -e "support/.datadir" ]]; then
     datadir="$(<support/.datadir)"
 fi
+if [[ -e ""]]
 if [[ -z "$datadir" ]]; then
     datadir="$(<support/.datarootdir)"
 fi
