@@ -30,7 +30,7 @@ eiteDie() {
     #NOTE: MAINTENANCE: Manual error printing
     if [[ -z "$(which ember_bash_setup_core)" ]]; then
         printf '%b' '\033[1;31m' >&2
-        echo "ERROR: ember-shared core is not properly installed! It must be installed before installing $packageName." >&2
+        echo "ERROR: ember-shared core module is not properly installed! It must be installed before installing $packageName." >&2
         printf '%b' '\033[0m' >&2
         exit 1
     fi
