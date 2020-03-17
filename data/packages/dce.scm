@@ -43,15 +43,15 @@
 (define-public ember-shared-error-notify
   (package
     (name "ember-shared-error-notify")
-    (version "1.1.4.491-87be4da4a919fd4d54c7053e9afd49bce007528c")
+    (version "1.1.4.491-700f0f5db37042152f5886e7ac61687f09427808")
     (source (origin
               (method git-fetch)
               (uri (git-reference
                 (url "https://github.com/ethus3h/ember-shared.git")
-                (commit "87be4da4a919fd4d54c7053e9afd49bce007528c")))
+                (commit "700f0f5db37042152f5886e7ac61687f09427808")))
               (sha256
                (base32
-                "099bwlvskh89g27lf3izh6c3x5zciqhnhbzy7qgfp2vr7sqr11k1"))))
+                "01kj836klldx9gvqz1arkbfv5w4h6d9v71j75mdp3135s6maz1wi"))))
     (build-system gnu-build-system)
     (arguments '(#:configure-flags '("--module=error-notify") #:phases (modify-phases %standard-phases (delete 'check))))
     (propagated-inputs `(("xxd" ,xxd)))
@@ -172,6 +172,7 @@
     (source (origin
               (method url-fetch)
               (uri (string-append "http://web.archive.org/web/20200317013929/https://codeload.github.com/jessek/hashdeep/zip/v" version))
+              (file-name (string-append name "-v" version ".zip"))
               (sha256
                (base32
                 "0gvprsdqgmx2w1ad5i5gl82nnjp29lcimvifas8qkzl9lkq11kyr"))
