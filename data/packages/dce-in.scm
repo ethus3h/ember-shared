@@ -182,7 +182,7 @@
               (modules '((guix build utils)))
               (snippet '(begin
                     (
-                        for-each delete-file-recursively (append '("hashdeep-4.4/dist") (find-files "hashdeep-4.4/tests" ".*\\.zip"))
+                        for-each delete-file-recursively (append '("dist") (find-files "tests" ".*\\.zip"))
                     )
                     (
                         substitute* "hashdeep-4.4/bootstrap" (("/bin/rm") "rm")
