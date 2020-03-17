@@ -50,7 +50,7 @@ if [[ "/" != "${datadir: -1}" ]]; then
     datadir="$datadir/"
 fi
 #    [1...                            ][2...      ][3..]
-echo 'getEmberSharedDataDir() { print '"'$datadir'"'; }' >>
+echo 'getEmberSharedDataDir() { print '"'$datadir'"'; }' >> scripts/ember_shared_core
 # 1 = single-quoted string; 2 = double-quoted string with literal single-quotation marks; 3 = single-quoted string
 
 module="$(<support/.module)"
