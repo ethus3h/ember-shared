@@ -3,7 +3,7 @@
 # Should work without ember-shared (or crystallize), just in case, so don't depend on ember_bash_setup or set traps that need it
 
 #NOTE: MAINTENANCE: Manual error printing
-trap 'echo "Error preparing module"; exit 1' ERR
+trap 'echo "Error installing data"; exit 1' ERR
 
 module="$(<support/.module)"
 
