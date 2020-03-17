@@ -187,6 +187,7 @@
         ))
     ))
     (inputs `(
+        ("bash" ,bash)
         ("unzip" ,unzip)
     ))
     (synopsis "recursively calculate file hashes in a directory tree")
