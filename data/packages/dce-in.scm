@@ -39,6 +39,7 @@
   #:use-module (gnu packages compression)
   #:use-module (gnu packages package-management)
   #:use-module (gnu packages bash)
+  #:use-module (gnu packages autotools)
 )
 
 (define-public ember-shared-error-notify
