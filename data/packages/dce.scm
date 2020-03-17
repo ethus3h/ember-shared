@@ -43,15 +43,15 @@
 (define-public ember-shared-error-notify
   (package
     (name "ember-shared-error-notify")
-    (version "1.1.4.491-799db88984c26dab23f9c781574a965536c01ffd")
+    (version "1.1.4.491-e60b9109e026666d0dc9887bc125aedeeb8cf6f7")
     (source (origin
               (method git-fetch)
               (uri (git-reference
                 (url "https://github.com/ethus3h/ember-shared.git")
-                (commit "799db88984c26dab23f9c781574a965536c01ffd")))
+                (commit "e60b9109e026666d0dc9887bc125aedeeb8cf6f7")))
               (sha256
                (base32
-                "1z0ij199vvl49xvsy8c41fp8h9ccxnfgrb4vbnr5kw2ac0l0f5j0"))))
+                "02bdy3i98ifnf8g612r65ch4ip7lyr9pwavp4pa8jaka76q2ycfq"))))
     (build-system gnu-build-system)
     (arguments '(#:configure-flags '("--module=error-notify") #:phases (modify-phases %standard-phases (delete 'check))))
     (propagated-inputs `(("xxd" ,xxd)))
@@ -171,15 +171,18 @@
     (version "4.4")
     (source (origin
               (method url-fetch)
-              (uri (string-append "https://github.com/jessek/hashdeep/releases/download/v" version "/md5deep-" version ".zip"))
+              (uri (string-append "http://web.archive.org/web/20200317013929/https://codeload.github.com/jessek/hashdeep/zip/v" version))
               (sha256
                (base32
-                "1g3xyrr2gjb6h511m0wwjhk5s1v5wz16nd377ykscnsfwwrmks6m"))))
+                "1g3xyrr2gjb6h511m0wwjhk5s1v5wz16nd377ykscnsfwwrmks6m"))
+              ; Remove bundled dependencies and binaries
+              (snippet (lambda _ (invoke "bash" "-c" "rm -r dist tests/*.zip")))
+            ))
     (build-system gnu-build-system)
     (arguments '(
         #:phases (modify-phases %standard-phases (
             add-after 'patch-source-shebangs 'run-bootstrap-script (
-                lambda _ (invoke "/bin/bash" "./bootstrap")
+                lambda _ (invoke "bash" "./bootstrap")
             )
         ))
     ))
