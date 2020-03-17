@@ -186,7 +186,7 @@
                 #t
               ))
               (snippet '(begin (
-                for-each delete-file-recursively (append '("dist") (find-files "tests" ".*\\.zip"))
+                substitute* "bootstrap" "/bin/rm" "rm"
                 )
                 #t
               ))
