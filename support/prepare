@@ -42,6 +42,8 @@ fi
 
 support/install-prepare-module
 
+if [[ "core" == "$(<support/.module)" ]]
+
 source support/getDirs
 
 #NOTE: MAINTENANCE: Remainder copied from "prepare" template file
