@@ -48,7 +48,7 @@ if [[ "/" != "${datadir: -1}" ]]; then
     datadir="$datadir/"
 fi
 #    [1...                            ][2...      ][3..]
-echo 'getEmberSharedDataDir() { print '"'$datadir'"'; }' >> scripts/ember_bash_setup_core
+echo 'getEmberSharedDataDir() { print '"'$datadir'"'; }' >> modules/core/ember_bash_setup_core
 # 1 = single-quoted string; 2 = double-quoted string with literal single-quotation marks; 3 = single-quoted string
 
 support/install-prepare-module
