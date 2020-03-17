@@ -179,7 +179,7 @@
                 "0gvprsdqgmx2w1ad5i5gl82nnjp29lcimvifas8qkzl9lkq11kyr"))
               ; Remove bundled dependencies and binaries
               (modules '((guix build utils)))
-              (snippet '((for-each delete-file-recursively (list-append "dist" (find-files tests ".*\.zip"))))
+              (snippet '(for-each delete-file-recursively (list-append "dist" (find-files tests ".*\.zip"))))
               ;(snippet '(begin (invoke "bash" "-c" "rm -r dist tests/*.zip") #t))
             ))
     (build-system gnu-build-system)
