@@ -44,7 +44,7 @@ support/install-prepare-module
 
 module="$(<support/.module)"
 if [[ "error-notify" == "$module" ]] || [[ "core" == "$module" ]]; then
-    # Nothing more to do for these modules, to avoid dependencies
+    # Nothing more to do for these modules, to avoid dependency on perl in the substitutePath tool below, and on futuramerlin-web-toolkit for the documentation (if any is later added)
     exit 0
 fi
 
