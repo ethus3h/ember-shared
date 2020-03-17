@@ -43,15 +43,15 @@
 (define-public ember-shared-error-notify
   (package
     (name "ember-shared-error-notify")
-    (version "1.1.4.491-2983bdbbf6b0eb6332e44ec0078e91c3f5c1f585")
+    (version "1.1.4.491-f545c94d0c102394def748f77959b38ce4700664")
     (source (origin
               (method git-fetch)
               (uri (git-reference
                 (url "https://github.com/ethus3h/ember-shared.git")
-                (commit "2983bdbbf6b0eb6332e44ec0078e91c3f5c1f585")))
+                (commit "f545c94d0c102394def748f77959b38ce4700664")))
               (sha256
                (base32
-                "0acnj2n7kgs6lpgv3capmy50v4n1nr8a5km0jcydlqmjpq421liw"))))
+                "156yyx3y6qxg1jlcgavijfxhkdx3br6fp4cwdz6sw35mdccnxpgk"))))
     (build-system gnu-build-system)
     (arguments '(#:configure-flags '("--module=error-notify") #:phases (modify-phases %standard-phases (delete 'check))))
     (propagated-inputs `(("xxd" ,xxd)))
@@ -183,12 +183,8 @@
             )
         ))
     ))
-    (propagated-inputs `(
-        ("ember-shared-error-notify" ,ember-shared-error-notify)
-        ; many inputs this needs are implicit in the build system: bash, coreutils, sed, gawk, diffutils
-        ("util-linux" ,util-linux)
-        ("perl" ,perl)
-        ("xxd" ,xxd)
+    (inputs `(
+        ("unzip" ,unzip)
     ))
     (synopsis "recursively calculate file hashes in a directory tree")
     (description "Recursively calculates file hashes in a directory tree.")
