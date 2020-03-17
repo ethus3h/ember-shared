@@ -24,6 +24,7 @@ if [[ -n "$module" ]]; then
         mv support/core.Makefile Makefile
         ;;
     main)
+        # do not install duplicate copy: installed by core
         mv data data.bak
         ;;
     extra)
