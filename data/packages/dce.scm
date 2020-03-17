@@ -45,15 +45,15 @@
 (define-public ember-shared-error-notify
   (package
     (name "ember-shared-error-notify")
-    (version "1.1.4.491-278ea2982edf106eb44023c03dc55580c5be503e")
+    (version "1.1.4.491-ed8b467b8299c1eb9945fcd8fcc468ad1fbfad41")
     (source (origin
               (method git-fetch)
               (uri (git-reference
                 (url "https://github.com/ethus3h/ember-shared.git")
-                (commit "278ea2982edf106eb44023c03dc55580c5be503e")))
+                (commit "ed8b467b8299c1eb9945fcd8fcc468ad1fbfad41")))
               (sha256
                (base32
-                "063izg3lqclxfxz1lpkvhdr9gddb3prlzy3q2wv8akghd1ag4bzy"))))
+                "00i738wdkjmggd6fw2win9djqhfdyz11a6z9cv5j4jvrgi24586y"))))
     (build-system gnu-build-system)
     (arguments '(#:configure-flags '("--module=error-notify") #:phases (modify-phases %standard-phases (delete 'check))))
     (propagated-inputs `(("xxd" ,xxd)))
@@ -184,9 +184,8 @@
                     (
                         for-each delete-file-recursively (append '("dist") (find-files "tests" ".*\\.zip"))
                     )
-                    (invoke "ls")
                     (
-                        substitute* "hashdeep-4.4/bootstrap" (("/bin/rm") "rm")
+                        substitute* "bootstrap.sh" (("/bin/rm") "rm")
                     )
                     #t
               ))
@@ -196,7 +195,7 @@
     (arguments '(
         #:phases (modify-phases %standard-phases (
             add-after 'patch-source-shebangs 'run-bootstrap-script (
-                lambda _ (invoke "bash" "./bootstrap")
+                lambda _ (invoke "bash" "./bootstrap.sh")
             )
         ))
     ))
