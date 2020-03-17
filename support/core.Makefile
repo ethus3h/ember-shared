@@ -5,7 +5,7 @@ ifeq ($(PREFIX),)
     PREFIX=`cat support/.prefix`
 endif
 ifeq ($(datadir),)
-    datarootdir=$(datadir)
+    PREFIX=`cat support/.prefix`
 endif
 
 all:
