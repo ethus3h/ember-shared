@@ -176,7 +176,7 @@
               (uri (string-append "https://github.com/jessek/hashdeep/archive/release-" version ".tar.gz"))
               (sha256
                (base32
-                "0gvprsdqgmx2w1ad5i5gl82nnjp29lcimvifas8qkzl9lkq11kyr"))
+                "0inciwf5av0jzb5z2cp75vaw7n12s20fkjmdcr2qsy4w5as8mnnv"))
               ; Remove bundled dependencies and binaries
               ; Also remove the test suite, since it depends on a pre-build known good binary to test against
               (modules '((guix build utils)))
