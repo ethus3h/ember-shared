@@ -173,7 +173,7 @@
     (version "4.4")
     (source (origin
               (method url-fetch)
-              (uri (string-append "http://web.archive.org/web/20200317013929/https://codeload.github.com/jessek/hashdeep/zip/v" version))
+              (uri (string-append "https://github.com/jessek/hashdeep/archive/release-4.4.tar.gz" "http://web.archive.org/web/20200317013929/https://codeload.github.com/jessek/hashdeep/zip/v" version))
               (file-name (string-append name "-v" version ".zip"))
               (sha256
                (base32
