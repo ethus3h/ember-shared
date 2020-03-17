@@ -181,9 +181,9 @@
               ; Remove bundled dependencies and binaries
               (modules '((guix build utils)))
               (snippet '(begin
-                   ; (
-                    ;    for-each delete-file-recursively (append '("dist") (find-files "tests" ".*\\.zip"))
-                  ;  )
+                    (
+                        for-each delete-file-recursively (append '("dist") (find-files "tests" ".*\\.zip"))
+                    )
                     (
                         substitute* "bootstrap" (("/bin/rm") "rm")
                     )
