@@ -164,9 +164,9 @@
 
 ; Dependencies
 
-(define-public ember-shared-core
+(define-public hashdeep
   (package
-    (name "ember-shared-core")
+    (name "hashdeep")
     (version "TEMPLATE-PLACEHOLDER-VERSION:ember-shared-core")
     (source (origin
               (method git-fetch)
