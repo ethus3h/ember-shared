@@ -3,7 +3,7 @@
 
 # Should work without ember-shared or crystallize, just in case, so don't source ember_bash_setup or set traps that need
 
-packageName="$(cat package-name)"
+packageName="$(<package-name)"
 
 if ! ebs_loc="$(type -P "ember_bash_setup_core")" || [[ -z "$ebs_loc" ]]; then
     # Try automatically building an ember-shared locally to use
