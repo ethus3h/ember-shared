@@ -1,8 +1,6 @@
 #!/usr/bin/env bash
 
-# Special autodep for ember-shared.
-
-# This file should be sourced rather than run directly.
+# This is a little weird: it's run by the default Makefile's calling the prepare script, which then replaces the default Makefile with the module Makefile.
 
 # Should work without ember-shared (or crystallize), just in case, so don't depend on ember_bash_setup or set traps that need it
 
