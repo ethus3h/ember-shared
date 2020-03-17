@@ -40,25 +40,25 @@ if [[ "$OSTYPE" = darwin* ]]; then
     sudo chsh -s /usr/local/bin/bash "$USER"
 fi
 
-datadir=""
+absdatadir=""
 if [[ -e "support/.datadir" ]]; then
-    datadir="$(<support/.datadir)"
+    absdatadir="$(<support/.datadir)"
 fi
-if [[ -z "$datadir" ]]; then
+if [[ -z "$absdatadir" ]]; then
     if [[ -e "support/.datarootdir" ]]; then
-        datadir="$(<support/.datarootdir)"
+        absdatadir="$(<support/.datarootdir)"
     else
-        datadir="/usr/local/share/"
+        absdatadir="/usr/local/share/"
     fi
 fi
 if [[ -e "support/.prefix" ]]; then
-    datadir="$(<support/.prefix)$datadir"
+    absdatadir="$(<support/.prefix)$absdatadir"
 if [[ -e "support/.destdir" ]]; then
-if [[ "/" != "${datadir: -1}" ]]; then
-    datadir="$datadir/"
+if [[ "/" != "${absdatadir: -1}" ]]; then
+    absdatadir="$absdatadir/"
 fi
 #    [1...                            ][2...      ][3..]
-echo 'getEmberSharedDataDir() { print '"'$datadir'"'; }' >> modules/core/ember_bash_setup_core
+echo 'getEmberSharedDataDir() { print '"'$absdatadir'"'; }' >> modules/core/ember_bash_setup_core
 # 1 = single-quoted string; 2 = double-quoted string with literal single-quotation marks; 3 = single-quoted string
 
 support/install-prepare-module
