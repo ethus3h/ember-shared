@@ -9,9 +9,9 @@ if ! ebs_loc="$(type -P "ember_bash_setup")" || [[ -z "$ebs_loc" ]]; then
     # Try automatically building an ember-shared locally to use
     mkdir .buildsystem-temp
     (
-        cd .buildsystem-temp
+        cd .buildsystem-temp || exit 1
         git clone --depth 1 https://github.com/ethus3h/ember-shared.git
-        cd ember-shared
+        cd ember-shared || exit 1
         ./configure
         make
     )
@@ -19,7 +19,7 @@ if ! ebs_loc="$(type -P "ember_bash_setup")" || [[ -z "$ebs_loc" ]]; then
     export PATH
     if [[ -e ".buildsystem-temp/ember-shared" ]]; then
         (
-            cd .buildsystem-temp/ember-shared
+            cd .buildsystem-temp/ember-shared || exit 1
             make
             make install || true
         )
