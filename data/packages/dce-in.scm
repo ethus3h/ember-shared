@@ -161,3 +161,6 @@
     (description "Shell script library extra module")
     (home-page "http://futuramerlin.com/ancillary/ember-shared/")
     (license agpl3+)))
+
+; Dependencies
+
