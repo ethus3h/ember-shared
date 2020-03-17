@@ -45,15 +45,15 @@
 (define-public ember-shared-error-notify
   (package
     (name "ember-shared-error-notify")
-    (version "1.1.4.491-b30ca2a976c35819b4e94bd4db82529465d383fa")
+    (version "1.1.4.491-ae9e017a2adda823e37bd044e1f37873df509b71")
     (source (origin
               (method git-fetch)
               (uri (git-reference
                 (url "https://github.com/ethus3h/ember-shared.git")
-                (commit "b30ca2a976c35819b4e94bd4db82529465d383fa")))
+                (commit "ae9e017a2adda823e37bd044e1f37873df509b71")))
               (sha256
                (base32
-                "15kvy29yi9maa67mbd8xhmaj3742i92sg2advi00yfkfx7kgafl7"))))
+                "0wxs53vgd38fgn9w1zw7ywdywjrqrhl5janpy8vdsjbylxwbcw65"))))
     (build-system gnu-build-system)
     (arguments '(#:configure-flags '("--module=error-notify") #:phases (modify-phases %standard-phases (delete 'check))))
     (propagated-inputs `(("xxd" ,xxd)))
@@ -181,11 +181,11 @@
               ; Remove bundled dependencies and binaries
               (modules '((guix build utils)))
               (snippet '(begin
-                   ; (
-                    ;    for-each delete-file-recursively (append '("dist") (find-files "tests" ".*\\.zip"))
-                  ;  )
                     (
-                        substitute* "bootstrap" (("/bin/rm") "rm")
+                        for-each delete-file-recursively (append '("hashdeep-4.4/dist") (find-files "hashdeep-4.4/tests" ".*\\.zip"))
+                    )
+                    (
+                        substitute* "hashdeep-4.4/bootstrap" (("/bin/rm") "rm")
                     )
                     #t
               ))
