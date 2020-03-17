@@ -45,15 +45,15 @@
 (define-public ember-shared-error-notify
   (package
     (name "ember-shared-error-notify")
-    (version "1.1.4.491-f1aa00f9779229bd541d22d370d4caf0657d0bef")
+    (version "1.1.4.491-b30ca2a976c35819b4e94bd4db82529465d383fa")
     (source (origin
               (method git-fetch)
               (uri (git-reference
                 (url "https://github.com/ethus3h/ember-shared.git")
-                (commit "f1aa00f9779229bd541d22d370d4caf0657d0bef")))
+                (commit "b30ca2a976c35819b4e94bd4db82529465d383fa")))
               (sha256
                (base32
-                "04y5s9kv55qnsnqw0yp85l4d2qc6l5w3g2h1al2ssnyzi6nqgcrm"))))
+                "15kvy29yi9maa67mbd8xhmaj3742i92sg2advi00yfkfx7kgafl7"))))
     (build-system gnu-build-system)
     (arguments '(#:configure-flags '("--module=error-notify") #:phases (modify-phases %standard-phases (delete 'check))))
     (propagated-inputs `(("xxd" ,xxd)))
@@ -181,9 +181,9 @@
               ; Remove bundled dependencies and binaries
               (modules '((guix build utils)))
               (snippet '(begin
-                    (
-                        for-each delete-file-recursively (append '("dist") (find-files "tests" ".*\\.zip"))
-                    )
+                   ; (
+                    ;    for-each delete-file-recursively (append '("dist") (find-files "tests" ".*\\.zip"))
+                  ;  )
                     (
                         substitute* "bootstrap" (("/bin/rm") "rm")
                     )
