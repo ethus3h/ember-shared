@@ -191,5 +191,5 @@
     ))
     (synopsis "recursively calculate file hashes in a directory tree")
     (description "Recursively calculates file hashes in a directory tree.")
-    (home-page "http://futuramerlin.com/ancillary/ember-shared/")
+    (home-page "https://github.com/jessek/hashdeep")
     (license agpl3+)))
