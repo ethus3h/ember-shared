@@ -48,6 +48,7 @@ if [[ -z "$datadir" ]]; then
 fi
 if [[ "/" != "${datadir: -1}" ]]; then
     datadir="$datadir/"
+fi
 echo 'getEmberSharedDataDir() { print '"'$datadir'"'; }'
 
 module="$(<support/.module)"
