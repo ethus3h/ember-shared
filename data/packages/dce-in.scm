@@ -190,6 +190,9 @@
                     (
                         substitute* "Makefile.am" (("src tests man tests/testfiles") "src man")
                     )
+                    (
+                        substitute* "configure.ac" (("tests/Makefile tests/testfiles/Makefile"))
+                    )
                     #t
               ))
               ;(snippet '(begin (invoke "bash" "-c" "rm -r dist tests/*.zip") #t))
