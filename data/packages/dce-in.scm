@@ -185,7 +185,7 @@
                         for-each delete-file-recursively (append '("dist") (find-files "tests" ".*\\.zip"))
                     )
                     (
-                        substitute* "bootstrap" (("/bin/rm") "rm")
+                        substitute* "hashdeep-4.4/bootstrap" (("/bin/rm") "rm")
                     )
                     #t
               ))
