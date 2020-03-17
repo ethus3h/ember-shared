@@ -43,7 +43,9 @@ fi
 support/install-prepare-module
 
 module="$(<support/.module)"
-if [[ "core" == "$module" ]] || [[ ""]]
+if [[ "error-notify" == "$module" ]] || [[ "core" == "$module" ]]; then
+    exit 0
+fi
 
 source support/getDirs
 
