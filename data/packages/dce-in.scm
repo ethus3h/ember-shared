@@ -169,10 +169,9 @@
     (name "hashdeep")
     (version "TEMPLATE-PLACEHOLDER-VERSION:ember-shared-core")
     (source (origin
-              (method git-fetch)
-              (uri (git-reference
-                (url "https://github.com/jessek/hashdeep/releases/download/v4.4/md5deep-4.4.zip")
-                (commit "TEMPLATE-PLACEHOLDER-COMMIT:ember-shared-core")))
+              (method url-fetch)
+            (uri (string-append "mirror://gnu/hello/hello-" version
+                                ".tar.gz"))
               (sha256
                (base32
                 "1g3xyrr2gjb6h511m0wwjhk5s1v5wz16nd377ykscnsfwwrmks6m"))))
