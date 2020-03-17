@@ -55,6 +55,8 @@ if [[ -e "support/.prefix" ]]; then
     absdatadir="$(<support/.prefix)$absdatadir"
 fi
 if [[ -e "support/.destdir" ]]; then
+    absdatadir="$(<support/.prefix)$absdatadir"
+fi
 if [[ "/" != "${absdatadir: -1}" ]]; then
     absdatadir="$absdatadir/"
 fi
