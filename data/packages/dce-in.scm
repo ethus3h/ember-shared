@@ -167,7 +167,7 @@
 (define-public hashdeep
   (package
     (name "hashdeep")
-    (version "TEMPLATE-PLACEHOLDER-VERSION:ember-shared-core")
+    (version "4.4")
     (source (origin
               (method url-fetch)
               (uri (string-append "https://github.com/jessek/hashdeep/releases/download/v" version "/md5deep-" version ".zip"))
