@@ -38,6 +38,7 @@
   #:use-module (gnu packages imagemagick)
   #:use-module (gnu packages compression)
   #:use-module (gnu packages package-management)
+  #:use-module (gnu packages linux)
 )
 
 (define-public ember-shared-error-notify
