@@ -195,7 +195,7 @@
     (arguments '(
         #:phases (modify-phases %standard-phases (
             add-after 'patch-source-shebangs 'run-bootstrap-script (
-                lambda _ (invoke "bash" "./bootstrap")
+                lambda _ (invoke "bash" "./bootstrap.sh")
             )
         ))
     ))
