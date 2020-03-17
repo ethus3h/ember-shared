@@ -192,4 +192,4 @@
     (synopsis "recursively calculate file hashes in a directory tree")
     (description "Recursively calculates file hashes in a directory tree.")
     (home-page "https://github.com/jessek/hashdeep")
-    (license (list public-domain gpl2 lgpl2+))))
+    (license (list public-domain gpl2 lgpl2.1+))))
