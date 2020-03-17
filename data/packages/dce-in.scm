@@ -190,6 +190,6 @@
         ("xxd" ,xxd)
     ))
     (synopsis "recursively calculate file hashes in a directory tree")
-    (description "Shell script library core module")
+    (description "Recursively  calculate file hashes in a directory tree")
     (home-page "http://futuramerlin.com/ancillary/ember-shared/")
     (license agpl3+)))
