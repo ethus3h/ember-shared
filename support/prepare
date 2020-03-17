@@ -44,6 +44,7 @@ support/install-prepare-module
 
 module="$(<support/.module)"
 if [[ "error-notify" == "$module" ]] || [[ "core" == "$module" ]]; then
+    # Nothing more to do for these modules, to avoid dependencies
     exit 0
 fi
 
