@@ -52,6 +52,7 @@ if [[ -z "$datadir" ]]; then
     fi
 fi
 if [[ -e "support/.prefix" ]]; then
+    datadir="$(<support/.prefix)$datadir"
 if [[ -e "support/.destdir" ]]; then
 if [[ "/" != "${datadir: -1}" ]]; then
     datadir="$datadir/"
