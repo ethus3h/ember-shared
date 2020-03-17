@@ -191,7 +191,6 @@
                     )
                     #t
               ))
-              ;(snippet '(begin (invoke "bash" "-c" "rm -r dist tests/*.zip") #t))
             ))
     (build-system gnu-build-system)
     (arguments '(
