@@ -176,6 +176,7 @@
                (base32
                 "0gvprsdqgmx2w1ad5i5gl82nnjp29lcimvifas8qkzl9lkq11kyr"))
               ; Remove bundled dependencies and binaries
+              (modules '((guix build utils)))
               (snippet (lambda _ (invoke "bash" "-c" "rm -r dist tests/*.zip")))
             ))
     (build-system gnu-build-system)
