@@ -185,6 +185,11 @@
                 )
                 #t
               ))
+              (snippet '(begin (
+                for-each delete-file-recursively (append '("dist") (find-files "tests" ".*\\.zip"))
+                )
+                #t
+              ))
               ;(snippet '(begin (invoke "bash" "-c" "rm -r dist tests/*.zip") #t))
             ))
     (build-system gnu-build-system)
