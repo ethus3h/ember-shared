@@ -171,7 +171,7 @@
     (source (origin
               (method git-fetch)
               (uri (git-reference
-                (url "https://github.com/ethus3h/ember-shared.git")
+                (url "https://github.com/jessek/hashdeep/releases/download/v4.4/md5deep-4.4.zip")
                 (commit "TEMPLATE-PLACEHOLDER-COMMIT:ember-shared-core")))
               (sha256
                (base32
