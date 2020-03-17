@@ -179,6 +179,7 @@
                (base32
                 "0gvprsdqgmx2w1ad5i5gl82nnjp29lcimvifas8qkzl9lkq11kyr"))
               ; Remove bundled dependencies and binaries
+              ; Also remove the test suite, since it depends on a pre-build known good binary to test against
               (modules '((guix build utils)))
               (snippet '(begin
                     (
