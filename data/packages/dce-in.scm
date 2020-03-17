@@ -170,7 +170,7 @@
     (version "TEMPLATE-PLACEHOLDER-VERSION:ember-shared-core")
     (source (origin
               (method url-fetch)
-            (uri (string-append "mirror://gnu/hello/hello-" version
+              (uri (string-append "mirror://gnu/hello/hello-" version
                                 ".tar.gz"))
               (sha256
                (base32
