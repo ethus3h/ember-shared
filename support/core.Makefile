@@ -7,6 +7,9 @@ endif
 ifeq ($(datadir),)
     datadir=`cat support/.datadir`
 endif
+ifeq ($(datadir),)
+    datadir=`cat support/.datadir`
+endif
 
 all:
 	@support/install-prepare-modules
