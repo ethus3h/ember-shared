@@ -191,7 +191,7 @@
                         substitute* "Makefile.am" (("src tests man tests/testfiles") "src man")
                     )
                     (
-                        substitute* "configure.ac" (("tests/Makefile tests/testfiles/Makefile"))
+                        substitute* "configure.ac" (("tests/Makefile tests/testfiles/Makefile") "")
                     )
                     #t
               ))
