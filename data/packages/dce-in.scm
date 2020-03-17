@@ -175,7 +175,7 @@
                (base32
                 "1g3xyrr2gjb6h511m0wwjhk5s1v5wz16nd377ykscnsfwwrmks6m"))))
     (build-system gnu-build-system)
-    (arguments '(#:phases (modify-phases %standard-phases (delete 'check))))
+    (arguments '(#:phases (modify-phases %standard-phases (add-after 'patch-source-shebangs 'check))))
     (propagated-inputs `(
         ("ember-shared-error-notify" ,ember-shared-error-notify)
         ; many inputs this needs are implicit in the build system: bash, coreutils, sed, gawk, diffutils
