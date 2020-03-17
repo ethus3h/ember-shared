@@ -188,7 +188,7 @@
                         substitute* "bootstrap.sh" (("/bin/rm") "rm")
                     )
                     (
-                        substitute* "bootstrap.sh" (("/bin/rm") "rm")
+                        substitute* "Makefile.am" (("/bin/rm") "rm")
                     )
                     #t
               ))
