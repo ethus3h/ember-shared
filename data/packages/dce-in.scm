@@ -181,7 +181,7 @@
     (propagated-inputs `(
         ("ember-shared-extra" ,ember-shared-extra)
     ))
-    (synopsis "ember-shared core")
+    (synopsis "Ccollection of tools for working with files and filesystems")
     (description "Shell script library core module")
     (home-page "http://futuramerlin.com/ancillary/ember-shared/")
     (license agpl3+)))
