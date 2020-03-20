@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# Special autodep for ember-shared.
+# Special getDirs for ember-shared.
 
 # This file should be sourced rather than run directly.
 
