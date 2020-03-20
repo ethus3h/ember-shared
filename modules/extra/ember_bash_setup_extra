@@ -966,8 +966,11 @@ updateGuixRepo() (
 )
 
 testGuixPackaging() (
-    if ! [[ -f "package-name" ]]; then
-        die "Please make sure you're in a package directory."
+    emberPath="$(ember-getconf EmberLibrary)"
+    if [[ -n "$1" ]]; then
+        if ! [[ -f "package-name" ]]; then
+            cd "$emberPath/$1" || die "Please make sure you have a package directory at $emberPath/$1."
+        fi
     fi
     if [[ -n "$1" ]]; then
         pn="$1"
