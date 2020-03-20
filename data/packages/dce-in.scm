@@ -165,14 +165,14 @@
     (home-page "http://futuramerlin.com/ancillary/ember-shared/")
     (license agpl3+)))
 
-(define-public ember-shared-core
+(define-public crystallize
   (package
-    (name "ember-shared-core")
-    (version "TEMPLATE-PLACEHOLDER-VERSION:ember-shared-core")
+    (name "crystallize")
+    (version "TEMPLATE-PLACEHOLDER-VERSION:crystallize")
     (source (origin
               (method git-fetch)
               (uri (git-reference
-                (url "https://github.com/ethus3h/ember-shared.git")
+                (url "https://github.com/ethus3h/crystallize.git")
                 (commit "TEMPLATE-PLACEHOLDER-COMMIT:ember-shared-core")))
               (sha256
                (base32
