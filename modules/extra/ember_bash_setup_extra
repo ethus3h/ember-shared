@@ -994,6 +994,7 @@ testGuixPackaging() (
 )
 
 generateGuixPackaging() (
+    emberPath="$(ember-getconf EmberLibrary)"
     if [[ -n "$1" ]]; then
         if ! [[ -f "package-name" ]]; then
             cd "$(ember-getconf EmberLibrary)/$1" || die "Please make sure you have a package directory at "(ember-getconf EmberLibrary)/$1."
@@ -1014,7 +1015,6 @@ generateGuixPackaging() (
     else
         pn="$repository"
     fi
-    emberPath="$(ember-getconf EmberLibrary)"
     packagesDir="$emberPath/ember-shared/data/packages/"
     cp "$packagesDir"/dce-in.scm "$buildDir"/dce.scm
     echo "$pn" >> "$packagesDir"/packages.lst
