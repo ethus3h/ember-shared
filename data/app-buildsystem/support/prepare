@@ -56,3 +56,7 @@ if [[ -e docs ]]; then
         fi
     fi
 fi
+
+if [[ -e support/post-default-install ]]; then
+    source support/post-default-install
+fi
