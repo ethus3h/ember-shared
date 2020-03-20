@@ -994,8 +994,9 @@ testGuixPackaging() (
 )
 
 generateGuixPackaging() (
-    if ! [[ -f "package-name" ]]; then
-        die "Please make sure you're in a package directory."
+    if [[ -n "$1" ]]; then
+        if ! [[ -f "package-name" ]]; then
+        cd "$(ember-getconf EmberLibrary)/$1" || die "Please make sure you're in a package directory."
     fi
     eogup-single
     git push
