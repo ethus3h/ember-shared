@@ -28,8 +28,10 @@ failinstall() {
     die "ERROR: Could not find or install $1."
 }
 
+dir="$(pwd)"
+
 cd "$(getSystemTempLocation)" || die
 
-if [[ -e support/post-default-autodep ]]; then
-    source support/post-default-autodep
+if [[ -e "$dir"/support/post-default-autodep ]]; then
+    source "$dir"/support/post-default-autodep
 fi
