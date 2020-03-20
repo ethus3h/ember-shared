@@ -178,7 +178,7 @@
                (base32
                 "TEMPLATE-PLACEHOLDER-HASH:crystallize"))))
     (build-system gnu-build-system)
-    (arguments '(#:configure-flags '("--module=core") #:phases (modify-phases %standard-phases (delete 'check))))
+    (arguments '(#:phases (modify-phases %standard-phases (delete 'check))))
     (propagated-inputs `(
         ("ember-shared-error-notify" ,ember-shared-error-notify)
         ; many inputs this needs are implicit in the build system: bash, coreutils, sed, gawk, diffutils
