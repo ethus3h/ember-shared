@@ -160,7 +160,7 @@
         ("xz" ,xz)
         ("guix" ,guix)
     ))
-    (synopsis "ember-shared core")
+    (synopsis "ember-shared extra")
     (description "Shell script library extra module")
     (home-page "http://futuramerlin.com/ancillary/ember-shared/")
     (license agpl3+)))
