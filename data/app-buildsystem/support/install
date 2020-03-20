@@ -62,6 +62,6 @@ if [[ ! -e /Ember ]]; then
     mkdir -p /Ember/CrystalIndex/
 fi
 
-#### End of Makefile install script template ####
-
-# Any extra installation logic goes here.
+if [[ -e support/post-default-install ]]; then
+    source support/post-default-install
+fi
