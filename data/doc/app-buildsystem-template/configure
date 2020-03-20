@@ -74,5 +74,3 @@ fi
 echo "Configuring complete."
 
 #### End of configure script template ####
-
-# Any extra configure script logic goes here.
