@@ -20,5 +20,4 @@ autodep:
 
 #### End of Makefile template ####
 
-# Any extra Make rules go here.
 
