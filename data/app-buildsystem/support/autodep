@@ -30,7 +30,6 @@ failinstall() {
 
 cd "$(getSystemTempLocation)" || die
 
-
-if [[ -e support/post-default-prepare ]]; then
-    source support/post-default-prepare
+if [[ -e support/post-default-autodep ]]; then
+    source support/post-default-autodep
 fi
