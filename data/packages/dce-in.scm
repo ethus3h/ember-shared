@@ -178,7 +178,7 @@
                (base32
                 "0inciwf5av0jzb5z2cp75vaw7n12s20fkjmdcr2qsy4w5as8mnnv"))
               ; Remove bundled dependencies and binaries
-              ; Also remove the test suite, since it depends on a pre-build known good binary to test against
+              ; Also remove the test suite, since it depends on a pre-built known good binary to test against
               (modules '((guix build utils)))
               (snippet '(begin
                     (for-each delete-file-recursively '("dist" "tests"))
