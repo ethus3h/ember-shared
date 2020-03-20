@@ -44,4 +44,3 @@ if [[ -e support/post-default-prepare ]]; then
 fi
 
 echo "Configuring complete."
-
