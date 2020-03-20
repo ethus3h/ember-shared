@@ -182,7 +182,7 @@
         ("ember-shared-extra" ,ember-shared-extra)
     ))
     (synopsis "Collection of tools for working with files and filesystems")
-    (description "Shell script library core module")
+    (description "Collection of tools for working with files and filesystems")
     (home-page "http://futuramerlin.com/ancillary/ember-shared/")
     (license agpl3+)))
 
