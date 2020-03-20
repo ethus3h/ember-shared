@@ -40,6 +40,7 @@ trap 'printf '\''%b'\'' '\''\033[1;31m'\'' >&2; echo "A fatal error was reported
 sharedDataDir="$(getEmberSharedDataDir)"
 if [[ -z "$sharedDataDir" ]]; then
     echo "Could not get ember-shared data directory. Perhaps the installed version is too old?"
+    exit 1
 fi
 buildsystemDir="$(getEmberSharedDataDir)/app-buildsystem"
 source "$buildsystemDir/configure"
