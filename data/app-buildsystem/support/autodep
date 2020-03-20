@@ -30,6 +30,7 @@ failinstall() {
 
 cd "$(getSystemTempLocation)" || die
 
-#### End of automatic dependency installation install script template ####
 
-# Any extra automatic dependency installation goes here.
+if [[ -e support/post-default-prepare ]]; then
+    source support/post-default-prepare
+fi
