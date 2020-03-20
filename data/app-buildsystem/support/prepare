@@ -56,7 +56,3 @@ if [[ -e docs ]]; then
         fi
     fi
 fi
-
-#### End of preparation install script template ####
-
-# Any extra installation prep logic (compilation, etc.) goes here.
