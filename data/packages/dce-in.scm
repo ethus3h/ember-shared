@@ -173,10 +173,10 @@
               (method git-fetch)
               (uri (git-reference
                 (url "https://github.com/ethus3h/crystallize.git")
-                (commit "TEMPLATE-PLACEHOLDER-COMMIT:ember-shared-core")))
+                (commit "TEMPLATE-PLACEHOLDER-COMMIT:crystallize")))
               (sha256
                (base32
-                "TEMPLATE-PLACEHOLDER-HASH:ember-shared-core"))))
+                "TEMPLATE-PLACEHOLDER-HASH:crystallize"))))
     (build-system gnu-build-system)
     (arguments '(#:configure-flags '("--module=core") #:phases (modify-phases %standard-phases (delete 'check))))
     (propagated-inputs `(
