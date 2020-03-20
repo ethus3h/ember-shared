@@ -997,7 +997,7 @@ generateGuixPackaging() (
     emberPath="$(ember-getconf EmberLibrary)"
     if [[ -n "$1" ]]; then
         if ! [[ -f "package-name" ]]; then
-            cd "$(ember-getconf EmberLibrary)/$1" || die "Please make sure you have a package directory at "(ember-getconf EmberLibrary)/$1."
+            cd "$emberPath/$1" || die "Please make sure you have a package directory at "$emberPath/$1."
         fi
     fi
     eogup-single
