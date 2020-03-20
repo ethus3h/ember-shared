@@ -42,6 +42,13 @@ if ! fmwtk_loc="$(type -P "futuramerlin-web-toolkit-build")" || [[ -z "$fmwtk_lo
     echo $'\n'"futuramerlin-web-toolkit not found: documentation will not be built."$'\n'
 fi
 
+buildsystemDir="$(getEmberSharedDataDir)/app-buildsystem"
+
+cp "$buildsystemDir/Makefile" ./
+if [[ -e ./Makefile.extra ]]; then
+    cat ./Makefile.extra >> ./Makefile
+fi
+
 if [[ -e support/post-default-configure ]]; then
     source support/post-default-configure
 fi
