@@ -39,8 +39,8 @@ if ! fmwtk_loc="$(type -P "futuramerlin-web-toolkit-build")" || [[ -z "$fmwtk_lo
     echo $'\n'"futuramerlin-web-toolkit not found: documentation will not be built."$'\n'
 fi
 
-if [[ -e support/post-default-prepare ]]; then
-    source support/post-default-prepare
+if [[ -e support/post-default-configure ]]; then
+    source support/post-default-configure
 fi
 
 echo "Configuring complete."
