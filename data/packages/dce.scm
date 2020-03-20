@@ -45,15 +45,15 @@
 (define-public ember-shared-error-notify
   (package
     (name "ember-shared-error-notify")
-    (version "1.1.4.491-c7db649c8334557ceddaed1457c44acd6fefa008")
+    (version "1.1.4.492-9b7539ce1aa07a16b78acc9c78e0b51b695d3717")
     (source (origin
               (method git-fetch)
               (uri (git-reference
                 (url "https://github.com/ethus3h/ember-shared.git")
-                (commit "c7db649c8334557ceddaed1457c44acd6fefa008")))
+                (commit "9b7539ce1aa07a16b78acc9c78e0b51b695d3717")))
               (sha256
                (base32
-                "1qb99p90a0nb6ndbx5i5jiaawm5zcmzvcm40yr74rwlaiiwy3n0r"))))
+                "1sbichfvz6gpihxsmfych8z94mgbmbivz9g8wb6n2gpraq4pgzr8"))))
     (build-system gnu-build-system)
     (arguments '(#:configure-flags '("--module=error-notify") #:phases (modify-phases %standard-phases (delete 'check))))
     (propagated-inputs `(("xxd" ,xxd)))
@@ -160,7 +160,7 @@
         ("xz" ,xz)
         ("guix" ,guix)
     ))
-    (synopsis "ember-shared core")
+    (synopsis "ember-shared extra")
     (description "Shell script library extra module")
     (home-page "http://futuramerlin.com/ancillary/ember-shared/")
     (license agpl3+)))
@@ -178,7 +178,7 @@
                (base32
                 "0inciwf5av0jzb5z2cp75vaw7n12s20fkjmdcr2qsy4w5as8mnnv"))
               ; Remove bundled dependencies and binaries
-              ; Also remove the test suite, since it depends on a pre-build known good binary to test against
+              ; Also remove the test suite, since it depends on a pre-built known good binary to test against
               (modules '((guix build utils)))
               (snippet '(begin
                     (for-each delete-file-recursively '("dist" "tests"))
