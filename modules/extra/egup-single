@@ -113,7 +113,7 @@ while [[ "$status" != "completed" ]]; do
     rm -rf ./.egup.stat.d
     find . -maxdepth 1 -name '.egup.stat.split*' -delete
 
-    print "${emberCrystallizeVersion:?}"$'\n' > .egup.version
+    print "${emberSharedVersion:?}"$'\n' > .egup.version
     if [[ ! -f "./.egup.no-stat" ]]; then
         repositoryFolderName="$(basename "$(readlink -f .)")"
 
