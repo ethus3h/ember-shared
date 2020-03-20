@@ -7,6 +7,6 @@ trap 'die "A fatal error was reported on ${BASH_SOURCE[0]} line ${LINENO} in $(p
 
 source support/getDirs
 
-if [[ -e support/post-default-install ]]; then
-    source support/post-default-install
+if [[ -e support/test ]]; then
+    source support/test
 fi
