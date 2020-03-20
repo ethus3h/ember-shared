@@ -73,4 +73,3 @@ if ! fmwtk_loc="$(type -P "futuramerlin-web-toolkit-build")" || [[ -z "$fmwtk_lo
 fi
 echo "Configuring complete."
 
-#### End of configure script template ####
