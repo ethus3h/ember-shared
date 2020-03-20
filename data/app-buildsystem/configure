@@ -1,5 +1,4 @@
-#!/usr/bin/env bash
-#set -x
+# Gets sourced by individual packages' configure scripts
 
 # Should work without ember-shared or crystallize, just in case, so don't source ember_bash_setup or set traps that need
 
