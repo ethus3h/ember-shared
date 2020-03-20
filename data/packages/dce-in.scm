@@ -180,10 +180,6 @@
     (build-system gnu-build-system)
     (propagated-inputs `(
         ("ember-shared-extra" ,ember-shared-extra)
-        ; many inputs this needs are implicit in the build system: bash, coreutils, sed, gawk, diffutils
-        ("util-linux" ,util-linux)
-        ("perl" ,perl)
-        ("xxd" ,xxd)
     ))
     (synopsis "ember-shared core")
     (description "Shell script library core module")
