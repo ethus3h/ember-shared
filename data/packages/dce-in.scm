@@ -184,7 +184,7 @@
     (synopsis "Collection of tools for working with files and filesystems")
     (description "Collection of tools for working with files and filesystems")
     (home-page "http://futuramerlin.com/ancillary/crystallize/")
-    (license agpl3+ bsd-2)))
+    (license agpl3+)))
 
 ; Dependencies
 
