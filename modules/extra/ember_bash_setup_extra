@@ -1068,3 +1068,7 @@ generateAndTestGuixPackaging() (
     generateGuixPackaging "$pn"
     testGuixPackaging "$pn"
 )
+
+updatePackageAndReinstall() (
+
+)
