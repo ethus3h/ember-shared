@@ -179,7 +179,7 @@
                 "TEMPLATE-PLACEHOLDER-HASH:crystallize"))))
     (build-system gnu-build-system)
     (propagated-inputs `(
-        ("ember-shared-error-notify" ,ember-shared-error-notify)
+        ("ember-shared-extra" ,ember-shared-extra)
         ; many inputs this needs are implicit in the build system: bash, coreutils, sed, gawk, diffutils
         ("util-linux" ,util-linux)
         ("perl" ,perl)
