@@ -1070,5 +1070,5 @@ generateAndTestGuixPackaging() (
 )
 
 updatePackageAndReinstall() (
-
+    sudo true; emberPath="$(ember-getconf EmberLibrary)"; newVersion="1.1.4.491"; cd "$emberPath/ember-shared"; echo "$newVersion" > version; eogup-single; git tag -a "v$newVersion" -m "version"; egup-single .; cd "$emberPath/wreathe-overlay"; eogup-single; mv app-misc/ember-shared/ember-shared-*.ebuild "app-misc/ember-shared/ember-shared-$newVersion.ebuild"; repoman manifest; egup-single; sudo emerge --sync wreathe-overlay; sudo emerge ember-shared; sudo dispatch-conf; cd "$emberPath/ember-shared"; generateGuixPackaging ember-shared-error-notify;  generateGuixPackaging ember-shared-core;  generateGuixPackaging ember-shared-main; generateGuixPackaging ember-shared-extra; eogup-single; git push
 )
