@@ -180,7 +180,7 @@
     (build-system gnu-build-system)
     (propagated-inputs `(
         ("ember-shared-extra" ,ember-shared-extra)
-        ;("futuramerlin-web-toolkit" ,futuramerlin-web-toolkit)
+        ;("futuramerlin-web-toolkit" ,futuramerlin-web-toolkit) ; for egup-web
     ))
     (synopsis "Collection of tools for working with files and filesystems")
     (description "Collection of tools for working with files and filesystems")
