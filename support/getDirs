@@ -35,8 +35,8 @@ while [[ -n "$1" ]]; do
     --override-data-dir)
         overrideInstalledAppDataDir="${1#*=}"
         ;;
-    --prefix)
-        overrideInstalledAppDataDir="${1#*=}"
+    --destdir)
+        emberDestdir="${1#*=}"
         ;;
     --prefix)
         overrideInstalledAppDataDir="${1#*=}"
