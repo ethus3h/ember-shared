@@ -4,14 +4,14 @@ packageName=`cat $(packageNameFile)`
 ifeq ($(PREFIX),)
     PREFIX=`cat support/.prefix`
 endif
-ifeq ($(datadir),)
-    datadir=`cat support/.datadir`
-endif
 ifeq ($(datarootdir),)
     datarootdir=`cat support/.datarootdir`
 endif
 ifeq ($(datadir),)
     datadir=`cat support/.datadir`
+endif
+ifeq ($(sysconfdir),)
+    sysconfdir=`cat support/.sysconfdir`
 endif
 
 all:
