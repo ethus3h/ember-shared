@@ -19,8 +19,4 @@ all:
 	@echo "Done preparing ember-shared-core"
 install:
 	@support/install-core
-	@
-	@
-	@
-	@
 	@echo "Done installing or updating" ember-shared-core
