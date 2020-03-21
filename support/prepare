@@ -14,6 +14,8 @@ warn() {
     printf %b '\033[1;33m' "$(ps -o args= $PPID)" '\nsends the warning:\n' "${@+$@$'\n'}" '\033[0m' >&2
 }
 
+source data/app-buildsystem/support/getDirs
+
 pwd
 
 if [[ "$OSTYPE" = darwin* ]]; then
