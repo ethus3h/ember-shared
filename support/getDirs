@@ -41,8 +41,8 @@ while [[ -n "$1" ]]; do
     --prefix)
         emberPrefix="${1#*=}"
         ;;
-    --prefix)
-        emberPrefix="${1#*=}"
+    --PREFIX)
+        emberCapPrefix="${1#*=}"
         ;;
     --prefix)
         emberPrefix="${1#*=}"
