@@ -81,7 +81,11 @@ if [[ "$1" == "--skip-config-file" ]]; then
     shift
 fi
 
-source data/app-buildsystem/support/getDirs
+if [[ -e data/app-buildsystem/support/getDirs ]]; then
+    source data/app-buildsystem/support/getDirs
+else
+    source data.bak/app-buildsystem/support/getDirs
+fi
 
 # Done setting up variables, now install the files
 
