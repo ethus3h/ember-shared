@@ -93,8 +93,6 @@ else
     fi
 fi
 
-source support/getDirs
-
 #NOTE: MAINTENANCE: Remainder copied from "prepare" template file
 
 substitutePath() {
