@@ -2,7 +2,7 @@
 
 # Should work without ember-shared
 
-trap 'echo "Error preparing module"; exit 1' ERR
+trap 'echo "Error installing module"; exit 1' ERR
 
 if [[ -e "support/.modules-prepared" ]]; then
     # Has already been run
