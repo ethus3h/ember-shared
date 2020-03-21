@@ -14,10 +14,12 @@ fi
 
 overrideInstalledAppDataDir="/usr/share"
 overrideInstalledAppDataDirArg="${1#*=}"
-if [[ "$1" == "--override-data-dir"* ]] && [[ -n "$overrideInstalledAppDataDirArg" ]]; then
-    overrideInstalledAppDataDir="$overrideInstalledAppDataDirArg"
+if [[ "$1" == "--override-data-dir"* ]]; then
+    shift
+    if [[ -n "$overrideInstalledAppDataDirArg" ]]; then
+        overrideInstalledAppDataDir="$overrideInstalledAppDataDirArg"
+    fi
 fi
-shift
 
 { emberPrefix="$(<support/.prefix)" || true; } 2> /dev/null
 { emberMandir="$(<support/.mandir)" || true; } 2> /dev/null
