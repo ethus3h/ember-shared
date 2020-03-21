@@ -12,7 +12,7 @@ ifeq ($(datadir),)
 endif
 
 all:
-	@support/install-prepare-module
+	#@support/install-prepare-module
 	@echo "Done preparing ember-shared-core"
 install:
 	@install -d $(DESTDIR)$(PREFIX)/bin/
