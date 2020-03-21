@@ -10,13 +10,6 @@
 #NOTE: MAINTENANCE: Manual error printing
 trap 'printf '\''%b'\'' '\''\033[1;31m'\'' >&2; echo "A fatal error was reported on ${BASH_SOURCE[0]} line ${LINENO} in $(pwd)." >&2; printf '\''%b'\'' '\''\033[0m'\'' >&2; exit 1' ERR
 
-if [[ -n "$1" ]]; then
-    packageName="$1"
-    shift
-else
-    packageName="$(<package-name)"
-fi
-
 overrideInstalledAppDataDir="/usr/share"
 overrideInstalledAppDataDirArg="${1#*=}"
 if [[ "$1" == "--override-data-dir"* ]]; then
@@ -68,6 +61,13 @@ while [[ -n "$1" ]]; do
     esac
     shift
 done
+
+if [[ -n "$1" ]]; then
+    packageName="$1"
+    shift
+else
+    packageName="$(<package-name)"
+fi
 
 #echo 1 "$1" 2 "$2" 3 "$3" 4 "$4" 5 "$5" 6 "$6" 7 "$7" 8 "$8" 9 "$9"
 if [[ -z "$emberDestdir" ]] && [[ -n "$1" ]]; then
