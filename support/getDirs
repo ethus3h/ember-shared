@@ -10,8 +10,10 @@
 #NOTE: MAINTENANCE: Manual error printing
 trap 'printf '\''%b'\'' '\''\033[1;31m'\'' >&2; echo "A fatal error was reported on ${BASH_SOURCE[0]} line ${LINENO} in $(pwd)." >&2; printf '\''%b'\'' '\''\033[0m'\'' >&2; exit 1' ERR
 
-packageName="$1"
-shift
+if [[ -n "$1" ]]; then
+    packageName="$1"
+    shift
+fi
 
 overrideInstalledAppDataDir="/usr/share"
 overrideInstalledAppDataDirArg="${1#*=}"
