@@ -60,7 +60,13 @@
                 "TEMPLATE-PLACEHOLDER-HASH:ember-shared-error-notify"))))
     (build-system gnu-build-system)
     (arguments '(#:configure-flags '("--module=error-notify") #:phases (modify-phases %standard-phases (delete 'check))))
-    (propagated-inputs `(("xxd" ,xxd)))
+    (propagated-inputs `(
+        ("ember-shared-error-notify" ,ember-shared-error-notify)
+        ; many inputs this needs are implicit in the build system: bash, coreutils, sed, gawk, diffutils
+        ("util-linux" ,util-linux)
+        ("perl" ,perl)
+        ("xxd" ,xxd)
+    ))
     (synopsis "ember-shared error-notify script")
     (description "Shell script to notify of errors")
     (home-page "http://futuramerlin.com/ancillary/ember-shared/")
