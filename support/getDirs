@@ -38,6 +38,9 @@ while [[ -n "$1" ]]; do
     --prefix)
         overrideInstalledAppDataDir="${1#*=}"
         ;;
+    --prefix)
+        overrideInstalledAppDataDir="${1#*=}"
+        ;;
     --mandir)
         printf '%s' "${1#*=}" > support/.mandir
         ;;
