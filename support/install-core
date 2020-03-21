@@ -8,5 +8,5 @@ source support/getDirs
 
 mkdir -p "$emberBindir"
 cp scripts/ember_bash_setup_core "$emberBindir"
-install -d $(DESTDIR)$(PREFIX)$(datadir)/ember-shared/
+mkdir "$emberDatadir"/ember-shared/
 cp -r data $(DESTDIR)$(PREFIX)$(datadir)/ember-shared/
