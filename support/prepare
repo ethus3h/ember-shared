@@ -75,10 +75,6 @@ if [[ -e scripts/ember_bash_setup_core ]]; then
     echo 'getEmberSharedDataDir() { print '"'$emberDatadir/ember'"'; }' >> scripts/ember_bash_setup_core
     # 1 = single-quoted string; 2 = double-quoted string with literal single-quotation marks; 3 = single-quoted string
     # Make sure the link gets installed even if this is a module
-    if ! [[ -h "$emberDatadir/ember" ]]; then
-        mkdir -p "$emberDatadir"
-        ln -s "$emberDatadir/ember-shared/data" "$emberDatadir/ember"
-    fi
 fi
 
 module="$(<support/.module)"
