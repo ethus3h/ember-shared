@@ -63,6 +63,7 @@ if [[ -e scripts/ember_bash_setup_core ]]; then
     if [[ "/" != "${absdatadir: -1}" ]]; then
         absdatadir="$absdatadir/"
     fi
+    # Guix chmods -w everything I guess?
     chmod +w scripts/ember_bash_setup_core
     #    [1...                            ][2...      ][3..]
     echo 'getEmberSharedDataDir() { print '"'$absdatadir'"'; }' >> scripts/ember_bash_setup_core
