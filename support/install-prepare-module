@@ -56,3 +56,5 @@ else
     mv modules/main/* scripts/
     mv modules/extra/* scripts/
 fi
+
+touch support/.modules-prepared
