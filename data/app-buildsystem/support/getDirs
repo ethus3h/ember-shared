@@ -5,8 +5,12 @@ source ember_bash_setup_core &> /dev/null || { printf '%b' '\033[1;31m' >&2; ech
 
 trap 'die "A fatal error was reported on ${BASH_SOURCE[0]} line ${LINENO} in $(pwd)."' ERR
 
-packageName="$1"
-shift
+if [[ -n "$1" ]]; then
+    packageName="$1"
+    shift
+else
+    packageName="$(<package-name)"
+fi
 
 overrideInstalledAppDataDir="/usr/share"
 overrideInstalledAppDataDirArg="${1#*=}"
