@@ -114,6 +114,7 @@ while [[ "$status" != "completed" ]]; do
     find . -maxdepth 1 -name '.egup.stat.split*' -delete
 
     print "${emberSharedVersion:?}"$'\n' > .egup.version
+    emdate > .egup.date
     if [[ ! -f "./.egup.no-stat" ]]; then
         repositoryFolderName="$(basename "$(readlink -f .)")"
 
