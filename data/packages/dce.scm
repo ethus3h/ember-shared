@@ -86,7 +86,7 @@
     (synopsis "ember-shared core")
     (description "Shell script library core module")
     (home-page "http://futuramerlin.com/ancillary/ember-shared/")
-    (license agpl3+)))
+    (license agpl3+ gpl3+)))
 
 (define-public ember-shared-main
   (package
@@ -164,6 +164,28 @@
     (description "Shell script library extra module")
     (home-page "http://futuramerlin.com/ancillary/ember-shared/")
     (license agpl3+)))
+
+(define-public crystallize
+  (package
+    (name "crystallize")
+    (version "0-2ee5a88d2b7a0dd3d61294579638651582def1b0")
+    (source (origin
+              (method git-fetch)
+              (uri (git-reference
+                (url "https://github.com/ethus3h/crystallize.git")
+                (commit "2ee5a88d2b7a0dd3d61294579638651582def1b0")))
+              (sha256
+               (base32
+                "1rikv8dngp2yv80yizszl7zw3d39sqicw8rzkx533k0wwzvgmxb9"))))
+    (build-system gnu-build-system)
+    (propagated-inputs `(
+        ("ember-shared-extra" ,ember-shared-extra)
+        ;("futuramerlin-web-toolkit" ,futuramerlin-web-toolkit) ; for egup-web
+    ))
+    (synopsis "Collection of tools for working with files and filesystems")
+    (description "Collection of tools for working with files and filesystems")
+    (home-page "http://futuramerlin.com/ancillary/crystallize/")
+    (license agpl3+ bsd-2)))
 
 ; Dependencies
 
