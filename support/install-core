@@ -4,6 +4,10 @@
 
 trap 'echo "Error installing module"; exit 1' ERR
 
+source support/getDirs
+install -d $(DESTDIR)$(PREFIX)/bin/
+
+
 if [[ -e "support/.modules-prepared" ]]; then
     # Has already been run
     exit 0
