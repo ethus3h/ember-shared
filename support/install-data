@@ -1,7 +1,0 @@
-#!/usr/bin/env bash
-
-# Should work without ember-shared (or crystallize), just in case, so don't depend on ember_bash_setup or set traps that need it
-
-trap 'echo "Error installing data"; exit 1' ERR
-
-cp -r data "$1/"
