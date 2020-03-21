@@ -49,18 +49,21 @@
 (define-public ember-shared-error-notify
   (package
     (name "ember-shared-error-notify")
-    (version "1.1.4.508-7c5af3a076f584e136b0f2168f4eedc56df46ba5")
+    (version "1.1.4.509-f9edbb708a688c7c21e71eb04b32e249f1a313d4")
     (source (origin
               (method git-fetch)
               (uri (git-reference
                 (url "https://github.com/ethus3h/ember-shared.git")
-                (commit "7c5af3a076f584e136b0f2168f4eedc56df46ba5")))
+                (commit "f9edbb708a688c7c21e71eb04b32e249f1a313d4")))
               (sha256
                (base32
-                "0y9haz17c0pwck4n0mmnv3fgx52lf9in99q5ccl0fydp401l2ikg"))))
+                "19ksgdmwnsibdskcgkarzgwaq2g3v2par4myp3sicr6inps4rr84"))))
     (build-system gnu-build-system)
     (arguments '(#:configure-flags '("--module=error-notify") #:phases (modify-phases %standard-phases (delete 'check))))
-    (propagated-inputs `(("xxd" ,xxd)))
+    (propagated-inputs `(
+        ("procps" ,procps)
+        ("xxd" ,xxd)
+    ))
     (synopsis "ember-shared error-notify script")
     (description "Shell script to notify of errors")
     (home-page "http://futuramerlin.com/ancillary/ember-shared/")
