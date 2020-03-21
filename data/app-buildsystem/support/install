@@ -11,7 +11,7 @@ if [[ "$1" == "--skip-config-file" ]]; then
     shift
 fi
 
-source support/getDirs
+source "$(<support/.buildsystemdir)"/support/getDirs
 
 # Done setting up variables, now install the files
 
