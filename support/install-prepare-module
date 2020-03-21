@@ -7,8 +7,10 @@
 trap 'echo "Error preparing module"; exit 1' ERR
 
 if [[ -e "support/.modules-prepared" ]]; then
+    # Has already been run
     exit 0
 fi
+
 module="$(<support/.module)"
 
 if [[ -n "$module" ]]; then
