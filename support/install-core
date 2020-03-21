@@ -9,4 +9,4 @@ source support/getDirs
 mkdir -p "$emberBindir"
 cp scripts/ember_bash_setup_core "$emberBindir"
 mkdir "$emberDatadir"/ember-shared/
-cp -r data $(DESTDIR)$(PREFIX)$(datadir)/ember-shared/
+cp -r data "$emberDatadir"/ember-shared/
