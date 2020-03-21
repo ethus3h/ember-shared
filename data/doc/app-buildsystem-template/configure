@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 #set -x
 
-# Should work without ember-shared or crystallize, just in case, so don't source ember_bash_setup or set traps that need
+# Should work without ember-shared, just in case, so don't source ember_bash_setup or set traps that need. Only require ember_bash_setup_core.
 
 packageName="$(<package-name)"
 
