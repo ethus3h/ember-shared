@@ -11,7 +11,7 @@ endif
 all:
 	#@echo $(PWD)
 	#@echo $(CONTENTS)
-	@support/install-prepare-module
+	#@support/install-prepare-module
 	@echo "Done preparing ember-shared-error-notify"
 install:
 	@install -d $(DESTDIR)$(PREFIX)/bin/
