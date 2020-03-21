@@ -10,7 +10,8 @@ endif
 ifeq ($(datadir),)
     datadir=`cat support/.datarootdir`
 endif
-
+ifeq ($(datadir),)
+    datadir
 all:
 	#@support/install-prepare-module
 	@echo "Done preparing ember-shared-core"
