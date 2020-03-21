@@ -51,7 +51,7 @@ if [[ -e "support/$packageName.conf" ]]; then
 fi
 
 if [[ ! -e /Ember ]]; then
-    mkdir -p /Ember/CrystalIndex/
+    mkdir -p /Ember/CrystalIndex/ || warn "Not available"
 fi
 
 if [[ -e support/post-default-install ]]; then
