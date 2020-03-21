@@ -66,7 +66,7 @@ if [[ -e scripts/ember_bash_setup_core ]]; then
     source support/getDirs
     # Guix chmods -w everything I guess? How are buildsystems supposed to work then?
     # It works in other cases, like the substitutePath below.
-    ls -lsa 1>&2
+    ls -lsa scripts 1>&2
     whoami 1>&2
     chmod +w scripts/ember_bash_setup_core
     #    [1...                            ][2...      ][3..]
@@ -91,7 +91,7 @@ substitutePath() {
     local pathEsc
     pathEsc="$(perl -0777 -e 'print(quotemeta($ENV{'"$newPathVarName"'}))')"
     echo "pathEsc for $newPathVarName: $pathEsc"
-    ls -lsa 1>&2
+    ls -lsa scripts 1>&2
     whoami 1>&2
     find scripts -maxdepth 1 -type f -exec perl -0777 -p -i -e "s/$defaultPath/$pathEsc/g" {} \;
 }
