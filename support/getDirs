@@ -45,22 +45,22 @@ while [[ -n "$1" ]]; do
         emberCapPrefix="${1#*=}"
         ;;
     --exec_prefix)
-        emberPrefix="${1#*=}"
+        emberExecPrefix="${1#*=}"
         ;;
     --bindir)
-        emberPrefix="${1#*=}"
+        emberBindir="${1#*=}"
         ;;
     --datarootdir)
-        emberPrefix="${1#*=}"
+        emberDatarootdir="${1#*=}"
         ;;
     --datadir)
-        emberPrefix="${1#*=}"
+        emberDatadir="${1#*=}"
         ;;
     --sysconfdir)
-        emberPrefix="${1#*=}"
+        emberSysconfdir="${1#*=}"
         ;;
     --sharedstatedir)
-        emberPrefix="${1#*=}"
+        emberSharedstatedir="${1#*=}"
         ;;
     *)
         true
