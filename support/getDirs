@@ -62,7 +62,7 @@ while [[ -n "$1" ]]; do
     shift
 done
 
-if [[ -z "$packageName" ]] && [[ -n "$1" ]]; then
+if [[ -z "$packageName" ]] && [[ -n "$1" ]] && ! [[ -f "package-name" ]]; then
     packageName="$1"
     shift
 else
