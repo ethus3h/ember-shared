@@ -22,7 +22,7 @@ trap 'die "A fatal error was reported on ${BASH_SOURCE[0]} line ${LINENO} in $(p
 
 ((EUID)) && exec sudo -- "$0" "$@"
 
-source support/getDirs
+source "$(<support/.buildsystemdir)"/support/getDirs
 
 failinstall() {
     die "ERROR: Could not find or install $1."
