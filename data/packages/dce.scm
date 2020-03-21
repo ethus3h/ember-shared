@@ -86,7 +86,7 @@
     (synopsis "ember-shared core")
     (description "Shell script library core module")
     (home-page "http://futuramerlin.com/ancillary/ember-shared/")
-    (license agpl3+ gpl3+)))
+    (license (list agpl3+ gpl3+))))
 
 (define-public ember-shared-main
   (package
@@ -185,7 +185,7 @@
     (synopsis "Collection of tools for working with files and filesystems")
     (description "Collection of tools for working with files and filesystems")
     (home-page "http://futuramerlin.com/ancillary/crystallize/")
-    (license agpl3+ bsd-2)))
+    (license (list agpl3+ bsd-2))))
 
 ; Dependencies
 
