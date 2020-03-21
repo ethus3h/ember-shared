@@ -78,6 +78,14 @@ module="$(<support/.module)"
 if [[ "error-notify" == "$module" ]] || [[ "core" == "$module" ]]; then
     # Nothing more to do for these modules, to avoid dependency on perl in the substitutePath tool below, and on futuramerlin-web-toolkit for the documentation (if any is later added)
     exit 0
+else
+if ! ebs_loc="$(type -P "ember_bash_setup_core")" || [[ -z "$ebs_loc" ]]; then
+    printf '%b' '\033[1;31m' >&2
+    echo "ERROR: ember-shared core module is not properly installed! It must be installed before installing $packageName." >&2
+    printf '%b' '\033[0m' >&2
+    exit 1
+fi
+
 fi
 
 source support/getDirs
