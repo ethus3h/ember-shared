@@ -8,9 +8,9 @@ source support/getDirs
 
 mkdir -p "$emberBindir"
 cp scripts/ember_bash_setup_core "$emberBindir"
+mkdir -p "$emberDatadir"
 mkdir "$emberDatadir"/ember-shared/
 cp -r data "$emberDatadir"/ember-shared/
 if ! [[ -h "$emberDatadir/ember" ]]; then
-    mkdir -p "$emberDatadir"
     ln -s "$emberDatadir/ember-shared/data" "$emberDatadir/ember"
 fi
