@@ -7,8 +7,8 @@ endif
 ifeq ($(datadir),)
     datadir=`cat support/.datadir`
 endif
-ifeq ($(datadir),)
-    datadir=`cat support/.datadir`
+ifeq ($(datarootdir),)
+    datarootdir=`cat support/.datarootdir`
 endif
 
 all:
