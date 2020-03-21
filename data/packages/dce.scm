@@ -11,6 +11,10 @@
 ;;; You should have received a copy of the GNU General Public License
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
+; If the build fails: ./pre-inst-env guix build -K ember-shared-main
+; cd /tmp/guix-build-ember-shared-main-1.1.4.497-1e1d27a9115b400d1580705bc4a223e98afdb791.drv-1
+; ./pre-inst-env guix environment --no-grafts -C ember-shared-main
+
 (define-module (gnu packages dce)
   #:use-module (guix packages)
   #:use-module (guix download)
@@ -91,15 +95,15 @@
 (define-public ember-shared-main
   (package
     (name "ember-shared-main")
-    (version "1.1.4.497-1e1d27a9115b400d1580705bc4a223e98afdb791")
+    (version "1.1.4.497-e5b8aa0ece33d6371f959543047d25d8f621170a")
     (source (origin
               (method git-fetch)
               (uri (git-reference
                 (url "https://github.com/ethus3h/ember-shared.git")
-                (commit "1e1d27a9115b400d1580705bc4a223e98afdb791")))
+                (commit "e5b8aa0ece33d6371f959543047d25d8f621170a")))
               (sha256
                (base32
-                "1iimbpk2da84igz95ycdksbd2hvdp73lpw0wz1iwwj5fhh7jm440"))))
+                "1hvdaabxc9s71q6mz4fccaf8lvnjam2ryvd2xa9rhmsjbk6byxkz"))))
     (build-system gnu-build-system)
     (arguments '(#:configure-flags '("--module=main") #:phases (modify-phases %standard-phases (delete 'check))))
     (propagated-inputs `(
