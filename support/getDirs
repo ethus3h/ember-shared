@@ -19,7 +19,7 @@ fi
 
 overrideInstalledAppDataDir="/usr/share"
 overrideInstalledAppDataDirArg="${1#*=}"
-if [[ "$1" == "--override-data-dir"* ]] &&
+if [[ "$1" == "--override-data-dir"* ]]; then
     shift
     if [[ -n "$overrideInstalledAppDataDirArg" ]]; then
         overrideInstalledAppDataDir="$overrideInstalledAppDataDirArg"
