@@ -64,6 +64,7 @@ if [[ -e scripts/ember_bash_setup_core ]]; then
         absdatadir="$absdatadir/"
     fi
     # Guix chmods -w everything I guess? How are buildsystems supposed to work then?
+    # It works in other cases, like the substitutePath below.
     ls -lsa 1>&2
     whoami 1>&2
     chmod +w scripts/ember_bash_setup_core
