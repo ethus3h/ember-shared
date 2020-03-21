@@ -6,6 +6,9 @@ trap 'echo "Error installing module"; exit 1' ERR
 
 source support/getDirs
 install -d $(DESTDIR)$(PREFIX)/bin/
+install -m 755 scripts/ember_bash_setup_core $(DESTDIR)$(PREFIX)/bin/
+install -d $(DESTDIR)$(PREFIX)$(datadir)/ember-shared/
+cp -r data $(DESTDIR)$(PREFIX)$(datadir)/ember-shared/
 
 
 if [[ -e "support/.modules-prepared" ]]; then
