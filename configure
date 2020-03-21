@@ -49,9 +49,9 @@ while [[ -n "$1" ]]; do
 done
 
 touch support/.module
-@touch support/.prefix
-@touch support/.datadir
-@touch support/.datarootdir
+touch support/.prefix
+touch support/.datadir
+touch support/.datarootdir
 
 echo "Success will be indicated by printing"' "Configuring complete".'
 
