@@ -36,9 +36,7 @@ while [[ -n "$1" ]]; do
         overrideInstalledAppDataDir="${1#*=}"
         ;;
     --prefix)
-        # Note: These are getting things after the equals.
-        # --prefix foo will not work; it must be --prefix=foo.
-        printf '%s' "${1#*=}" > support/.prefix
+        overrideInstalledAppDataDir="${1#*=}"
         ;;
     --mandir)
         printf '%s' "${1#*=}" > support/.mandir
