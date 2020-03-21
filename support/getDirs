@@ -31,6 +31,7 @@ while [[ -n "$1" ]]; do
     case $currentArgPrefix in
     --package-name)
         packageName="${1#*=}"
+        ;;
     --prefix)
         # Note: These are getting things after the equals.
         # --prefix foo will not work; it must be --prefix=foo.
