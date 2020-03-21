@@ -61,9 +61,6 @@
     (build-system gnu-build-system)
     (arguments '(#:configure-flags '("--module=error-notify") #:phases (modify-phases %standard-phases (delete 'check))))
     (propagated-inputs `(
-        ("ember-shared-error-notify" ,ember-shared-error-notify)
-        ; many inputs this needs are implicit in the build system: bash, coreutils, sed, gawk, diffutils
-        ("util-linux" ,util-linux)
         ("procps" ,procps)
         ("xxd" ,xxd)
     ))
