@@ -18,8 +18,8 @@ if [[ -z "$(ember-getconf emberSharedVersion)" ]]; then
 fi
 
 if [[ "$OSTYPE" = darwin* ]]; then
-    if [[ -f "support/prepareForMac" ]]; then
-        support/prepareForMac "$packageName"
+    if [[ -f ""$(<support/.buildsystemdir)"/support/prepareForMac" ]]; then
+        "$(<support/.buildsystemdir)"/support/prepareForMac "$packageName"
     fi
 fi
 
