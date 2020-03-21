@@ -13,6 +13,8 @@ warn() {
     printf %b '\033[1;33m' "$(ps -o args= $PPID)" '\nsends the warning:\n' "${@+$@$'\n'}" '\033[0m' >&2
 }
 
+pwd
+
 if [[ "$OSTYPE" = darwin* ]]; then
     scripts/emberMacGNUUpgrade
     # NOTE: MAINTENANCE: Upgrade list from "prepareForMac" template file
