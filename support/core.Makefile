@@ -1,5 +1,8 @@
 # Based on https://stackoverflow.com/a/39895302 by igagis
 
+@touch support/.prefix
+@touch support/.datadir
+@touch support/.datarootdir
 #PREFIX is environment variable, but if it is not set, then set default value
 ifeq ($(PREFIX),)
     PREFIX=`cat support/.prefix`
