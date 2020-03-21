@@ -11,6 +11,10 @@
 ;;; You should have received a copy of the GNU General Public License
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
+; If the build fails: ./pre-inst-env guix build -K ember-shared-main
+; cd /tmp/guix-build-ember-shared-main-1.1.4.497-1e1d27a9115b400d1580705bc4a223e98afdb791.drv-1
+; ./pre-inst-env guix environment --no-grafts -C ember-shared-main
+
 (define-module (gnu packages dce)
   #:use-module (guix packages)
   #:use-module (guix download)
