@@ -89,8 +89,6 @@ fi
 #echo "emberDatarootdir: $emberDatarootdir"
 if [[ -z "$emberDatadir" ]]; then
     emberDatadir="$emberDatarootdir"
-else
-    emberDatadir="$emberDatadir"
 fi
 #echo "emberDatadir: $emberDatadir"
 if [[ -z "$emberSysconfdir" ]]; then
