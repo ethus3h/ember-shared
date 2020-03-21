@@ -14,6 +14,6 @@ all:
 	@support/install-prepare-modules
 	@echo "Done preparing ember-shared-error-notify"
 install:
-	@install -d $(DESTDIR)$(PREFIX)/usr/bin/
-	@install -m 755 scripts/error-notify $(DESTDIR)$(PREFIX)/usr/bin/
+	@install -d $(DESTDIR)$(PREFIX)/bin/
+	@install -m 755 scripts/error-notify $(DESTDIR)$(PREFIX)/bin/
 	@echo "Done installing or updating" ember-shared-error-notify
