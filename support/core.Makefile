@@ -11,7 +11,9 @@ ifeq ($(datadir),)
     datadir=`cat support/.datarootdir`
 endif
 ifeq ($(datadir),)
-    datadir
+    datadir="/share"
+endif
+
 all:
 	#@support/install-prepare-module
 	@echo "Done preparing ember-shared-core"
