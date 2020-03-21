@@ -13,7 +13,7 @@
 
 ; If the build fails: ./pre-inst-env guix build -K ember-shared-main
 ; cd /tmp/guix-build-ember-shared-main-1.1.4.497-1e1d27a9115b400d1580705bc4a223e98afdb791.drv-1
-; ./pre-inst-env guix environment --no-grafts -C ember-shared-main
+; /nvme0n1p5/ember-auto-build/guix/pre-inst-env guix environment --no-grafts -C ember-shared-main
 
 (define-module (gnu packages dce)
   #:use-module (guix packages)
@@ -49,15 +49,15 @@
 (define-public ember-shared-error-notify
   (package
     (name "ember-shared-error-notify")
-    (version "1.1.4.499-8e4b00341f6de28bbffa6de6c7192454052ab5d3")
+    (version "1.1.4.500-7aac50bfda6741cb19994576c08df95be47dae85")
     (source (origin
               (method git-fetch)
               (uri (git-reference
                 (url "https://github.com/ethus3h/ember-shared.git")
-                (commit "8e4b00341f6de28bbffa6de6c7192454052ab5d3")))
+                (commit "7aac50bfda6741cb19994576c08df95be47dae85")))
               (sha256
                (base32
-                "0pdbir9bhagws6zn43rs5cky9rls31b489z3qz009say8hlabbnm"))))
+                "1p12hg0irlh54cn073y7llahshp9qly8m8c92m7n124s6728am28"))))
     (build-system gnu-build-system)
     (arguments '(#:configure-flags '("--module=error-notify") #:phases (modify-phases %standard-phases (delete 'check))))
     (propagated-inputs `(("xxd" ,xxd)))
