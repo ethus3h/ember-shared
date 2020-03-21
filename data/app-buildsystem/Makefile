@@ -2,6 +2,19 @@ packageNameFile=package-name
 packageName=`cat $(packageNameFile)`
 buildsystemDir=`cat support/.buildsystemdir`
 
+ifeq ($(PREFIX),)
+    PREFIX=`cat support/.prefix`
+endif
+ifeq ($(datarootdir),)
+    datarootdir=`cat support/.datarootdir`
+endif
+ifeq ($(datadir),)
+    datadir=`cat support/.datadir`
+endif
+ifeq ($(sysconfdir),)
+    sysconfdir=`cat support/.sysconfdir`
+endif
+
 all:
 	@$(buildsystemDir)/support/prepare --package-name=$(packageName) --override-data-dir=$(OVERRIDEDATADIR) --destdir=$(DESTDIR) --prefix=$(prefix) --PREFIX=$(PREFIX) --exec_prefix=$(exec_prefix) --bindir=$(bindir) --datarootdir=$(datarootdir) --datadir=$(datadir) --sysconfdir=$(sysconfdir) --sharedstatedir=$(sharedstatedir)
 	@echo "Done preparing" $(packageName)
