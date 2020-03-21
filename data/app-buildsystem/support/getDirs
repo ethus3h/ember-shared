@@ -1,16 +1,14 @@
 #!/usr/bin/env bash
+#set -x
+
+# Special getDirs for ember-shared.
+
 # This file should be sourced rather than run directly.
 
-source ember_bash_setup_core &> /dev/null || { printf '%b' '\033[1;31m' >&2; echo "A fatal error was reported on ${BASH_SOURCE[0]} line ${LINENO} in $(pwd): The required dependency ember-shared could not be found (or ember_bash_setup_core could not be sourced for some other reason)." >&2; printf '%b' '\033[0m' >&2; exit 1; }
+# Should work without ember-shared (or crystallize), just in case, so don't depend on ember_bash_setup or set traps that need it
 
-trap 'die "A fatal error was reported on ${BASH_SOURCE[0]} line ${LINENO} in $(pwd)."' ERR
-
-if [[ -n "$1" ]]; then
-    packageName="$1"
-    shift
-else
-    packageName="$(<package-name)"
-fi
+#NOTE: MAINTENANCE: Manual error printing
+trap 'printf '\''%b'\'' '\''\033[1;31m'\'' >&2; echo "A fatal error was reported on ${BASH_SOURCE[0]} line ${LINENO} in $(pwd)." >&2; printf '\''%b'\'' '\''\033[0m'\'' >&2; exit 1' ERR
 
 overrideInstalledAppDataDir="/usr/share"
 overrideInstalledAppDataDirArg="${1#*=}"
@@ -27,6 +25,56 @@ fi
 { emberDatadir="$(<support/.datadir)" || true; } 2> /dev/null
 { emberSysconfdir="$(<support/.sysconfdir)" || true; } 2> /dev/null
 { emberLocalstatedir="$(<support/.localstatedir)" || true; } 2> /dev/null
+
+while [[ -n "$1" ]]; do
+    currentArgPrefix="${1%%=*}"
+    case $currentArgPrefix in
+    --package-name)
+        packageName="${1#*=}"
+        ;;
+    --override-data-dir)
+        overrideInstalledAppDataDir="${1#*=}"
+        ;;
+    --destdir)
+        emberDestdir="${1#*=}"
+        ;;
+    --prefix)
+        emberPrefix="${1#*=}"
+        ;;
+    --PREFIX)
+        emberCapPrefix="${1#*=}"
+        ;;
+    --exec_prefix)
+        emberExecPrefix="${1#*=}"
+        ;;
+    --bindir)
+        emberBindir="${1#*=}"
+        ;;
+    --datarootdir)
+        emberDatarootdir="${1#*=}"
+        ;;
+    --datadir)
+        emberDatadir="${1#*=}"
+        ;;
+    --sysconfdir)
+        emberSysconfdir="${1#*=}"
+        ;;
+    --sharedstatedir)
+        emberSharedstatedir="${1#*=}"
+        ;;
+    *)
+        true
+        ;;
+    esac
+    shift
+done
+
+if [[ -z "$packageName" ]] && [[ -n "$1" ]] && ! [[ -f "package-name" ]]; then
+    packageName="$1"
+    shift
+else
+    packageName="$(<package-name)"
+fi
 
 #echo 1 "$1" 2 "$2" 3 "$3" 4 "$4" 5 "$5" 6 "$6" 7 "$7" 8 "$8" 9 "$9"
 if [[ -z "$emberDestdir" ]] && [[ -n "$1" ]]; then
