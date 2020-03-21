@@ -50,8 +50,8 @@ if [[ -e "support/$packageName.conf" ]]; then
     fi
 fi
 
-if [[ ! -e /Ember ]]; then
-    mkdir -p /Ember/CrystalIndex/
+if [[ ! -e "$emberEmberdir" ]]; then
+    mkdir -p "$emberEmberdir"/CrystalIndex/
 fi
 
 if [[ -e support/post-default-install ]]; then
