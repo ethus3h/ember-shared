@@ -15,6 +15,10 @@
 ; cd /tmp/guix-build-ember-shared-main-1.1.4.497-1e1d27a9115b400d1580705bc4a223e98afdb791.drv-1
 ; /nvme0n1p5/ember-auto-build/guix/pre-inst-env guix environment --no-grafts -C ember-shared-main
 
+; guix build -e "(@ (gnu packages gcc) gcc)"
+; guix build --check --no-substitutes --no-grafts -e "(@ (gnu packages gcc) gcc)"
+
+
 (define-module (gnu packages dce)
   #:use-module (guix packages)
   #:use-module (guix download)
@@ -44,6 +48,7 @@
   #:use-module (gnu packages package-management)
   #:use-module (gnu packages bash)
   #:use-module (gnu packages autotools)
+  #:use-module (gnu packages ncdu)
 )
 
 (define-public ember-shared-error-notify
@@ -187,6 +192,7 @@
     (build-system gnu-build-system)
     (propagated-inputs `(
         ("ember-shared-extra" ,ember-shared-extra)
+        ("ncdu" ,ncdu)
         ;("futuramerlin-web-toolkit" ,futuramerlin-web-toolkit) ; for egup-web
     ))
     (synopsis "Collection of tools for working with files and filesystems")
@@ -216,6 +222,7 @@
     (build-system gnu-build-system)
     (inputs `(
         ("dce-input-ucd" ,dce-input-ucd)
+        ("ncdu" ,ncdu)
     ))
     (propagated-inputs `(
         ("ember-shared-core" ,ember-shared-core)
