@@ -237,23 +237,7 @@
                (base32
                 "18nmj93m71jl399bzzdlprz8w7idcmbg71x3fz0lpj62sl0jhpnq"))
         )
-    )
-    (build-system gnu-build-system)
-    (propagated-inputs `(
-        ("ember-shared-core" ,ember-shared-core)
-    ))
-    (synopsis "Deterministic, distributed, document-centric computing environment")
-    (description "Deterministic, distributed, document-centric computing environment")
-    (home-page "http://futuramerlin.com/specification/engineering-and-tech/information-technology/software/")
-    (license (list
-        agpl3+
-        unicode
-        silofl1.1 ; soccer.otf
-        ; FIXME: papaparse
-        (x11-style "file://thirdparty-licenses/LICENSE.base16b.md")
-        (x11-style "file://thirdparty-licenses/LICENSE.kde-syntax-highlighting.md")
-        (x11-style "file://thirdparty-licenses/LICENSE.wtf8.md")
-    ))))
+    )))
 
 ; Dependencies
 
