@@ -51,8 +51,12 @@ done
 touch support/.module
 touch support/.prefix
 touch support/.mandir
+touch support/.infodir
 touch support/.datadir
 touch support/.datarootdir
+touch support/.sysconfdir
+touch support/.localstatedir
+touch support/.module
 
 echo "Success will be indicated by printing"' "Configuring complete".'
 
