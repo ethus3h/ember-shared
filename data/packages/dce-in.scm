@@ -210,7 +210,7 @@
         )
         (
               (method url-fetch)
-              (uri (string-append "https://www.unicode.org/Public/"${myUnicodeVersion}"/ucdxml/ucd.all.flat.zip"
+              (uri (string-append "https://www.unicode.org/Public/12.0.0/ucdxml/ucd.all.flat.zip"
                 (url "https://github.com/ethus3h/ember-information-technology-environment.git")
                 (commit "TEMPLATE-PLACEHOLDER-COMMIT:ember-information-technology-environment")))
               (sha256
