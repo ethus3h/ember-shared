@@ -237,7 +237,7 @@
 
 (define dce-input-ucd
   (package
-    (name "dce")
+    (name "dce-input-ucd")
     (version "TEMPLATE-PLACEHOLDER-VERSION:ember-information-technology-environment")
     (source '(
         (origin
