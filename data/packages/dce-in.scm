@@ -215,7 +215,14 @@
     )
     (build-system gnu-build-system)
     (inputs `(
-        ("dce-input-ucd" ,dce-input-ucd)
+        ("dce-input-ucd" (origin
+              (method url-fetch)
+              (uri (string-append "https://www.unicode.org/Public/" version "/ucdxml/ucd.all.flat.zip"))
+              (file-name (string-append "ucd.all.flat-" version ".zip"))
+              (sha256
+               (base32
+                "18nmj93m71jl399bzzdlprz8w7idcmbg71x3fz0lpj62sl0jhpnq"))
+        ))
     ))
     (propagated-inputs `(
         ("ember-shared-core" ,ember-shared-core)
