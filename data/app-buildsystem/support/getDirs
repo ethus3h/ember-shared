@@ -143,15 +143,15 @@ else
 fi
 #echo "emberDatadir: $emberDatadir"
 if [[ -z "$emberSysconfdir" ]]; then
-    emberSysconfdir="$emberPrefix"/etc
+    emberSysconfdir="$emberDestdir"/etc
 else
-    emberSysconfdir="$emberPrefix$emberSysconfdir"
+    emberSysconfdir="$emberDestdir$emberSysconfdir"
 fi
 #echo "emberSysconfdir: $emberSysconfdir"
 if [[ -z "$emberSharedstatedir" ]]; then
-    emberSharedstatedir="$emberPrefix"/var
+    emberSharedstatedir="$emberDestdir"/var
 else
-    emberSharedstatedir="$emberPrefix$emberSharedstatedir"
+    emberSharedstatedir="$emberDestdir$emberSharedstatedir"
 fi
 #echo "emberSharedstatedir: $emberSharedstatedir"
 
