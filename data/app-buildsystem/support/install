@@ -52,6 +52,7 @@ fi
 
 if [[ ! -e "$emberEmberdir/CrystalIndex/" ]]; then
     mkdir -p "$emberEmberdir"/CrystalIndex/
+    touch "$emberEmberdir"/CrystalIndex/.keep
 fi
 
 if [[ -e support/post-default-install ]]; then
