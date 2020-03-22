@@ -235,6 +235,47 @@
         (x11-style "file://thirdparty-licenses/LICENSE.wtf8.md")
     ))))
 
+    (define-public dce
+  (package
+    (name "dce")
+    (version "TEMPLATE-PLACEHOLDER-VERSION:ember-information-technology-environment")
+    (source '(
+        (origin
+              (method git-fetch)
+              (uri (git-reference
+                (url "https://github.com/ethus3h/ember-information-technology-environment.git")
+                (commit "TEMPLATE-PLACEHOLDER-COMMIT:ember-information-technology-environment")))
+              (sha256
+               (base32
+                "TEMPLATE-PLACEHOLDER-HASH:ember-information-technology-environment"))
+        )
+        (origin
+              (method url-fetch)
+              (uri "https://www.unicode.org/Public/12.0.0/ucdxml/ucd.all.flat.zip")
+              (file-name "ucd.all.flat-12.0.0.zip")
+              (sha256
+               (base32
+                "18nmj93m71jl399bzzdlprz8w7idcmbg71x3fz0lpj62sl0jhpnq"))
+        )
+        )
+    )
+    (build-system gnu-build-system)
+    (propagated-inputs `(
+        ("ember-shared-core" ,ember-shared-core)
+    ))
+    (synopsis "Deterministic, distributed, document-centric computing environment")
+    (description "Deterministic, distributed, document-centric computing environment")
+    (home-page "http://futuramerlin.com/specification/engineering-and-tech/information-technology/software/")
+    (license (list
+        agpl3+
+        unicode
+        silofl1.1 ; soccer.otf
+        ; FIXME: papaparse
+        (x11-style "file://thirdparty-licenses/LICENSE.base16b.md")
+        (x11-style "file://thirdparty-licenses/LICENSE.kde-syntax-highlighting.md")
+        (x11-style "file://thirdparty-licenses/LICENSE.wtf8.md")
+    ))))
+
 ; Dependencies
 
 (define-public hashdeep
