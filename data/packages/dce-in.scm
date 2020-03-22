@@ -235,7 +235,7 @@
         (x11-style "file://thirdparty-licenses/LICENSE.wtf8.md")
     ))))
 
-    (define-public dce
+(define dce-input-ucd
   (package
     (name "dce")
     (version "TEMPLATE-PLACEHOLDER-VERSION:ember-information-technology-environment")
