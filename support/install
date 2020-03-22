@@ -143,6 +143,7 @@ if [[ "extra" != "$moduleName" ]]; then
 fi
 
 mkdir -p "$emberEmberdir"
+touch "$emberEmberdir/.keep"
 
 #if [[ ! -h "$emberSharedstatedir/crystallize" ]] && [[ -d "$emberSharedstatedir/crystallize" ]]; then
 #    mv "$emberSharedstatedir/crystallize" "$emberSharedstatedir/ember"
