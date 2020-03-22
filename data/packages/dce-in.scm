@@ -232,7 +232,7 @@
     (source (origin
               (method url-fetch)
               (uri (string-append "https://www.unicode.org/Public/" version "/ucdxml/ucd.all.flat.zip"))
-              (file-name "ucd.all.flat-12.0.0.zip")
+              (file-name (string-append "ucd.all.flat-" version ".zip"))
               (sha256
                (base32
                 "18nmj93m71jl399bzzdlprz8w7idcmbg71x3fz0lpj62sl0jhpnq"))
