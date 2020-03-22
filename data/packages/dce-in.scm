@@ -198,8 +198,7 @@
   (package
     (name "dce")
     (version "TEMPLATE-PLACEHOLDER-VERSION:ember-information-technology-environment")
-    (source (origin (list
-        (
+    (source (origin
               (method git-fetch)
               (uri (git-reference
                 (url "https://github.com/ethus3h/ember-information-technology-environment.git")
@@ -208,7 +207,7 @@
                (base32
                 "TEMPLATE-PLACEHOLDER-HASH:ember-information-technology-environment"))
         )
-        (
+        (origin
               (method url-fetch)
               (uri "https://www.unicode.org/Public/12.0.0/ucdxml/ucd.all.flat.zip")
               (file-name "ucd.all.flat-12.0.0.zip")
