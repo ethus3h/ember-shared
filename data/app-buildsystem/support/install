@@ -52,7 +52,7 @@ fi
 
 if [[ ! -e "$emberEmberdir/CrystalIndex/.keep" ]]; then
     mkdir -p "$emberEmberdir"/CrystalIndex/
-    touch "$emberEmberdir"/CrystalIndex/.keep # indicate that the directory should be kept
+    touch "$emberEmberdir"/CrystalIndex/.keep # avoid creating an empty directory
 fi
 
 if [[ -e support/post-default-install ]]; then
