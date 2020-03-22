@@ -146,6 +146,7 @@ fi
 emberPrefixOrDestdir="$emberPrefix"
 if [[ "/usr" == "$emberOriginalPrefix" ]]; then
     # FIXME: hack: what should this actually be?
+    # Without it, either Guix tries to write to /etc (instead of in the prefix), or Portage tries to write to /usr/etc
     emberPrefixOrDestdir="$emberDestdir"
 fi
 if [[ -z "$emberSysconfdir" ]]; then
