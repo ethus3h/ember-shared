@@ -197,15 +197,15 @@
 (define-public dce
   (package
     (name "dce")
-    (version "TEMPLATE-PLACEHOLDER-VERSION:crystallize")
+    (version "TEMPLATE-PLACEHOLDER-VERSION:ember-information-technology-environment")
     (source (origin
               (method git-fetch)
               (uri (git-reference
-                (url "https://github.com/ethus3h/crystallize.git")
-                (commit "TEMPLATE-PLACEHOLDER-COMMIT:crystallize")))
+                (url "https://github.com/ethus3h/ember-information-technology-environment.git")
+                (commit "TEMPLATE-PLACEHOLDER-COMMIT:ember-information-technology-environment")))
               (sha256
                (base32
-                "TEMPLATE-PLACEHOLDER-HASH:crystallize"))))
+                "TEMPLATE-PLACEHOLDER-HASH:ember-information-technology-environment"))))
     (build-system gnu-build-system)
     (propagated-inputs `(
         ("ember-shared-extra" ,ember-shared-extra)
