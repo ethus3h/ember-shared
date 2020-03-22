@@ -50,7 +50,7 @@ if [[ -e "support/$packageName.conf" ]]; then
     fi
 fi
 
-if [[ ! -e "$emberEmberdir/CrystalIndex/" ]]; then
+if [[ ! -e "$emberEmberdir/CrystalIndex/.keep" ]]; then
     mkdir -p "$emberEmberdir"/CrystalIndex/
     touch "$emberEmberdir"/CrystalIndex/.keep
 fi
