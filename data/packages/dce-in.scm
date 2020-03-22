@@ -212,7 +212,7 @@
         ;("futuramerlin-web-toolkit" ,futuramerlin-web-toolkit) ; for egup-web
     ))
     (synopsis "Deterministic, distributed, document-centric computing environment")
-    (description "Collection of tools for working with files and filesystems")
+    (description "Deterministic, distributed, document-centric computing environment")
     (home-page "http://futuramerlin.com/ancillary/crystallize/")
     (license (list agpl3+ bsd-2))))
 
