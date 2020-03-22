@@ -214,7 +214,7 @@
               (file-name "ucd.all.flat-12.0.0.zip")
               (sha256
                (base32
-                "TEMPLATE-PLACEHOLDER-HASH:ember-information-technology-environment"))
+                "18nmj93m71jl399bzzdlprz8w7idcmbg71x3fz0lpj62sl0jhpnq"))
         )
     )))
     (build-system gnu-build-system)
