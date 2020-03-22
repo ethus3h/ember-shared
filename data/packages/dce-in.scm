@@ -218,6 +218,8 @@
         unicode
         silofl1.1
         (x11-style "file://thirdparty-licenses/LICENSE.kde-syntax-highlighting.md")
+        (x11-style "file://thirdparty-licenses/LICENSE.kde-syntax-highlighting.md")
+        (x11-style "file://thirdparty-licenses/LICENSE.kde-syntax-highlighting.md")
     ))))
 
 ; Dependencies
