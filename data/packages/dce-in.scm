@@ -213,7 +213,11 @@
     (synopsis "Deterministic, distributed, document-centric computing environment")
     (description "Deterministic, distributed, document-centric computing environment")
     (home-page "http://futuramerlin.com/specification/engineering-and-tech/information-technology/software/")
-    (license (list agpl3+ unicode (x11-style "file://thirdparty-licenses/LICENSE.kde-syntax-highlighting.md")))))
+    (license (list
+        agpl3+
+        unicode
+        (x11-style "file://thirdparty-licenses/LICENSE.kde-syntax-highlighting.md")
+    ))))
 
 ; Dependencies
 
