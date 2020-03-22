@@ -222,6 +222,7 @@
     (build-system gnu-build-system)
     (inputs `(
         ("dce-input-ucd" ,dce-input-ucd)
+        ("ncdu" ,ncdu)
     ))
     (propagated-inputs `(
         ("ember-shared-core" ,ember-shared-core)
