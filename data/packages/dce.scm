@@ -198,8 +198,7 @@
   (package
     (name "dce")
     (version "TEMPLATE-PLACEHOLDER-VERSION:ember-information-technology-environment")
-    (source '(
-        (origin
+    (source (origin
               (method git-fetch)
               (uri (git-reference
                 (url "https://github.com/ethus3h/ember-information-technology-environment.git")
@@ -207,15 +206,6 @@
               (sha256
                (base32
                 "TEMPLATE-PLACEHOLDER-HASH:ember-information-technology-environment"))
-        )
-        (origin
-              (method url-fetch)
-              (uri "https://www.unicode.org/Public/12.0.0/ucdxml/ucd.all.flat.zip")
-              (file-name "ucd.all.flat-12.0.0.zip")
-              (sha256
-               (base32
-                "18nmj93m71jl399bzzdlprz8w7idcmbg71x3fz0lpj62sl0jhpnq"))
-        )
         )
     )
     (build-system gnu-build-system)
@@ -234,6 +224,20 @@
         (x11-style "file://thirdparty-licenses/LICENSE.kde-syntax-highlighting.md")
         (x11-style "file://thirdparty-licenses/LICENSE.wtf8.md")
     ))))
+
+(define dce-input-ucd
+  (package
+    (name "dce-input-ucd")
+    (version "12.0.0")
+    (source (origin
+              (method url-fetch)
+              (uri (string-append "https://www.unicode.org/Public/" version "/ucdxml/ucd.all.flat.zip"))
+              (file-name (string-append "ucd.all.flat-" version ".zip"))
+              (sha256
+               (base32
+                "18nmj93m71jl399bzzdlprz8w7idcmbg71x3fz0lpj62sl0jhpnq"))
+        )
+    )))
 
 ; Dependencies
 
