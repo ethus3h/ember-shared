@@ -144,6 +144,7 @@ fi
 #echo "emberDatadir: $emberDatadir"
 emberPrefixOrDestdir="$emberDestdir"
 if [[ "/usr" != "$emberPrefix" ]]; then
+    # FIXME: hack: what should this actually be?
     emberPrefixOrDestdir="$emberPrefix"
 fi
 if [[ -z "$emberSysconfdir" ]]; then
