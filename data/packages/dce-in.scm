@@ -207,7 +207,7 @@
                (base32
                 "TEMPLATE-PLACEHOLDER-HASH:dce"))
             (snippet '(begin
-                ()
+                (copy-recursively )
                 #t
             ))
         )
