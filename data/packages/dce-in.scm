@@ -44,7 +44,7 @@
   #:use-module (gnu packages package-management)
   #:use-module (gnu packages bash)
   #:use-module (gnu packages autotools)
-  #:use-module (gnu packages package-management)
+  #:use-module (gnu packages ncdu)
 )
 
 (define-public ember-shared-error-notify
