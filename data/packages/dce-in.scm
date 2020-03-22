@@ -231,7 +231,7 @@
     (version "12.0.0")
     (source (origin
               (method url-fetch)
-              (uri "https://www.unicode.org/Public/12.0.0/ucdxml/ucd.all.flat.zip")
+              (uri (string-append "https://www.unicode.org/Public/" version "/ucdxml/ucd.all.flat.zip"))
               (file-name "ucd.all.flat-12.0.0.zip")
               (sha256
                (base32
