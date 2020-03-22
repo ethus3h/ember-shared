@@ -206,6 +206,10 @@
               (sha256
                (base32
                 "TEMPLATE-PLACEHOLDER-HASH:dce"))
+            (snippet '(begin
+                ()
+                #t
+            ))
         )
     )
     (build-system gnu-build-system)
