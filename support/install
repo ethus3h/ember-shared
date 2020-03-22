@@ -142,7 +142,7 @@ if [[ "extra" != "$moduleName" ]]; then
     ereplace "/usr/local/etc" "$emberSysconfdir" scripts/ember-getconf
 fi
 
-mkdir -p "$emberSharedstatedir"/ember
+mkdir -p "$emberEmberdir"
 
 if [[ ! -h "$emberSharedstatedir/crystallize" ]] && [[ -d "$emberSharedstatedir/crystallize" ]]; then
     mv "$emberSharedstatedir/crystallize" "$emberSharedstatedir/ember"
