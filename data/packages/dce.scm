@@ -49,15 +49,15 @@
 (define-public ember-shared-error-notify
   (package
     (name "ember-shared-error-notify")
-    (version "TEMPLATE-PLACEHOLDER-VERSION:ember-shared-error-notify")
+    (version "1.1.4.519-238e3c79e5151871e4054d7c0f796f00a6eec09e")
     (source (origin
               (method git-fetch)
               (uri (git-reference
                 (url "https://github.com/ethus3h/ember-shared.git")
-                (commit "TEMPLATE-PLACEHOLDER-COMMIT:ember-shared-error-notify")))
+                (commit "238e3c79e5151871e4054d7c0f796f00a6eec09e")))
               (sha256
                (base32
-                "TEMPLATE-PLACEHOLDER-HASH:ember-shared-error-notify"))))
+                "1b0y650zdkjfyb855ksnlf3zb1lwrcwfqwnvk1bcn0zdj8n83y5n"))))
     (build-system gnu-build-system)
     (arguments '(#:configure-flags '("--module=error-notify") #:phases (modify-phases %standard-phases (delete 'check))))
     (propagated-inputs `(
@@ -72,15 +72,15 @@
 (define-public ember-shared-core
   (package
     (name "ember-shared-core")
-    (version "TEMPLATE-PLACEHOLDER-VERSION:ember-shared-core")
+    (version "1.1.4.519-b080e847e6ee43f76fce84fcd7599dfd5966c653")
     (source (origin
               (method git-fetch)
               (uri (git-reference
                 (url "https://github.com/ethus3h/ember-shared.git")
-                (commit "TEMPLATE-PLACEHOLDER-COMMIT:ember-shared-core")))
+                (commit "b080e847e6ee43f76fce84fcd7599dfd5966c653")))
               (sha256
                (base32
-                "TEMPLATE-PLACEHOLDER-HASH:ember-shared-core"))))
+                "0rm5bwbfvrsw6pc4n8h9jbzkrg82w8k3fm8417yyz40jjhvpvmrk"))))
     (build-system gnu-build-system)
     (arguments '(#:configure-flags '("--module=core") #:phases (modify-phases %standard-phases (delete 'check))))
     (propagated-inputs `(
@@ -98,15 +98,15 @@
 (define-public ember-shared-main
   (package
     (name "ember-shared-main")
-    (version "TEMPLATE-PLACEHOLDER-VERSION:ember-shared-main")
+    (version "1.1.4.519-9b86ff3478c13dc3a7ad4f2873f2c1948130351a")
     (source (origin
               (method git-fetch)
               (uri (git-reference
                 (url "https://github.com/ethus3h/ember-shared.git")
-                (commit "TEMPLATE-PLACEHOLDER-COMMIT:ember-shared-main")))
+                (commit "9b86ff3478c13dc3a7ad4f2873f2c1948130351a")))
               (sha256
                (base32
-                "TEMPLATE-PLACEHOLDER-HASH:ember-shared-main"))))
+                "0gdhjzmkjyqcfbim59h0x8j87crxxai0b648i31xsgzal8vi631l"))))
     (build-system gnu-build-system)
     (arguments '(#:configure-flags '("--module=main") #:phases (modify-phases %standard-phases (delete 'check))))
     (propagated-inputs `(
@@ -123,15 +123,15 @@
 (define-public ember-shared-extra
   (package
     (name "ember-shared-extra")
-    (version "TEMPLATE-PLACEHOLDER-VERSION:ember-shared-extra")
+    (version "1.1.4.519-fcd55ef8d7c3d1b42e06d981267d84827241935b")
     (source (origin
               (method git-fetch)
               (uri (git-reference
                 (url "https://github.com/ethus3h/ember-shared.git")
-                (commit "TEMPLATE-PLACEHOLDER-COMMIT:ember-shared-extra")))
+                (commit "fcd55ef8d7c3d1b42e06d981267d84827241935b")))
               (sha256
                (base32
-                "TEMPLATE-PLACEHOLDER-HASH:ember-shared-extra"))))
+                "19fmvzzn9gxbqlqdr6h03d3j0jn1825f743385afg446kfdz2xjw"))))
     (build-system gnu-build-system)
     (arguments '(#:configure-flags '("--module=extra") #:phases (modify-phases %standard-phases (delete 'check))))
     (propagated-inputs `(
@@ -175,15 +175,15 @@
 (define-public crystallize
   (package
     (name "crystallize")
-    (version "TEMPLATE-PLACEHOLDER-VERSION:crystallize")
+    (version "3.1.2.5.14.350-574392b165412bf313a48d850072b2038bf7fda7")
     (source (origin
               (method git-fetch)
               (uri (git-reference
                 (url "https://github.com/ethus3h/crystallize.git")
-                (commit "TEMPLATE-PLACEHOLDER-COMMIT:crystallize")))
+                (commit "574392b165412bf313a48d850072b2038bf7fda7")))
               (sha256
                (base32
-                "TEMPLATE-PLACEHOLDER-HASH:crystallize"))))
+                "1wcjrzpl4iv9w7s5bvrpr6y7bb0pyc1aix8iy67kc9bkf07a0188"))))
     (build-system gnu-build-system)
     (propagated-inputs `(
         ("ember-shared-extra" ,ember-shared-extra)
