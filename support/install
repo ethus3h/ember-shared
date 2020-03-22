@@ -144,10 +144,10 @@ fi
 
 mkdir -p "$emberEmberdir"
 
-if [[ ! -h "$emberSharedstatedir/crystallize" ]] && [[ -d "$emberSharedstatedir/crystallize" ]]; then
-    mv "$emberSharedstatedir/crystallize" "$emberSharedstatedir/ember"
-    ln -s "$emberSharedstatedir/ember" "$emberSharedstatedir/crystallize"
-fi
+#if [[ ! -h "$emberSharedstatedir/crystallize" ]] && [[ -d "$emberSharedstatedir/crystallize" ]]; then
+#    mv "$emberSharedstatedir/crystallize" "$emberSharedstatedir/ember"
+#    ln -s "$emberSharedstatedir/ember" "$emberSharedstatedir/crystallize"
+#fi
 
 if ! [[ -h "$emberDatadir/ember" ]]; then
     ln -s "$emberDatadir/ember-shared/data" "$emberDatadir/ember"
