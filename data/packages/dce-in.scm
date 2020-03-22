@@ -209,6 +209,13 @@
                 "TEMPLATE-PLACEHOLDER-HASH:ember-information-technology-environment"))
         )
         (
+              (method git-fetch)
+              (uri (git-reference
+                (url "https://github.com/ethus3h/ember-information-technology-environment.git")
+                (commit "TEMPLATE-PLACEHOLDER-COMMIT:ember-information-technology-environment")))
+              (sha256
+               (base32
+                "TEMPLATE-PLACEHOLDER-HASH:ember-information-technology-environment"))
         )
     )))
     (build-system gnu-build-system)
