@@ -50,6 +50,7 @@ done
 
 touch support/.module
 touch support/.prefix
+touch support/.mandir
 touch support/.datadir
 touch support/.datarootdir
 
