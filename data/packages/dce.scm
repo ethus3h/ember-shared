@@ -197,18 +197,26 @@
 (define-public dce
   (package
     (name "dce")
-    (version "TEMPLATE-PLACEHOLDER-VERSION:ember-information-technology-environment")
+    (version "0-18dff62876c502b5d051e7d00cf3681419ee3d22")
     (source (origin
               (method git-fetch)
               (uri (git-reference
                 (url "https://github.com/ethus3h/ember-information-technology-environment.git")
-                (commit "TEMPLATE-PLACEHOLDER-COMMIT:ember-information-technology-environment")))
+                (commit "18dff62876c502b5d051e7d00cf3681419ee3d22")))
               (sha256
                (base32
-                "TEMPLATE-PLACEHOLDER-HASH:ember-information-technology-environment"))
+                "1a1jc6x4m14s7s7xbhzp6qspk6wsdx7vraggcpxrgiqhslszb6rh"))
+            (snippet '(begin
+                (copy-recursively tmp build-temp/unpacked/)
+                (touch build-temp/dist-already-unpacked)
+                #t
+            ))
         )
     )
     (build-system gnu-build-system)
+    (inputs `(
+        ("dce-input-ucd" ,dce-input-ucd)
+    ))
     (propagated-inputs `(
         ("ember-shared-core" ,ember-shared-core)
     ))
