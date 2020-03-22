@@ -213,7 +213,7 @@
     ))
     (synopsis "Deterministic, distributed, document-centric computing environment")
     (description "Deterministic, distributed, document-centric computing environment")
-    (home-page "http://futuramerlin.com/ancillary/crystallize/")
+    (home-page "http://futuramerlin.com/specification/engineering-and-tech/information-technology/software/")
     (license (list agpl3+ bsd-2))))
 
 ; Dependencies
