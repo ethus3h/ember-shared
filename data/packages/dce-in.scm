@@ -208,6 +208,7 @@
                 "TEMPLATE-PLACEHOLDER-HASH:dce"))
             (snippet '(begin
                 (copy-recursively )
+                (touch build-temp/dist-already-unpacked)
                 #t
             ))
         )
