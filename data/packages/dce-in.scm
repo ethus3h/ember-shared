@@ -198,14 +198,19 @@
   (package
     (name "dce")
     (version "TEMPLATE-PLACEHOLDER-VERSION:ember-information-technology-environment")
-    (source (origin
+    (source (origin (list
+        (
               (method git-fetch)
               (uri (git-reference
                 (url "https://github.com/ethus3h/ember-information-technology-environment.git")
                 (commit "TEMPLATE-PLACEHOLDER-COMMIT:ember-information-technology-environment")))
               (sha256
                (base32
-                "TEMPLATE-PLACEHOLDER-HASH:ember-information-technology-environment"))))
+                "TEMPLATE-PLACEHOLDER-HASH:ember-information-technology-environment"))
+        )
+        (
+        )
+    )))
     (build-system gnu-build-system)
     (propagated-inputs `(
         ("ember-shared-core" ,ember-shared-core)
