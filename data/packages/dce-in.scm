@@ -241,9 +241,8 @@
     ))))
 
 (define dce-input-ucd
-    (name "dce-input-ucd")
     (let ((version "12.0.0"))
-    (source (origin
+    (origin
               (method url-fetch)
               (uri (string-append "https://www.unicode.org/Public/" version "/ucdxml/ucd.all.flat.zip"))
               (file-name (string-append "ucd.all.flat-" version ".zip"))
