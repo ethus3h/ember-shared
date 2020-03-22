@@ -143,10 +143,10 @@ else
     emberDatadir="$emberDestdir$emberDatadir"
 fi
 #echo "emberDatadir: $emberDatadir"
-emberPrefixOrDestdir="$emberDestdir"
-if [[ "/usr" != "$emberOriginalPrefix" ]]; then
+emberPrefixOrDestdir="$emberPrefix"
+if [[ "/usr" == "$emberOriginalPrefix" ]]; then
     # FIXME: hack: what should this actually be?
-    emberPrefixOrDestdir="$emberPrefix"
+    emberPrefixOrDestdir="$emberDestdir"
 fi
 if [[ -z "$emberSysconfdir" ]]; then
     emberSysconfdir="$emberPrefixOrDestdir"/etc
