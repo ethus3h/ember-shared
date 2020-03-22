@@ -208,7 +208,7 @@
                 "TEMPLATE-PLACEHOLDER-HASH:ember-information-technology-environment"))))
     (build-system gnu-build-system)
     (propagated-inputs `(
-        ("ember-shared-extra" ,ember-shared-extra)
+        ("ember-shared-core" ,ember-shared-core)
         ;("futuramerlin-web-toolkit" ,futuramerlin-web-toolkit) ; for egup-web
     ))
     (synopsis "Deterministic, distributed, document-centric computing environment")
