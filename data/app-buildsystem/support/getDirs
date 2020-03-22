@@ -120,6 +120,7 @@ if [[ -z "$emberPrefix" ]]; then
         emberPrefix="$emberCapPrefix"
     fi
 fi
+emberOriginalPrefix="$emberPrefix"
 emberPrefix="$emberDestdir$emberPrefix"
 #echo "emberPrefix: $emberPrefix"
 if [[ -z "$emberExecPrefix" ]]; then
