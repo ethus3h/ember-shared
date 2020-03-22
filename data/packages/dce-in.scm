@@ -194,9 +194,9 @@
     (home-page "http://futuramerlin.com/ancillary/crystallize/")
     (license (list agpl3+ bsd-2))))
 
-(define-public crystallize
+(define-public dce
   (package
-    (name "crystallize")
+    (name "dce")
     (version "TEMPLATE-PLACEHOLDER-VERSION:crystallize")
     (source (origin
               (method git-fetch)
