@@ -36,6 +36,16 @@ while [[ -n "$1" ]]; do
     shift
 done
 
+touch support/.module
+touch support/.prefix
+touch support/.mandir
+touch support/.infodir
+touch support/.datadir
+touch support/.datarootdir
+touch support/.sysconfdir
+touch support/.localstatedir
+touch support/.module
+
 if ! fmwtk_loc="$(type -P "futuramerlin-web-toolkit-build")" || [[ -z "$fmwtk_loc" ]]; then
     echo $'\n'"futuramerlin-web-toolkit not found: documentation will not be built."$'\n'
 fi
