@@ -148,15 +148,15 @@ if [[ "/usr" != "$emberPrefix" ]]; then
     emberPrefixOrDestdir="$emberPrefix"
 fi
 if [[ -z "$emberSysconfdir" ]]; then
-    emberSysconfdir="$emberDestdir"/etc
+    emberSysconfdir="$emberPrefixOrDestdir"/etc
 else
-    emberSysconfdir="$emberDestdir$emberSysconfdir"
+    emberSysconfdir="$emberPrefixOrDestdir$emberSysconfdir"
 fi
 #echo "emberSysconfdir: $emberSysconfdir"
 if [[ -z "$emberSharedstatedir" ]]; then
-    emberSharedstatedir="$emberDestdir"/var
+    emberSharedstatedir="$emberPrefixOrDestdir"/var
 else
-    emberSharedstatedir="$emberDestdir$emberSharedstatedir"
+    emberSharedstatedir="$emberPrefixOrDestdir$emberSharedstatedir"
 fi
 #echo "emberSharedstatedir: $emberSharedstatedir"
 
