@@ -211,8 +211,6 @@
         (
               (method url-fetch)
               (uri "https://www.unicode.org/Public/12.0.0/ucdxml/ucd.all.flat.zip")
-                (url "https://github.com/ethus3h/ember-information-technology-environment.git")
-                (commit "TEMPLATE-PLACEHOLDER-COMMIT:ember-information-technology-environment")))
               (sha256
                (base32
                 "TEMPLATE-PLACEHOLDER-HASH:ember-information-technology-environment"))
