@@ -209,12 +209,11 @@
     (build-system gnu-build-system)
     (propagated-inputs `(
         ("ember-shared-core" ,ember-shared-core)
-        ;("futuramerlin-web-toolkit" ,futuramerlin-web-toolkit) ; for egup-web
     ))
     (synopsis "Deterministic, distributed, document-centric computing environment")
     (description "Deterministic, distributed, document-centric computing environment")
     (home-page "http://futuramerlin.com/specification/engineering-and-tech/information-technology/software/")
-    (license (list agpl3+ bsd-2))))
+    (license (list agpl3+ x11 ))))
 
 ; Dependencies
 
