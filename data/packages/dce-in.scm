@@ -217,9 +217,9 @@
         agpl3+
         unicode
         silofl1.1
+        (x11-style "file://thirdparty-licenses/LICENSE.base16b.md")
         (x11-style "file://thirdparty-licenses/LICENSE.kde-syntax-highlighting.md")
-        (x11-style "file://thirdparty-licenses/LICENSE.kde-syntax-highlighting.md")
-        (x11-style "file://thirdparty-licenses/LICENSE.kde-syntax-highlighting.md")
+        (x11-style "file://thirdparty-licenses/LICENSE.wtf8.md")
     ))))
 
 ; Dependencies
