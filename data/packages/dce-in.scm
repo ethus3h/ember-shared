@@ -211,7 +211,7 @@
         ("ember-shared-extra" ,ember-shared-extra)
         ;("futuramerlin-web-toolkit" ,futuramerlin-web-toolkit) ; for egup-web
     ))
-    (synopsis "Collection of tools for working with files and filesystems")
+    (synopsis "Deterministic, distributed, document-centric computing environment")
     (description "Collection of tools for working with files and filesystems")
     (home-page "http://futuramerlin.com/ancillary/crystallize/")
     (license (list agpl3+ bsd-2))))
