@@ -213,7 +213,7 @@
                (base32
                 "1a1jc6x4m14s7s7xbhzp6qspk6wsdx7vraggcpxrgiqhslszb6rh"))
             (snippet '(begin
-                (copy-recursively tmp build-temp/unpacked/)
+                (copy-recursively (assoc-ref inputs "dce-input-ucd") build-temp/unpacked/)
                 (touch build-temp/dist-already-unpacked)
                 #t
             ))
@@ -250,7 +250,7 @@
                (base32
                 "18nmj93m71jl399bzzdlprz8w7idcmbg71x3fz0lpj62sl0jhpnq"))
         )
-))
+)) ;  returns a derivation object(?)
 
 ; Dependencies
 
