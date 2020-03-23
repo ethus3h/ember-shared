@@ -270,6 +270,7 @@
               (modules '((guix build utils)))
               (snippet '(begin
                     (for-each delete-file-recursively '("dist" "tests"))
+                    (invoke "ls" "tests")
                     (substitute* "bootstrap.sh" (("/bin/rm") "rm"))
                     (substitute* "Makefile.am"
                         (("src tests man tests/testfiles") "src man")
