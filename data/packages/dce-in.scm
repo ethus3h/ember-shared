@@ -213,7 +213,7 @@
                (base32
                 "TEMPLATE-PLACEHOLDER-HASH:dce"))
             (snippet '(begin
-                (copy-recursively tmp build-temp/unpacked/)
+                (copy-recursively (assoc-ref inputs "dce-input-ucd") build-temp/unpacked/)
                 (touch build-temp/dist-already-unpacked)
                 #t
             ))
