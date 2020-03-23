@@ -205,18 +205,18 @@
     (name "dce")
     (version "TEMPLATE-PLACEHOLDER-VERSION:dce")
     (source (origin
-              (method git-fetch)
-              (uri (git-reference
-                (url "https://github.com/ethus3h/ember-information-technology-environment.git")
-                (commit "TEMPLATE-PLACEHOLDER-COMMIT:dce")))
-              (sha256
-               (base32
-                "TEMPLATE-PLACEHOLDER-HASH:dce"))
-            (snippet '(begin
-                (copy-recursively (assoc-ref inputs "dce-input-ucd") build-temp/unpacked/)
-                (touch build-temp/dist-already-unpacked)
-                #t
-            ))
+                (method git-fetch)
+                (uri (git-reference
+                    (url "https://github.com/ethus3h/ember-information-technology-environment.git")
+                    (commit "TEMPLATE-PLACEHOLDER-COMMIT:dce")))
+                (sha256
+                (base32
+                    "TEMPLATE-PLACEHOLDER-HASH:dce"))
+                (snippet '(begin
+                    (copy-recursively (assoc-ref inputs "dce-input-ucd") build-temp/unpacked/)
+                    (touch build-temp/dist-already-unpacked)
+                    #t
+                ))
         )
     )
     (build-system gnu-build-system)
