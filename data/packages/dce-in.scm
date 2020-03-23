@@ -214,8 +214,9 @@
                     "TEMPLATE-PLACEHOLDER-HASH:dce"))
                 (modules '((guix build utils)))
                 (snippet '(begin
-                    (copy-recursively '((assoc-ref inputs "dce-input-ucd") build-temp/unpacked/))
-                    (touch build-temp/dist-already-unpacked)
+                    (copy-recursively '("a" "b"))
+                    ;(copy-recursively '((assoc-ref inputs "dce-input-ucd") build-temp/unpacked/))
+                    ;(touch build-temp/dist-already-unpacked)
                     #t
                 ))
         )
@@ -269,7 +270,7 @@
               ; Also remove the test suite, since it depends on a pre-built known good binary to test against
               (modules '((guix build utils)))
               (snippet '(begin
-                    (for-each delete-file-recursively '("dist" "testsa"))
+                    (for-each delete-file-recursively '("dist" "tests"))
                     (substitute* "bootstrap.sh" (("/bin/rm") "rm"))
                     (substitute* "Makefile.am"
                         (("src tests man tests/testfiles") "src man")
