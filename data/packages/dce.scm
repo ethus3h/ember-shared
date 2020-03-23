@@ -290,6 +290,7 @@
         ))
     ))
     (inputs `(
+        ("bash" ,bash)
         ("autoconf" ,autoconf)
         ("automake" ,automake)
     ))
