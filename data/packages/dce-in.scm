@@ -243,10 +243,10 @@
                     (for-each delete-file-recursively (find-files "tests" "run")) ; "run" folders hold the generated output, while "out" folders hold the expected output
                     (define dce-unpack (lambda*
                         (#:key inputs #:allow-other-keys)
-                        (let
+                        (let ; define a local variable, then run code
                             ((
-                                dce-input-ucd
-                                (assoc-ref inputs "dce-input-ucd")
+                                dce-input-ucd ; sets this
+                                (assoc-ref inputs "dce-input-ucd") ; to this
                             ))
                             (mkdir-p "build-temp/distfiles/")
                             (invoke "cp" "-v" dce-input-ucd "build-temp/distfiles/")
