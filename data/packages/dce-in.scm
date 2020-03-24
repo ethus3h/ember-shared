@@ -226,7 +226,15 @@
                     "TEMPLATE-PLACEHOLDER-HASH:dce"))
                 ;(modules '((guix build utils)))
                 (snippet '(begin
-                    (copy-file (assoc-ref inputs "dce-input-ucd") "build-temp/distfiles/")
+                    (lambda* (#:key inputs outputs #:allow-other-keys)
+                        (let (
+                            (dce-input-ucd (assoc-ref inputs "dce-input-ucd"))
+
+                            (share (string-append (assoc-ref outputs "out")
+                                                    "/build-temp/distfiles/"))
+                        (mkdir-p share)
+                        (invoke "cp" "dce-input-ucd" data "-C" share)))
+                    ;(copy-file (assoc-ref inputs "dce-input-ucd") "build-temp/distfiles/")
                     ;(copy-recursively (assoc-ref inputs "dce-input-ucd") "build-temp/distfiles/")
                     (invoke "bash" "./support/build-scripts/dist-unpack")
                     (invoke "touch" "build-temp/dist-already-unpacked")
