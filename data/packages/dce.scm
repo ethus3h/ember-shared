@@ -236,7 +236,7 @@
                 (sha256
                 (base32
                     "1ygysgakmqff9nzgxslz7nzawcsqpqbfx8ys70crygixwbcx8zvp"))
-                ;(modules '((guix build utils)))
+                (modules '((guix build utils)))
                 (snippet '(begin
                     (lambda* (#:key inputs outputs #:allow-other-keys)
                         (let (
