@@ -238,7 +238,7 @@
                 (base32
                     "TEMPLATE-PLACEHOLDER-HASH:dce"))
                 (modules '((guix build utils)))
-                (snippet #~(begin
+                (snippet '(begin
                     (for-each delete-file-recursively '(".egup.stat" ".stagel-cache" "built"))
                     (for-each delete-file-recursively (find-files "tests" "run")) ; "run" folders hold the generated output, while "out" folders hold the expected output
                     (define dce-unpack (lambda*
