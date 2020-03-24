@@ -236,14 +236,14 @@
                 (sha256
                 (base32
                     "1ygysgakmqff9nzgxslz7nzawcsqpqbfx8ys70crygixwbcx8zvp"))
-                (modules '((guix build utils)))
+                ;(modules '((guix build utils)))
                 (snippet '(begin
                     (lambda* (#:key inputs outputs #:allow-other-keys)
                         (let (
                             (dce-input-ucd (assoc-ref inputs "dce-input-ucd"))
 
                             (share (string-append (assoc-ref outputs "out")
-                                                    "/build-temp/distfiles/"))
+                                                    "/build-temp/distfiles/")))
                         (mkdir-p share)
                         (invoke "cp" "dce-input-ucd" data "-C" share)))
                     ;(copy-file (assoc-ref inputs "dce-input-ucd") "build-temp/distfiles/")
