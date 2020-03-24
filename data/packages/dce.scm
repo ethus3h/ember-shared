@@ -239,9 +239,10 @@
                     "1ygysgakmqff9nzgxslz7nzawcsqpqbfx8ys70crygixwbcx8zvp"))
                 (modules '((guix build utils)))
                 (snippet '(begin
-                    (#:key inputs #:allow-other-keys)
-                    (for-each delete-file-recursively '(".egup.stat" ".stagel-cache" "built"))
-                    (for-each delete-file-recursively (find-files "tests" "run")) ; "run" folders hold the generated output, while "out" folders hold the expected output
+                    ;(#:key inputs #:allow-other-keys)
+                    ;(for-each delete-file-recursively '(".egup.stat" ".stagel-cache" "built"))
+                    ;(for-each delete-file-recursively (find-files "tests" "run")) ; "run" folders hold the generated output, while "out" folders hold the expected output
+                    #!
                     ;(define dce-unpack (lambda*
                     ;    (#:key inputs #:allow-other-keys)
                         ;(let ; define a local variable, then run code
@@ -254,11 +255,15 @@
                        ; )
                     ;))
                     ;(dce-unpack inputs)
-                    (invoke "cp" "-v" (assoc-ref inputs "dce-input-ucd") "build-temp/distfiles/")
+!#
+                    ;(invoke "cp" "-v" (assoc-ref inputs "dce-input-ucd") "build-temp/distfiles/")
+                    (invoke "cp" "-v" "Makefile" "Makefile.blah")
+                    #!
                     ;(copy-file (assoc-ref inputs "dce-input-ucd") "build-temp/distfiles/")
                     ;(copy-recursively (assoc-ref inputs "dce-input-ucd") "build-temp/distfiles/")
-                    (invoke "bash" "./support/build-scripts/dist-unpack")
-                    (invoke "touch" "build-temp/dist-already-unpacked")
+!#
+                    ;(invoke "bash" "./support/build-scripts/dist-unpack")
+                    ;(invoke "touch" "build-temp/dist-already-unpacked")
                     #t
                 ))
         )
