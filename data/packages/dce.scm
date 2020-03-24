@@ -252,7 +252,7 @@
                             (invoke "cp" "-v" (assoc-ref inputs "dce-input-ucd") "build-temp/distfiles/")
                        ; )
                     ))
-                    (dce-unpack)
+                    (dce-unpack inputs)
                     ;(copy-file (assoc-ref inputs "dce-input-ucd") "build-temp/distfiles/")
                     ;(copy-recursively (assoc-ref inputs "dce-input-ucd") "build-temp/distfiles/")
                     (invoke "bash" "./support/build-scripts/dist-unpack")
