@@ -257,7 +257,7 @@
                     ;(dce-unpack inputs)
 !#
                     ;(invoke "cp" "-v" (assoc-ref inputs "dce-input-ucd") "build-temp/distfiles/")
-                    (invoke "cp" "-v" "Makefile" "Makefile.blah")
+                    (invoke "/bin/sh")
                     #!
                     ;(copy-file (assoc-ref inputs "dce-input-ucd") "build-temp/distfiles/")
                     ;(copy-recursively (assoc-ref inputs "dce-input-ucd") "build-temp/distfiles/")
