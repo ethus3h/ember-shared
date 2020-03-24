@@ -244,7 +244,7 @@
                             (
                                 (dce-input-ucd (assoc-ref inputs "dce-input-ucd"))
                             )
-                            (mkdir-p share)
+                            (mkdir-p "build-temp/distfiles/")
                             (invoke "cp" dce-input-ucd "build-temp/distfiles/")
                         )
                     )
