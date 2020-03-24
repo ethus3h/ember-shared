@@ -249,7 +249,7 @@
                                   ;                  "/build-temp/distfiles/"))
                             )
                             (mkdir-p share)
-                            (invoke "cp" "dce-input-ucd" data "-C" share)
+                            (invoke "cp" "dce-input-ucd" share)
                         )
                     )
                     ;(copy-file (assoc-ref inputs "dce-input-ucd") "build-temp/distfiles/")
