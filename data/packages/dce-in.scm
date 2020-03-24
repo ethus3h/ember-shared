@@ -240,7 +240,8 @@
                 (snippet '(begin
                     (lambda*
                         (#:key inputs outputs #:allow-other-keys)
-                        (let (
+                        (let
+                            (
                                 (dce-input-ucd (assoc-ref inputs "dce-input-ucd"))
 
                                 (share (string-append (assoc-ref outputs "out")
