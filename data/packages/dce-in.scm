@@ -214,7 +214,7 @@
                     "TEMPLATE-PLACEHOLDER-HASH:dce"))
                 (modules '((guix build utils)))
                 (snippet '(begin
-                    (copy-recursively '("a" "b"))
+                    (copy-recursively "a" "b")
                     ;(copy-recursively '((assoc-ref inputs "dce-input-ucd") build-temp/unpacked/))
                     ;(touch build-temp/dist-already-unpacked)
                     #t
