@@ -203,30 +203,21 @@
 (define-public dce
   (package
     (name "dce")
-    (version "0-18dff62876c502b5d051e7d00cf3681419ee3d22")
+    (version "0-eee81a729221eb28d345a45e1f6fe98b4fafb031")
     (source (origin
                 (method git-fetch)
                 (uri (git-reference
                     (url "https://github.com/ethus3h/ember-information-technology-environment.git")
-                    (commit "18dff62876c502b5d051e7d00cf3681419ee3d22")))
+                    (commit "eee81a729221eb28d345a45e1f6fe98b4fafb031")))
                 (sha256
                 (base32
-                    "1a1jc6x4m14s7s7xbhzp6qspk6wsdx7vraggcpxrgiqhslszb6rh"))
-                (modules '((guix build utils)))
+                    "1ygysgakmqff9nzgxslz7nzawcsqpqbfx8ys70crygixwbcx8zvp"))
+                ;(modules '((guix build utils)))
                 (snippet '(begin
-                    (define dce-input-ucd
-    (let ((version "12.0.0"))
-    (origin
-              (method url-fetch)
-              (uri (string-append "https://www.unicode.org/Public/" version "/ucdxml/ucd.all.flat.zip"))
-              (file-name (string-append "ucd.all.flat-" version ".zip"))
-              (sha256
-               (base32
-                "18nmj93m71jl399bzzdlprz8w7idcmbg71x3fz0lpj62sl0jhpnq"))
-        )
-))
-                    (copy-recursively (assoc-ref inputs "dce-input-ucd") "build-temp/unpacked/")
-                    ;(touch build-temp/dist-already-unpacked)
+                    (copy-file (assoc-ref inputs "dce-input-ucd") "build-temp/distfiles/")
+                    ;(copy-recursively (assoc-ref inputs "dce-input-ucd") "build-temp/distfiles/")
+                    (invoke "bash" "./support/build-scripts/dist-unpack")
+                    (invoke "touch" "build-temp/dist-already-unpacked")
                     #t
                 ))
         )
@@ -234,7 +225,6 @@
     (build-system gnu-build-system)
     (inputs `(
         ("dce-input-ucd" ,dce-input-ucd)
-        ("ncdu" ,ncdu)
     ))
     (propagated-inputs `(
         ("ember-shared-core" ,ember-shared-core)
