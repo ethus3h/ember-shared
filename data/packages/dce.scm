@@ -241,7 +241,7 @@
                 (snippet #~(begin
                     (for-each delete-file-recursively '(".egup.stat" ".stagel-cache" "built"))
                     (for-each delete-file-recursively (find-files "tests" "run")) ; "run" folders hold the generated output, while "out" folders hold the expected output
-                    (lambda*
+                    (define dce-unpack (lambda*
                         (#:key inputs #:allow-other-keys)
                         (let
                             (
@@ -250,13 +250,12 @@
                             (mkdir-p "build-temp/distfiles/")
                             (invoke "cp" "-v" dce-input-ucd "build-temp/distfiles/")
                         )
-                    )
+                    ))
+                    (dce-unpack)
                     ;(copy-file (assoc-ref inputs "dce-input-ucd") "build-temp/distfiles/")
                     ;(copy-recursively (assoc-ref inputs "dce-input-ucd") "build-temp/distfiles/")
-                    (lambda* (#:allow-other-keys)
-                        (invoke "bash" "./support/build-scripts/dist-unpack")
-                        (invoke "touch" "build-temp/dist-already-unpacked")
-                    )
+                    (invoke "bash" "./support/build-scripts/dist-unpack")
+                    (invoke "touch" "build-temp/dist-already-unpacked")
                     #t
                 ))
         )
