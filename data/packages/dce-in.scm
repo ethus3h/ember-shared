@@ -239,6 +239,7 @@
                     "TEMPLATE-PLACEHOLDER-HASH:dce"))
                 (modules '((guix build utils)))
                 (snippet #~(begin
+                    (for-each delete-file-recursively '("dist" "tests"))
                     (lambda*
                         (#:key inputs outputs #:allow-other-keys)
                         (let
