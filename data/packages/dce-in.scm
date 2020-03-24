@@ -237,7 +237,7 @@
                 (base32
                     "TEMPLATE-PLACEHOLDER-HASH:dce"))
                 (modules '((guix build utils)))
-                (snippet '(begin
+                (snippet #~(begin
                     (lambda*
                         (#:key inputs outputs #:allow-other-keys)
                         (let
