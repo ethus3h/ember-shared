@@ -241,6 +241,7 @@
                 (snippet #~(begin
                     (lambda*
                         (#:key inputs outputs #:allow-other-keys)
+                        (modules '((guix build utils)))
                         (let
                             (
                                 (dce-input-ucd (assoc-ref inputs "dce-input-ucd"))
