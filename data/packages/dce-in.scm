@@ -243,7 +243,7 @@
                             (dce-input-ucd (assoc-ref inputs "dce-input-ucd"))
 
                             (share (string-append (assoc-ref outputs "out")
-                                                    "/build-temp/distfiles/"))
+                                                    "/build-temp/distfiles/")))
                         (mkdir-p share)
                         (invoke "cp" "dce-input-ucd" data "-C" share)))
                     ;(copy-file (assoc-ref inputs "dce-input-ucd") "build-temp/distfiles/")
