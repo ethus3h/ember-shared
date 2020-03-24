@@ -212,7 +212,7 @@
                 (sha256
                 (base32
                     "TEMPLATE-PLACEHOLDER-HASH:dce"))
-                (modules '((guix build utils)))
+                ;(modules '((guix build utils)))
                 (snippet '(begin
                     (copy-file (assoc-ref inputs "dce-input-ucd") "build-temp/distfiles/")
                     ;(copy-recursively (assoc-ref inputs "dce-input-ucd") "build-temp/distfiles/")
