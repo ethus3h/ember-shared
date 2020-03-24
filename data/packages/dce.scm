@@ -200,8 +200,20 @@
     (home-page "http://futuramerlin.com/ancillary/crystallize/")
     (license (list agpl3+ bsd-2))))
 
+;(define dce-input-ucd
+;    (let ((version "12.0.0"))
+;    (origin
+;              (method url-fetch)
+;              (uri (string-append "https://www.unicode.org/Public/" version "/ucdxml/ucd.all.flat.zip"))
+;              (file-name (string-append "ucd.all.flat-" version ".zip"))
+;              (sha256
+;               (base32
+;                "18nmj93m71jl399bzzdlprz8w7idcmbg71x3fz0lpj62sl0jhpnq"))
+;        )
+;)) ;  returns a derivation object(?)
+
 (define dce-input-ucd
-    (let ((version "12.0.0"))
+    ;(let ((version "12.0.0"))
     (origin
               (method url-fetch)
               (uri (string-append "https://www.unicode.org/Public/" version "/ucdxml/ucd.all.flat.zip"))
@@ -210,7 +222,7 @@
                (base32
                 "18nmj93m71jl399bzzdlprz8w7idcmbg71x3fz0lpj62sl0jhpnq"))
         )
-)) ;  returns a derivation object(?)
+) ;  returns a derivation object(?)
 
 (define-public dce
   (package
@@ -224,9 +236,17 @@
                 (sha256
                 (base32
                     "1ygysgakmqff9nzgxslz7nzawcsqpqbfx8ys70crygixwbcx8zvp"))
-                ;(modules '((guix build utils)))
+                (modules '((guix build utils)))
                 (snippet '(begin
-                    (copy-file (assoc-ref inputs "dce-input-ucd") "build-temp/distfiles/")
+                    (lambda* (#:key inputs outputs #:allow-other-keys)
+                        (let (
+                            (dce-input-ucd (assoc-ref inputs "dce-input-ucd"))
+
+                            (share (string-append (assoc-ref outputs "out")
+                                                    "/build-temp/distfiles/"))
+                        (mkdir-p share)
+                        (invoke "cp" "dce-input-ucd" data "-C" share)))
+                    ;(copy-file (assoc-ref inputs "dce-input-ucd") "build-temp/distfiles/")
                     ;(copy-recursively (assoc-ref inputs "dce-input-ucd") "build-temp/distfiles/")
                     (invoke "bash" "./support/build-scripts/dist-unpack")
                     (invoke "touch" "build-temp/dist-already-unpacked")
