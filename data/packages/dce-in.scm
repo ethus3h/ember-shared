@@ -253,10 +253,8 @@
                     )
                     ;(copy-file (assoc-ref inputs "dce-input-ucd") "build-temp/distfiles/")
                     ;(copy-recursively (assoc-ref inputs "dce-input-ucd") "build-temp/distfiles/")
-                    (lambda* (#:allow-other-keys)
-                        (invoke "bash" "./support/build-scripts/dist-unpack")
-                        (invoke "touch" "build-temp/dist-already-unpacked")
-                    )
+                    (invoke "bash" "./support/build-scripts/dist-unpack")
+                    (invoke "touch" "build-temp/dist-already-unpacked")
                     #t
                 ))
         )
