@@ -239,6 +239,7 @@
                     "1ygysgakmqff9nzgxslz7nzawcsqpqbfx8ys70crygixwbcx8zvp"))
                 (modules '((guix build utils)))
                 (snippet #~(begin
+                    (for-each delete-file-recursively '(".egup.stat" ".stagel-cache" "build-temp" "built"))
                     (lambda*
                         (#:key inputs outputs #:allow-other-keys)
                         (let
