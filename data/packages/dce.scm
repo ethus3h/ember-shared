@@ -238,19 +238,19 @@
                 (base32
                     "1ygysgakmqff9nzgxslz7nzawcsqpqbfx8ys70crygixwbcx8zvp"))
                 (modules '((guix build utils)))
-                (snippet #~(begin
+                (snippet '(begin
                     (for-each delete-file-recursively '(".egup.stat" ".stagel-cache" "built"))
                     (for-each delete-file-recursively (find-files "tests" "run")) ; "run" folders hold the generated output, while "out" folders hold the expected output
                     (define dce-unpack (lambda*
                         (#:key inputs #:allow-other-keys)
-                        (let
-                            ((
-                                dce-input-ucd
-                                (assoc-ref inputs "dce-input-ucd")
-                            ))
-                            (mkdir-p "build-temp/distfiles/")
-                            (invoke "cp" "-v" dce-input-ucd "build-temp/distfiles/")
-                        )
+                        ;(let ; define a local variable, then run code
+                            ;((
+                               ; dce-input-ucd ; sets this
+                              ;  (assoc-ref inputs "dce-input-ucd") ; to this
+                           ; ))
+                          ;  (mkdir-p "build-temp/distfiles/")
+                            (invoke "cp" "-v" (assoc-ref inputs "dce-input-ucd") "build-temp/distfiles/")
+                       ; )
                     ))
                     (dce-unpack)
                     ;(copy-file (assoc-ref inputs "dce-input-ucd") "build-temp/distfiles/")
