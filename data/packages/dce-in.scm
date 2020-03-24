@@ -243,8 +243,7 @@
                         (let
                             (
                                 (dce-input-ucd (assoc-ref inputs "dce-input-ucd"))
-                                (share (string-append (assoc-ref outputs "out")
-                                                    "/build-temp/distfiles/"))
+                                (share "build-temp/distfiles/"))
 
                                 (share (string-append (assoc-ref outputs "out")
                                                     "/build-temp/distfiles/"))
