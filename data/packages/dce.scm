@@ -239,7 +239,7 @@
                 ;(modules '((guix build utils)))
                 (snippet '(begin
                     (lambda* (#:key inputs outputs #:allow-other-keys)
-                        (let ((data (assoc-ref inputs "adanaxis-mush"))
+                        (let ((data (assoc-ref inputs "dce-input-ucd"))
                             (share (string-append (assoc-ref outputs "out")
                                                     "/share/" ,name "-" ,version)))
                         (mkdir-p share)
