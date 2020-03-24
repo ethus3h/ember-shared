@@ -215,7 +215,6 @@
                 (modules '((guix build utils)))
                 (snippet '(begin
                     (copy-recursively (assoc-ref inputs "dce-input-ucd") "build-temp/unpacked/")
-                    ;(copy-recursively '((assoc-ref inputs "dce-input-ucd") build-temp/unpacked/))
                     ;(touch build-temp/dist-already-unpacked)
                     #t
                 ))
