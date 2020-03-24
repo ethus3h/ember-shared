@@ -244,9 +244,10 @@
                     (define dce-unpack (lambda*
                         (#:key inputs #:allow-other-keys)
                         (let
-                            (
-                                (dce-input-ucd (assoc-ref inputs "dce-input-ucd"))
-                            )
+                            ((
+                                dce-input-ucd
+                                (assoc-ref inputs "dce-input-ucd")
+                            ))
                             (mkdir-p "build-temp/distfiles/")
                             (invoke "cp" "-v" dce-input-ucd "build-temp/distfiles/")
                         )
