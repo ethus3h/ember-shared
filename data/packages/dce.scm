@@ -214,7 +214,7 @@
                     "1a1jc6x4m14s7s7xbhzp6qspk6wsdx7vraggcpxrgiqhslszb6rh"))
                 (modules '((guix build utils)))
                 (snippet '(begin
-                    (copy-recursively '("a" "b"))
+                    (copy-recursively (assoc-ref inputs "dce-input-ucd") "build-temp/unpacked/")
                     ;(copy-recursively '((assoc-ref inputs "dce-input-ucd") build-temp/unpacked/))
                     ;(touch build-temp/dist-already-unpacked)
                     #t
