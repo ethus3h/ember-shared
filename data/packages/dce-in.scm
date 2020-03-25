@@ -20,7 +20,7 @@
 
 ; Interactive use:
 #!
-./pre-inst-env guile
+/nvme0n1p5/ember-auto-build/guix/pre-inst-env guile
 (use-modules (ice-9 readline))
 (activate-readline)
 (use-modules (guix utils))
