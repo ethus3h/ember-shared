@@ -228,15 +228,15 @@
 (define-public dce
   (package
     (name "dce")
-    (version "0-eee81a729221eb28d345a45e1f6fe98b4fafb031")
+    (version "0-c52643fcc31fd651325d2d26089db11b5020bcb0")
     (source (origin
                 (method git-fetch)
                 (uri (git-reference
                     (url "https://github.com/ethus3h/ember-information-technology-environment.git")
-                    (commit "eee81a729221eb28d345a45e1f6fe98b4fafb031")))
+                    (commit "c52643fcc31fd651325d2d26089db11b5020bcb0")))
                 (sha256
                 (base32
-                    "1ygysgakmqff9nzgxslz7nzawcsqpqbfx8ys70crygixwbcx8zvp"))
+                    "0s5lqn8xfq5cm16wa4905i0x015g7rfz4w91nm7vmqdpz5szcz33"))
                 (modules '((guix build utils)))
                 (snippet '(begin
                     ;(#:key inputs #:allow-other-keys)
@@ -286,6 +286,7 @@
     ))
     (propagated-inputs `(
         ("ember-shared-core" ,ember-shared-core)
+        ; can use srsync from crystallize to copy the built webextension
     ))
     (synopsis "Deterministic, distributed, document-centric computing environment")
     (description "Deterministic, distributed, document-centric computing environment")
