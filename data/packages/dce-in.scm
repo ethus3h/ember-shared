@@ -229,7 +229,7 @@
                 (modules '((guix build utils)))
                 (snippet '(begin
                     (for-each delete-file-recursively '(".egup.stat" ".stagel-cache" "built"))
-                    (for-each delete-file-recursively find-files (find-files "tests" "run")) ; "run" folders hold the generated output, while "out" folders hold the expected output
+                    (for-each delete-file-recursively find-files for-each (find-files (find-files "tests/stagel")) ; "run" folders hold the generated output, while "out" folders hold the expected output
                     #t
                 ))
         )
