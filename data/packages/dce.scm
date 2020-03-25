@@ -55,15 +55,15 @@
 (define-public ember-shared-error-notify
   (package
     (name "ember-shared-error-notify")
-    (version "1.1.4.519-238e3c79e5151871e4054d7c0f796f00a6eec09e")
+    (version "1.1.4.520-08411a18f07072fad0903053f25a274960d7677b")
     (source (origin
               (method git-fetch)
               (uri (git-reference
                 (url "https://github.com/ethus3h/ember-shared.git")
-                (commit "238e3c79e5151871e4054d7c0f796f00a6eec09e")))
+                (commit "08411a18f07072fad0903053f25a274960d7677b")))
               (sha256
                (base32
-                "1b0y650zdkjfyb855ksnlf3zb1lwrcwfqwnvk1bcn0zdj8n83y5n"))))
+                "151hpcsr6ank22mia9zjf9bxr089q0az3phx144yhywaa4vyx5hz"))))
     (build-system gnu-build-system)
     (arguments '(#:configure-flags '("--module=error-notify") #:phases (modify-phases %standard-phases (delete 'check))))
     (propagated-inputs `(
@@ -201,29 +201,18 @@
     (home-page "http://futuramerlin.com/ancillary/crystallize/")
     (license (list agpl3+ bsd-2))))
 
-;(define dce-input-ucd
-;    (let ((version "12.0.0"))
-;    (origin
-;              (method url-fetch)
-;              (uri (string-append "https://www.unicode.org/Public/" version "/ucdxml/ucd.all.flat.zip"))
-;              (file-name (string-append "ucd.all.flat-" version ".zip"))
-;              (sha256
-;               (base32
-;                "18nmj93m71jl399bzzdlprz8w7idcmbg71x3fz0lpj62sl0jhpnq"))
-;        )
-;)) ;  returns a derivation object(?)
-
 (define dce-input-ucd
-    ;(let ((version "12.0.0"))
+    ; This is a hidden package that is used as an input to the main dce package. It just returns the ZIP file. To get the source for dce including this package, use "guix build --sources=all dce".
+    (let ((version "12.0.0"))
     (origin
               (method url-fetch)
-              (uri (string-append "https://www.unicode.org/Public/12.0.0/ucdxml/ucd.all.flat.zip"))
-              (file-name "ucd.all.flat-12.0.0.zip")
+              (uri (string-append "https://www.unicode.org/Public/" version "/ucdxml/ucd.all.flat.zip"))
+              (file-name (string-append "ucd.all.flat-" version ".zip"))
               (sha256
                (base32
                 "18nmj93m71jl399bzzdlprz8w7idcmbg71x3fz0lpj62sl0jhpnq"))
-    )
-) ;  returns a derivation object(?)
+        )
+))
 
 (define-public dce
   (package
@@ -239,7 +228,6 @@
                     "0s5lqn8xfq5cm16wa4905i0x015g7rfz4w91nm7vmqdpz5szcz33"))
                 (modules '((guix build utils)))
                 (snippet '(begin
-                    ;(#:key inputs #:allow-other-keys)
                     (for-each delete-file-recursively '(".egup.stat" ".stagel-cache" "built"))
                     (for-each delete-file-recursively (find-files "tests" "run")) ; "run" folders hold the generated output, while "out" folders hold the expected output
                     #t
@@ -248,15 +236,17 @@
     )
     (build-system gnu-build-system)
     (arguments '(
-        #:phases (modify-phases %standard-phases (
-            add-after 'unpack 'prepare-additional
-                (lambda* (#:key inputs #:allow-other-keys)
-                    (mkdir-p "build-temp/distfiles/")
-                    (copy-file (assoc-ref inputs "dce-input-ucd") (string-append "build-temp/distfiles/" (strip-store-file-name (assoc-ref inputs "dce-input-ucd"))))
-                    (invoke "bash" "./support/build-scripts/dist-unpack")
-                    (invoke "touch" "build-temp/dist-already-unpacked")
-                )
-        ))
+        #:phases (modify-phases %standard-phases
+            (
+                add-after 'unpack 'prepare-additional
+                    (lambda* (#:key inputs #:allow-other-keys)
+                        (mkdir-p "build-temp/distfiles/")
+                        (copy-file (assoc-ref inputs "dce-input-ucd") (string-append "build-temp/distfiles/" (strip-store-file-name (assoc-ref inputs "dce-input-ucd"))))
+                        (invoke "bash" "./support/build-scripts/dist-unpack")
+                        (invoke "touch" "build-temp/dist-already-unpacked")
+                    )
+            )
+        )
     ))
     (inputs `(
         ("dce-input-ucd" ,dce-input-ucd)
