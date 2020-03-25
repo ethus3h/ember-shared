@@ -88,6 +88,11 @@ join_by() {
     printf "%s" "${@/#/$d}"
 }
 
+print_r() {
+    local arr=("$@")
+    declare -p arr
+}
+
 invertReturnValue() {
     if bash -c "$(join_by ' ' "$@")"; then
         return 1

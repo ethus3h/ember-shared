@@ -183,11 +183,6 @@ isEmptyDir() (
     exit 1
 )
 
-print_r() {
-    local arr=("$@")
-    declare -p arr
-}
-
 spushd() { # don't print directory by default
     pushd "$@" > /dev/null || false
 }
