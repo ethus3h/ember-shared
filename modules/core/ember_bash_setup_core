@@ -331,6 +331,7 @@ asciiIsNewline() {
                 totalWord="A test"
             fi
             error-notify "$totalWord ($failedPercentage%: $failedTests out of $totalTests) failed!"
+            exit 1
         fi
         [[ $(( totalTests - failedTests )) == "$passedTests" ]] || die "There's a problem in the testing framework."
     }
