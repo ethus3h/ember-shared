@@ -273,8 +273,9 @@
         #:phases (modify-phases %standard-phases (
             add-after 'unpack 'prepare-additional
                 (lambda* (#:key inputs #:allow-other-keys)
-                    (invoke "bash" "./bootstrap.sh")
-            )
+                    (mkdir-p "build-temp/distfiles/")
+                    (invoke "cp" "-v" (assoc-ref inputs "dce-input-ucd") "build-temp/distfiles/")
+                )
         ))
     ))
     (inputs `(
