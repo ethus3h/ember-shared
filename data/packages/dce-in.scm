@@ -22,7 +22,11 @@
 #!
 ./pre-inst-env guile
 (use-modules (ice-9 readline))
-
+(activate-readline)
+(use-modules (guix utils))
+(pk (%current-system))
+(use-modules (guix build utils))
+(find-files "tests/stagel")
 !#
 
 
