@@ -60,6 +60,7 @@
   #:use-module (gnu packages bash)
   #:use-module (gnu packages autotools)
   #:use-module (gnu packages ncdu)
+  #:use-module (gnu packages algebra)
 )
 
 (define-public ember-shared-error-notify
@@ -88,15 +89,15 @@
 (define-public ember-shared-core
   (package
     (name "ember-shared-core")
-    (version "1.1.4.521-062e38cac4b5249611eedc3af2fb35f1c8611f9d")
+    (version "1.1.4.521-1bc4dfc20c56d03a9a8960f0054804cd7c41f8e3")
     (source (origin
               (method git-fetch)
               (uri (git-reference
                 (url "https://github.com/ethus3h/ember-shared.git")
-                (commit "062e38cac4b5249611eedc3af2fb35f1c8611f9d")))
+                (commit "1bc4dfc20c56d03a9a8960f0054804cd7c41f8e3")))
               (sha256
                (base32
-                "0fwmv47zjzdbsfzza36zx91jq2n1q9j90vn9nc7h9km00dlchwiv"))))
+                "044ldxv97r28m78af9ri6yx9a649fx7qx34qwsvkac6m8rxff0mb"))))
     (build-system gnu-build-system)
     (arguments '(#:configure-flags '("--module=core") #:phases (modify-phases %standard-phases (delete 'check))))
     (propagated-inputs `(
@@ -105,6 +106,7 @@
         ("util-linux" ,util-linux)
         ("perl" ,perl)
         ("xxd" ,xxd)
+        ("bc" ,bc)
     ))
     (synopsis "ember-shared core")
     (description "Shell script library core module")
