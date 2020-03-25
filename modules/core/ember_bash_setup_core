@@ -93,6 +93,18 @@ print_r() {
     declare -p arr
 }
 
+contains() {
+    local e
+    for e in "${@:2}"; do [[ "$e" == "$1" ]] && return 0; done
+    return 1
+}
+
+allElementsEqual() {
+    local e
+    for e in "${@:2}"; do [[ "$e" == "$1" ]] || return 1; done
+    return 0
+}
+
 invertReturnValue() {
     if bash -c "$(join_by ' ' "$@")"; then
         return 1

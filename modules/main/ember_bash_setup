@@ -353,18 +353,6 @@ isSubdirOf() {
     fi
 }
 
-contains() {
-    local e
-    for e in "${@:2}"; do [[ "$e" == "$1" ]] && return 0; done
-    return 1
-}
-
-allElementsEqual() {
-    local e
-    for e in "${@:2}"; do [[ "$e" == "$1" ]] || return 1; done
-    return 0
-}
-
 pipecheck() {
     allElementsEqual "0" "$@" || die "A failure status was reported by a call to pipecheck, with the reported exit statuses $(join_by ", " "$@")"
 }
