@@ -3,7 +3,7 @@
 #set -x
 
 sudo true
-temp="$(date +%Y-%m-%d-%H-%M-%S-%N)_$(xxd -pu <<< "$(date +%z)")"
+temp="$(date -u +%Y-%m-%d-%H-%M-%S-%N)U$(xxd -pu <<< "$(date +%z)")"
 # We can't use emdate because this is needed to install it... :P
 trap 'warn "A nonfatal error was reported on ${BASH_SOURCE[0]} line ${LINENO} in $(pwd) at ${temp//-/}."' ERR
 brew update
