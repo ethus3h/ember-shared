@@ -274,8 +274,8 @@
             add-after 'unpack 'prepare-additional
                 (lambda* (#:key inputs #:allow-other-keys)
                     (mkdir-p "build-temp/distfiles/")
-                    (copy-file (assoc-ref inputs "dce-input-ucd") "build-temp/distfiles/")
-                    ;(invoke "cp" "-v" (assoc-ref inputs "dce-input-ucd") "build-temp/distfiles/")
+                    ;(copy-file (assoc-ref inputs "dce-input-ucd") "build-temp/distfiles/")
+                    (invoke "cp" "-v" (assoc-ref inputs "dce-input-ucd") "build-temp/distfiles/")
                     (invoke "bash" "./support/build-scripts/dist-unpack")
                     (invoke "touch" "build-temp/dist-already-unpacked")
                 )
