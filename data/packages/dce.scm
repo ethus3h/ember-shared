@@ -217,15 +217,15 @@
 (define-public dce
   (package
     (name "dce")
-    (version "0-c52643fcc31fd651325d2d26089db11b5020bcb0")
+    (version "0-00454990fe64538e74b03be27185f6f85ba1c0ce")
     (source (origin
                 (method git-fetch)
                 (uri (git-reference
                     (url "https://github.com/ethus3h/ember-information-technology-environment.git")
-                    (commit "c52643fcc31fd651325d2d26089db11b5020bcb0")))
+                    (commit "00454990fe64538e74b03be27185f6f85ba1c0ce")))
                 (sha256
                 (base32
-                    "0s5lqn8xfq5cm16wa4905i0x015g7rfz4w91nm7vmqdpz5szcz33"))
+                    "1viqsq974jdiz006iq4l4cbxhb5yz3dn28c7d2yigxxl1z4bxamx"))
                 (modules '((guix build utils)))
                 (snippet '(begin
                     (for-each delete-file-recursively '(".egup.stat" ".stagel-cache" "built"))
