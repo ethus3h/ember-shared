@@ -18,6 +18,11 @@
 ; guix build -e "(@ (gnu packages gcc) gcc)"
 ; guix build --check --no-substitutes --no-grafts -e "(@ (gnu packages gcc) gcc)"
 
+; Interactive use:
+; ./pre-inst-env guile
+; (use-modules (ice-9 readline))
+;
+
 
 (define-module (gnu packages dce)
   #:use-module (guix gexp)
