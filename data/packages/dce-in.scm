@@ -276,7 +276,8 @@
                     (mkdir-p "build-temp/distfiles/")
                     (copy-recursively (assoc-ref inputs "dce-input-ucd") "build-temp/distfiles/")
                     ;(invoke "cp" "-v" (assoc-ref inputs "dce-input-ucd") "build-temp/distfiles/")
-
+                    (invoke "bash" "./support/build-scripts/dist-unpack")
+                    (invoke "touch" "build-temp/dist-already-unpacked")
                 )
         ))
     ))
