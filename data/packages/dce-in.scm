@@ -60,6 +60,7 @@
   #:use-module (gnu packages bash)
   #:use-module (gnu packages autotools)
   #:use-module (gnu packages ncdu)
+  #:use-module (gnu packages algebra)
 )
 
 (define-public ember-shared-error-notify
