@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 emdate() (
-    # If changing this, also change the copy in the ember_bash_setup script.
+    # If changing this, also change the copy in the ember_bash_setup_core script.
     trap 'die "A fatal error was reported on ${BASH_SOURCE[0]} line ${LINENO} in $(pwd)."' ERR
 
     temp="$(date +%Y-%m-%d-%H-%M-%S-%N)_$(xxd -pu <<< "$(date +%z)")"
