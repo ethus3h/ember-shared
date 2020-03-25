@@ -211,7 +211,7 @@
                (base32
                 "18nmj93m71jl399bzzdlprz8w7idcmbg71x3fz0lpj62sl0jhpnq"))
         )
-)) ;  returns a derivation object(?)
+))
 
 (define dce-input-ucd
     ;(let ((version "12.0.0"))
