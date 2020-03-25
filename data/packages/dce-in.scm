@@ -271,8 +271,9 @@
     (build-system gnu-build-system)
     (arguments '(
         #:phases (modify-phases %standard-phases (
-            add-after 'unpack 'run-bootstrap-script (
-                lambda _ (invoke "bash" "./bootstrap.sh")
+            add-after 'unpack 'prepare-additional
+                (
+                lambda* (#:key inputs #:allow-other-keys) (invoke "bash" "./bootstrap.sh")
             )
         ))
     ))
