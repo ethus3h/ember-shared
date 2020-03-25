@@ -223,7 +223,7 @@
                (base32
                 "18nmj93m71jl399bzzdlprz8w7idcmbg71x3fz0lpj62sl0jhpnq"))
     )
-) ;  returns a derivation object(?)
+)
 
 (define-public dce
   (package
