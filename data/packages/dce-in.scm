@@ -272,8 +272,8 @@
     (arguments '(
         #:phases (modify-phases %standard-phases (
             add-after 'unpack 'prepare-additional
-                (
-                lambda* (#:key inputs #:allow-other-keys) (invoke "bash" "./bootstrap.sh")
+                (lambda* (#:key inputs #:allow-other-keys)
+                    (invoke "bash" "./bootstrap.sh")
             )
         ))
     ))
