@@ -202,6 +202,7 @@
     (license (list agpl3+ bsd-2))))
 
 (define dce-input-ucd
+    ; This is a hidden package that is used as an input to the main dce package. It just returns the ZIP file.
     (let ((version "12.0.0"))
     (origin
               (method url-fetch)
