@@ -18,6 +18,16 @@
 ; guix build -e "(@ (gnu packages gcc) gcc)"
 ; guix build --check --no-substitutes --no-grafts -e "(@ (gnu packages gcc) gcc)"
 
+; Interactive use:
+#!
+/nvme0n1p5/ember-auto-build/guix/pre-inst-env guile
+(use-modules (ice-9 readline))
+(activate-readline)
+(use-modules (guix utils))
+(pk (%current-system))
+(use-modules (guix build utils))
+!#
+
 
 (define-module (gnu packages dce)
   #:use-module (guix gexp)
@@ -229,7 +239,7 @@
                 (modules '((guix build utils)))
                 (snippet '(begin
                     (for-each delete-file-recursively '(".egup.stat" ".stagel-cache" "built"))
-                    (for-each delete-file (for-each find-files (for-each find-files (find-files "tests/stagel")) "run")) ; "run" folders hold the generated output, while "out" folders hold the expected output
+                    (for-each delete-file-recursively (find-files "tests" "^run$" #:directories? #t)) ; "run" folders hold the generated output, while "out" folders hold the expected output
                     #t
                 ))
         )
