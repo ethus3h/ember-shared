@@ -105,6 +105,7 @@
         ("util-linux" ,util-linux)
         ("perl" ,perl)
         ("xxd" ,xxd)
+        ("bc" ,bc)
     ))
     (synopsis "ember-shared core")
     (description "Shell script library core module")
