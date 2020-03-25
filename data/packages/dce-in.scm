@@ -206,6 +206,7 @@
     (propagated-inputs `(
         ("ember-shared-extra" ,ember-shared-extra)
         ("ncdu" ,ncdu)
+        ; python fuse
         ;("futuramerlin-web-toolkit" ,futuramerlin-web-toolkit) ; for egup-web
     ))
     (synopsis "Collection of tools for working with files and filesystems")
