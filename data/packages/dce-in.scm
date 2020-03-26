@@ -240,7 +240,7 @@
                     (for-each delete-file-recursively (find-files "tests" "^run$" #:directories? #t)) ; "run" folders hold the generated output, while "out" folders hold the expected output
                     #t
                 ))
-        ))
+            ))
             (build-system gnu-build-system)
             #!
             (arguments '(
