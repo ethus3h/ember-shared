@@ -218,12 +218,19 @@
     ; This is a hidden package that is used as an input to the main dce package. It just returns the ZIP file. To get the source for dce including this package, use "guix build --sources=all dce".
     (let ((version "TEMPLATE-PLACEHOLDER-VERSION:dce"))
     (origin
-              (method url-fetch)
-              (uri (string-append "https://www.unicode.org/Public/" version "/ucdxml/ucd.all.flat.zip"))
-              (file-name (string-append "ucd.all.flat-" version ".zip"))
-              (sha256
-               (base32
-                "18nmj93m71jl399bzzdlprz8w7idcmbg71x3fz0lpj62sl0jhpnq"))
+                (method git-fetch)
+                (uri (git-reference
+                    (url "https://github.com/ethus3h/ember-information-technology-environment.git")
+                    (commit "TEMPLATE-PLACEHOLDER-COMMIT:dce")))
+                (sha256
+                (base32
+                    "TEMPLATE-PLACEHOLDER-HASH:dce"))
+                (modules '((guix build utils)))
+                (snippet '(begin
+                    (for-each delete-file-recursively '(".egup.stat" ".stagel-cache" "built"))
+                    (for-each delete-file-recursively (find-files "tests" "^run$" #:directories? #t)) ; "run" folders hold the generated output, while "out" folders hold the expected output
+                    #t
+                ))
         )
 ))
 
