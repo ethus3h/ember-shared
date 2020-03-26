@@ -215,7 +215,6 @@
     (license (list agpl3+ bsd-2))))
 
 (define-public dce-common-attributes
-    (hidden-package
         (package
             ; do-nothing package to hold common aspects of dce packages
             (name "dce-common-attributes")
@@ -268,7 +267,6 @@
                 (x11-style "file://thirdparty-licenses/LICENSE.wtf8.md")
             ))
         )
-    )
 )
 
 (define-public dce-dist
