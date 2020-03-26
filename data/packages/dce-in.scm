@@ -237,7 +237,7 @@
 (define-public dce-common-attributes
     (hidden-package
         (package
-            (name "dce")
+            (name "dce-common-attributes")
             (version "TEMPLATE-PLACEHOLDER-VERSION:dce")
             (source (assoc-ref inputs "dce-input-source"))
             (build-system gnu-build-system)
