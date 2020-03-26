@@ -251,7 +251,7 @@
   (package
     (name "dce-dist")
     (version "TEMPLATE-PLACEHOLDER-VERSION:dce")
-    (source (assoc-ref inputs "dce-input-ucd"))
+    (source (assoc-ref inputs "dce-input-source"))
     (build-system gnu-build-system)
     (arguments '(
         #:phases (modify-phases %standard-phases
