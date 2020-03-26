@@ -206,12 +206,33 @@
     (propagated-inputs `(
         ("ember-shared-extra" ,ember-shared-extra)
         ("ncdu" ,ncdu)
+        ; python fuse
         ;("futuramerlin-web-toolkit" ,futuramerlin-web-toolkit) ; for egup-web
     ))
     (synopsis "Collection of tools for working with files and filesystems")
     (description "Collection of tools for working with files and filesystems")
     (home-page "http://futuramerlin.com/ancillary/crystallize/")
     (license (list agpl3+ bsd-2))))
+
+(define dce-input-source
+    ; This is a hidden package that is used as an input to the main dce package. It just returns the ZIP file. To get the source for dce including this package, use "guix build --sources=all dce".
+    (let ((version "0-6fd548a64d43ec06a4baf1542264ab57ea5cf675"))
+    (origin
+                (method git-fetch)
+                (uri (git-reference
+                    (url "https://github.com/ethus3h/ember-information-technology-environment.git")
+                    (commit "6fd548a64d43ec06a4baf1542264ab57ea5cf675")))
+                (sha256
+                (base32
+                    "1bga5sd9hc8wb1422mnlkm6bkxmzglhbrfwrzc95s6gcg5pzy6hz"))
+                (modules '((guix build utils)))
+                (snippet '(begin
+                    (for-each delete-file-recursively '(".egup.stat" ".stagel-cache" "built"))
+                    (for-each delete-file-recursively (find-files "tests" "^run$" #:directories? #t)) ; "run" folders hold the generated output, while "out" folders hold the expected output
+                    #t
+                ))
+        )
+))
 
 (define dce-input-ucd
     ; This is a hidden package that is used as an input to the main dce package. It just returns the ZIP file. To get the source for dce including this package, use "guix build --sources=all dce".
@@ -226,28 +247,14 @@
         )
 ))
 
-(define-public dce
+(define dce-dist
   (package
-    (name "dce")
-    (version "0-fdac670901527562c25c50ac117114e67bb1da64")
-    (source (origin
-                (method git-fetch)
-                (uri (git-reference
-                    (url "https://github.com/ethus3h/ember-information-technology-environment.git")
-                    (commit "fdac670901527562c25c50ac117114e67bb1da64")))
-                (sha256
-                (base32
-                    "1x3x4bk9q1c72y3z82jms81f4sgvckp0vmq33cja2v13drz1p4sb"))
-                (modules '((guix build utils)))
-                (snippet '(begin
-                    (for-each delete-file-recursively '(".egup.stat" ".stagel-cache" "built"))
-                    (for-each delete-file-recursively (find-files "tests" "^run$" #:directories? #t)) ; "run" folders hold the generated output, while "out" folders hold the expected output
-                    #t
-                ))
-        )
-    )
+    (name "dce-dist")
+    (version "0-6fd548a64d43ec06a4baf1542264ab57ea5cf675")
+    (source (assoc-ref inputs "dce-input-source"))
     (build-system gnu-build-system)
     (arguments '(
+        #:configure-flags '("--build-type=dist")
         #:phases (modify-phases %standard-phases
             (
                 add-after 'unpack 'prepare-additional
@@ -265,6 +272,46 @@
         ("unzip" ,unzip) ; to unpack distfiles
     ))
     (propagated-inputs `(
+        ("dce-input-source" ,dce-input-source)
+        ("ember-shared-core" ,ember-shared-core)
+    ))
+    ;(synopsis "Deterministic, distributed, document-centric computing environment")
+    ;(description "Deterministic, distributed, document-centric computing environment")
+    ;(home-page "http://futuramerlin.com/specification/engineering-and-tech/information-technology/software/")
+    ;(license (list
+    ;    agpl3+
+    ;    unicode
+    ;    silofl1.1 ; soccer.otf
+    ;    ; FIXME: papaparse
+    ;    (x11-style "file://thirdparty-licenses/LICENSE.base16b.md")
+    ;    (x11-style "file://thirdparty-licenses/LICENSE.kde-syntax-highlighting.md")
+    ;    (x11-style "file://thirdparty-licenses/LICENSE.wtf8.md")
+    ;))
+    ))
+
+(define dce
+  (package
+    (name "dce")
+    (version "0-6fd548a64d43ec06a4baf1542264ab57ea5cf675")
+    ;(source (assoc-ref inputs "dce-input-source"))
+    ;(build-system gnu-build-system)
+    #!
+    (arguments '(
+        #:phases (modify-phases %standard-phases
+            (
+                add-after 'unpack 'prepare-additional
+                    (lambda* (#:key inputs #:allow-other-keys)
+                        (mkdir-p "build-temp/distfiles/")
+                        (copy-file (assoc-ref inputs "dce-input-ucd") (string-append "build-temp/distfiles/" (strip-store-file-name (assoc-ref inputs "dce-input-ucd"))))
+                        (invoke "bash" "./support/build-scripts/dist-unpack")
+                        (invoke "touch" "build-temp/dist-already-unpacked")
+                    )
+            )
+        )
+    ))
+!#
+    (propagated-inputs `(
+        ("dce-dist" ,dce-dist)
         ("ember-shared-core" ,ember-shared-core)
         ; can use srsync from crystallize to copy the built webextension
     ))
@@ -279,7 +326,8 @@
         (x11-style "file://thirdparty-licenses/LICENSE.base16b.md")
         (x11-style "file://thirdparty-licenses/LICENSE.kde-syntax-highlighting.md")
         (x11-style "file://thirdparty-licenses/LICENSE.wtf8.md")
-    ))))
+    ))
+    ))
 
 ; Dependencies
 
