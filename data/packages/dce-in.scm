@@ -293,8 +293,9 @@
   (package
     (name "dce")
     (version "TEMPLATE-PLACEHOLDER-VERSION:dce")
-    (source (assoc-ref inputs "dce-input-source"))
+    ;(source (assoc-ref inputs "dce-input-source"))
     (build-system gnu-build-system)
+    #!
     (arguments '(
         #:phases (modify-phases %standard-phases
             (
@@ -308,6 +309,7 @@
             )
         )
     ))
+!#
     (inputs `(
         ("dce-input-source" ,dce-input-source)
         ("dce-input-ucd" ,dce-input-ucd)
