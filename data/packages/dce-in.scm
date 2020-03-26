@@ -258,7 +258,6 @@
             ))
 !#
             (propagated-inputs `(
-                ("dce-dist" ,dce-dist)
                 ("ember-shared-core" ,ember-shared-core)
                 ; can use srsync from crystallize to copy the built webextension
             ))
