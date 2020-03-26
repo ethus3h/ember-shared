@@ -247,7 +247,7 @@
         )
 ))
 
-(define-public dce-dist
+(define dce-dist
   (package
     (name "dce-dist")
     (version "TEMPLATE-PLACEHOLDER-VERSION:dce")
