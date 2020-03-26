@@ -283,8 +283,8 @@
             (inherit dce-common-attributes)
             ;(name "dce-dist")
             (let ((version "TEMPLATE-PLACEHOLDER-VERSION:dce")))
-            (source (assoc-ref inputs "dce-input-source"))
-            (build-system gnu-build-system)
+            ;(source (assoc-ref inputs "dce-input-source"))
+            ;(build-system gnu-build-system)
             (arguments '(
                 #:configure-flags '("--build-type=dist")
                 #:phases (modify-phases %standard-phases
