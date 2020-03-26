@@ -214,14 +214,17 @@
     (home-page "http://futuramerlin.com/ancillary/crystallize/")
     (license (list agpl3+ bsd-2))))
 
-(define dce-input-source
-    ; This is a hidden package-ish-thing that is used as an input to the main dce package. It just returns the ZIP file. To get the source for dce including this package, use "guix build --sources=all dce".
-    (let ((version "0-6fd548a64d43ec06a4baf1542264ab57ea5cf675"))
-    (origin
+(define-public dce-common-attributes
+    (hidden-package
+        (package
+            ; do-nothing package to hold common aspects of dce packages
+            (name "dce-common-attributes")
+            (version "0-b172d4fe8028dbaf2482da2c13895d7e5a5f49bc")
+            (source (origin
                 (method git-fetch)
                 (uri (git-reference
                     (url "https://github.com/ethus3h/ember-information-technology-environment.git")
-                    (commit "6fd548a64d43ec06a4baf1542264ab57ea5cf675")))
+                    (commit "b172d4fe8028dbaf2482da2c13895d7e5a5f49bc")))
                 (sha256
                 (base32
                     "1bga5sd9hc8wb1422mnlkm6bkxmzglhbrfwrzc95s6gcg5pzy6hz"))
@@ -231,16 +234,7 @@
                     (for-each delete-file-recursively (find-files "tests" "^run$" #:directories? #t)) ; "run" folders hold the generated output, while "out" folders hold the expected output
                     #t
                 ))
-        )
-))
-
-(define-public dce-common-attributes
-    (hidden-package
-        (package
-            ; do-nothing package to hold common aspects of dce packages
-            (name "dce-common-attributes")
-            (version "0-6fd548a64d43ec06a4baf1542264ab57ea5cf675")
-            (source (assoc-ref inputs "dce-input-source"))
+            ))
             (build-system gnu-build-system)
             #!
             (arguments '(
@@ -282,7 +276,7 @@
         (package
             (inherit dce-common-attributes)
             ;(name "dce-dist")
-            (let ((version "0-6fd548a64d43ec06a4baf1542264ab57ea5cf675")))
+            (let ((version "0-b172d4fe8028dbaf2482da2c13895d7e5a5f49bc")))
             ;(source (assoc-ref inputs "dce-input-source"))
             ;(build-system gnu-build-system)
             (arguments '(
