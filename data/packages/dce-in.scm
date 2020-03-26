@@ -273,7 +273,6 @@
     (propagated-inputs `(
         ("dce-input-source" ,dce-input-source)
         ("ember-shared-core" ,ember-shared-core)
-        ; can use srsync from crystallize to copy the built webextension
     ))
     (synopsis "Deterministic, distributed, document-centric computing environment")
     (description "Deterministic, distributed, document-centric computing environment")
