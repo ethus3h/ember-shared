@@ -35,6 +35,7 @@
   #:use-module (guix download)
   #:use-module (guix git-download)
   #:use-module (guix build-system gnu)
+  #:use-module (guix build-system trivial)
   #:use-module (guix licenses)
   #:use-module (gnu packages vim)
   #:use-module (gnu packages linux)
@@ -218,13 +219,13 @@
         (package
             ; do-nothing package to hold common aspects of dce packages
             (name "dce-common-attributes")
-            (version "0-af41f372b9332a0f328f3ba1a5d33d97310689c5")
-            (build-system trivial)
+            (version "0-9a6f5420f150182e1930a7bc957a0ef3b8dd6cfa")
+            (build-system trivial-build-system)
             (source (origin
                 (method git-fetch)
                 (uri (git-reference
                     (url "https://github.com/ethus3h/ember-information-technology-environment.git")
-                    (commit "af41f372b9332a0f328f3ba1a5d33d97310689c5")))
+                    (commit "9a6f5420f150182e1930a7bc957a0ef3b8dd6cfa")))
                 (sha256
                 (base32
                     "12kxk6s9bc0kwpa1afqd4mvvj3isyk2pyh97rb1604ym7w691g8i"))
