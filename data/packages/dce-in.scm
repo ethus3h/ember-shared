@@ -324,7 +324,7 @@
     (inherit dce-common-attributes)
     (name "dce")
     (propagated-inputs `(
-                    ("dce-dist" ,dce-dist)
+        ("dce-dist" ,dce-dist)
     ))
     ))
 
