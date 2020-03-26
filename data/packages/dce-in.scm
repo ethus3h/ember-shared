@@ -255,7 +255,7 @@
     (build-system gnu-build-system)
     (arguments '(#:configure-flags '("--module=main") #:phases (modify-phases %standard-phases (delete 'check))))
     (arguments '(
-        #:configure-flags '("--module=main")
+        #:configure-flags '("--build-type=dist")
         #:phases (modify-phases %standard-phases
             (
                 add-after 'unpack 'prepare-additional
