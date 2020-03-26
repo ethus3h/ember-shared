@@ -234,8 +234,6 @@
                     #t
                 ))
             ))
-            (propagated-inputs `(
-            ))
             (synopsis "Deterministic, distributed, document-centric computing environment")
             (description "Deterministic, distributed, document-centric computing environment")
             (home-page "http://futuramerlin.com/specification/engineering-and-tech/information-technology/software/")
