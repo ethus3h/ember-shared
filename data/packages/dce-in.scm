@@ -234,7 +234,7 @@
                     #t
                 ))
             ))
-            (build-system gnu-build-system)
+            ;(build-system gnu-build-system)
             #!
             (arguments '(
                 #:phases (modify-phases %standard-phases
