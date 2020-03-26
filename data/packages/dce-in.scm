@@ -318,6 +318,7 @@
   (package
     (inherit dce-common-attributes)
     (name "dce")
+    (build-system gnu-build-system)
     (propagated-inputs `(
         ("dce-dist" ,dce-dist)
     ))
