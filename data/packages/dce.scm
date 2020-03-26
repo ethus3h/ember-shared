@@ -248,7 +248,7 @@
 ))
 
 (define dce-dist
-  (package
+;  (package
     (name "dce-dist")
     (version "0-6fd548a64d43ec06a4baf1542264ab57ea5cf675")
     (source (assoc-ref inputs "dce-input-source"))
@@ -287,7 +287,7 @@
     ;    (x11-style "file://thirdparty-licenses/LICENSE.kde-syntax-highlighting.md")
     ;    (x11-style "file://thirdparty-licenses/LICENSE.wtf8.md")
     ;))
-    ))
+    );)
 
 (define dce
   (package
