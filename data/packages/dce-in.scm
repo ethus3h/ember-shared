@@ -323,6 +323,9 @@
   (package
     (inherit dce-common-attributes)
     (name "dce")
+    (propagated-inputs `(
+                    ("dce-dist" ,dce-dist)
+    ))
     ))
 
 ; DCE distfiles
