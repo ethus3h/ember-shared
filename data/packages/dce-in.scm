@@ -294,7 +294,7 @@
     (name "dce")
     (version "TEMPLATE-PLACEHOLDER-VERSION:dce")
     ;(source (assoc-ref inputs "dce-input-source"))
-    (build-system gnu-build-system)
+    ;(build-system gnu-build-system)
     #!
     (arguments '(
         #:phases (modify-phases %standard-phases
