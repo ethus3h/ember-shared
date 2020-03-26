@@ -214,7 +214,7 @@
     (home-page "http://futuramerlin.com/ancillary/crystallize/")
     (license (list agpl3+ bsd-2))))
 
-(define dce
+(define dce-base-attributes
   (package
     (name "dce")
     (version "TEMPLATE-PLACEHOLDER-VERSION:dce")
