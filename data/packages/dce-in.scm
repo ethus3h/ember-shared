@@ -311,9 +311,7 @@
     ))
 !#
     (inputs `(
-        ("dce-input-source" ,dce-input-source)
-        ("dce-input-ucd" ,dce-input-ucd)
-        ("unzip" ,unzip) ; to unpack distfiles
+        ("dce-dist" ,dce-dist)
     ))
     (propagated-inputs `(
         ("ember-shared-core" ,ember-shared-core)
