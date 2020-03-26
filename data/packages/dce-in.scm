@@ -267,11 +267,11 @@
         )
     ))
     (inputs `(
-        ("dce-input-source" ,dce-input-source)
         ("dce-input-ucd" ,dce-input-ucd)
         ("unzip" ,unzip) ; to unpack distfiles
     ))
     (propagated-inputs `(
+        ("dce-input-source" ,dce-input-source)
         ("ember-shared-core" ,ember-shared-core)
         ; can use srsync from crystallize to copy the built webextension
     ))
