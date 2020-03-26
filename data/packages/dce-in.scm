@@ -321,6 +321,7 @@
 
 (define-public dce
   (package
+    (inherit dce-common-attributes)
     (name "crystallize")
     (version "TEMPLATE-PLACEHOLDER-VERSION:crystallize")
     (source (origin
