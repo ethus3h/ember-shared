@@ -66,15 +66,15 @@
 (define-public ember-shared-error-notify
   (package
     (name "ember-shared-error-notify")
-    (version "1.1.4.521-c747c4d6931d4ba14abb6fe519ba702621a2cf85")
+    (version "1.1.4.522-8d5a28b46cee84f9f60623bf598550829fba1b7e")
     (source (origin
               (method git-fetch)
               (uri (git-reference
                 (url "https://github.com/ethus3h/ember-shared.git")
-                (commit "c747c4d6931d4ba14abb6fe519ba702621a2cf85")))
+                (commit "8d5a28b46cee84f9f60623bf598550829fba1b7e")))
               (sha256
                (base32
-                "13l2syg3will913nws1jxi0rw7qqckrs2l7bj1m7mqj5v0yhs59k"))))
+                "1mv47zv0avasp2rziz70k0vyk3vpvaycw2cmay19kwss3kyhk7pw"))))
     (build-system gnu-build-system)
     (arguments '(#:configure-flags '("--module=error-notify") #:phases (modify-phases %standard-phases (delete 'check))))
     (propagated-inputs `(
@@ -234,26 +234,6 @@
                     #t
                 ))
             ))
-            (build-system gnu-build-system)
-            #!
-            (arguments '(
-                #:phases (modify-phases %standard-phases
-                    (
-                        add-after 'unpack 'prepare-additional
-                            (lambda* (#:key inputs #:allow-other-keys)
-                                (mkdir-p "build-temp/distfiles/")
-                                (copy-file (assoc-ref inputs "dce-input-ucd") (string-append "build-temp/distfiles/" (strip-store-file-name (assoc-ref inputs "dce-input-ucd"))))
-                                (invoke "bash" "./support/build-scripts/dist-unpack")
-                                (invoke "touch" "build-temp/dist-already-unpacked")
-                            )
-                    )
-                )
-            ))
-!#
-            (propagated-inputs `(
-                ("ember-shared-core" ,ember-shared-core)
-                ; can use srsync from crystallize to copy the built webextension
-            ))
             (synopsis "Deterministic, distributed, document-centric computing environment")
             (description "Deterministic, distributed, document-centric computing environment")
             (home-page "http://futuramerlin.com/specification/engineering-and-tech/information-technology/software/")
@@ -273,10 +253,8 @@
     (hidden-package
         (package
             (inherit dce-common-attributes)
-            ;(name "dce-dist")
-            ;(version "0-b172d4fe8028dbaf2482da2c13895d7e5a5f49bc")
-            ;(source (assoc-ref inputs "dce-input-source"))
-            ;(build-system gnu-build-system)
+            (name "dce-dist")
+            (build-system gnu-build-system)
             (arguments '(
                 #:configure-flags '("--build-type=dist")
                 #:phases (modify-phases %standard-phases
@@ -298,18 +276,6 @@
             (propagated-inputs `(
                 ("ember-shared-core" ,ember-shared-core)
             ))
-            ;(synopsis "Deterministic, distributed, document-centric computing environment")
-            ;(description "Deterministic, distributed, document-centric computing environment")
-            ;(home-page "http://futuramerlin.com/specification/engineering-and-tech/information-technology/software/")
-            ;(license (list
-            ;    agpl3+
-            ;    unicode
-            ;    silofl1.1 ; soccer.otf
-            ;    ; FIXME: papaparse
-            ;    (x11-style "file://thirdparty-licenses/LICENSE.base16b.md")
-            ;    (x11-style "file://thirdparty-licenses/LICENSE.kde-syntax-highlighting.md")
-            ;    (x11-style "file://thirdparty-licenses/LICENSE.wtf8.md")
-            ;))
         )
     )
 )
@@ -318,7 +284,10 @@
   (package
     (inherit dce-common-attributes)
     (name "dce")
+    (build-system gnu-build-system)
     (propagated-inputs `(
+        ("ember-shared-core" ,ember-shared-core)
+        ; can use srsync from crystallize to copy the built webextension
         ("dce-dist" ,dce-dist)
     ))
     ))
