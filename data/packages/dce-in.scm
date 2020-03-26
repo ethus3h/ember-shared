@@ -280,6 +280,7 @@
 (define-public dce-dist
     (hidden-package
   (package
+    (inherit dce-common-attributes)
     ;(name "dce-dist")
     (let ((version "TEMPLATE-PLACEHOLDER-VERSION:dce")))
     (source (assoc-ref inputs "dce-input-source"))
