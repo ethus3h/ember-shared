@@ -251,21 +251,7 @@
   (package
     (name "dce-dist")
     (version "TEMPLATE-PLACEHOLDER-VERSION:dce")
-    (source (origin
-                (method git-fetch)
-                (uri (git-reference
-                    (url "https://github.com/ethus3h/ember-information-technology-environment.git")
-                    (commit "TEMPLATE-PLACEHOLDER-COMMIT:dce")))
-                (sha256
-                (base32
-                    "TEMPLATE-PLACEHOLDER-HASH:dce"))
-                (modules '((guix build utils)))
-                (snippet '(begin
-                    (for-each delete-file-recursively '(".egup.stat" ".stagel-cache" "built"))
-                    (for-each delete-file-recursively (find-files "tests" "^run$" #:directories? #t)) ; "run" folders hold the generated output, while "out" folders hold the expected output
-                    #t
-                ))
-        )
+    (source (assoc-ref inputs "dce-input-ucd")
     )
     (build-system gnu-build-system)
     (arguments '(
