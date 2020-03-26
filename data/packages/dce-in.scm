@@ -279,7 +279,7 @@
 
 (define-public dce-dist
     (hidden-package
-  (package
+    (package
     (inherit dce-common-attributes)
     ;(name "dce-dist")
     (let ((version "TEMPLATE-PLACEHOLDER-VERSION:dce")))
@@ -319,7 +319,9 @@
     ;    (x11-style "file://thirdparty-licenses/LICENSE.kde-syntax-highlighting.md")
     ;    (x11-style "file://thirdparty-licenses/LICENSE.wtf8.md")
     ;))
-    );)
+    )
+    )
+)
 
 (define-public dce
   (package
