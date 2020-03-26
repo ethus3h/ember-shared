@@ -215,7 +215,7 @@
     (license (list agpl3+ bsd-2))))
 
 (define dce-input-source
-    ; This is a hidden package that is used as an input to the main dce package. It just returns the ZIP file. To get the source for dce including this package, use "guix build --sources=all dce".
+    ; This is a hidden package-ish-thing that is used as an input to the main dce package. It just returns the ZIP file. To get the source for dce including this package, use "guix build --sources=all dce".
     (let ((version "TEMPLATE-PLACEHOLDER-VERSION:dce"))
     (origin
                 (method git-fetch)
