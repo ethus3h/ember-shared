@@ -277,8 +277,9 @@
     )
 )
 
-(define dce-dist
-;  (package
+(define-public dce-dist
+    (hidden-package
+  (package
     ;(name "dce-dist")
     (let ((version "TEMPLATE-PLACEHOLDER-VERSION:dce")))
     (source (assoc-ref inputs "dce-input-source"))
