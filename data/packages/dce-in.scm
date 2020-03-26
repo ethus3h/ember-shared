@@ -282,6 +282,7 @@
         )
     ))
     (inputs `(
+        ("dce-input-source" ,dce-input-source)
         ("dce-input-ucd" ,dce-input-ucd)
         ("unzip" ,unzip) ; to unpack distfiles
     ))
