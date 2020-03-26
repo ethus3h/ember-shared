@@ -319,7 +319,7 @@
     ;))
     );)
 
-(define-public crystallize
+(define-public dce
   (package
     (name "crystallize")
     (version "TEMPLATE-PLACEHOLDER-VERSION:crystallize")
