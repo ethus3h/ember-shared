@@ -322,7 +322,7 @@
 (define-public dce
   (package
     (inherit dce-common-attributes)
-    (name "crystallize")
+    (name "dce")
     (version "TEMPLATE-PLACEHOLDER-VERSION:crystallize")
     (source (origin
               (method git-fetch)
