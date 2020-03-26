@@ -219,6 +219,7 @@
             ; do-nothing package to hold common aspects of dce packages
             (name "dce-common-attributes")
             (version "TEMPLATE-PLACEHOLDER-VERSION:dce")
+            (build-system trivial)
             (source (origin
                 (method git-fetch)
                 (uri (git-reference
