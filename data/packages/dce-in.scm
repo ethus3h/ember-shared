@@ -319,6 +319,30 @@
     ;))
     );)
 
+(define-public crystallize
+  (package
+    (name "crystallize")
+    (version "TEMPLATE-PLACEHOLDER-VERSION:crystallize")
+    (source (origin
+              (method git-fetch)
+              (uri (git-reference
+                (url "https://github.com/ethus3h/crystallize.git")
+                (commit "TEMPLATE-PLACEHOLDER-COMMIT:crystallize")))
+              (sha256
+               (base32
+                "TEMPLATE-PLACEHOLDER-HASH:crystallize"))))
+    (build-system gnu-build-system)
+    (propagated-inputs `(
+        ("ember-shared-extra" ,ember-shared-extra)
+        ("ncdu" ,ncdu)
+        ; python fuse
+        ;("futuramerlin-web-toolkit" ,futuramerlin-web-toolkit) ; for egup-web
+    ))
+    (synopsis "Collection of tools for working with files and filesystems")
+    (description "Collection of tools for working with files and filesystems")
+    (home-page "http://futuramerlin.com/ancillary/crystallize/")
+    (license (list agpl3+ bsd-2))))
+
 ; DCE distfiles
 
 (define dce-input-ucd
