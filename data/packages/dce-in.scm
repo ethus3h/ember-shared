@@ -319,7 +319,7 @@
 ; DCE distfiles
 
 (define dce-input-ucd
-    ; This is a hidden package that is used as an input to the main dce package. It just returns the ZIP file. To get the source for dce including this package, use "guix build --sources=all dce".
+    ; This is a hidden input that is used as an input to the main dce package. It just returns the ZIP file. To get the source for dce including this package, use "guix build --sources=all dce".
     (let ((version "12.0.0"))
     (origin
               (method url-fetch)
