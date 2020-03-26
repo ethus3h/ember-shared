@@ -215,7 +215,7 @@
     (license (list agpl3+ bsd-2))))
 
 (define dce-input-source
-    ; This is a hidden package that is used as an input to the main dce package. It just returns the ZIP file. To get the source for dce including this package, use "guix build --sources=all dce".
+    ; This is a hidden package-ish-thing that is used as an input to the main dce package. It just returns the ZIP file. To get the source for dce including this package, use "guix build --sources=all dce".
     (let ((version "0-6fd548a64d43ec06a4baf1542264ab57ea5cf675"))
     (origin
                 (method git-fetch)
@@ -234,8 +234,108 @@
         )
 ))
 
+(define-public dce-common-attributes
+    (hidden-package
+        (package
+            ; do-nothing package to hold common aspects of dce packages
+            (name "dce-common-attributes")
+            (version "0-6fd548a64d43ec06a4baf1542264ab57ea5cf675")
+            (source (assoc-ref inputs "dce-input-source"))
+            (build-system gnu-build-system)
+            #!
+            (arguments '(
+                #:phases (modify-phases %standard-phases
+                    (
+                        add-after 'unpack 'prepare-additional
+                            (lambda* (#:key inputs #:allow-other-keys)
+                                (mkdir-p "build-temp/distfiles/")
+                                (copy-file (assoc-ref inputs "dce-input-ucd") (string-append "build-temp/distfiles/" (strip-store-file-name (assoc-ref inputs "dce-input-ucd"))))
+                                (invoke "bash" "./support/build-scripts/dist-unpack")
+                                (invoke "touch" "build-temp/dist-already-unpacked")
+                            )
+                    )
+                )
+            ))
+!#
+            (propagated-inputs `(
+                ("ember-shared-core" ,ember-shared-core)
+                ; can use srsync from crystallize to copy the built webextension
+            ))
+            (synopsis "Deterministic, distributed, document-centric computing environment")
+            (description "Deterministic, distributed, document-centric computing environment")
+            (home-page "http://futuramerlin.com/specification/engineering-and-tech/information-technology/software/")
+            (license (list
+                agpl3+
+                unicode
+                silofl1.1 ; soccer.otf
+                ; FIXME: papaparse
+                (x11-style "file://thirdparty-licenses/LICENSE.base16b.md")
+                (x11-style "file://thirdparty-licenses/LICENSE.kde-syntax-highlighting.md")
+                (x11-style "file://thirdparty-licenses/LICENSE.wtf8.md")
+            ))
+        )
+    )
+)
+
+(define-public dce-dist
+    (hidden-package
+        (package
+            (inherit dce-common-attributes)
+            ;(name "dce-dist")
+            (let ((version "0-6fd548a64d43ec06a4baf1542264ab57ea5cf675")))
+            ;(source (assoc-ref inputs "dce-input-source"))
+            ;(build-system gnu-build-system)
+            (arguments '(
+                #:configure-flags '("--build-type=dist")
+                #:phases (modify-phases %standard-phases
+                    (
+                        add-after 'unpack 'prepare-additional
+                            (lambda* (#:key inputs #:allow-other-keys)
+                                (mkdir-p "build-temp/distfiles/")
+                                (copy-file (assoc-ref inputs "dce-input-ucd") (string-append "build-temp/distfiles/" (strip-store-file-name (assoc-ref inputs "dce-input-ucd"))))
+                                (invoke "bash" "./support/build-scripts/dist-unpack")
+                                (invoke "touch" "build-temp/dist-already-unpacked")
+                            )
+                    )
+                )
+            ))
+            (inputs `(
+                ("dce-input-ucd" ,dce-input-ucd)
+                ("unzip" ,unzip) ; to unpack distfiles
+            ))
+            (propagated-inputs `(
+                ("dce-input-source" ,dce-input-source)
+                ("ember-shared-core" ,ember-shared-core)
+            ))
+            ;(synopsis "Deterministic, distributed, document-centric computing environment")
+            ;(description "Deterministic, distributed, document-centric computing environment")
+            ;(home-page "http://futuramerlin.com/specification/engineering-and-tech/information-technology/software/")
+            ;(license (list
+            ;    agpl3+
+            ;    unicode
+            ;    silofl1.1 ; soccer.otf
+            ;    ; FIXME: papaparse
+            ;    (x11-style "file://thirdparty-licenses/LICENSE.base16b.md")
+            ;    (x11-style "file://thirdparty-licenses/LICENSE.kde-syntax-highlighting.md")
+            ;    (x11-style "file://thirdparty-licenses/LICENSE.wtf8.md")
+            ;))
+        )
+    )
+)
+
+(define-public dce
+  (package
+    (inherit dce-common-attributes)
+    (name "dce")
+    (propagated-inputs `(
+        ("dce-dist" ,dce-dist)
+    ))
+    ))
+
+; DCE distfiles
+
 (define dce-input-ucd
-    ; This is a hidden package that is used as an input to the main dce package. It just returns the ZIP file. To get the source for dce including this package, use "guix build --sources=all dce".
+    ; This is a hidden package-ish thing that is used as an input to the main dce package. It just returns the ZIP file. To get the source for dce including this package, use "guix build --sources=all dce".
     (let ((version "12.0.0"))
     (origin
               (method url-fetch)
@@ -246,88 +346,6 @@
                 "18nmj93m71jl399bzzdlprz8w7idcmbg71x3fz0lpj62sl0jhpnq"))
         )
 ))
-
-(define dce-dist
-;  (package
-    (name "dce-dist")
-    (version "0-6fd548a64d43ec06a4baf1542264ab57ea5cf675")
-    (source (assoc-ref inputs "dce-input-source"))
-    (build-system gnu-build-system)
-    (arguments '(
-        #:configure-flags '("--build-type=dist")
-        #:phases (modify-phases %standard-phases
-            (
-                add-after 'unpack 'prepare-additional
-                    (lambda* (#:key inputs #:allow-other-keys)
-                        (mkdir-p "build-temp/distfiles/")
-                        (copy-file (assoc-ref inputs "dce-input-ucd") (string-append "build-temp/distfiles/" (strip-store-file-name (assoc-ref inputs "dce-input-ucd"))))
-                        (invoke "bash" "./support/build-scripts/dist-unpack")
-                        (invoke "touch" "build-temp/dist-already-unpacked")
-                    )
-            )
-        )
-    ))
-    (inputs `(
-        ("dce-input-ucd" ,dce-input-ucd)
-        ("unzip" ,unzip) ; to unpack distfiles
-    ))
-    (propagated-inputs `(
-        ("dce-input-source" ,dce-input-source)
-        ("ember-shared-core" ,ember-shared-core)
-    ))
-    ;(synopsis "Deterministic, distributed, document-centric computing environment")
-    ;(description "Deterministic, distributed, document-centric computing environment")
-    ;(home-page "http://futuramerlin.com/specification/engineering-and-tech/information-technology/software/")
-    ;(license (list
-    ;    agpl3+
-    ;    unicode
-    ;    silofl1.1 ; soccer.otf
-    ;    ; FIXME: papaparse
-    ;    (x11-style "file://thirdparty-licenses/LICENSE.base16b.md")
-    ;    (x11-style "file://thirdparty-licenses/LICENSE.kde-syntax-highlighting.md")
-    ;    (x11-style "file://thirdparty-licenses/LICENSE.wtf8.md")
-    ;))
-    );)
-
-(define dce
-  (package
-    (name "dce")
-    (version "0-6fd548a64d43ec06a4baf1542264ab57ea5cf675")
-    ;(source (assoc-ref inputs "dce-input-source"))
-    ;(build-system gnu-build-system)
-    #!
-    (arguments '(
-        #:phases (modify-phases %standard-phases
-            (
-                add-after 'unpack 'prepare-additional
-                    (lambda* (#:key inputs #:allow-other-keys)
-                        (mkdir-p "build-temp/distfiles/")
-                        (copy-file (assoc-ref inputs "dce-input-ucd") (string-append "build-temp/distfiles/" (strip-store-file-name (assoc-ref inputs "dce-input-ucd"))))
-                        (invoke "bash" "./support/build-scripts/dist-unpack")
-                        (invoke "touch" "build-temp/dist-already-unpacked")
-                    )
-            )
-        )
-    ))
-!#
-    (propagated-inputs `(
-        ("dce-dist" ,dce-dist)
-        ("ember-shared-core" ,ember-shared-core)
-        ; can use srsync from crystallize to copy the built webextension
-    ))
-    (synopsis "Deterministic, distributed, document-centric computing environment")
-    (description "Deterministic, distributed, document-centric computing environment")
-    (home-page "http://futuramerlin.com/specification/engineering-and-tech/information-technology/software/")
-    (license (list
-        agpl3+
-        unicode
-        silofl1.1 ; soccer.otf
-        ; FIXME: papaparse
-        (x11-style "file://thirdparty-licenses/LICENSE.base16b.md")
-        (x11-style "file://thirdparty-licenses/LICENSE.kde-syntax-highlighting.md")
-        (x11-style "file://thirdparty-licenses/LICENSE.wtf8.md")
-    ))
-    ))
 
 ; Dependencies
 
