@@ -227,9 +227,9 @@
         )
 ))
 
-(define-public dce
+(define-public dce-dist
   (package
-    (name "dce")
+    (name "dce-dist")
     (version "TEMPLATE-PLACEHOLDER-VERSION:dce")
     (source (origin
                 (method git-fetch)
