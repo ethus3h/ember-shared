@@ -234,22 +234,6 @@
                     #t
                 ))
             ))
-            ;(build-system gnu-build-system)
-            #!
-            (arguments '(
-                #:phases (modify-phases %standard-phases
-                    (
-                        add-after 'unpack 'prepare-additional
-                            (lambda* (#:key inputs #:allow-other-keys)
-                                (mkdir-p "build-temp/distfiles/")
-                                (copy-file (assoc-ref inputs "dce-input-ucd") (string-append "build-temp/distfiles/" (strip-store-file-name (assoc-ref inputs "dce-input-ucd"))))
-                                (invoke "bash" "./support/build-scripts/dist-unpack")
-                                (invoke "touch" "build-temp/dist-already-unpacked")
-                            )
-                    )
-                )
-            ))
-!#
             (propagated-inputs `(
                 ("ember-shared-core" ,ember-shared-core)
                 ; can use srsync from crystallize to copy the built webextension
