@@ -274,19 +274,6 @@
         )
 ))
 
-(define dce-input-ucd
-    ; This is a hidden package that is used as an input to the main dce package. It just returns the ZIP file. To get the source for dce including this package, use "guix build --sources=all dce".
-    (let ((version "12.0.0"))
-    (origin
-              (method url-fetch)
-              (uri (string-append "https://www.unicode.org/Public/" version "/ucdxml/ucd.all.flat.zip"))
-              (file-name (string-append "ucd.all.flat-" version ".zip"))
-              (sha256
-               (base32
-                "18nmj93m71jl399bzzdlprz8w7idcmbg71x3fz0lpj62sl0jhpnq"))
-        )
-))
-
 (define dce-dist
 ;  (package
     ;(name "dce-dist")
@@ -328,6 +315,22 @@
     ;    (x11-style "file://thirdparty-licenses/LICENSE.wtf8.md")
     ;))
     );)
+
+; DCE distfiles
+
+(define dce-input-ucd
+    ; This is a hidden package that is used as an input to the main dce package. It just returns the ZIP file. To get the source for dce including this package, use "guix build --sources=all dce".
+    (let ((version "12.0.0"))
+    (origin
+              (method url-fetch)
+              (uri (string-append "https://www.unicode.org/Public/" version "/ucdxml/ucd.all.flat.zip"))
+              (file-name (string-append "ucd.all.flat-" version ".zip"))
+              (sha256
+               (base32
+                "18nmj93m71jl399bzzdlprz8w7idcmbg71x3fz0lpj62sl0jhpnq"))
+        )
+))
+
 
 ; Dependencies
 
