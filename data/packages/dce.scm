@@ -276,7 +276,7 @@
         (package
             (inherit dce-common-attributes)
             ;(name "dce-dist")
-            (let ((version "0-b172d4fe8028dbaf2482da2c13895d7e5a5f49bc")))
+            ;(version "0-b172d4fe8028dbaf2482da2c13895d7e5a5f49bc")
             ;(source (assoc-ref inputs "dce-input-source"))
             ;(build-system gnu-build-system)
             (arguments '(
