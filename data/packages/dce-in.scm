@@ -288,7 +288,7 @@
         (x11-style "file://thirdparty-licenses/LICENSE.wtf8.md")
     ))))
 
-(define dce-dist
+(define dce
   (package
     (name "dce-dist")
     (version "TEMPLATE-PLACEHOLDER-VERSION:dce")
