@@ -296,7 +296,6 @@
                 ("unzip" ,unzip) ; to unpack distfiles
             ))
             (propagated-inputs `(
-                ("dce-input-source" ,dce-input-source)
                 ("ember-shared-core" ,ember-shared-core)
             ))
             ;(synopsis "Deterministic, distributed, document-centric computing environment")
