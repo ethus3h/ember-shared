@@ -249,8 +249,8 @@
 
 (define dce-dist
 ;  (package
-    (name "dce-dist")
-    (version "TEMPLATE-PLACEHOLDER-VERSION:dce")
+    ;(name "dce-dist")
+    (let ((version "TEMPLATE-PLACEHOLDER-VERSION:dce")))
     (source (assoc-ref inputs "dce-input-source"))
     (build-system gnu-build-system)
     (arguments '(
