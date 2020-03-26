@@ -310,7 +310,7 @@
         )
     ))
 !#
-    (inputs `(
+    (propagated-inputs `(
         ("dce-dist" ,dce-dist)
     ))
     (propagated-inputs `(
