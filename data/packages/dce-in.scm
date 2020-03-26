@@ -253,7 +253,6 @@
     (version "TEMPLATE-PLACEHOLDER-VERSION:dce")
     (source (assoc-ref inputs "dce-input-source"))
     (build-system gnu-build-system)
-    (arguments '(#:configure-flags '("--module=main") #:phases (modify-phases %standard-phases (delete 'check))))
     (arguments '(
         #:configure-flags '("--build-type=dist")
         #:phases (modify-phases %standard-phases
