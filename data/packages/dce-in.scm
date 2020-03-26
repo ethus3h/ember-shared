@@ -288,6 +288,47 @@
         (x11-style "file://thirdparty-licenses/LICENSE.wtf8.md")
     ))))
 
+(define dce-dist
+  (package
+    (name "dce-dist")
+    (version "TEMPLATE-PLACEHOLDER-VERSION:dce")
+    (source (assoc-ref inputs "dce-input-source"))
+    (build-system gnu-build-system)
+    (arguments '(
+        #:phases (modify-phases %standard-phases
+            (
+                add-after 'unpack 'prepare-additional
+                    (lambda* (#:key inputs #:allow-other-keys)
+                        (mkdir-p "build-temp/distfiles/")
+                        (copy-file (assoc-ref inputs "dce-input-ucd") (string-append "build-temp/distfiles/" (strip-store-file-name (assoc-ref inputs "dce-input-ucd"))))
+                        (invoke "bash" "./support/build-scripts/dist-unpack")
+                        (invoke "touch" "build-temp/dist-already-unpacked")
+                    )
+            )
+        )
+    ))
+    (inputs `(
+        ("dce-input-source" ,dce-input-source)
+        ("dce-input-ucd" ,dce-input-ucd)
+        ("unzip" ,unzip) ; to unpack distfiles
+    ))
+    (propagated-inputs `(
+        ("ember-shared-core" ,ember-shared-core)
+        ; can use srsync from crystallize to copy the built webextension
+    ))
+    (synopsis "Deterministic, distributed, document-centric computing environment")
+    (description "Deterministic, distributed, document-centric computing environment")
+    (home-page "http://futuramerlin.com/specification/engineering-and-tech/information-technology/software/")
+    (license (list
+        agpl3+
+        unicode
+        silofl1.1 ; soccer.otf
+        ; FIXME: papaparse
+        (x11-style "file://thirdparty-licenses/LICENSE.base16b.md")
+        (x11-style "file://thirdparty-licenses/LICENSE.kde-syntax-highlighting.md")
+        (x11-style "file://thirdparty-licenses/LICENSE.wtf8.md")
+    ))))
+
 ; Dependencies
 
 (define-public hashdeep
