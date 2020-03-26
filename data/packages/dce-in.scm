@@ -217,7 +217,16 @@
 (define dce-input-source
     ; This is a hidden package-ish-thing that is used as an input to the main dce package. It just returns the ZIP file. To get the source for dce including this package, use "guix build --sources=all dce".
     (let ((version "TEMPLATE-PLACEHOLDER-VERSION:dce"))
-    (origin
+
+))
+
+(define-public dce-common-attributes
+    (hidden-package
+        (package
+            ; do-nothing package to hold common aspects of dce packages
+            (name "dce-common-attributes")
+            (version "TEMPLATE-PLACEHOLDER-VERSION:dce")
+            (source (origin
                 (method git-fetch)
                 (uri (git-reference
                     (url "https://github.com/ethus3h/ember-information-technology-environment.git")
@@ -231,16 +240,7 @@
                     (for-each delete-file-recursively (find-files "tests" "^run$" #:directories? #t)) ; "run" folders hold the generated output, while "out" folders hold the expected output
                     #t
                 ))
-        )
-))
-
-(define-public dce-common-attributes
-    (hidden-package
-        (package
-            ; do-nothing package to hold common aspects of dce packages
-            (name "dce-common-attributes")
-            (version "TEMPLATE-PLACEHOLDER-VERSION:dce")
-            (source (assoc-ref inputs "dce-input-source"))
+        ))
             (build-system gnu-build-system)
             #!
             (arguments '(
