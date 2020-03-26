@@ -253,10 +253,8 @@
     (hidden-package
         (package
             (inherit dce-common-attributes)
-            ;(name "dce-dist")
-            ;(version "TEMPLATE-PLACEHOLDER-VERSION:dce")
-            ;(source (assoc-ref inputs "dce-input-source"))
-            ;(build-system gnu-build-system)
+            (name "dce-dist")
+            (build-system gnu-build-system)
             (arguments '(
                 #:configure-flags '("--build-type=dist")
                 #:phases (modify-phases %standard-phases
@@ -278,18 +276,6 @@
             (propagated-inputs `(
                 ("ember-shared-core" ,ember-shared-core)
             ))
-            ;(synopsis "Deterministic, distributed, document-centric computing environment")
-            ;(description "Deterministic, distributed, document-centric computing environment")
-            ;(home-page "http://futuramerlin.com/specification/engineering-and-tech/information-technology/software/")
-            ;(license (list
-            ;    agpl3+
-            ;    unicode
-            ;    silofl1.1 ; soccer.otf
-            ;    ; FIXME: papaparse
-            ;    (x11-style "file://thirdparty-licenses/LICENSE.base16b.md")
-            ;    (x11-style "file://thirdparty-licenses/LICENSE.kde-syntax-highlighting.md")
-            ;    (x11-style "file://thirdparty-licenses/LICENSE.wtf8.md")
-            ;))
         )
     )
 )
