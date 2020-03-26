@@ -55,6 +55,7 @@ buildsystemDir="$(getEmberSharedDataDir)/app-buildsystem"
 printf '%s' "$buildsystemDir" > support/.buildsystemdir
 
 cp "$buildsystemDir/Makefile" ./
+chmod +w ./Makefile
 if [[ -e ./Makefile.extra ]]; then
     cat ./Makefile.extra >> ./Makefile
 fi
