@@ -237,6 +237,7 @@
 (define-public dce-common-attributes
     (hidden-package
         (package
+            ; do-nothing package to hold common aspects of dce packages
             (name "dce-common-attributes")
             (version "TEMPLATE-PLACEHOLDER-VERSION:dce")
             (source (assoc-ref inputs "dce-input-source"))
