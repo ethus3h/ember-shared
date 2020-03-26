@@ -214,6 +214,26 @@
     (home-page "http://futuramerlin.com/ancillary/crystallize/")
     (license (list agpl3+ bsd-2))))
 
+(define dce-input-source
+    ; This is a hidden package that is used as an input to the main dce package. It just returns the ZIP file. To get the source for dce including this package, use "guix build --sources=all dce".
+    (let ((version "TEMPLATE-PLACEHOLDER-VERSION:dce"))
+    (origin
+                (method git-fetch)
+                (uri (git-reference
+                    (url "https://github.com/ethus3h/ember-information-technology-environment.git")
+                    (commit "TEMPLATE-PLACEHOLDER-COMMIT:dce")))
+                (sha256
+                (base32
+                    "TEMPLATE-PLACEHOLDER-HASH:dce"))
+                (modules '((guix build utils)))
+                (snippet '(begin
+                    (for-each delete-file-recursively '(".egup.stat" ".stagel-cache" "built"))
+                    (for-each delete-file-recursively (find-files "tests" "^run$" #:directories? #t)) ; "run" folders hold the generated output, while "out" folders hold the expected output
+                    #t
+                ))
+        )
+))
+
 (define-public dce-common-attributes
     (hidden-package
         (package
@@ -256,26 +276,6 @@
         )
     )
 )
-
-(define dce-input-source
-    ; This is a hidden package that is used as an input to the main dce package. It just returns the ZIP file. To get the source for dce including this package, use "guix build --sources=all dce".
-    (let ((version "TEMPLATE-PLACEHOLDER-VERSION:dce"))
-    (origin
-                (method git-fetch)
-                (uri (git-reference
-                    (url "https://github.com/ethus3h/ember-information-technology-environment.git")
-                    (commit "TEMPLATE-PLACEHOLDER-COMMIT:dce")))
-                (sha256
-                (base32
-                    "TEMPLATE-PLACEHOLDER-HASH:dce"))
-                (modules '((guix build utils)))
-                (snippet '(begin
-                    (for-each delete-file-recursively '(".egup.stat" ".stagel-cache" "built"))
-                    (for-each delete-file-recursively (find-files "tests" "^run$" #:directories? #t)) ; "run" folders hold the generated output, while "out" folders hold the expected output
-                    #t
-                ))
-        )
-))
 
 (define dce-dist
 ;  (package
