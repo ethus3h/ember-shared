@@ -290,7 +290,7 @@
 
 (define dce
   (package
-    (name "dce-dist")
+    (name "dce")
     (version "TEMPLATE-PLACEHOLDER-VERSION:dce")
     (source (assoc-ref inputs "dce-input-source"))
     (build-system gnu-build-system)
