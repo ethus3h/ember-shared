@@ -215,6 +215,7 @@
     (license (list agpl3+ bsd-2))))
 
 (define-public dce-common-attributes
+    (hidden-package
   (package
     (name "dce")
     (version "TEMPLATE-PLACEHOLDER-VERSION:dce")
