@@ -216,7 +216,7 @@
 
 (define dce-input-source
     ; This is a hidden package that is used as an input to the main dce package. It just returns the ZIP file. To get the source for dce including this package, use "guix build --sources=all dce".
-    (let ((version "12.0.0"))
+    (let ((version "TEMPLATE-PLACEHOLDER-VERSION:dce"))
     (origin
               (method url-fetch)
               (uri (string-append "https://www.unicode.org/Public/" version "/ucdxml/ucd.all.flat.zip"))
