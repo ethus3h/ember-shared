@@ -258,7 +258,7 @@
             (name "dce-dist")
             (build-system gnu-build-system)
             (arguments '(
-                #:configure-flags '("--" "--build-type=dist")
+                #:configure-flags '("--" "--build-type dist")
                 #:phases (modify-phases %standard-phases
                     (
                         add-after 'unpack 'prepare-additional
