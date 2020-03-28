@@ -359,14 +359,14 @@
     )
 )
 
-(define-public dce-web
+(define-public dce-edit-webextension
     (hidden-package
         (package
             (inherit dce-common-attributes)
-            (name "dce-web")
+            (name "dce-edit-webextension")
             (build-system gnu-build-system)
             (arguments '(
-                #:configure-flags '("--" "--build-type" "web")
+                #:configure-flags '("--" "--build-type" "edit-webextension")
             ))
         )
         (inputs `(
