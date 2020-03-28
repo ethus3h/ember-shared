@@ -321,14 +321,14 @@
     )
 )
 
-(define-public dce-data
+(define-public dce-main
     (hidden-package
         (package
             (inherit dce-common-attributes)
-            (name "dce-data")
+            (name "dce-main")
             (build-system gnu-build-system)
             (arguments '(
-                #:configure-flags '("--" "--build-type" "data")
+                #:configure-flags '("--" "--build-type" "dce")
             ))
         )
     )
