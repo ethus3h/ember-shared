@@ -370,7 +370,7 @@
             ))
         )
         (inputs `(
-            ("dce-dist" ,dce-dist)
+            ("dce-web" ,dce-web)
             ("dce-data" ,dce-data)
             ("dce-implementation-parts" ,dce-implementation-parts)
             ("dce-main" ,dce-main)
