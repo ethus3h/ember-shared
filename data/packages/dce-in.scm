@@ -278,9 +278,6 @@
                 ("dce-input-ucd" ,dce-input-ucd)
                 ("unzip" ,unzip) ; to unpack distfiles
             ))
-            (propagated-inputs `(
-                ("ember-shared-core" ,ember-shared-core)
-            ))
         )
     )
 )
@@ -294,9 +291,6 @@
             (arguments '(
                 #:configure-flags '("--" "--build-type" "data")
             ))
-            (propagated-inputs `(
-                ("ember-shared-core" ,ember-shared-core)
-            ))
         )
     )
 )
@@ -309,9 +303,6 @@
             (build-system gnu-build-system)
             (arguments '(
                 #:configure-flags '("--" "--build-type" "data")
-            ))
-            (propagated-inputs `(
-                ("ember-shared-core" ,ember-shared-core)
             ))
         )
     )
