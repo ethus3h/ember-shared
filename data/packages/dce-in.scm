@@ -302,20 +302,20 @@
             (name "dce-bootstrap")
             (build-system gnu-build-system)
             (arguments '(
-                #:configure-flags '("--" "--build-type" "data")
+                #:configure-flags '("--" "--build-type" "bootstrap")
             ))
         )
     )
 )
 
-(define-public dce-data
+(define-public dce-implementation-parts
     (hidden-package
         (package
             (inherit dce-common-attributes)
-            (name "dce-data")
+            (name "dce-implementation-parts")
             (build-system gnu-build-system)
             (arguments '(
-                #:configure-flags '("--" "--build-type" "data")
+                #:configure-flags '("--" "--build-type" "implementation-parts")
             ))
         )
     )
