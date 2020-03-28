@@ -26,8 +26,8 @@ if ! [[ -e "support/.no-build-data" ]]; then
 fi
 
 if ! [[ -e "support/.no-build-scripts" ]]; then
-rmdir --ignore-fail-on-non-empty scripts
-if [[ -d scripts ]]; then
+    rmdir --ignore-fail-on-non-empty scripts
+    if [[ -d scripts ]]; then
     if [[ -e scripts ]]; then
         mkdir -p "$emberBindir"
         chmod +x scripts/*
