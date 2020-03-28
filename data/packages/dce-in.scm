@@ -317,7 +317,7 @@
             (arguments '(
                 #:configure-flags '("--" "--build-type" "implementation-parts")
             ))
-            (propagated-inputs `(
+            (inputs `(
                 ("dce-bootstrap" ,dce-dist)
                 ("dce-data" ,dce-data)
                 ("ember-shared-core" ,ember-shared-core)
