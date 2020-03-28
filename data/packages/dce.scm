@@ -248,6 +248,9 @@
                 (x11-style "file://thirdparty-licenses/LICENSE.kde-syntax-highlighting.md")
                 (x11-style "file://thirdparty-licenses/LICENSE.wtf8.md")
             ))
+            (propagated-inputs `(
+                ("ember-shared-core" ,ember-shared-core)
+            ))
         )
 )
 
@@ -282,6 +285,22 @@
     )
 )
 
+(define-public dce-data
+    (hidden-package
+        (package
+            (inherit dce-common-attributes)
+            (name "dce-data")
+            (build-system gnu-build-system)
+            (arguments '(
+                #:configure-flags '("--" "--build-type" "data")
+            ))
+            (propagated-inputs `(
+                ("ember-shared-core" ,ember-shared-core)
+            ))
+        )
+    )
+)
+
 (define-public dce
   (package
     (inherit dce-common-attributes)
@@ -292,6 +311,7 @@
     ))
     (propagated-inputs `(
         ("dce-dist" ,dce-dist)
+        ("dce-data" ,dce-data)
         ("ember-shared-core" ,ember-shared-core)
         ; can use srsync from crystallize to copy the built webextension
     ))
