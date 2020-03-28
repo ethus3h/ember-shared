@@ -356,8 +356,6 @@
             ("dce-implementation-parts" ,dce-implementation-parts)
             ("dce-main" ,dce-main)
             ("dce-data" ,dce-data)
-            ("ember-shared-core" ,ember-shared-core)
-            ; can use srsync from crystallize to copy the built webextension
         ))
     )
 )
