@@ -368,10 +368,10 @@
             (arguments '(
                 #:configure-flags '("--" "--build-type" "edit-webextension")
             ))
+            (inputs `(
+                ("dce-web" ,dce-web)
+            ))
         )
-        (inputs `(
-            ("dce-web" ,dce-web)
-        ))
     )
 )
 
