@@ -301,11 +301,11 @@
     )
 )
 
-(define-public dce-data
+(define-public dce-bootstrap
     (hidden-package
         (package
             (inherit dce-common-attributes)
-            (name "dce-data")
+            (name "dce-bootstrap")
             (build-system gnu-build-system)
             (arguments '(
                 #:configure-flags '("--" "--build-type" "data")
