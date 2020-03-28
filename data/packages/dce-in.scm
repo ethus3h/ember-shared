@@ -102,12 +102,12 @@
     (build-system gnu-build-system)
     (arguments '(#:configure-flags '("--module=core") #:phases (modify-phases %standard-phases (delete 'check))))
     (propagated-inputs `(
+        ("bc" ,bc)
         ("ember-shared-error-notify" ,ember-shared-error-notify)
         ; many inputs this needs are implicit in the build system: bash, coreutils, sed, gawk, diffutils
-        ("util-linux" ,util-linux)
         ("perl" ,perl)
+        ("util-linux" ,util-linux)
         ("xxd" ,xxd)
-        ("bc" ,bc)
     ))
     (synopsis "ember-shared core")
     (description "Shell script library core module")
@@ -288,9 +288,9 @@
     (name "dce")
     (build-system gnu-build-system)
     (propagated-inputs `(
+        ("dce-dist" ,dce-dist)
         ("ember-shared-core" ,ember-shared-core)
         ; can use srsync from crystallize to copy the built webextension
-        ("dce-dist" ,dce-dist)
     ))
     ))
 
@@ -345,9 +345,9 @@
         ))
     ))
     (inputs `(
-        ("bash" ,bash)
         ("autoconf" ,autoconf)
         ("automake" ,automake)
+        ("bash" ,bash)
     ))
     (synopsis "recursively calculate file hashes in a directory tree")
     (description "Recursively calculates file hashes in a directory tree.")
