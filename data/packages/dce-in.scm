@@ -282,6 +282,37 @@
     )
 )
 
+(define-public dce-dist
+    (hidden-package
+        (package
+            (inherit dce-common-attributes)
+            (name "dce-dist")
+            (build-system gnu-build-system)
+            (arguments '(
+                #:configure-flags '("--" "--build-type" "dist")
+                #:phases (modify-phases %standard-phases
+                    (
+                        add-after 'unpack 'prepare-additional
+                            (lambda* (#:key inputs #:allow-other-keys)
+                                (mkdir-p "build-temp/distfiles/")
+                                (copy-file (assoc-ref inputs "dce-input-ucd") (string-append "build-temp/distfiles/" (strip-store-file-name (assoc-ref inputs "dce-input-ucd"))))
+                                (invoke "bash" "./support/build-scripts/dist-unpack")
+                                (invoke "touch" "build-temp/dist-already-unpacked")
+                            )
+                    )
+                )
+            ))
+            (inputs `(
+                ("dce-input-ucd" ,dce-input-ucd)
+                ("unzip" ,unzip) ; to unpack distfiles
+            ))
+            (propagated-inputs `(
+                ("ember-shared-core" ,ember-shared-core)
+            ))
+        )
+    )
+)
+
 (define-public dce
   (package
     (inherit dce-common-attributes)
