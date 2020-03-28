@@ -384,8 +384,8 @@
         #:configure-flags '("--" "--build-type" "none")
     ))
     (propagated-inputs `(
-        ("dce-dist" ,dce-dist)
-        ("dce-data" ,dce-data)
+        ("dce-web" ,dce-web)
+        ("dce-edit-webextension" ,dce-edit-webextension)
         ("ember-shared-core" ,ember-shared-core)
         ; can use srsync from crystallize to copy the built webextension
     ))
