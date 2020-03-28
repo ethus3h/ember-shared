@@ -344,6 +344,12 @@
                 #:configure-flags '("--" "--build-type" "web")
             ))
         )
+    (propagated-inputs `(
+        ("dce-dist" ,dce-dist)
+        ("dce-data" ,dce-data)
+        ("ember-shared-core" ,ember-shared-core)
+        ; can use srsync from crystallize to copy the built webextension
+    ))
     )
 )
 
