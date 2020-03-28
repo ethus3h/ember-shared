@@ -301,6 +301,54 @@
     )
 )
 
+(define-public dce-data
+    (hidden-package
+        (package
+            (inherit dce-common-attributes)
+            (name "dce-data")
+            (build-system gnu-build-system)
+            (arguments '(
+                #:configure-flags '("--" "--build-type" "data")
+            ))
+            (propagated-inputs `(
+                ("ember-shared-core" ,ember-shared-core)
+            ))
+        )
+    )
+)
+
+(define-public dce-data
+    (hidden-package
+        (package
+            (inherit dce-common-attributes)
+            (name "dce-data")
+            (build-system gnu-build-system)
+            (arguments '(
+                #:configure-flags '("--" "--build-type" "data")
+            ))
+            (propagated-inputs `(
+                ("ember-shared-core" ,ember-shared-core)
+            ))
+        )
+    )
+)
+
+(define-public dce-data
+    (hidden-package
+        (package
+            (inherit dce-common-attributes)
+            (name "dce-data")
+            (build-system gnu-build-system)
+            (arguments '(
+                #:configure-flags '("--" "--build-type" "data")
+            ))
+            (propagated-inputs `(
+                ("ember-shared-core" ,ember-shared-core)
+            ))
+        )
+    )
+)
+
 (define-public dce
   (package
     (inherit dce-common-attributes)
