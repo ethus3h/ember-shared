@@ -349,13 +349,13 @@
             (arguments '(
                 #:configure-flags '("--" "--build-type" "web")
             ))
+            (inputs `(
+                ("dce-dist" ,dce-dist)
+                ("dce-data" ,dce-data)
+                ("dce-implementation-parts" ,dce-implementation-parts)
+                ("dce-main" ,dce-main)
+            ))
         )
-        (inputs `(
-            ("dce-dist" ,dce-dist)
-            ("dce-data" ,dce-data)
-            ("dce-implementation-parts" ,dce-implementation-parts)
-            ("dce-main" ,dce-main)
-        ))
     )
 )
 
@@ -368,10 +368,10 @@
             (arguments '(
                 #:configure-flags '("--" "--build-type" "edit-webextension")
             ))
+            (inputs `(
+                ("dce-web" ,dce-web)
+            ))
         )
-        (inputs `(
-            ("dce-web" ,dce-web)
-        ))
     )
 )
 
