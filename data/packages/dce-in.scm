@@ -288,7 +288,8 @@
     (name "dce")
     (build-system gnu-build-system)
     (arguments '(
-        #:configure-flags '("--" "--build-type" "dist")
+        #:configure-flags '("--" "--build-type" "none")
+    ))
     (propagated-inputs `(
         ("dce-dist" ,dce-dist)
         ("ember-shared-core" ,ember-shared-core)
