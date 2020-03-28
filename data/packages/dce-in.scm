@@ -248,6 +248,9 @@
                 (x11-style "file://thirdparty-licenses/LICENSE.kde-syntax-highlighting.md")
                 (x11-style "file://thirdparty-licenses/LICENSE.wtf8.md")
             ))
+            (propagated-inputs `(
+                ("ember-shared-core" ,ember-shared-core)
+            ))
         )
 )
 
