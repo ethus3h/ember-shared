@@ -282,14 +282,14 @@
     )
 )
 
-(define-public dce-dist
+(define-public dce-data
     (hidden-package
         (package
             (inherit dce-common-attributes)
-            (name "dce-dist")
+            (name "dce-data")
             (build-system gnu-build-system)
             (arguments '(
-                #:configure-flags '("--" "--build-type" "dist")
+                #:configure-flags '("--" "--build-type" "data")
                 #:phases (modify-phases %standard-phases
                     (
                         add-after 'unpack 'prepare-additional
