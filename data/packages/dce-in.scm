@@ -291,10 +291,6 @@
             (arguments '(
                 #:configure-flags '("--" "--build-type" "data")
             ))
-            (inputs `(
-                ("dce-input-ucd" ,dce-input-ucd)
-                ("unzip" ,unzip) ; to unpack distfiles
-            ))
             (propagated-inputs `(
                 ("ember-shared-core" ,ember-shared-core)
             ))
