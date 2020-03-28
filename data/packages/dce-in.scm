@@ -359,6 +359,25 @@
     )
 )
 
+(define-public dce-web
+    (hidden-package
+        (package
+            (inherit dce-common-attributes)
+            (name "dce-web")
+            (build-system gnu-build-system)
+            (arguments '(
+                #:configure-flags '("--" "--build-type" "web")
+            ))
+        )
+        (inputs `(
+            ("dce-dist" ,dce-dist)
+            ("dce-data" ,dce-data)
+            ("dce-implementation-parts" ,dce-implementation-parts)
+            ("dce-main" ,dce-main)
+        ))
+    )
+)
+
 (define-public dce
   (package
     (inherit dce-common-attributes)
