@@ -287,8 +287,8 @@
     (inherit dce-common-attributes)
     (name "dce")
     (build-system gnu-build-system)
-            (arguments '(
-                #:configure-flags '("--" "--build-type" "dist")
+    (arguments '(
+        #:configure-flags '("--" "--build-type" "dist")
     (propagated-inputs `(
         ("dce-dist" ,dce-dist)
         ("ember-shared-core" ,ember-shared-core)
