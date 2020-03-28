@@ -219,16 +219,16 @@
         (package
             ; do-nothing package to hold common aspects of dce packages
             (name "dce-common-attributes")
-            (version "0-82981ad8db1d9583e4d6ddf67c6de5ab56770041")
+            (version "0-ba90fe7dce8cc227c96795a49fd184991ddb2a43")
             (build-system trivial-build-system)
             (source (origin
                 (method git-fetch)
                 (uri (git-reference
                     (url "https://github.com/ethus3h/ember-information-technology-environment.git")
-                    (commit "82981ad8db1d9583e4d6ddf67c6de5ab56770041")))
+                    (commit "ba90fe7dce8cc227c96795a49fd184991ddb2a43")))
                 (sha256
                 (base32
-                    "0bhg4hd0hlnl4b77zqqwkrdm64c15bhpmahar1v9pj1y64szqa4l"))
+                    "1zz7q3za2i6pcg2yr8c0krrqak1c3scw27pbjcmwbmcm26jbns3h"))
                 (modules '((guix build utils)))
                 (snippet '(begin
                     (for-each delete-file-recursively '(".egup.stat" ".stagel-cache" "built"))
@@ -278,9 +278,6 @@
                 ("dce-input-ucd" ,dce-input-ucd)
                 ("unzip" ,unzip) ; to unpack distfiles
             ))
-            (propagated-inputs `(
-                ("ember-shared-core" ,ember-shared-core)
-            ))
         )
     )
 )
@@ -294,10 +291,87 @@
             (arguments '(
                 #:configure-flags '("--" "--build-type" "data")
             ))
+        )
+    )
+)
+
+(define-public dce-bootstrap
+    (hidden-package
+        (package
+            (inherit dce-common-attributes)
+            (name "dce-bootstrap")
+            (build-system gnu-build-system)
+            (arguments '(
+                #:configure-flags '("--" "--build-type" "bootstrap")
+            ))
+        )
+    )
+)
+
+(define-public dce-implementation-parts
+    (hidden-package
+        (package
+            (inherit dce-common-attributes)
+            (name "dce-implementation-parts")
+            (build-system gnu-build-system)
+            (arguments '(
+                #:configure-flags '("--" "--build-type" "implementation-parts")
+            ))
+            (inputs `(
+                ("dce-bootstrap" ,dce-dist)
+            ))
             (propagated-inputs `(
                 ("ember-shared-core" ,ember-shared-core)
             ))
         )
+    )
+)
+
+(define-public dce-main
+    (hidden-package
+        (package
+            (inherit dce-common-attributes)
+            (name "dce-main")
+            (build-system gnu-build-system)
+            (arguments '(
+                #:configure-flags '("--" "--build-type" "dce")
+            ))
+        )
+    )
+)
+
+(define-public dce-web
+    (hidden-package
+        (package
+            (inherit dce-common-attributes)
+            (name "dce-web")
+            (build-system gnu-build-system)
+            (arguments '(
+                #:configure-flags '("--" "--build-type" "web")
+            ))
+        )
+        (inputs `(
+            ("dce-dist" ,dce-dist)
+            ("dce-data" ,dce-data)
+            ("dce-implementation-parts" ,dce-implementation-parts)
+            ("dce-main" ,dce-main)
+        ))
+    )
+)
+
+(define-public dce-edit-webextension
+    (hidden-package
+        (package
+            (inherit dce-common-attributes)
+            (name "dce-edit-webextension")
+            (build-system gnu-build-system)
+            (arguments '(
+                #:configure-flags '("--" "--build-type" "edit-webextension")
+            ))
+        )
+        (inputs `(
+            ("dce-web" ,dce-web)
+        ))
     )
 )
 
@@ -310,8 +384,8 @@
         #:configure-flags '("--" "--build-type" "none")
     ))
     (propagated-inputs `(
-        ("dce-dist" ,dce-dist)
-        ("dce-data" ,dce-data)
+        ("dce-web" ,dce-web)
+        ("dce-edit-webextension" ,dce-edit-webextension)
         ("ember-shared-core" ,ember-shared-core)
         ; can use srsync from crystallize to copy the built webextension
     ))
