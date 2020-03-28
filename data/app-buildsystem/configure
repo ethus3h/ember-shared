@@ -68,4 +68,6 @@ if [[ -e support/post-default-configure ]]; then
     source support/post-default-configure
 fi
 
+touch support/.configured
+
 echo "Configuring complete."
