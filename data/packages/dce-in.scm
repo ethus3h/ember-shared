@@ -318,7 +318,7 @@
                 #:configure-flags '("--" "--build-type" "implementation-parts")
             ))
             (inputs `(
-                ("dce-bootstrap" ,dce-dist)
+                ("dce-bootstrap" ,dce-bootstrap)
             ))
             (propagated-inputs `(
                 ("ember-shared-core" ,ember-shared-core)
