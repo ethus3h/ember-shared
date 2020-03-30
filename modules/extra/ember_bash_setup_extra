@@ -1019,7 +1019,7 @@ generateGuixPackaging() (
         pn="$repository"
     fi
     packagesDir="$emberPath/ember-shared/data/packages/"
-    cp "$packagesDir"/dce-in.scm "$buildDir"/dce.scm
+    cp "$packagesDir"/dce-in.scm "$buildDir"/ddc.scm
     echo "$pn" >> "$packagesDir"/packages.lst
     removeDuplicateLines < "$packagesDir"/packages.lst | sponge "$packagesDir"/packages.lst
     mkdir -p "$packagesDir/$pn/"
@@ -1049,19 +1049,19 @@ generateGuixPackaging() (
             (
                 # line: package name
                 packageHash="$(<"$packagesDir/$line/hash")"
-                ereplace "TEMPLATE-PLACEHOLDER-HASH:$line" "$packageHash" dce.scm
+                ereplace "TEMPLATE-PLACEHOLDER-HASH:$line" "$packageHash" ddc.scm
                 packageCommit="$(<"$packagesDir/$line/commit")"
-                ereplace "TEMPLATE-PLACEHOLDER-COMMIT:$line" "$packageCommit" dce.scm
+                ereplace "TEMPLATE-PLACEHOLDER-COMMIT:$line" "$packageCommit" ddc.scm
                 packageVersion="$(<"$packagesDir/$line/version")"
-                ereplace "TEMPLATE-PLACEHOLDER-VERSION:$line" "$packageVersion" dce.scm
+                ereplace "TEMPLATE-PLACEHOLDER-VERSION:$line" "$packageVersion" ddc.scm
             )
         done < "$packagesDir"/packages.lst
         cd "$buildDir"/guix || die
-        cp "$buildDir"/dce.scm ./gnu/packages/dce.scm
+        cp "$buildDir"/ddc.scm ./gnu/packages/ddc.scm
         git add .; git commit -m "Automatic update of $pn from $repository (version $commit)"
     )
     cd "$emberPath/ember-shared" || die
-    cp "$buildDir"/dce.scm "$packagesDir"/dce.scm
+    cp "$buildDir"/ddc.scm "$packagesDir"/ddc.scm
     eogup-single
 )
 
