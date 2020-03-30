@@ -334,7 +334,7 @@
             (name "ddc-main")
             (build-system gnu-build-system)
             (arguments '(
-                #:configure-flags '("--" "--build-type" "dce")
+                #:configure-flags '("--" "--build-type" "ddc")
             ))
         )
     )
@@ -375,10 +375,10 @@
     )
 )
 
-(define-public dce
+(define-public ddc
   (package
     (inherit ddc-common-attributes)
-    (name "dce")
+    (name "ddc")
     (build-system gnu-build-system)
     (arguments '(
         #:configure-flags '("--" "--build-type" "none")
