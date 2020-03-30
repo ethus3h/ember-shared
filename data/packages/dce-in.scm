@@ -215,10 +215,10 @@
     (home-page "http://futuramerlin.com/ancillary/crystallize/")
     (license (list agpl3+ bsd-2))))
 
-(define-public dce-common-attributes
+(define-public ddc-common-attributes
         (package
             ; do-nothing package to hold common aspects of dce packages
-            (name "dce-common-attributes")
+            (name "ddc-common-attributes")
             (version "TEMPLATE-PLACEHOLDER-VERSION:dce")
             (build-system trivial-build-system)
             (source (origin
@@ -254,11 +254,11 @@
         )
 )
 
-(define-public dce-dist
+(define-public ddc-dist
     (hidden-package
         (package
-            (inherit dce-common-attributes)
-            (name "dce-dist")
+            (inherit ddc-common-attributes)
+            (name "ddc-dist")
             (build-system gnu-build-system)
             (arguments '(
                 #:configure-flags '("--" "--build-type" "dist")
@@ -267,7 +267,7 @@
                         add-after 'unpack 'prepare-additional
                             (lambda* (#:key inputs #:allow-other-keys)
                                 (mkdir-p "build-temp/distfiles/")
-                                (copy-file (assoc-ref inputs "dce-input-ucd") (string-append "build-temp/distfiles/" (strip-store-file-name (assoc-ref inputs "dce-input-ucd"))))
+                                (copy-file (assoc-ref inputs "ddc-input-ucd") (string-append "build-temp/distfiles/" (strip-store-file-name (assoc-ref inputs "ddc-input-ucd"))))
                                 (invoke "bash" "./support/build-scripts/dist-unpack")
                                 (invoke "touch" "build-temp/dist-already-unpacked")
                             )
@@ -275,18 +275,18 @@
                 )
             ))
             (inputs `(
-                ("dce-input-ucd" ,dce-input-ucd)
+                ("ddc-input-ucd" ,ddc-input-ucd)
                 ("unzip" ,unzip) ; to unpack distfiles
             ))
         )
     )
 )
 
-(define-public dce-data
+(define-public ddc-data
     (hidden-package
         (package
-            (inherit dce-common-attributes)
-            (name "dce-data")
+            (inherit ddc-common-attributes)
+            (name "ddc-data")
             (build-system gnu-build-system)
             (arguments '(
                 #:configure-flags '("--" "--build-type" "data")
@@ -295,11 +295,11 @@
     )
 )
 
-(define-public dce-bootstrap
+(define-public ddc-bootstrap
     (hidden-package
         (package
-            (inherit dce-common-attributes)
-            (name "dce-bootstrap")
+            (inherit ddc-common-attributes)
+            (name "ddc-bootstrap")
             (build-system gnu-build-system)
             (arguments '(
                 #:configure-flags '("--" "--build-type" "bootstrap")
@@ -308,17 +308,17 @@
     )
 )
 
-(define-public dce-implementation-parts
+(define-public ddc-implementation-parts
     (hidden-package
         (package
-            (inherit dce-common-attributes)
-            (name "dce-implementation-parts")
+            (inherit ddc-common-attributes)
+            (name "ddc-implementation-parts")
             (build-system gnu-build-system)
             (arguments '(
                 #:configure-flags '("--" "--build-type" "implementation-parts")
             ))
             (inputs `(
-                ("dce-bootstrap" ,dce-bootstrap)
+                ("ddc-bootstrap" ,ddc-bootstrap)
             ))
             (propagated-inputs `(
                 ("ember-shared-core" ,ember-shared-core)
@@ -327,11 +327,11 @@
     )
 )
 
-(define-public dce-main
+(define-public ddc-main
     (hidden-package
         (package
-            (inherit dce-common-attributes)
-            (name "dce-main")
+            (inherit ddc-common-attributes)
+            (name "ddc-main")
             (build-system gnu-build-system)
             (arguments '(
                 #:configure-flags '("--" "--build-type" "dce")
@@ -340,36 +340,36 @@
     )
 )
 
-(define-public dce-web
+(define-public ddc-web
     (hidden-package
         (package
-            (inherit dce-common-attributes)
-            (name "dce-web")
+            (inherit ddc-common-attributes)
+            (name "ddc-web")
             (build-system gnu-build-system)
             (arguments '(
                 #:configure-flags '("--" "--build-type" "web")
             ))
             (inputs `(
-                ("dce-dist" ,dce-dist)
-                ("dce-data" ,dce-data)
-                ("dce-implementation-parts" ,dce-implementation-parts)
-                ("dce-main" ,dce-main)
+                ("ddc-dist" ,ddc-dist)
+                ("ddc-data" ,ddc-data)
+                ("ddc-implementation-parts" ,ddc-implementation-parts)
+                ("ddc-main" ,ddc-main)
             ))
         )
     )
 )
 
-(define-public dce-edit-webextension
+(define-public ddc-edit-webextension
     (hidden-package
         (package
-            (inherit dce-common-attributes)
-            (name "dce-edit-webextension")
+            (inherit ddc-common-attributes)
+            (name "ddc-edit-webextension")
             (build-system gnu-build-system)
             (arguments '(
                 #:configure-flags '("--" "--build-type" "edit-webextension")
             ))
             (inputs `(
-                ("dce-web" ,dce-web)
+                ("ddc-web" ,ddc-web)
             ))
         )
     )
@@ -377,15 +377,15 @@
 
 (define-public dce
   (package
-    (inherit dce-common-attributes)
+    (inherit ddc-common-attributes)
     (name "dce")
     (build-system gnu-build-system)
     (arguments '(
         #:configure-flags '("--" "--build-type" "none")
     ))
     (propagated-inputs `(
-        ("dce-web" ,dce-web)
-        ("dce-edit-webextension" ,dce-edit-webextension)
+        ("ddc-web" ,ddc-web)
+        ("ddc-edit-webextension" ,ddc-edit-webextension)
         ("ember-shared-core" ,ember-shared-core)
         ; can use srsync from crystallize to copy the built webextension
     ))
@@ -393,7 +393,7 @@
 
 ; DCE distfiles
 
-(define dce-input-ucd
+(define ddc-input-ucd
     ; This is a hidden package-ish thing that is used as an input to the main dce package. It just returns the ZIP file. To get the source for dce including this package, use "guix build --sources=all dce".
     (let ((version "12.0.0"))
     (origin
