@@ -67,15 +67,15 @@
 (define-public ember-shared-error-notify
   (package
     (name "ember-shared-error-notify")
-    (version "1.1.4.529-b6bf4530a8933b568e79afe7e85b22b91b2bd02a")
+    (version "1.1.4.530-059e511cb6e61f71033c141fd92725f289eb502c")
     (source (origin
               (method git-fetch)
               (uri (git-reference
                 (url "https://github.com/ethus3h/ember-shared.git")
-                (commit "b6bf4530a8933b568e79afe7e85b22b91b2bd02a")))
+                (commit "059e511cb6e61f71033c141fd92725f289eb502c")))
               (sha256
                (base32
-                "0lw8rq8wq9f0anrzhwyjmp9zzks6l81hzwbcxl7cq8zrb5dh5l3r"))))
+                "028zifdm5mlhv6r9v8xybnkzdpzzy1abx6g84a3wvzzx7vghfjps"))))
     (build-system gnu-build-system)
     (arguments '(#:configure-flags '("--module=error-notify") #:phases (modify-phases %standard-phases (delete 'check))))
     (propagated-inputs `(
@@ -219,16 +219,16 @@
         (package
             ; do-nothing package to hold common aspects of ddc packages
             (name "ddc-common-attributes")
-            (version "0-19136f1e9d829e92200650924eb806e433f02d43")
+            (version "0-b969d5fcd22ec58af5d616876acb34f6d577085b")
             (build-system trivial-build-system)
             (source (origin
                 (method git-fetch)
                 (uri (git-reference
                     (url "https://github.com/ethus3h/ember-information-technology-environment.git")
-                    (commit "19136f1e9d829e92200650924eb806e433f02d43")))
+                    (commit "b969d5fcd22ec58af5d616876acb34f6d577085b")))
                 (sha256
                 (base32
-                    "0k68ykpy4jcwz8cff95sk7x18s9ci8val4ppa8ajqimka5knfb48"))
+                    "1lfj3j3z048q208dv12vjkskc3bbn0g0588ljvgdq55p3azq24qn"))
                 (modules '((guix build utils)))
                 (snippet '(begin
                     (for-each delete-file-recursively '(".egup.stat" ".stagel-cache" "built"))
