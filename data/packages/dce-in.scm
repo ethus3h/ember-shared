@@ -219,16 +219,16 @@
         (package
             ; do-nothing package to hold common aspects of dce packages
             (name "ddc-common-attributes")
-            (version "TEMPLATE-PLACEHOLDER-VERSION:dce")
+            (version "TEMPLATE-PLACEHOLDER-VERSION:ddc")
             (build-system trivial-build-system)
             (source (origin
                 (method git-fetch)
                 (uri (git-reference
                     (url "https://github.com/ethus3h/ember-information-technology-environment.git")
-                    (commit "TEMPLATE-PLACEHOLDER-COMMIT:dce")))
+                    (commit "TEMPLATE-PLACEHOLDER-COMMIT:ddc")))
                 (sha256
                 (base32
-                    "TEMPLATE-PLACEHOLDER-HASH:dce"))
+                    "TEMPLATE-PLACEHOLDER-HASH:ddc"))
                 (modules '((guix build utils)))
                 (snippet '(begin
                     (for-each delete-file-recursively '(".egup.stat" ".stagel-cache" "built"))
