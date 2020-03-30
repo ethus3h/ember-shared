@@ -219,16 +219,16 @@
         (package
             ; do-nothing package to hold common aspects of ddc packages
             (name "ddc-common-attributes")
-            (version "0-bf867dbd8df8cd36eae8a3948f778e97b0a391e0")
+            (version "0-1d3ec1098d0c9309ed0514a87e48a1dd6550e7d6")
             (build-system trivial-build-system)
             (source (origin
                 (method git-fetch)
                 (uri (git-reference
                     (url "https://github.com/ethus3h/ember-information-technology-environment.git")
-                    (commit "bf867dbd8df8cd36eae8a3948f778e97b0a391e0")))
+                    (commit "1d3ec1098d0c9309ed0514a87e48a1dd6550e7d6")))
                 (sha256
                 (base32
-                    "1sj3cwy0wya057k9aiqglphi240g442wfb2y8lxgk0fjnkk4hr3d"))
+                    "195h3axxb73wrmpdh0yghkhcy8p5i39gpab9daxg3nf649b5vh1z"))
                 (modules '((guix build utils)))
                 (snippet '(begin
                     (for-each delete-file-recursively '(".egup.stat" ".stagel-cache" "built"))
@@ -236,8 +236,8 @@
                     #t
                 ))
             ))
-            (synopsis "Deterministic, distributed, document-centric computing environment")
-            (description "Deterministic, distributed, document-centric computing environment")
+            (synopsis "Deterministic Document Computing")
+            (description "Document-centric software environment")
             (home-page "http://futuramerlin.com/specification/engineering-and-tech/information-technology/software/")
             (license (list
                 agpl3+
