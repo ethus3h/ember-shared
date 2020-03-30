@@ -1019,7 +1019,7 @@ generateGuixPackaging() (
         pn="$repository"
     fi
     packagesDir="$emberPath/ember-shared/data/packages/"
-    cp "$packagesDir"/dce-in.scm "$buildDir"/ddc.scm
+    cp "$packagesDir"/ddc-in.scm "$buildDir"/ddc.scm
     echo "$pn" >> "$packagesDir"/packages.lst
     removeDuplicateLines < "$packagesDir"/packages.lst | sponge "$packagesDir"/packages.lst
     mkdir -p "$packagesDir/$pn/"
