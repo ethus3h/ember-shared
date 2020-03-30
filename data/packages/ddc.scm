@@ -29,7 +29,7 @@
 !#
 
 
-(define-module (gnu packages dce)
+(define-module (gnu packages ddc)
   #:use-module (guix gexp)
   #:use-module (guix packages)
   #:use-module (guix download)
@@ -67,15 +67,15 @@
 (define-public ember-shared-error-notify
   (package
     (name "ember-shared-error-notify")
-    (version "1.1.4.527-ce7306878d1744930d71359acaae0fd1c3d078c9")
+    (version "1.1.4.529-b6bf4530a8933b568e79afe7e85b22b91b2bd02a")
     (source (origin
               (method git-fetch)
               (uri (git-reference
                 (url "https://github.com/ethus3h/ember-shared.git")
-                (commit "ce7306878d1744930d71359acaae0fd1c3d078c9")))
+                (commit "b6bf4530a8933b568e79afe7e85b22b91b2bd02a")))
               (sha256
                (base32
-                "1wjljjv41c0d4rwrbkhc3xqq0hlhmshbasy619am8mawqk0b5nvd"))))
+                "0lw8rq8wq9f0anrzhwyjmp9zzks6l81hzwbcxl7cq8zrb5dh5l3r"))))
     (build-system gnu-build-system)
     (arguments '(#:configure-flags '("--module=error-notify") #:phases (modify-phases %standard-phases (delete 'check))))
     (propagated-inputs `(
@@ -90,15 +90,15 @@
 (define-public ember-shared-core
   (package
     (name "ember-shared-core")
-    (version "1.1.4.527-7c379b2fe971fde5b00ace889911e2d16e9f328b")
+    (version "1.1.4.528-058ec85a97f690fc2f0d80a89f70ac1e8b53c58b")
     (source (origin
               (method git-fetch)
               (uri (git-reference
                 (url "https://github.com/ethus3h/ember-shared.git")
-                (commit "7c379b2fe971fde5b00ace889911e2d16e9f328b")))
+                (commit "058ec85a97f690fc2f0d80a89f70ac1e8b53c58b")))
               (sha256
                (base32
-                "13zfp5lr82w15h79ylswzf8kljx1hwblfh21kq33z7icrzxv30yp"))))
+                "0hxqfgfgsvqs7p6jdzlrc13i7hjksbjrvmvm24xwsvjqi3qiw8n7"))))
     (build-system gnu-build-system)
     (arguments '(#:configure-flags '("--module=core") #:phases (modify-phases %standard-phases (delete 'check))))
     (propagated-inputs `(
@@ -117,15 +117,15 @@
 (define-public ember-shared-main
   (package
     (name "ember-shared-main")
-    (version "1.1.4.527-d84159f5346fc7f61c744fc0b779d6cfae9ac905")
+    (version "1.1.4.528-f4e041448e709bfa9b088af4204fe66fc665b331")
     (source (origin
               (method git-fetch)
               (uri (git-reference
                 (url "https://github.com/ethus3h/ember-shared.git")
-                (commit "d84159f5346fc7f61c744fc0b779d6cfae9ac905")))
+                (commit "f4e041448e709bfa9b088af4204fe66fc665b331")))
               (sha256
                (base32
-                "1iwdaqkx92fmnly23n08nr82bj9f4d37r9vng74q2vj39iqm42zc"))))
+                "1awszhi5f9l1v35dpdr9z8jhhhwhdn2sfnzg6rrq34kw7pphdj7x"))))
     (build-system gnu-build-system)
     (arguments '(#:configure-flags '("--module=main") #:phases (modify-phases %standard-phases (delete 'check))))
     (propagated-inputs `(
@@ -142,15 +142,15 @@
 (define-public ember-shared-extra
   (package
     (name "ember-shared-extra")
-    (version "1.1.4.527-b50282db0c507780b78888f605cba6edb9b2c981")
+    (version "1.1.4.528-fc81b20a576a70688469093f1ad1591c27d18e0f")
     (source (origin
               (method git-fetch)
               (uri (git-reference
                 (url "https://github.com/ethus3h/ember-shared.git")
-                (commit "b50282db0c507780b78888f605cba6edb9b2c981")))
+                (commit "fc81b20a576a70688469093f1ad1591c27d18e0f")))
               (sha256
                (base32
-                "16zn5jdy76s0gqbbq9785kx0m9smsv6x1l58xmdcs5x23qbghafs"))))
+                "1xmqf9jgc22yghwd9bdvibka9i771yd2n66i6x028v85akii4l9p"))))
     (build-system gnu-build-system)
     (arguments '(#:configure-flags '("--module=extra") #:phases (modify-phases %standard-phases (delete 'check))))
     (propagated-inputs `(
@@ -215,20 +215,20 @@
     (home-page "http://futuramerlin.com/ancillary/crystallize/")
     (license (list agpl3+ bsd-2))))
 
-(define-public dce-common-attributes
+(define-public ddc-common-attributes
         (package
-            ; do-nothing package to hold common aspects of dce packages
-            (name "dce-common-attributes")
-            (version "0-2dc5719db93f6753062c05f5f89a25ad1f7f7598")
+            ; do-nothing package to hold common aspects of ddc packages
+            (name "ddc-common-attributes")
+            (version "0-19136f1e9d829e92200650924eb806e433f02d43")
             (build-system trivial-build-system)
             (source (origin
                 (method git-fetch)
                 (uri (git-reference
                     (url "https://github.com/ethus3h/ember-information-technology-environment.git")
-                    (commit "2dc5719db93f6753062c05f5f89a25ad1f7f7598")))
+                    (commit "19136f1e9d829e92200650924eb806e433f02d43")))
                 (sha256
                 (base32
-                    "0aswcmxs3imlgcinmq45py08kgiqixdrbvi1zcng2dqg5ddlvjgj"))
+                    "0k68ykpy4jcwz8cff95sk7x18s9ci8val4ppa8ajqimka5knfb48"))
                 (modules '((guix build utils)))
                 (snippet '(begin
                     (for-each delete-file-recursively '(".egup.stat" ".stagel-cache" "built"))
@@ -254,11 +254,11 @@
         )
 )
 
-(define-public dce-dist
+(define-public ddc-dist
     (hidden-package
         (package
-            (inherit dce-common-attributes)
-            (name "dce-dist")
+            (inherit ddc-common-attributes)
+            (name "ddc-dist")
             (build-system gnu-build-system)
             (arguments '(
                 #:configure-flags '("--" "--build-type" "dist")
@@ -267,7 +267,7 @@
                         add-after 'unpack 'prepare-additional
                             (lambda* (#:key inputs #:allow-other-keys)
                                 (mkdir-p "build-temp/distfiles/")
-                                (copy-file (assoc-ref inputs "dce-input-ucd") (string-append "build-temp/distfiles/" (strip-store-file-name (assoc-ref inputs "dce-input-ucd"))))
+                                (copy-file (assoc-ref inputs "ddc-input-ucd") (string-append "build-temp/distfiles/" (strip-store-file-name (assoc-ref inputs "ddc-input-ucd"))))
                                 (invoke "bash" "./support/build-scripts/dist-unpack")
                                 (invoke "touch" "build-temp/dist-already-unpacked")
                             )
@@ -275,18 +275,18 @@
                 )
             ))
             (inputs `(
-                ("dce-input-ucd" ,dce-input-ucd)
+                ("ddc-input-ucd" ,ddc-input-ucd)
                 ("unzip" ,unzip) ; to unpack distfiles
             ))
         )
     )
 )
 
-(define-public dce-data
+(define-public ddc-data
     (hidden-package
         (package
-            (inherit dce-common-attributes)
-            (name "dce-data")
+            (inherit ddc-common-attributes)
+            (name "ddc-data")
             (build-system gnu-build-system)
             (arguments '(
                 #:configure-flags '("--" "--build-type" "data")
@@ -295,11 +295,11 @@
     )
 )
 
-(define-public dce-bootstrap
+(define-public ddc-bootstrap
     (hidden-package
         (package
-            (inherit dce-common-attributes)
-            (name "dce-bootstrap")
+            (inherit ddc-common-attributes)
+            (name "ddc-bootstrap")
             (build-system gnu-build-system)
             (arguments '(
                 #:configure-flags '("--" "--build-type" "bootstrap")
@@ -308,17 +308,17 @@
     )
 )
 
-(define-public dce-implementation-parts
+(define-public ddc-implementation-parts
     (hidden-package
         (package
-            (inherit dce-common-attributes)
-            (name "dce-implementation-parts")
+            (inherit ddc-common-attributes)
+            (name "ddc-implementation-parts")
             (build-system gnu-build-system)
             (arguments '(
                 #:configure-flags '("--" "--build-type" "implementation-parts")
             ))
             (inputs `(
-                ("dce-bootstrap" ,dce-bootstrap)
+                ("ddc-bootstrap" ,ddc-bootstrap)
             ))
             (propagated-inputs `(
                 ("ember-shared-core" ,ember-shared-core)
@@ -327,74 +327,74 @@
     )
 )
 
-(define-public dce-main
+(define-public ddc-main
     (hidden-package
         (package
-            (inherit dce-common-attributes)
-            (name "dce-main")
+            (inherit ddc-common-attributes)
+            (name "ddc-main")
             (build-system gnu-build-system)
             (arguments '(
-                #:configure-flags '("--" "--build-type" "dce")
+                #:configure-flags '("--" "--build-type" "ddc")
             ))
         )
     )
 )
 
-(define-public dce-web
+(define-public ddc-web
     (hidden-package
         (package
-            (inherit dce-common-attributes)
-            (name "dce-web")
+            (inherit ddc-common-attributes)
+            (name "ddc-web")
             (build-system gnu-build-system)
             (arguments '(
                 #:configure-flags '("--" "--build-type" "web")
             ))
             (inputs `(
-                ("dce-dist" ,dce-dist)
-                ("dce-data" ,dce-data)
-                ("dce-implementation-parts" ,dce-implementation-parts)
-                ("dce-main" ,dce-main)
+                ("ddc-dist" ,ddc-dist)
+                ("ddc-data" ,ddc-data)
+                ("ddc-implementation-parts" ,ddc-implementation-parts)
+                ("ddc-main" ,ddc-main)
             ))
         )
     )
 )
 
-(define-public dce-edit-webextension
+(define-public ddc-edit-webextension
     (hidden-package
         (package
-            (inherit dce-common-attributes)
-            (name "dce-edit-webextension")
+            (inherit ddc-common-attributes)
+            (name "ddc-edit-webextension")
             (build-system gnu-build-system)
             (arguments '(
                 #:configure-flags '("--" "--build-type" "edit-webextension")
             ))
             (inputs `(
-                ("dce-web" ,dce-web)
+                ("ddc-web" ,ddc-web)
             ))
         )
     )
 )
 
-(define-public dce
+(define-public ddc
   (package
-    (inherit dce-common-attributes)
-    (name "dce")
+    (inherit ddc-common-attributes)
+    (name "ddc")
     (build-system gnu-build-system)
     (arguments '(
         #:configure-flags '("--" "--build-type" "none")
     ))
     (propagated-inputs `(
-        ("dce-web" ,dce-web)
-        ("dce-edit-webextension" ,dce-edit-webextension)
+        ("ddc-web" ,ddc-web)
+        ("ddc-edit-webextension" ,ddc-edit-webextension)
         ("ember-shared-core" ,ember-shared-core)
         ; can use srsync from crystallize to copy the built webextension
     ))
     ))
 
-; DCE distfiles
+; DDC distfiles
 
-(define dce-input-ucd
-    ; This is a hidden package-ish thing that is used as an input to the main dce package. It just returns the ZIP file. To get the source for dce including this package, use "guix build --sources=all dce".
+(define ddc-input-ucd
+    ; This is a hidden package-ish thing that is used as an input to the main ddc package. It just returns the ZIP file. To get the source for ddc including this package, use "guix build --sources=all ddc".
     (let ((version "12.0.0"))
     (origin
               (method url-fetch)
