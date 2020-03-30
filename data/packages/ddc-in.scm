@@ -236,8 +236,8 @@
                     #t
                 ))
             ))
-            (synopsis "Deterministic, distributed, document-centric computing environment")
-            (description "Deterministic, distributed, document-centric computing environment")
+            (synopsis "Deterministic Document Computing")
+            (description "Document-centric software environment emphasizing determinism")
             (home-page "http://futuramerlin.com/specification/engineering-and-tech/information-technology/software/")
             (license (list
                 agpl3+
