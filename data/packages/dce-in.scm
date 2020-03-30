@@ -394,7 +394,7 @@
 ; DDC distfiles
 
 (define ddc-input-ucd
-    ; This is a hidden package-ish thing that is used as an input to the main dce package. It just returns the ZIP file. To get the source for dce including this package, use "guix build --sources=all dce".
+    ; This is a hidden package-ish thing that is used as an input to the main ddc package. It just returns the ZIP file. To get the source for ddc including this package, use "guix build --sources=all ddc".
     (let ((version "12.0.0"))
     (origin
               (method url-fetch)
