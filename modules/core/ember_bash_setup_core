@@ -161,7 +161,26 @@ getEmberDataDir() (
         getDDCDataDir-unsplit
         exit 0
     elif commandExists getDDCDataDir-edit-webextension; then
-
+        getDDCDataDir-edit-webextension
+        exit 0
+    elif commandExists getDDCDataDir-edit-webextension; then
+        getDDCDataDir-edit-webextension
+        exit 0
+    elif commandExists getDDCDataDir-edit-webextension; then
+        getDDCDataDir-edit-webextension
+        exit 0
+    elif commandExists getDDCDataDir-edit-webextension; then
+        getDDCDataDir-edit-webextension
+        exit 0
+    elif commandExists getDDCDataDir-edit-webextension; then
+        getDDCDataDir-edit-webextension
+        exit 0
+    elif commandExists getDDCDataDir-edit-webextension; then
+        getDDCDataDir-edit-webextension
+        exit 0
+    elif commandExists getDDCDataDir-edit-webextension; then
+        getDDCDataDir-edit-webextension
+        exit 0
 )
 
 #0  NUL    16 DLE    32 SP   48 0    64 @    80 P    96  `    112 p
