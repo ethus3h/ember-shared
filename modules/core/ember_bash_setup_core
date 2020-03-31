@@ -158,31 +158,31 @@ getEmberDataDir() (
         getDDCDataDir-meta || die
         return 0
     elif commandExists getDDCDataDir-unsplit; then
-        getDDCDataDir-unsplit
+        getDDCDataDir-unsplit || die
         return 0
     elif commandExists getDDCDataDir-edit-webextension; then
-        getDDCDataDir-edit-webextension
+        getDDCDataDir-edit-webextension || die
         return 0
     elif commandExists getDDCDataDir-web; then
-        getDDCDataDir-web
+        getDDCDataDir-web || die
         return 0
     elif commandExists getDDCDataDir-main; then
-        getDDCDataDir-main
+        getDDCDataDir-main || die
         return 0
     elif commandExists getDDCDataDir-implementation-parts; then
-        getDDCDataDir-implementation-parts
+        getDDCDataDir-implementation-parts || die
         return 0
     elif commandExists getDDCDataDir-bootstrap; then
-        getDDCDataDir-bootstrap
+        getDDCDataDir-bootstrap || die
         return 0
     elif commandExists getDDCDataDir-data; then
-        getDDCDataDir-data
+        getDDCDataDir-data || die
         return 0
     elif commandExists getDDCDataDir-dist; then
-        getDDCDataDir-dist
+        getDDCDataDir-dist || die
         return 0
     else
-        getEmberDataDirShared
+        getEmberDataDirShared || die
         return 0
     fi
 )
