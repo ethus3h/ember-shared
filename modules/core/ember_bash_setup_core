@@ -155,7 +155,7 @@ asciiIsNewline() {
 getEmberDataDir() (
     # Check for each possible command, and return whichever one will have the most data available
     if commandExists getDDCDataDir-meta; then
-        getDDCDataDir-meta
+        getDDCDataDir-meta || die
         return 0
     elif commandExists getDDCDataDir-unsplit; then
         getDDCDataDir-unsplit
