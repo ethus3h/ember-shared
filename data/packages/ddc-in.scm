@@ -344,6 +344,8 @@
             ))
             (inputs `(
                 ("ddc-dist" ,ddc-dist)
+                ("ddc-data" ,ddc-data)
+                ("ddc-implementation-parts" ,ddc-implementation-parts)
             ))
         )
     )
