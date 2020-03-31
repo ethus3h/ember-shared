@@ -334,6 +334,7 @@
 )
 
 (define-public ddc-main
+    ;; This is the package that
     (hidden-package
         (package
             (inherit ddc-common-attributes)
