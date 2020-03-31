@@ -291,6 +291,9 @@
             (arguments '(
                 #:configure-flags '("--" "--build-type" "data")
             ))
+            (inputs `(
+                ("ddc-dist" ,ddc-dist)
+            ))
         )
     )
 )
