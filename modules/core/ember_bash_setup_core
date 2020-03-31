@@ -181,6 +181,10 @@ getEmberDataDir() (
     elif commandExists getDDCDataDir-dist; then
         getDDCDataDir-dist
         exit 0
+    else
+        getEmberDataDirShared
+        exit 0
+    fi
 )
 
 #0  NUL    16 DLE    32 SP   48 0    64 @    80 P    96  `    112 p
