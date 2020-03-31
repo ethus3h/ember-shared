@@ -163,23 +163,23 @@ getEmberDataDir() (
     elif commandExists getDDCDataDir-edit-webextension; then
         getDDCDataDir-edit-webextension
         exit 0
-    elif commandExists getDDCDataDir-edit-webextension; then
-        getDDCDataDir-edit-webextension
+    elif commandExists getDDCDataDir-web; then
+        getDDCDataDir-web
         exit 0
-    elif commandExists getDDCDataDir-edit-webextension; then
-        getDDCDataDir-edit-webextension
+    elif commandExists getDDCDataDir-main; then
+        getDDCDataDir-main
         exit 0
-    elif commandExists getDDCDataDir-edit-webextension; then
-        getDDCDataDir-edit-webextension
+    elif commandExists getDDCDataDir-implementation-parts; then
+        getDDCDataDir-implementation-parts
         exit 0
-    elif commandExists getDDCDataDir-edit-webextension; then
-        getDDCDataDir-edit-webextension
+    elif commandExists getDDCDataDir-bootstrap; then
+        getDDCDataDir-bootstrap
         exit 0
-    elif commandExists getDDCDataDir-edit-webextension; then
-        getDDCDataDir-edit-webextension
+    elif commandExists getDDCDataDir-data; then
+        getDDCDataDir-data
         exit 0
-    elif commandExists getDDCDataDir-edit-webextension; then
-        getDDCDataDir-edit-webextension
+    elif commandExists getDDCDataDir-dist; then
+        getDDCDataDir-dist
         exit 0
 )
 
