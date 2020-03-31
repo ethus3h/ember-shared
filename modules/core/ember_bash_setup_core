@@ -149,6 +149,7 @@ asciiIsNewline() {
 
 getEmberDataDir() {
     # Check for each possible command, and return whichever one will have the most data available
+    if ! fmwtk_loc="$(type -P "futuramerlin-web-toolkit-build")" || [[ -z $fmwtk_loc ]]; then
 }
 
 #0  NUL    16 DLE    32 SP   48 0    64 @    80 P    96  `    112 p
