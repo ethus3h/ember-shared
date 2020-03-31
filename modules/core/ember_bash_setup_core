@@ -32,6 +32,11 @@ emdate() (
     echo "${temp//-/}"
 )
 
+commandExists() {
+    type "$1" >/dev/null 2>&1 || exit 1
+    true
+}
+
 setVariableToCommandOutput() {
     if [[ "$1" == "emSetVariableToCommandOutputVar" ]]; then
         return 1
