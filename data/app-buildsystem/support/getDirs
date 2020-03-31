@@ -164,4 +164,6 @@ fi
 
 emberEmberdir="$emberSharedstatedir"/lib/ember
 
+echo "$emberEmberdir" > support/.emberdir
+
 # Done setting up variables
