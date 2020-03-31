@@ -54,7 +54,7 @@ if ! fmwtk_loc="$(type -P "futuramerlin-web-toolkit-build")" || [[ -z "$fmwtk_lo
     echo $'\n'"futuramerlin-web-toolkit not found: documentation will not be built."$'\n'
 fi
 
-buildsystemDir="$(getEmberSharedDataDir)/app-buildsystem"
+buildsystemDir="$(getEmberDataDirShared)/app-buildsystem"
 
 printf '%s' "$buildsystemDir" > support/.buildsystemdir
 
