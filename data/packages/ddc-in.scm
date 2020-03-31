@@ -306,9 +306,6 @@
             ))
             (inputs `(
                 ("ddc-dist" ,ddc-dist)
-                ("ddc-data" ,ddc-data)
-                ("ddc-implementation-parts" ,ddc-implementation-parts)
-                ("ddc-main" ,ddc-main)
             ))
         )
     )
@@ -343,7 +340,7 @@
                 #:configure-flags '("--" "--build-type" "ddc")
             ))
             (inputs `(
-                ("ddc-implementation-parts" ,ddc-implementation-parts)
+                ("ddc-dist" ,ddc-dist)
             ))
         )
     )
