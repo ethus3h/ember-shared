@@ -381,7 +381,7 @@
     (name "ddc")
     (build-system gnu-build-system)
     (arguments '(
-        #:configure-flags '("--" "--build-type" "none")
+        #:configure-flags '("--" "--build-type" "meta")
     ))
     (propagated-inputs `(
         ("ddc-web" ,ddc-web)
