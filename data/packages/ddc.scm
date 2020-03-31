@@ -67,15 +67,15 @@
 (define-public ember-shared-error-notify
   (package
     (name "ember-shared-error-notify")
-    (version "1.1.4.530-059e511cb6e61f71033c141fd92725f289eb502c")
+    (version "1.1.4.531-4fcb602107476875a8961bb29c0ab583755e49d5")
     (source (origin
               (method git-fetch)
               (uri (git-reference
                 (url "https://github.com/ethus3h/ember-shared.git")
-                (commit "059e511cb6e61f71033c141fd92725f289eb502c")))
+                (commit "4fcb602107476875a8961bb29c0ab583755e49d5")))
               (sha256
                (base32
-                "028zifdm5mlhv6r9v8xybnkzdpzzy1abx6g84a3wvzzx7vghfjps"))))
+                "0iz7r307abi9w1m9kciwczdqq4r0l84x1qd2fjf4p0hpivs1ayrz"))))
     (build-system gnu-build-system)
     (arguments '(#:configure-flags '("--module=error-notify") #:phases (modify-phases %standard-phases (delete 'check))))
     (propagated-inputs `(
@@ -291,6 +291,9 @@
             (arguments '(
                 #:configure-flags '("--" "--build-type" "data")
             ))
+            (inputs `(
+                ("ddc-dist" ,ddc-dist)
+            ))
         )
     )
 )
@@ -303,6 +306,9 @@
             (build-system gnu-build-system)
             (arguments '(
                 #:configure-flags '("--" "--build-type" "bootstrap")
+            ))
+            (inputs `(
+                ("ddc-dist" ,ddc-dist)
             ))
         )
     )
@@ -336,6 +342,9 @@
             (arguments '(
                 #:configure-flags '("--" "--build-type" "ddc")
             ))
+            (inputs `(
+                ("ddc-dist" ,ddc-dist)
+            ))
         )
     )
 )
@@ -350,7 +359,6 @@
                 #:configure-flags '("--" "--build-type" "web")
             ))
             (inputs `(
-                ("ddc-dist" ,ddc-dist)
                 ("ddc-data" ,ddc-data)
                 ("ddc-implementation-parts" ,ddc-implementation-parts)
                 ("ddc-main" ,ddc-main)
@@ -381,7 +389,7 @@
     (name "ddc")
     (build-system gnu-build-system)
     (arguments '(
-        #:configure-flags '("--" "--build-type" "none")
+        #:configure-flags '("--" "--build-type" "meta")
     ))
     (propagated-inputs `(
         ("ddc-web" ,ddc-web)
