@@ -359,7 +359,6 @@
                 #:configure-flags '("--" "--build-type" "web")
             ))
             (inputs `(
-                ("ddc-dist" ,ddc-dist)
                 ("ddc-data" ,ddc-data)
                 ("ddc-implementation-parts" ,ddc-implementation-parts)
                 ("ddc-main" ,ddc-main)
