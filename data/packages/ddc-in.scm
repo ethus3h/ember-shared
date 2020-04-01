@@ -362,7 +362,7 @@
                 #:configure-flags '("--" "--build-type" "web")
             ))
             (inputs `(
-                ;("ddc-data" ,ddc-data)
+                ;("ddc-data" ,ddc-data) required if not for the adjustments to maintain the chain of modules
                 ;("ddc-implementation-parts" ,ddc-implementation-parts)
                 ("ddc-main" ,ddc-main)
             ))
