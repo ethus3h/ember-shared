@@ -192,6 +192,7 @@ createEmberSharedCoreScript() {
     [[ -f "$(getEmberDataDirShared)/app-buildsystem/support/script-template-core" ]] || die
     cp "$(getEmberDataDirShared)/app-buildsystem/support/script-template-core" "$1"
     chmod +x "$1"
+    chmod +w "$1"
 }
 
 createEmberSharedScript() {
