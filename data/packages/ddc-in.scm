@@ -309,6 +309,7 @@
                 #:configure-flags '("--" "--build-type" "bootstrap")
             ))
             (inputs `(
+                ; actually only requires ddc-dist, except to maintain the chain of modules
                 ("ddc-data" ,ddc-data)
             ))
         )
