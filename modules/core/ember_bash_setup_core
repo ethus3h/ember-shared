@@ -188,6 +188,7 @@ getEmberDataDir() (
 )
 
 createEmberSharedScript() {
+    [[ -f "$(getEmberDataDirShared)/support/script-template" ]] || die
     cat "$(getEmberDataDirShared)/support/script-template"
 }
 
