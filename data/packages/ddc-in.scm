@@ -345,6 +345,7 @@
                 #:configure-flags '("--" "--build-type" "ddc")
             ))
             (inputs `(
+                ; actually only requires ddc-dist, except to maintain the chain of modules
                 ("ddc-dist" ,ddc-dist)
             ))
         )
