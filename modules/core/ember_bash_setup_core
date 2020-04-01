@@ -182,7 +182,7 @@ getDDCDataDir() (
         getDDCDataDir-dist || die
         return 0
     else
-        die
+        die "DDC is not installed"
     fi
 )
 
