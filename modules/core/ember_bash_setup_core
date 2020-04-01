@@ -182,8 +182,7 @@ getDDCDataDir() (
         getDDCDataDir-dist || die
         return 0
     else
-        getEmberDataDirShared || die
-        return 0
+        die
     fi
 )
 
