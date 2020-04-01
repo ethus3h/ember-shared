@@ -188,7 +188,8 @@ getEmberDataDir() (
 )
 
 createEmberSharedCoreScript() {
-    # Creates a script header at the file path specified that will source ember_bash_setup_core.
+    # Creates a script header at the file path specified that will source ember_bash_setup_core. Or, provide a template name as "$2".
+    if [[ -n ""]]
     [[ -f "$(getEmberDataDirShared)/app-buildsystem/support/script-template-core" ]] || die
     cp "$(getEmberDataDirShared)/app-buildsystem/support/script-template-core" "$1"
     chmod +x "$1"
