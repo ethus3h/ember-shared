@@ -198,7 +198,7 @@ createEmberSharedScript() {
     # Creates a script header at the file path specified that will source ember_bash_setup.
     [[ -f "$(getEmberDataDirShared)/app-buildsystem/support/script-template" ]] || die
     cp "$(getEmberDataDirShared)/app-buildsystem/support/script-template" "$1"
-    chmod +x "$1"
+    chmod +wx "$1"
 }
 
 #0  NUL    16 DLE    32 SP   48 0    64 @    80 P    96  `    112 p
