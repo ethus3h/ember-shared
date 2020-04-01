@@ -309,7 +309,6 @@
                 #:configure-flags '("--" "--build-type" "bootstrap")
             ))
             (inputs `(
-                ; only needs dcc-data to build, but
                 ("ddc-dist" ,ddc-dist)
             ))
         )
