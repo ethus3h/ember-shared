@@ -188,7 +188,7 @@ getEmberDataDir() (
 )
 
 createEmberSharedScript() {
-    cat "$(getEmberDataDirShared)"
+    cat "$(getEmberDataDirShared)/"
 }
 
 #0  NUL    16 DLE    32 SP   48 0    64 @    80 P    96  `    112 p
