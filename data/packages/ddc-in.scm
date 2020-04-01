@@ -309,7 +309,7 @@
                 #:configure-flags '("--" "--build-type" "bootstrap")
             ))
             (inputs `(
-                ("ddc-dist" ,ddc-dist)
+                ("ddc-data" ,ddc-data)
             ))
         )
     )
