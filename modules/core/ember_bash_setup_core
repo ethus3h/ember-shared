@@ -189,8 +189,8 @@ getEmberDataDir() (
 
 createEmberSharedCoreScript() {
     # Creates a script header at the file path specified.
-    [[ -f "$(getEmberDataDirShared)/support/script-template-core" ]] || die
-    cp "$(getEmberDataDirShared)/support/script-template-core" "$1"
+    [[ -f "$(getEmberDataDirShared)/app-buildsystem/support/script-template-core" ]] || die
+    cp "$(getEmberDataDirShared)/app-buildsystem/support/script-template-core" "$1"
     chmod +x "$1"
 }
 
