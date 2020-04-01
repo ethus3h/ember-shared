@@ -194,7 +194,7 @@ createEmberSharedCoreScript() {
     chmod +x "$1"
 }
 
-createEmberSharedCoreScript() {
+createEmberSharedScript() {
     # Creates a script header at the file path specified.
     [[ -f "$(getEmberDataDirShared)/app-buildsystem/support/script-template-core" ]] || die
     cp "$(getEmberDataDirShared)/app-buildsystem/support/script-template-core" "$1"
