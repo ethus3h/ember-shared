@@ -309,7 +309,8 @@
                 #:configure-flags '("--" "--build-type" "bootstrap")
             ))
             (inputs `(
-                ("ddc-dist" ,ddc-dist)
+                ; actually only requires ddc-dist, except to maintain the chain of modules
+                ("ddc-data" ,ddc-data)
             ))
         )
     )
@@ -344,7 +345,8 @@
                 #:configure-flags '("--" "--build-type" "ddc")
             ))
             (inputs `(
-                ("ddc-dist" ,ddc-dist)
+                ; actually only requires ddc-dist, except to maintain the chain of modules
+                ("ddc-implementation-parts" ,ddc-implementation-parts)
             ))
         )
     )
@@ -360,8 +362,9 @@
                 #:configure-flags '("--" "--build-type" "web")
             ))
             (inputs `(
-                ("ddc-data" ,ddc-data)
-                ("ddc-implementation-parts" ,ddc-implementation-parts)
+                ; these first two are required if not for the adjustments to maintain the chain of modules
+                ;("ddc-data" ,ddc-data)
+                ;("ddc-implementation-parts" ,ddc-implementation-parts)
                 ("ddc-main" ,ddc-main)
             ))
         )
@@ -393,7 +396,7 @@
         #:configure-flags '("--" "--build-type" "meta")
     ))
     (propagated-inputs `(
-        ("ddc-web" ,ddc-web)
+        ;("ddc-web" ,ddc-web) required if not for the chain of modules
         ("ddc-edit-webextension" ,ddc-edit-webextension)
         ("ember-shared-core" ,ember-shared-core)
         ; can use srsync from crystallize to copy the built webextension
