@@ -187,9 +187,9 @@ getEmberDataDir() (
     fi
 )
 
-createEmberSharedScript() {
-    [[ -f "$(getEmberDataDirShared)/support/script-template" ]] || die
-    cat "$(getEmberDataDirShared)/support/script-template"
+createEmberSharedCoreScript() {
+    [[ -f "$(getEmberDataDirShared)/support/script-template-core" ]] || die
+    cat "$(getEmberDataDirShared)/support/script-template-core"
 }
 
 #0  NUL    16 DLE    32 SP   48 0    64 @    80 P    96  `    112 p
