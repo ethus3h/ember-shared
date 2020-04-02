@@ -91,15 +91,15 @@
 (define-public ember-shared-core
   (package
     (name "ember-shared-core")
-    (version "1.1.4.537-56b6ec1df18d7d14b7b3f8876357cd161a50de89")
+    (version "1.1.4.538-c1cf7efe57288a2b10e917a9de53a79bfd5d9eae")
     (source (origin
               (method git-fetch)
               (uri (git-reference
                 (url "https://github.com/ethus3h/ember-shared.git")
-                (commit "56b6ec1df18d7d14b7b3f8876357cd161a50de89")))
+                (commit "c1cf7efe57288a2b10e917a9de53a79bfd5d9eae")))
               (sha256
                (base32
-                "1iz1k3r9md0j8cd7s1w78q56230f2qpz9pgc8975klmnpq4h2rn6"))))
+                "0a8amyn4mm7n03sw7vds3ipnjm17mipadw6aj18fgsaznx24j03d"))))
     (build-system gnu-build-system)
     (arguments '(#:configure-flags '("--module=core") #:phases (modify-phases %standard-phases (delete 'check))))
     (propagated-inputs `(
