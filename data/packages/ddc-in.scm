@@ -399,8 +399,7 @@
         ("ddc-edit-webextension" ,ddc-edit-webextension)
         ("ember-shared-core" ,ember-shared-core)
         ; can use srsync from crystallize to copy the built webextension
-    ))
-    ))
+    )) ))
 
 ; DDC distfiles
 
