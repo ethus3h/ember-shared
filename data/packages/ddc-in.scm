@@ -342,7 +342,7 @@
             (name "ddc-main")
             (build-system gnu-build-system)
             (arguments '(
-                #:configure-flags '("--" "--build-type" "ddc")
+                #:configure-flags '("--" "--build-type" "main")
             ))
             (inputs `(
                 ; actually only requires ddc-dist, except to maintain the chain of modules
