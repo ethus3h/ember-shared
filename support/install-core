@@ -7,7 +7,7 @@ trap 'echo "Error installing module"; exit 1' ERR
 source data/app-buildsystem/support/getDirs
 
 mkdir -p "$emberBindir"
-cp scripts/ember_bash_setup_core "$emberBindir"
+cp scripts/{ember_bash_setup_core,warn} "$emberBindir"
 mkdir -p "$emberDatadir"
 mkdir "$emberDatadir"/ember-shared/
 cp -r data "$emberDatadir"/ember-shared/
