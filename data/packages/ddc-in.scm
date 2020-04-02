@@ -393,8 +393,7 @@
     (name "ddc")
     (build-system gnu-build-system)
     (arguments '(
-        #:configure-flags '("--" "--build-type" "meta")
-    ))
+        #:configure-flags '("--" "--build-type" "meta") ))
     (propagated-inputs `(
         ;("ddc-web" ,ddc-web) required if not for the chain of modules
         ("ddc-edit-webextension" ,ddc-edit-webextension)
