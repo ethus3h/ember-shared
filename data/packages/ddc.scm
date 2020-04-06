@@ -68,15 +68,15 @@
 (define-public ember-shared-error-notify
   (package
     (name "ember-shared-error-notify")
-    (version "1.1.4.538-b5e3f8948268b4ec3bd40ef43de5a575cdd99989")
+    (version "1.1.4.539-f7157cdf5133045bd29a0cf303d1dfbce9cebe47")
     (source (origin
               (method git-fetch)
               (uri (git-reference
                 (url "https://github.com/ethus3h/ember-shared.git")
-                (commit "b5e3f8948268b4ec3bd40ef43de5a575cdd99989")))
+                (commit "f7157cdf5133045bd29a0cf303d1dfbce9cebe47")))
               (sha256
                (base32
-                "05cirq11gvcm69j2f4ihi5nmi3y2k2mkjv1h1k471r8v18ph8sxw"))))
+                "1c36v2cs615zq40b1rmjw6vxxdfs81jrmhcbm7d4n60ijizkc2bd"))))
     (build-system gnu-build-system)
     (arguments '(#:configure-flags '("--module=error-notify") #:phases (modify-phases %standard-phases (delete 'check))))
     (propagated-inputs `(
@@ -393,15 +393,13 @@
     (name "ddc")
     (build-system gnu-build-system)
     (arguments '(
-        #:configure-flags '("--" "--build-type" "meta")
-    ))
+        #:configure-flags '("--" "--build-type" "meta") ))
     (propagated-inputs `(
         ;("ddc-web" ,ddc-web) required if not for the chain of modules
         ("ddc-edit-webextension" ,ddc-edit-webextension)
         ("ember-shared-core" ,ember-shared-core)
         ; can use srsync from crystallize to copy the built webextension
-    ))
-    ))
+    )) ))
 
 ; DDC distfiles
 
