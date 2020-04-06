@@ -8,7 +8,7 @@ temp="$(date -u +%Y-%m-%d-%H-%M-%S-%N)U$(xxd -pu <<< "$(date +%z)")"
 trap 'warn "A nonfatal error was reported on ${BASH_SOURCE[0]} line ${LINENO} in $(pwd) at ${temp//-/}."' ERR
 brew update
 brew cask install osxfuse
-packages=( coreutils moreutils findutils gnu-tar gnu-sed gawk gnutls gnu-indent gnu-getopt wdiff rsync wget tmux md5sha1sum hashdeep git jq pv ncdu bash xz gnupg csvfix sshfs )
+packages=( coreutils moreutils findutils gnu-tar gnu-sed gawk gnutls gnu-indent gnu-getopt wdiff rsync wget tmux hashdeep git jq pv ncdu bash xz gnupg csvfix sshfs )
 brew install "${packages[@]}"
 brew link "${packages[@]}"
 brew upgrade
