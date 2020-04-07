@@ -191,7 +191,7 @@ ia() (
                     ia --no-propagate-metadata-retrieval metaXMLStored "$ident" > /dev/null
                 fi
 
-                while [[ "$succeeded" != "true" && "$retryCount" -lt 30 ]]; do
+                while [[ "$succeeded" != "true" && "$retryCount" -lt 15 ]]; do
                     trap 'warn "A nonfatal error was reported on ${BASH_SOURCE[0]} line ${LINENO} in $(pwd) at $(emdate). Continuing attempt."' ERR
                     succeeded=""
                     retryCount=$(( retryCount + 1 ))
