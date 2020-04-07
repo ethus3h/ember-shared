@@ -14,4 +14,6 @@ brew link "${packages[@]}"
 brew upgrade
 if ! pip3_loc="$(type -P "pip3")" || [[ -z "$pip3_loc" ]]; then
     sudo -H pip install --upgrade internetarchive --ignore-installed six
+else
+    sudo -H pip install --upgrade internetarchive --ignore-installed six
 fi
