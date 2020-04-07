@@ -8,7 +8,7 @@ trap 'die "A fatal error was reported on ${BASH_SOURCE[0]} line ${LINENO} in $(p
 source "$(<support/.buildsystemdir)"/support/getDirs
 
 if [[ "$OSTYPE" = darwin* ]]; then
-    if [[ -f ""$(<support/.buildsystemdir)"/support/prepareForMac" ]]; then
+    if [[ -f "$(<support/.buildsystemdir)/support/prepareForMac" ]]; then
         "$(<support/.buildsystemdir)"/support/prepareForMac "$packageName"
     fi
 fi
