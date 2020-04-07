@@ -46,5 +46,6 @@ if [[ "$OSTYPE" = darwin* ]]; then
         find scripts -type f -exec perl -0777 -p -i -e 's/split /gsplit /g' {} \;
         find scripts -type f -exec perl -0777 -p -i -e 's/tar /gtar /g' {} \;
         find scripts -type f -exec perl -0777 -p -i -e 's/ln /gln /g' {} \;
+        find scripts -type f -exec perl -0777 -p -i -e 's/ln /gln /g' {} \;
     fi
 fi
