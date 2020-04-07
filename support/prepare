@@ -21,7 +21,7 @@ source data/app-buildsystem/support/getDirs
 if [[ "$OSTYPE" = darwin* ]]; then
     scripts/emberMacGNUUpgrade
     # NOTE: MAINTENANCE: Upgrade list from "prepareForMac" template file
-    find {scripts,modules,support,data/app-buildsystem} -type f -exec perl -0777 -p -i -e 's/readlink /greadlink /g' {} \;
+    find {scripts,modules,support,data/app-buildsystem} -type f -not -name prepareForMac -exec perl -0777 -p -i -e 's/readlink /greadlink /g' {} \;
     find {scripts,modules,support,data/app-buildsystem} -type f -exec perl -0777 -p -i -e 's/dirname /gdirname /g' {} \;
     find {scripts,modules,support,data/app-buildsystem} -type f -exec perl -0777 -p -i -e 's/sort /gsort /g' {} \;
     find {scripts,modules,support,data/app-buildsystem} -type f -exec perl -0777 -p -i -e 's/stdbuf /gstdbuf /g' {} \;
