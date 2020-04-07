@@ -151,7 +151,9 @@ touch "$emberEmberdir/.keep"
 #fi
 
 if ! [[ -h "$emberDatadir/ember" ]]; then
-    ln -s "$emberDatadir/ember-shared/data" "$emberDatadir/ember"
+    if ! [[ -e "$emberDatadir/ember-shared/data" ]]; then
+        ln -s "$emberDatadir/ember-shared/data" "$emberDatadir/ember"
+    fi
 fi
 
 # UPDATE OLD CONFIG FILE LOCATIONS
