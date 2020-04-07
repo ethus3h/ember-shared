@@ -37,6 +37,7 @@ if [[ "$OSTYPE" = darwin* ]]; then
     find {scripts,modules} -type f -exec perl -0777 -p -i -e 's/mktemp /gmktemp /g' {} \;
     find {scripts,modules} -type f -exec perl -0777 -p -i -e 's/split /gsplit /g' {} \;
     find {scripts,modules} -type f -exec perl -0777 -p -i -e 's/tar /gtar /g' {} \;
+    find {scripts,modules} -type f -exec perl -0777 -p -i -e 's/ln /gln /g' {} \;
 fi
 rm -f scripts/emberMacGNUUpgrade
 
