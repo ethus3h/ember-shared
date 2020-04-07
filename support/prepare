@@ -21,24 +21,24 @@ source data/app-buildsystem/support/getDirs
 if [[ "$OSTYPE" = darwin* ]]; then
     scripts/emberMacGNUUpgrade
     # NOTE: MAINTENANCE: Upgrade list from "prepareForMac" template file
-    find {scripts,modules,support} -type f -exec perl -0777 -p -i -e 's/readlink /greadlink /g' {} \;
-    find {scripts,modules,support} -type f -exec perl -0777 -p -i -e 's/dirname /gdirname /g' {} \;
-    find {scripts,modules,support} -type f -exec perl -0777 -p -i -e 's/sort /gsort /g' {} \;
-    find {scripts,modules,support} -type f -exec perl -0777 -p -i -e 's/stdbuf /gstdbuf /g' {} \;
-    find {scripts,modules,support} -type f -exec perl -0777 -p -i -e 's/sha256sum /gsha256sum /g' {} \;
-    find {scripts,modules,support} -type f -exec perl -0777 -p -i -e 's/sha512sum /gsha512sum /g' {} \;
-    find {scripts,modules,support} -type f -exec perl -0777 -p -i -e 's/ncdu /8731d097a5ed41149c7ffb67756c310e /g' {} \;
-    find {scripts,modules,support} -type f -exec perl -0777 -p -i -e 's/du /gdu /g' {} \;
-    find {scripts,modules,support} -type f -exec perl -0777 -p -i -e 's/8731d097a5ed41149c7ffb67756c310e /ncdu /g' {} \;
-    find {scripts,modules,support} -type f -exec perl -0777 -p -i -e 's/sed /gsed /g' {} \;
-    find {scripts,modules,support} -type f -exec perl -0777 -p -i -e 's/find /gfind /g' {} \;
-    find {scripts,modules,support} -type f -exec perl -0777 -p -i -e 's/stat /gstat /g' {} \;
-    find {scripts,modules,support} -type f -exec perl -0777 -p -i -e 's/wc /gwc /g' {} \;
-    find {scripts,modules,support} -type f -exec perl -0777 -p -i -e 's/mktemp /gmktemp /g' {} \;
-    find {scripts,modules,support} -type f -exec perl -0777 -p -i -e 's/split /gsplit /g' {} \;
-    find {scripts,modules,support} -type f -exec perl -0777 -p -i -e 's/tar /gtar /g' {} \;
-    find {scripts,modules,support} -type f -exec perl -0777 -p -i -e 's/ln /gln /g' {} \;
-    find {scripts,modules,support} -type f -exec perl -0777 -p -i -e 's/rmdir /grmdir /g' {} \;
+    find {scripts,modules,support,data/app-buildsystem} -type f -exec perl -0777 -p -i -e 's/readlink /greadlink /g' {} \;
+    find {scripts,modules,support,data/app-buildsystem} -type f -exec perl -0777 -p -i -e 's/dirname /gdirname /g' {} \;
+    find {scripts,modules,support,data/app-buildsystem} -type f -exec perl -0777 -p -i -e 's/sort /gsort /g' {} \;
+    find {scripts,modules,support,data/app-buildsystem} -type f -exec perl -0777 -p -i -e 's/stdbuf /gstdbuf /g' {} \;
+    find {scripts,modules,support,data/app-buildsystem} -type f -exec perl -0777 -p -i -e 's/sha256sum /gsha256sum /g' {} \;
+    find {scripts,modules,support,data/app-buildsystem} -type f -exec perl -0777 -p -i -e 's/sha512sum /gsha512sum /g' {} \;
+    find {scripts,modules,support,data/app-buildsystem} -type f -exec perl -0777 -p -i -e 's/ncdu /8731d097a5ed41149c7ffb67756c310e /g' {} \;
+    find {scripts,modules,support,data/app-buildsystem} -type f -exec perl -0777 -p -i -e 's/du /gdu /g' {} \;
+    find {scripts,modules,support,data/app-buildsystem} -type f -exec perl -0777 -p -i -e 's/8731d097a5ed41149c7ffb67756c310e /ncdu /g' {} \;
+    find {scripts,modules,support,data/app-buildsystem} -type f -exec perl -0777 -p -i -e 's/sed /gsed /g' {} \;
+    find {scripts,modules,support,data/app-buildsystem} -type f -exec perl -0777 -p -i -e 's/find /gfind /g' {} \;
+    find {scripts,modules,support,data/app-buildsystem} -type f -exec perl -0777 -p -i -e 's/stat /gstat /g' {} \;
+    find {scripts,modules,support,data/app-buildsystem} -type f -exec perl -0777 -p -i -e 's/wc /gwc /g' {} \;
+    find {scripts,modules,support,data/app-buildsystem} -type f -exec perl -0777 -p -i -e 's/mktemp /gmktemp /g' {} \;
+    find {scripts,modules,support,data/app-buildsystem} -type f -exec perl -0777 -p -i -e 's/split /gsplit /g' {} \;
+    find {scripts,modules,support,data/app-buildsystem} -type f -exec perl -0777 -p -i -e 's/tar /gtar /g' {} \;
+    find {scripts,modules,support,data/app-buildsystem} -type f -exec perl -0777 -p -i -e 's/ln /gln /g' {} \;
+    find {scripts,modules,support,data/app-buildsystem} -type f -exec perl -0777 -p -i -e 's/rmdir /grmdir /g' {} \;
 fi
 rm -f scripts/emberMacGNUUpgrade
 
