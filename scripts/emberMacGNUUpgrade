@@ -12,4 +12,5 @@ packages=( coreutils moreutils findutils gnu-tar gnu-sed gawk gnutls gnu-indent 
 brew install "${packages[@]}"
 brew link "${packages[@]}"
 brew upgrade
+if ! fmwtk_loc="$(type -P "futuramerlin-web-toolkit-build")" || [[ -z "$fmwtk_loc" ]]; then
 sudo -H pip install --upgrade internetarchive --ignore-installed six
