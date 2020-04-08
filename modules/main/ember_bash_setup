@@ -75,6 +75,8 @@ source egup-env &> /dev/null || true
 # shellcheck disable=SC1091
 source ember_bash_setup_extra &> /dev/null || true
 
+[[  ]]
+
 
 embasename() (
     path="$1"
