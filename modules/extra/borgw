@@ -10,7 +10,7 @@ trap 'error-notify "A fatal error was reported on ${BASH_SOURCE[0]} line ${LINEN
 action="$1"
 case $action in
 init)
-    borg init --encryption=repokey "$(ember-getconf )"
+    borg init --encryption=repokey "$(ember-getconf BorgLocation)"
     ;;
 --check)
     streamId="csum-$(date-uuid)"
