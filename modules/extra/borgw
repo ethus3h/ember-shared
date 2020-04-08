@@ -10,7 +10,7 @@ trap 'error-notify "A fatal error was reported on ${BASH_SOURCE[0]} line ${LINEN
 BORG_PASSPHRASE="$(ember-getconf BorgPassphrase)"
 export BORG_PASSPHRASE
 
-borg config "$(ember-getconf BorgLocation)" append_only 1 || true
+borg config "$(ember-getconf BorgLocation)" append_only 1 &>/dev/null || true
 
 action="$1"
 shift
