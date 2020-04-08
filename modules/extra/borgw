@@ -37,7 +37,7 @@ save)
     borg create --stats --progress --list --filter=AME --compression 'lzma,6' --files-cache disabled "$(ember-getconf BorgLocation)"'::'"$(emdate)" "$tempA" "$tempB" "$tempC" "$@"
     ;;
 mount)
-    borg mount "$(ember-getconf BorgLocation)" "$(ember-getconf BorgLocation)"
+    borg mount "$(ember-getconf BorgLocation)" "$(ember-getconf BorgMountpoint)"
     - borg umount ~/borg-mount-2020m4d7
     - borg info /elements/borg-started-2020m4d7
     - borg check -v -p --verify-data /elements/borg-started-2020m4d7
