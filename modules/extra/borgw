@@ -7,31 +7,6 @@ source ember_bash_setup &> /dev/null || { printf '%b' '\033[1;31m' >&2; echo "A 
 
 trap 'error-notify "A fatal error was reported on ${BASH_SOURCE[0]} line ${LINENO} in $(pwd) at $(emdate)."; exit 1' ERR
 
-action="--save"
-if [[ "$1" == "--save" ]]; then
-    shift
-elif [[ "$1" == "--check" ]]; then
-    action="--check"
-    shift
-fi
-
-# No arguments: Csum current dir to stdout. One argument: Csum to stdout. Two+ arguments: last is csum file.
-
-if [[ "$#" == "0" ]]; then
-    pathsToCsum=(".")
-    checksumFile=""
-elif [[ "$#" == "1" ]]; then
-    pathsToCsum=("$1")
-    checksumFile=""
-else
-    pathsToCsum=("${@:1:$(($#-1))}") # all but last argument
-    checksumFile="${!#}" # last argument
-fi
-
-if [[ "$checksumFile" == "-" ]]; then
-    checksumFile=""
-fi
-
 case $action in
 --save)
     # Format used through version 1.1.4.463:
