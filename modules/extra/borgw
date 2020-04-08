@@ -4,9 +4,7 @@ source ember_bash_setup &> /dev/null || { printf '%b' '\033[1;31m' >&2; echo "A 
 #set -x
 
 if [[ "mount" == "$1" ]]; then
-    mount)
     borg mount "$(ember-getconf BorgLocation)" "$(ember-getconf BorgMountpoint)"
-    ;;
 
 
 ((EUID)) && exec sudo -- "$0" "$@"
