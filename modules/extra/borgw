@@ -36,6 +36,15 @@ save)
     emdate > "$tempC"
     borg create --stats --progress --list --filter=AME --compression 'lzma,6' --files-cache disabled "$(ember-getconf BorgLocation)"'::'"$(emdate)" "$tempA" "$tempB" "$tempC" "$@"
     ;;
+save)
+    tempA="$(tempFile)"
+    tempB="$(tempFile)"
+    tempC="$(tempFile)"
+    pwd > "$tempA"
+    printf '%s\0' "$@" > "$tempB"
+    emdate > "$tempC"
+    borg create --stats --progress --list --filter=AME --compression 'lzma,6' --files-cache disabled "$(ember-getconf BorgLocation)"'::'"$(emdate)" "$tempA" "$tempB" "$tempC" "$@"
+    ;;
 *)
     echo "Unknown action."
     exit 1
