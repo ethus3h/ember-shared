@@ -11,6 +11,7 @@ if [[ "mount" == "$1" ]]; then
     exit 0
 elif [[ "umount" == "$1" ]]; then
     borg umount "$(ember-getconf BorgMountpoint)"
+    exit 0
 fi
 
 ((EUID)) && exec sudo -- "$0" "$@"
