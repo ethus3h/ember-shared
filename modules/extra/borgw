@@ -18,6 +18,7 @@ case $action in
 init)
     mkdir -p "$(ember-getconf BorgLocation)"
     mkdir -p "$(ember-getconf BorgMountpoint)"
+    chmod 755 "$(ember-getconf BorgMountpoint)"
     borg init --encryption=repokey "$(ember-getconf BorgLocation)"
     borg config "$(ember-getconf BorgLocation)" append_only 1
     ;;
