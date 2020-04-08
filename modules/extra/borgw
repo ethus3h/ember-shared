@@ -43,7 +43,7 @@ umount)
     borg umount "$(ember-getconf BorgMountpoint)"
     ;;
 status)
-    borg info /elements/borg-started-2020m4d7
+    borg info "$(ember-getconf BorgLocation)"
     - borg check -v -p --verify-data /elements/borg-started-2020m4d7
     tempA="$(tempFile)"
     tempB="$(tempFile)"
