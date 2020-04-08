@@ -13,7 +13,7 @@ init)
     mkdir -p "$(ember-getconf BorgLocation)"
     mkdir -p "$(ember-getconf BorgMount)"
     borg init --encryption=repokey "$(ember-getconf BorgLocation)"
-    borg config /elements/borg-started-2020m4d7 append_only 1
+    borg config "$(ember-getconf BorgLocation)" append_only 1
     ;;
 --check)
     streamId="csum-$(date-uuid)"
