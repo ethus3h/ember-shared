@@ -75,8 +75,13 @@ source egup-env &> /dev/null || true
 # shellcheck disable=SC1091
 source ember_bash_setup_extra &> /dev/null || true
 
-[[  ]]
-
+export GUIX_PROFILE="$HOME/.config/guix/current"
+source "$GUIX_PROFILE/etc/profile"
+export GUIX_PROFILE="$HOME/.guix-profile"
+source "$GUIX_PROFILE/etc/profile"
+export GUIX_LOCPATH="$GUIX_PROFILE/lib/locale"
+export PATH="$GUIX_PROFILE/bin:$PATH"
+export INFOPATH="$HOME/.config/guix/current/share/info:$INFOPATH"
 
 embasename() (
     path="$1"
