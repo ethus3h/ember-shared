@@ -42,6 +42,7 @@
   #:use-module (gnu packages algebra)
   #:use-module (gnu packages autotools)
   #:use-module (gnu packages base)
+  #:use-module (gnu packages backup)
   #:use-module (gnu packages bash)
   #:use-module (gnu packages compression)
   #:use-module (gnu packages imagemagick)
@@ -68,15 +69,15 @@
 (define-public ember-shared-error-notify
   (package
     (name "ember-shared-error-notify")
-    (version "1.1.4.550-f00bbe059bcc6c4a2085ba427bb58795090b2fe2")
+    (version "1.1.4.551-941cc7231ebac4a5f1d65b674dc5b8e163a819b7")
     (source (origin
               (method git-fetch)
               (uri (git-reference
                 (url "https://github.com/ethus3h/ember-shared.git")
-                (commit "f00bbe059bcc6c4a2085ba427bb58795090b2fe2")))
+                (commit "941cc7231ebac4a5f1d65b674dc5b8e163a819b7")))
               (sha256
                (base32
-                "04ima2s0085im978ahi7n8z82h9r4dz6ki4v080fnxx89hilizhh"))))
+                "1nq920qr0gidm2pswbdmv5f8yjkmy7zpvmjcgwfpa3p23n581g93"))))
     (build-system gnu-build-system)
     (arguments '(#:configure-flags '("--module=error-notify") #:phases (modify-phases %standard-phases (delete 'check))))
     (propagated-inputs `(
@@ -157,9 +158,10 @@
     (propagated-inputs `(
         ("ember-shared-main" ,ember-shared-main)
         ; inputs this needs are implicit in the build system: grep, findutils
-        ; csum (depends hashdeep), ember_bash_setup_extra (see for dependencies), ember-shared-update, findq/findq-update (depend locate), htmlToText.pl (depends HTML::Restrict), serve-ember-web-site (depends PHP & futuramerlin-web-toolkit), wave2png.py (depends wave, matplotlib, pylab (part of matplotlib)). ia, wget, rsync, sshpass, ssh, csvfix, jq, grab-site, phantomjs, ldconfig, python, ffmpeg, youtube-dl, git, sqlite3, moreutils, imagemagick, xz; guix
+        ; csum (depends hashdeep), borgw (depends borg), ember_bash_setup_extra (see for dependencies), ember-shared-update, findq/findq-update (depend locate), htmlToText.pl (depends HTML::Restrict), serve-ember-web-site (depends PHP & futuramerlin-web-toolkit), wave2png.py (depends wave, matplotlib, pylab (part of matplotlib)). ia, wget, rsync, sshpass, ssh, csvfix, jq, grab-site, phantomjs, ldconfig, python, ffmpeg, youtube-dl, git, sqlite3, moreutils, imagemagick, xz; guix
         ; Miscellaneous scripts' dependencies:
         ("hashdeep" ,hashdeep) ; csum
+        ("borg" ,borg)
         ("mlocate" ,mlocate) ; findq/findq-update
         ("perl" ,perl) ; htmlToText.pl
         ;("perl-html-restrict" ,perl-html-restrict) ; htmlToText.pl
