@@ -42,6 +42,7 @@
   #:use-module (gnu packages algebra)
   #:use-module (gnu packages autotools)
   #:use-module (gnu packages base)
+  #:use-module (gnu packages autotools)
   #:use-module (gnu packages bash)
   #:use-module (gnu packages compression)
   #:use-module (gnu packages imagemagick)
