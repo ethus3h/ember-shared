@@ -10,6 +10,7 @@ trap 'error-notify "A fatal error was reported on ${BASH_SOURCE[0]} line ${LINEN
 action="$1"
 case $action in
 init)
+    mkdir -p "$(ember-getconf BorgLocation)"
     borg init --encryption=repokey "$(ember-getconf BorgLocation)"
     ;;
 --check)
