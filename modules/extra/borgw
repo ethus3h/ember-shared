@@ -19,10 +19,7 @@ init)
     borg config "$(ember-getconf BorgLocation)" append_only 1
     ;;
 savequick)
-    mkdir -p "$(ember-getconf BorgLocation)"
-    mkdir -p "$(ember-getconf BorgMount)"
-    borg init --encryption=repokey "$(ember-getconf BorgLocation)"
-    borg config "$(ember-getconf BorgLocation)" append_only 1
+    tempA="$(tempFile)"; tempB="$(tempFile)"; tempC="$(tempFile)"; pwd > "$tempA"; printf '%s\0' "$@" > "$tempB"; emdate > "$tempC"; borg create --stats --progress --list --filter=AME --compression 'lzma,6' '/elements/borg-started-2020m4d7::'"$(emdate)" "$tempA" "$tempB" "$tempC" "$@";
     ;;
 *)
     echo "Unknown action."
