@@ -9,7 +9,7 @@ trap 'error-notify "A fatal error was reported on ${BASH_SOURCE[0]} line ${LINEN
 
 action="$1"
 case $action in
---save)
+--init)
     # Format used through version 1.1.4.463:
     # setVariableToCommandOutput currentworkingdir pwd -P
     # currentworkingdir="${currentworkingdir:?}"
