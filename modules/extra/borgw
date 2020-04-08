@@ -49,9 +49,6 @@ save)
     emdate > "$tempC"
     borg create --stats --progress --list --filter=AME --compression 'lzma,6' --files-cache disabled "$(ember-getconf BorgLocation)"'::'"$(emdate)" "$tempA" "$tempB" "$tempC" "$@"
     ;;
-umount)
-    borg umount "$(ember-getconf BorgMountpoint)"
-    ;;
 status)
     borg info "$(ember-getconf BorgLocation)"
     ;;
