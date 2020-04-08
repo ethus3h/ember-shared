@@ -10,6 +10,7 @@ trap 'error-notify "A fatal error was reported on ${BASH_SOURCE[0]} line ${LINEN
 borg config "$(ember-getconf BorgLocation)" append_only 1 || true
 
 action="$1"
+shift
 case $action in
 init)
     mkdir -p "$(ember-getconf BorgLocation)"
