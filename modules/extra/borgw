@@ -8,6 +8,8 @@ if [[ "mount" == "$1" ]]; then
     BORG_PASSPHRASE="$(ember-getconf BorgPassphrase)"
     export BORG_PASSPHRASE
     borg mount "$(ember-getconf BorgLocation)" "$(ember-getconf BorgMountpoint)"
+elif [[ "umount" == "$1" ]]; then
+
 fi
 
 ((EUID)) && exec sudo -- "$0" "$@"
