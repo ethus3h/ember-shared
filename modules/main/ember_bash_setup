@@ -75,6 +75,7 @@ source egup-env &> /dev/null || true
 # shellcheck disable=SC1091
 source ember_bash_setup_extra &> /dev/null || true
 
+if [[ -z "$GUIX_PROFILE" ]]; then
 if [[ -e "$HOME/.config/guix/current" ]]; then
     export GUIX_PROFILE="$HOME/.config/guix/current"
     source "$GUIX_PROFILE/etc/profile"
