@@ -46,7 +46,7 @@ status)
     borg info "$(ember-getconf BorgLocation)"
     ;;
 status)
-    borg check -v -p --verify-data /elements/borg-started-2020m4d7
+    borg check -v -p --verify-data "$(ember-getconf BorgLocation)"
     tempA="$(tempFile)"
     tempB="$(tempFile)"
     tempC="$(tempFile)"
