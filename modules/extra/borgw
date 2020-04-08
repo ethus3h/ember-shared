@@ -7,6 +7,8 @@ source ember_bash_setup &> /dev/null || { printf '%b' '\033[1;31m' >&2; echo "A 
 
 trap 'error-notify "A fatal error was reported on ${BASH_SOURCE[0]} line ${LINENO} in $(pwd) at $(emdate)."; exit 1' ERR
 
+BORG_PASSPHRASE="$(ember-getconf BorgPassphrase)"
+
 borg config "$(ember-getconf BorgLocation)" append_only 1 || true
 
 action="$1"
