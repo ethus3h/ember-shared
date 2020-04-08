@@ -27,7 +27,7 @@ savequick)
     emdate > "$tempC"
     borg create --stats --progress --list --filter=AME --compression 'lzma,6' "$(ember-getconf BorgLocation)"'::'"$(emdate)" "$tempA" "$tempB" "$tempC" "$@"
     ;;
-savequick)
+save)
     tempA="$(tempFile)"
     tempB="$(tempFile)"
     tempC="$(tempFile)"
