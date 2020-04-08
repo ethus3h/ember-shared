@@ -53,6 +53,12 @@ save)
 status)
     borg info "$(ember-getconf BorgLocation)"
     ;;
+status)
+    borg info "$(ember-getconf BorgLocation)"
+    ;;
+status)
+    borg info "$(ember-getconf BorgLocation)"
+    ;;
 check)
     borg check -v -p --verify-data "$(ember-getconf BorgLocation)"
     ;;
