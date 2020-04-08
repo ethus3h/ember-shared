@@ -10,8 +10,7 @@ if [[ "mount" == "$1" ]]; then
     borg mount "$(ember-getconf BorgLocation)" "$(ember-getconf BorgMountpoint)" || die
     exit 0
 elif [[ "umount" == "$1" ]]; then
-    borg umount "$(ember-getconf BorgMountpoint)" || die
-    exit 0
+    borg umount "$(ember-getconf BorgMountpoint)"
 fi
 
 ((EUID)) && exec sudo -- "$0" "$@"
