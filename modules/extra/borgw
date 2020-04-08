@@ -54,7 +54,7 @@ mount)
     borg mount "$(ember-getconf BorgLocation)" "$(ember-getconf BorgMountpoint)"
     ;;
 umount)
-    borg info "$(ember-getconf BorgLocation)"
+    borg umount "$(ember-getconf BorgMountpoint)"
     ;;
 status)
     borg info "$(ember-getconf BorgLocation)"
