@@ -11,6 +11,7 @@ action="$1"
 case $action in
 init)
     mkdir -p "$(ember-getconf BorgLocation)"
+    mkdir -p "$(ember-getconf BorgMount)"
     borg init --encryption=repokey "$(ember-getconf BorgLocation)"
     ;;
 --check)
