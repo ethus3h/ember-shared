@@ -19,7 +19,7 @@ fi
 
 if [[ "srsync" == "$1" ]]; then
     borg with-lock "$borgLocation" srsync "$borgLocation" "/Ember/$repository/" || die
-    cd /Ember/ember-library-2/ || die
+    cd /Ember/$repository/ || die
     sudo chmod -R a+rwx ./.sreg
     eogup-single || die
     exit 0
