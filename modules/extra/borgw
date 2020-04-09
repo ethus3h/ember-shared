@@ -54,9 +54,7 @@ check)
 sync)
     borg with-lock "$(ember-getconf BorgLocation)" srsync /Ember/EmberLibraryBorg /Ember/ember-library-2/
     cd /Ember/ember-library-2/
-    chmod -R a+r ./.sreg
     eogup-single
-    chmod -R a+r ./.sreg ./.egup.*
     ;;
 *)
     echo "Unknown action."
