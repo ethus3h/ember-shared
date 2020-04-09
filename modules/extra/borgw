@@ -85,7 +85,7 @@ status|stats|info)
 check|fsck)
     borg check -v -p --verify-data "$borgLocation"
     ;;
-check|fsck)
+checkquick|fsckquick|checkq|fsckq)
     borg check -v -p --verify-data "$borgLocation"
     ;;
 *)
