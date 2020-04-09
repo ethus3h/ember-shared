@@ -46,6 +46,10 @@ savequick)
     pwd > "$tempA"
     printf '%s\0' "$@" > "$tempB"
     emdate > "$tempC"
+    tempD="$(tempFile)" # fake file saved if the library is not going to be (to avoid needing complicated code to remove the referenceLibrary argument)
+    if [[ -z "$1" ]]; then
+        tempD="$referenceLibrary"
+    fi
     # FIXME hardcoded username
     borg create --stats --progress --list --filter=AME --compression 'lzma,6' "$borgLocation"'::'"$(emdate)" "$tempA" "$tempB" "$tempC" ~/.bash_history /home/kyan/.bash_history "$@"
     ;;
