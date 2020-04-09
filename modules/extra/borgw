@@ -59,11 +59,6 @@ status)
 check)
     borg check -v -p --verify-data "$(ember-getconf BorgLocation)"
     ;;
-sync)
-    borg with-lock "$(ember-getconf BorgLocation)" srsync /Ember/EmberLibraryBorg /Ember/ember-library-2/
-    cd /Ember/ember-library-2/
-    eogup-single
-    ;;
 *)
     echo "Unknown action."
     exit 1
