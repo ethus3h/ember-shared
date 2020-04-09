@@ -5,8 +5,8 @@ source ember_bash_setup &> /dev/null || { printf '%b' '\033[1;31m' >&2; echo "A 
 
 ((EUID)) && exec sudo -- "$0" "$@"
 
-borgLocation="$borgLocation"
-borgMountpoint="$(ember-getconf BorgMountpoint)"
+borgLocation="$(ember-getconf BorgLocation)"
+borgMountpoint="$borgMountpoint"
 if [[ "--personal" == "$1" ]]; then
     shift
     borgLocation="$borgLocation"-personal
@@ -33,7 +33,7 @@ shift
 case $action in
 init)
     mkdir -p "$borgLocation"
-    mkdir -p "$(ember-getconf BorgMountpoint)"
+    mkdir -p "$borgMountpoint"
     borg init --encryption=repokey "$borgLocation"
     borg config "$borgLocation" append_only 1
     ;;
@@ -57,10 +57,10 @@ save)
     borg create --stats --progress --list --filter=AME --compression 'lzma,6' --files-cache disabled "$borgLocation"'::'"$(emdate)" "$tempA" "$tempB" "$tempC" ~/.bash_history /home/kyan/.bash_history "$@"
     ;;
 mount)
-    borg mount -o allow_other "$borgLocation" "$(ember-getconf BorgMountpoint)"
+    borg mount -o allow_other "$borgLocation" "$borgMountpoint"
     ;;
 umount)
-    borg umount "$(ember-getconf BorgMountpoint)"
+    borg umount "$borgMountpoint"
     ;;
 status)
     borg info "$borgLocation"
