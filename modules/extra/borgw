@@ -85,6 +85,9 @@ status|stats|info)
 check|fsck)
     borg check -v -p --verify-data "$borgLocation"
     ;;
+check|fsck)
+    borg check -v -p --verify-data "$borgLocation"
+    ;;
 *)
     echo "Unknown action."
     exit 1
