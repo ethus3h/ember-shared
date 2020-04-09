@@ -8,6 +8,7 @@ source ember_bash_setup &> /dev/null || { printf '%b' '\033[1;31m' >&2; echo "A 
 if [[ "srsync" == "$1" ]]; then
     borg with-lock "$(ember-getconf BorgLocation)" srsync /Ember/EmberLibraryBorg /Ember/ember-library-2/ || die
     cd /Ember/ember-library-2/ || die
+    sudo chmod -R a+rwx ./.sreg
     eogup-single || die
     exit 0
 fi
@@ -56,7 +57,7 @@ umount)
 status)
     borg info "$(ember-getconf BorgLocation)"
     ;;
-check)
+check|fsck)
     borg check -v -p --verify-data "$(ember-getconf BorgLocation)"
     ;;
 *)
