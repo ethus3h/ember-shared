@@ -6,8 +6,8 @@ source ember_bash_setup &> /dev/null || { printf '%b' '\033[1;31m' >&2; echo "A 
 ((EUID)) && exec sudo -- "$0" "$@"
 
 if [[ "srsync" == "$1" ]]; then
-    borg with-lock "$(ember-getconf BorgLocation)" srsync /Ember/EmberLibraryBorg /Ember/ember-library-2/
-    cd /Ember/ember-library-2/
+    borg with-lock "$(ember-getconf BorgLocation)" srsync /Ember/EmberLibraryBorg /Ember/ember-library-2/ || die
+    cd /Ember/ember-library-2/ || die
     eogup-single || die
     exit 0
 fi
