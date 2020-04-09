@@ -10,7 +10,7 @@ borgMountpoint="$(ember-getconf BorgMountpoint)"
 if [[ "--personal" == "$1" ]]; then
     shift
     borgLocation="$borgLocation"-personal
-    borgLocation="$borgMountpoint"-personal
+    borgMountpoint="$borgMountpoint"-personal
 fi
 
 if [[ "srsync" == "$1" ]]; then
