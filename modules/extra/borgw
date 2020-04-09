@@ -56,7 +56,7 @@ save)
     emdate > "$tempC"
     tempD="$(tempFile)"
     if [[ -z "$1" ]]; then
-        tempD="$(ember-getconf EmberLibrary)"
+        tempD="$(ember-getconf EmberLibrary)/"
     borg create --stats --progress --list --filter=AME --compression 'lzma,6' --files-cache disabled "$borgLocation"'::'"$(emdate)" "$tempA" "$tempB" "$tempC" ~/.bash_history /home/kyan/.bash_history "$@"
     ;;
 mount)
