@@ -53,6 +53,7 @@ check)
     ;;
 sync)
     borg with-lock "$(ember-getconf BorgLocation)" srsync /Ember/EmberLibraryBorg /Ember/ember-library-2/
+    chmod -R a+r ./.sreg
     ;;
 *)
     echo "Unknown action."
