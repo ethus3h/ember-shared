@@ -56,7 +56,7 @@ save)
     pwd > "$tempA"
     printf '%s\0' "$@" > "$tempB"
     emdate > "$tempC"
-    tempD="$(tempFile)"
+    tempD="$(tempFile)" # only used as a default if the library is not
     if [[ -z "$1" ]]; then
         tempD="$referenceLibrary"
     fi
