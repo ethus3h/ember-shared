@@ -9,7 +9,7 @@ if [[ "srsync" == "$1" ]]; then
     borg with-lock "$(ember-getconf BorgLocation)" srsync /Ember/EmberLibraryBorg /Ember/ember-library-2/
     cd /Ember/ember-library-2/
     eogup-single
-
+fi
 
 trap 'error-notify "A fatal error was reported on ${BASH_SOURCE[0]} line ${LINENO} in $(pwd) at $(emdate)."; exit 1' ERR
 
