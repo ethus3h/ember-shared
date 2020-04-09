@@ -79,7 +79,7 @@ mount)
 umount)
     borg umount "$borgMountpoint"
     ;;
-status)
+status|stats|info)
     borg info "$borgLocation"
     ;;
 check|fsck)
