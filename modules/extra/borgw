@@ -10,6 +10,7 @@ borgMountpoint="$(ember-getconf BorgMountpoint)"
 referenceLibrary="$(ember-getconf EmberLibrary)/EmberLibraryReference"
 if [[ "--personal" == "$1" ]] || [[ "-p" == "$1" ]]; then
     shift
+    personal="true"
     borgLocation="$borgLocation"-personal
     borgMountpoint="$borgMountpoint"-personal
     referenceLibrary="$referenceLibrary"-personal
