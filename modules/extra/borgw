@@ -5,16 +5,16 @@ source ember_bash_setup &> /dev/null || { printf '%b' '\033[1;31m' >&2; echo "A 
 
 ((EUID)) && exec sudo -- "$0" "$@"
 
+if [[ "--personal" == "$1" ]]; then
+    shift
+fi
+
 if [[ "srsync" == "$1" ]]; then
     borg with-lock "$(ember-getconf BorgLocation)" srsync /Ember/EmberLibraryBorg /Ember/ember-library-2/ || die
     cd /Ember/ember-library-2/ || die
     sudo chmod -R a+rwx ./.sreg
     eogup-single || die
     exit 0
-fi
-
-if [[ "--personal" == "$1" ]]; then
-    shift
 fi
 
 trap 'error-notify "A fatal error was reported on ${BASH_SOURCE[0]} line ${LINENO} in $(pwd) at $(emdate)."; exit 1' ERR
