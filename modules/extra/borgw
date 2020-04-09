@@ -12,6 +12,7 @@ if [[ "--personal" == "$1" ]] || [[ "-p" == "$1" ]]; then
     shift
     borgLocation="$borgLocation"-personal
     borgMountpoint="$borgMountpoint"-personal
+    referenceLibrary="$referenceLibrary"-personal
 fi
 
 if [[ "srsync" == "$1" ]]; then
