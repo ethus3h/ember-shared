@@ -41,7 +41,7 @@ init)
     borg init --encryption=repokey "$borgLocation"
     borg config "$borgLocation" append_only 1
     ;;
-savequick)
+savequick|saveq)
     tempA="$(tempFile)"
     tempB="$(tempFile)"
     tempC="$(tempFile)"
