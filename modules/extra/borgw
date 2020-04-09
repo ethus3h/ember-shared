@@ -52,7 +52,7 @@ check)
     borg check -v -p --verify-data "$(ember-getconf BorgLocation)"
     ;;
 sync)
-    borg with-lock srsync /Ember/EmberLibraryBorg /Ember/ember-library-2/
+    borg with-lock "$(ember-getconf BorgLocation)" srsync /Ember/EmberLibraryBorg /Ember/ember-library-2/
     ;;
 *)
     echo "Unknown action."
