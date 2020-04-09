@@ -5,6 +5,8 @@ source ember_bash_setup &> /dev/null || { printf '%b' '\033[1;31m' >&2; echo "A 
 
 ((EUID)) && exec sudo -- "$0" "$@"
 
+borgLocation="$(ember-getconf BorgLocation)"
+
 if [[ "--personal" == "$1" ]]; then
     shift
 fi
