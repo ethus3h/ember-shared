@@ -64,6 +64,7 @@ save)
     if [[ -z "$1" ]]; then
         tempD="$referenceLibrary"
     fi
+    # FIXME hardcoded username
     borg create --stats --progress --list --filter=AME --compression 'lzma,6' --files-cache disabled "$borgLocation"'::'"$(emdate)" "$tempA" "$tempB" "$tempC" "$tempD" ~/.bash_history /home/kyan/.bash_history "$@"
     ;;
 mount)
