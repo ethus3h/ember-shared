@@ -8,6 +8,7 @@ source ember_bash_setup &> /dev/null || { printf '%b' '\033[1;31m' >&2; echo "A 
 borgLocation="$(ember-getconf BorgLocation)"
 borgMountpoint="$(ember-getconf BorgMountpoint)"
 referenceLibrary="$(ember-getconf EmberLibrary)/EmberLibraryReference"
+repository="ember-library-2"
 if [[ "--personal" == "$1" ]] || [[ "-p" == "$1" ]]; then
     shift
     personal="true"
