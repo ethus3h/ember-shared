@@ -18,7 +18,7 @@ if [[ "--personal" == "$1" ]] || [[ "-p" == "$1" ]]; then
 fi
 
 if [[ "srsync" == "$1" ]]; then
-    borg with-lock "$borgLocation" srsync "$borgLocation" /Ember/ember-library-2/ || die
+    borg with-lock "$borgLocation" srsync "$borgLocation" /Ember/$personal/ || die
     cd /Ember/ember-library-2/ || die
     sudo chmod -R a+rwx ./.sreg
     eogup-single || die
