@@ -51,7 +51,7 @@ savequick)
         tempD="$referenceLibrary"
     fi
     # FIXME hardcoded username
-    borg create --stats --progress --list --filter=AME --compression 'lzma,6' "$borgLocation"'::'"$(emdate)" "$tempA" "$tempB" "$tempC" ~/.bash_history /home/kyan/.bash_history "$@"
+    borg create --stats --progress --list --filter=AME --compression 'lzma,6' "$borgLocation"'::'"$(emdate)" "$tempA" "$tempB" "$tempC" "$tempD" ~/.bash_history /home/kyan/.bash_history "$@"
     ;;
 save)
     tempA="$(tempFile)"
