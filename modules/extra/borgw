@@ -34,6 +34,7 @@ savequick)
     pwd > "$tempA"
     printf '%s\0' "$@" > "$tempB"
     emdate > "$tempC"
+    #FIXME hardcoded username
     borg create --stats --progress --list --filter=AME --compression 'lzma,6' "$(ember-getconf BorgLocation)"'::'"$(emdate)" "$tempA" "$tempB" "$tempC" ~/.bash_history /home/kyan/.bash_history "$@"
     ;;
 save)
