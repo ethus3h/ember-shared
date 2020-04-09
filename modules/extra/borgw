@@ -55,6 +55,7 @@ savequick)
     # FIXME hardcoded username
     borg create --stats --progress --list --filter=AME --compression 'lzma,6' "$borgLocation"'::'"$(emdate)" "$tempA" "$tempB" "$tempC" "$tempD" ~/.bash_history /home/kyan/.bash_history "$@"
     chown -R root:root "$borgLocation"
+    find "$borgLocation" -exec
     ;;
 save)
     tempA="$(tempFile)"
