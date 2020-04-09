@@ -11,7 +11,7 @@ referenceLibrary="$(ember-getconf EmberLibrary)/EmberLibraryReference"
 repository="ember-library-2"
 if [[ "--personal" == "$1" ]] || [[ "-p" == "$1" ]]; then
     shift
-    repository="true"
+    repository="personal-private"
     borgLocation="$borgLocation"-personal
     borgMountpoint="$borgMountpoint"-personal
     referenceLibrary="$referenceLibrary"-personal
