@@ -13,6 +13,10 @@ if [[ "srsync" == "$1" ]]; then
     exit 0
 fi
 
+if [[ "--personal" == "$1" ]]; then
+    shift
+fi
+
 trap 'error-notify "A fatal error was reported on ${BASH_SOURCE[0]} line ${LINENO} in $(pwd) at $(emdate)."; exit 1' ERR
 
 BORG_PASSPHRASE="$(ember-getconf BorgPassphrase)"
