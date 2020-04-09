@@ -5,7 +5,7 @@ source ember_bash_setup &> /dev/null || { printf '%b' '\033[1;31m' >&2; echo "A 
 
 ((EUID)) && exec sudo -- "$0" "$@"
 
-borgLocation="$(ember-getconf BorgLocation)"
+borgLocation="$borgLocation"
 borgMountpoint="$(ember-getconf BorgMountpoint)"
 if [[ "--personal" == "$1" ]]; then
     shift
@@ -14,7 +14,7 @@ if [[ "--personal" == "$1" ]]; then
 fi
 
 if [[ "srsync" == "$1" ]]; then
-    borg with-lock "$(ember-getconf BorgLocation)" srsync /Ember/EmberLibraryBorg /Ember/ember-library-2/ || die
+    borg with-lock "$borgLocation" srsync /Ember/EmberLibraryBorg /Ember/ember-library-2/ || die
     cd /Ember/ember-library-2/ || die
     sudo chmod -R a+rwx ./.sreg
     eogup-single || die
@@ -26,16 +26,16 @@ trap 'error-notify "A fatal error was reported on ${BASH_SOURCE[0]} line ${LINEN
 BORG_PASSPHRASE="$(ember-getconf BorgPassphrase)"
 export BORG_PASSPHRASE
 
-borg config "$(ember-getconf BorgLocation)" append_only 1 &>/dev/null || true
+borg config "$borgLocation" append_only 1 &>/dev/null || true
 
 action="$1"
 shift
 case $action in
 init)
-    mkdir -p "$(ember-getconf BorgLocation)"
+    mkdir -p "$borgLocation"
     mkdir -p "$(ember-getconf BorgMountpoint)"
-    borg init --encryption=repokey "$(ember-getconf BorgLocation)"
-    borg config "$(ember-getconf BorgLocation)" append_only 1
+    borg init --encryption=repokey "$borgLocation"
+    borg config "$borgLocation" append_only 1
     ;;
 savequick)
     tempA="$(tempFile)"
@@ -45,7 +45,7 @@ savequick)
     printf '%s\0' "$@" > "$tempB"
     emdate > "$tempC"
     # FIXME hardcoded username
-    borg create --stats --progress --list --filter=AME --compression 'lzma,6' "$(ember-getconf BorgLocation)"'::'"$(emdate)" "$tempA" "$tempB" "$tempC" ~/.bash_history /home/kyan/.bash_history "$@"
+    borg create --stats --progress --list --filter=AME --compression 'lzma,6' "$borgLocation"'::'"$(emdate)" "$tempA" "$tempB" "$tempC" ~/.bash_history /home/kyan/.bash_history "$@"
     ;;
 save)
     tempA="$(tempFile)"
@@ -54,19 +54,19 @@ save)
     pwd > "$tempA"
     printf '%s\0' "$@" > "$tempB"
     emdate > "$tempC"
-    borg create --stats --progress --list --filter=AME --compression 'lzma,6' --files-cache disabled "$(ember-getconf BorgLocation)"'::'"$(emdate)" "$tempA" "$tempB" "$tempC" ~/.bash_history /home/kyan/.bash_history "$@"
+    borg create --stats --progress --list --filter=AME --compression 'lzma,6' --files-cache disabled "$borgLocation"'::'"$(emdate)" "$tempA" "$tempB" "$tempC" ~/.bash_history /home/kyan/.bash_history "$@"
     ;;
 mount)
-    borg mount -o allow_other "$(ember-getconf BorgLocation)" "$(ember-getconf BorgMountpoint)"
+    borg mount -o allow_other "$borgLocation" "$(ember-getconf BorgMountpoint)"
     ;;
 umount)
     borg umount "$(ember-getconf BorgMountpoint)"
     ;;
 status)
-    borg info "$(ember-getconf BorgLocation)"
+    borg info "$borgLocation"
     ;;
 check|fsck)
-    borg check -v -p --verify-data "$(ember-getconf BorgLocation)"
+    borg check -v -p --verify-data "$borgLocation"
     ;;
 *)
     echo "Unknown action."
