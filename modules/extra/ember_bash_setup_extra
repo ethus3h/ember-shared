@@ -772,7 +772,7 @@ nomerge-ytdl-quick-audio() {
     local logFile
     logFile="ytdl-quicked-$(date-uuid)".log
     {
-        printf '%s\n'
+        printf '%s\n' "$@"
         youtube-dl --version
         ember_bash_setup --version
         youtube-dl -i --geo-bypass --write-description --write-info-json --write-annotations --write-thumbnail --write-all-thumbnails --write-sub --write-auto-sub --all-subs -k -f bestaudio/best -o '%(title)s-%(id)s.f%(format_id)s.%(ext)s' "$@"
