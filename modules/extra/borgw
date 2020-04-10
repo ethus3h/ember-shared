@@ -88,7 +88,7 @@ check|fsck)
     borg check -v -p --verify-data "$borgLocation"
     ;;
 checkquick|fsckquick|checkq|fsckq)
-    borg check -v -p --verify-data "$borgLocation"
+    borg check -v -p "$borgLocation"
     ;;
 *)
     echo "Unknown action."
