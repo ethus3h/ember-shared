@@ -470,6 +470,7 @@ tempFile() {
 }
 
 bulkstat() {
+    find "$@"
 }
 
 crystallize-getconf() {
