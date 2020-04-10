@@ -470,7 +470,7 @@ tempFile() {
 }
 
 bulkstat() {
-    find "$@"-printf "$statPrintFormatString"
+    find "$@"
 }
 
 crystallize-getconf() {
