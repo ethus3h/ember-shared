@@ -471,7 +471,7 @@ tempFile() {
 
 bulkstat() {
     local statPrintFormatString
-    statPrintFormatString='%p\0%l\0%y::%m::%U::%u::%G::%g::%TY::%Tm::%Td::%TH::%TM::%TS::%TZ::%AY::%Am::%Ad::%AH::%AM::%AS::%AZ::%TY::%Tm::%Td::%TH::%TM::%TS::%CZ::%t::%a::%c\0'
+    statPrintFormatString='%p\0%l\0%y::%m::%U::%u::%G::%g::%TY::%Tm::%Td::%TH::%TM::%TS::%TZ::%AY::%Am::%Ad::%AH::%AM::%AS::%AZ::%CY::%Cm::%Cd::%CH::%CM::%CS::%CZ::%t::%a::%c\0'
     find "$@" -printf "$statPrintFormatString"
 }
 
