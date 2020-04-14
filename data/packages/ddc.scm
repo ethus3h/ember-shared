@@ -69,15 +69,15 @@
 (define-public ember-shared-error-notify
   (package
     (name "ember-shared-error-notify")
-    (version "1.1.4.575-779c50eeae0b81031342b1607ed4b0cb2ea34175")
+    (version "1.1.4.576-1bb25d93c678e21959e66226e75f99a0719a5f1f")
     (source (origin
               (method git-fetch)
               (uri (git-reference
                 (url "https://github.com/ethus3h/ember-shared.git")
-                (commit "779c50eeae0b81031342b1607ed4b0cb2ea34175")))
+                (commit "1bb25d93c678e21959e66226e75f99a0719a5f1f")))
               (sha256
                (base32
-                "14s20fppf8jn5vwjxijwli8jpaas5ql51pk7l9k4cv6vd9mg727h"))))
+                "11aq3lp3r93pc5kc3lfnbxnlmm9macksfkkvsj4hw3w3x9majgrc"))))
     (build-system gnu-build-system)
     (arguments '(#:configure-flags '("--module=error-notify") #:phases (modify-phases %standard-phases (delete 'check))))
     (propagated-inputs `(
