@@ -17,6 +17,7 @@ fi
 
 if [[ "$1" == "DataDir" ]]; then
     getEmberSharedDataDir
+    echo
     exit
     cd "$(dirname "$(ember-getconf ConfigLocation)")/../share/ember/" || exit 1
     readlink -f "$PWD"
