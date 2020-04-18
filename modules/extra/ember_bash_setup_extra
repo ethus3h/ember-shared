@@ -21,6 +21,11 @@ wgetOptionallyOfflineWrapper() {
     fi
 }
 
+csc() {
+    # Checksummed copy
+    rsync -av --checksum --progress --no-i-r "$@"
+}
+
 wget() {
     wgetOptionallyOfflineWrapper "$@"
 }
