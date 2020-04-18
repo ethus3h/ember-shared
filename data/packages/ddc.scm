@@ -144,15 +144,15 @@
 (define-public ember-shared-extra
   (package
     (name "ember-shared-extra")
-    (version "1.1.4.577-6e8b19e8a16fb524595f25b28b9d9d66f4b4b304")
+    (version "1.1.4.578-c17c3ad9ff14fe9de43f9becec85f6f36c309fe8")
     (source (origin
               (method git-fetch)
               (uri (git-reference
                 (url "https://github.com/ethus3h/ember-shared.git")
-                (commit "6e8b19e8a16fb524595f25b28b9d9d66f4b4b304")))
+                (commit "c17c3ad9ff14fe9de43f9becec85f6f36c309fe8")))
               (sha256
                (base32
-                "0f7m0whs5fj1075pblfv4d8ylikbavd48wp5yq4jm8vgx89b95d8"))))
+                "1c2inrkn5a12j1cl97zcfqiqjkq1i49yq0pcyb0y6xs6amsz29m1"))))
     (build-system gnu-build-system)
     (arguments '(#:configure-flags '("--module=extra") #:phases (modify-phases %standard-phases (delete 'check))))
     (propagated-inputs `(
