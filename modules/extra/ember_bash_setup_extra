@@ -24,6 +24,7 @@ wgetOptionallyOfflineWrapper() {
 csc() {
     # Checksummed copy
     rsync -av --checksum --progress --no-i-r "$@"
+    rsync -av --checksum --progress --no-i-r "$@"
 }
 
 wget() {
