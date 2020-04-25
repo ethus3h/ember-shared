@@ -132,6 +132,16 @@ intIsBetween() {
     [[ $(( $(( "$1" - "$2" )) * $(($1 - $3)) )) -le 0 ]]
 }
 
+isNonnegativeInteger() {
+    # Can just use [[ "$var" == +([0-9]) ]], but the version of bash provided by Homebrew on macOS doesn't handle this correctly, so it's reimplemented here.
+    local re='^[0-9]+$'
+    if [[ "$1" =~ $re ]]; then
+        return 0
+    else
+        return 1
+    fi
+}
+
 asciiIsDigit() {
     intIsBetween "$1" 48 57
 }
