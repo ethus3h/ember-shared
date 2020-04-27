@@ -78,6 +78,9 @@ save)
 mount)
     borg mount -o allow_other "$borgLocation" "$borgMountpoint"
     ;;
+mount)
+    borg mount -o allow_other "$borgLocation" "$borgMountpoint"
+    ;;
 umount|unmount)
     borg umount "$borgMountpoint"
     ;;
