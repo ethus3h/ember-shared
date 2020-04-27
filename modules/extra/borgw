@@ -82,6 +82,7 @@ list|ls)
         if [[ -z "$2" ]]; then
             borg list "$borgLocation"::"$1"
         else
+            borg list "$borgLocation"::"$1"
     fi
     ;;
 mount)
