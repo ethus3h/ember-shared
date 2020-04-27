@@ -79,6 +79,9 @@ list|ls)
     borg list "$borgLocation"
     ;;
 mount)
+    if [[ -z "$1" ]]; then
+        warn "Mounting without specifying an archive may crash because it seems to load the entire archive directory tree into memory."
+    fi
     borg mount -o allow_other "$borgLocation" "$borgMountpoint"
     ;;
 umount|unmount)
