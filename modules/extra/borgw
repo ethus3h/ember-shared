@@ -76,7 +76,7 @@ save)
     chmod -R +r,go-w,+X "$borgLocation"
     ;;
 list|ls)
-    borg list -o allow_other "$borgLocation" "$borgMountpoint"
+    borg list "$borgLocation"
     ;;
 mount)
     borg mount -o allow_other "$borgLocation" "$borgMountpoint"
