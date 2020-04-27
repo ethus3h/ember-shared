@@ -79,7 +79,7 @@ list|ls)
     if [[ -z "$1" ]]; then
         borg list "$borgLocation"
     else
-        borg mount -o allow_other "$borgLocation"::"$1" "$borgMountpoint"
+        borg list "$borgLocation"::"$1"
     fi
     ;;
 mount)
