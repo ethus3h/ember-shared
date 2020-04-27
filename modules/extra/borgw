@@ -76,7 +76,6 @@ save)
     chmod -R +r,go-w,+X "$borgLocation"
     ;;
 list|ls)
-    borg list "$borgLocation"
     if [[ -z "$1" ]]; then
         warn "Mounting without specifying an archive may be killed by the OOM killer because it uses a lot of memory."
         borg mount -o allow_other "$borgLocation" "$borgMountpoint"
