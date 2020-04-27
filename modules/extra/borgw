@@ -79,7 +79,7 @@ list|ls)
     if [[ -z "$1" ]]; then
         borg list "$borgLocation"
     else
-        if [[ -z "$1" ]]; then
+        if [[ -z "$2" ]]; then
         borg list "$borgLocation"::"$1"
     fi
     ;;
