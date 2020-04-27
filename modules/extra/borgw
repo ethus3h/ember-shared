@@ -80,7 +80,7 @@ list|ls)
     ;;
 mount)
     if [[ -z "$1" ]]; then
-        warn "Mounting without specifying an archive may crash because it uses a lot of memory."
+        warn "Mounting without specifying an archive may be killed by the OOM killer because it uses a lot of memory."
         borg mount -o allow_other "$borgLocation" "$borgMountpoint"
     else
         borg mount -o allow_other "$borgLocation"::"$1" "$borgMountpoint"
