@@ -75,7 +75,7 @@ save)
     chown -R root:root "$borgLocation"
     chmod -R +r,go-w,+X "$borgLocation"
     ;;
-mount)
+list|ls)
     borg mount -o allow_other "$borgLocation" "$borgMountpoint"
     ;;
 mount)
