@@ -233,7 +233,7 @@
             (method git-fetch)
             (uri (git-reference
                 (url "https://github.com/ethus3h/ember-information-technology-environment.git")
-                (commit "TEMPLATE-PLACEHOLDER-COMMIT:ddc")))
+                (commit "TEMPLATE-PLACEHOLDER-COMMIT:ddc-fast")))
             (sha256
             (base32
                 "TEMPLATE-PLACEHOLDER-HASH:ddc-fast"))
