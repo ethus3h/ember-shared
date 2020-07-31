@@ -222,7 +222,6 @@
         (package
             ; do-nothing package to hold common aspects of ddc packages
             (name "ddc-common-attributes")
-            ; Only update ddc-slow pseudo-package (generateGuixPackaging ddc-slow) when necessary, to avoid costly rebuilds
             (version "TEMPLATE-PLACEHOLDER-VERSION:ddc")
             (build-system trivial-build-system)
             (source (origin
