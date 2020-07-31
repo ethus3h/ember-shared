@@ -260,7 +260,6 @@
 
 (define-public ddc-common-attributes-slow
         (package
-        (package
             (inherit ddc-common-attributes)
             (name "ddc-data")
             (build-system gnu-build-system)
@@ -270,7 +269,6 @@
             (inputs `(
                 ("ddc-dist" ,ddc-dist)
             ))
-        )
         )
 )
 
