@@ -222,6 +222,7 @@
         (package
             ; do-nothing package to hold common aspects of ddc packages
             (name "ddc-common-attributes")
+            (version "TEMPLATE-PLACEHOLDER-VERSION:ddc")
             (build-system trivial-build-system)
             (source (origin
                 (method git-fetch)
