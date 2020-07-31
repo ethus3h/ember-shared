@@ -301,7 +301,7 @@
 (define-public ddc-data
     (hidden-package
         (package
-            (inherit ddc-common-attributes)
+            (inherit ddc-common-attributes-slow)
             (name "ddc-data")
             (build-system gnu-build-system)
             (arguments '(
