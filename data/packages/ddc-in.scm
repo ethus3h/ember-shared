@@ -260,15 +260,8 @@
 
 (define-public ddc-common-attributes-slow
     (package
-        (inherit ddc-common-attributes)
-        (name "ddc-data")
-        (build-system gnu-build-system)
-        (arguments '(
-            #:configure-flags '("--" "--build-type" "data")
-        ))
-        (inputs `(
-            ("ddc-dist" ,ddc-dist)
-        ))
+            ; Only update ddc-slow pseudo-package (generateGuixPackaging ddc-slow) when necessary, to avoid costly rebuilds
+            (version "TEMPLATE-PLACEHOLDER-VERSION:ddc-slow")
     )
 )
 
