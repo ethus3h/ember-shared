@@ -273,7 +273,7 @@
 (define-public ddc-dist
     (hidden-package
         (package
-            (inherit ddc-common-attributes)
+            (inherit ddc-common-attributes-slow)
             (name "ddc-dist")
             (build-system gnu-build-system)
             (arguments '(
