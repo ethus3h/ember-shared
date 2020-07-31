@@ -227,16 +227,16 @@
     (package
         ; do-nothing package to hold common aspects of ddc packages
         (name "ddc-common-attributes")
-        (version "0-efe15d4fab549d7d41100cf64e61e0e6df9d3d69-fast")
+        (version "1.1.4.585-ae6f96e4f245cff15af208e5dfb2737da3c54382")
         (build-system trivial-build-system)
         (source (origin
             (method git-fetch)
             (uri (git-reference
                 (url "https://github.com/ethus3h/ember-information-technology-environment.git")
-                (commit "efe15d4fab549d7d41100cf64e61e0e6df9d3d69-fast")))
+                (commit "ae6f96e4f245cff15af208e5dfb2737da3c54382")))
             (sha256
             (base32
-                "0cs2qlhpksy146zxfysi1q2qlln1p3hlpjyd7iwwmx11fxmnl1b8-fast"))
+                "03na3na1bn4lflgrccwfr6hiy9l9a50c9l4dcbzi6615qm7q5hc7"))
             (modules '((guix build utils)))
             (snippet '(begin
                 (for-each delete-file-recursively '(".egup.stat" ".stagel-cache" "built"))
@@ -267,14 +267,14 @@
         (inherit ddc-common-attributes-slow)
         ; For packages that should update slowly (bootstrap)
         ; Only update ddc-slow pseudo-package (generateGuixPackaging ddc-slow) when necessary, to avoid costly rebuilds
-        (version "0-efe15d4fab549d7d41100cf64e61e0e6df9d3d69-slow")
+        (version "1.1.4.585-6d3be13360f289465640880d1b421b2e3884adfc")
         (source (origin (inherit (package-source ddc-common-attributes)
             (uri (git-reference
                 (url "https://github.com/ethus3h/ember-information-technology-environment.git")
-                (commit "efe15d4fab549d7d41100cf64e61e0e6df9d3d69-slow")))
+                (commit "6d3be13360f289465640880d1b421b2e3884adfc")))
             (sha256
             (base32
-                "0cs2qlhpksy146zxfysi1q2qlln1p3hlpjyd7iwwmx11fxmnl1b8-slow"))
+                "1f4id1kika6rlr2sqn4hwqwxflghmnrjnffczwgjrcdn4nljnh9b"))
         )))
     )
 )
