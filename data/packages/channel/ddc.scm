@@ -11,6 +11,11 @@
 ;;; You should have received a copy of the GNU General Public License
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
+; generateGuixPackaging ddc-fast
+; generateGuixPackaging ddc-slow
+; generateAndTestGuixPackaging ddc-fast
+; generateAndTestGuixPackaging ddc-slow
+
 ; If the build fails: ./pre-inst-env guix build -K ember-shared-main
 ; cd /tmp/guix-build-ember-shared-main-1.1.4.497-1e1d27a9115b400d1580705bc4a223e98afdb791.drv-1
 ; /nvme0n1p5/ember-auto-build/guix/pre-inst-env guix environment --no-grafts -C ember-shared-main
@@ -222,7 +227,7 @@
         (package
             ; do-nothing package to hold common aspects of ddc packages
             (name "ddc-common-attributes")
-            (version "0-efe15d4fab549d7d41100cf64e61e0e6df9d3d69")
+            (version "0-efe15d4fab549d7d41100cf64e61e0e6df9d3d69-fast")
             (build-system trivial-build-system)
             (source (origin
                 (method git-fetch)
@@ -257,10 +262,18 @@
         )
 )
 
+(define-public ddc-common-attributes-slow
+    (package
+        ; For packages that should update slowly (bootstrap)
+        ; Only update ddc-slow pseudo-package (generateGuixPackaging ddc-slow) when necessary, to avoid costly rebuilds
+        (version "0-efe15d4fab549d7d41100cf64e61e0e6df9d3d69-slow")
+    )
+)
+
 (define-public ddc-dist
     (hidden-package
         (package
-            (inherit ddc-common-attributes)
+            (inherit ddc-common-attributes-slow)
             (name "ddc-dist")
             (build-system gnu-build-system)
             (arguments '(
@@ -288,7 +301,7 @@
 (define-public ddc-data
     (hidden-package
         (package
-            (inherit ddc-common-attributes)
+            (inherit ddc-common-attributes-slow)
             (name "ddc-data")
             (build-system gnu-build-system)
             (arguments '(
