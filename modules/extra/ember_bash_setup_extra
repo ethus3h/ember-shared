@@ -983,7 +983,7 @@ testGuixPackaging() (
             pn="ddc"
         fi
         if ! [[ -f "package-name" ]]; then
-            cd "$emberPath/$pn" || die "Please make sure you have a package directory at $emberPath/$1."
+            cd "$emberPath/$pn" || die "Please make sure you have a package directory at $emberPath/$pn."
         fi
     fi
     if [[ -n "$1" ]]; then
