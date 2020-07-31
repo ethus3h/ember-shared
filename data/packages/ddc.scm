@@ -233,10 +233,10 @@
             (method git-fetch)
             (uri (git-reference
                 (url "https://github.com/ethus3h/ember-information-technology-environment.git")
-                (commit "efe15d4fab549d7d41100cf64e61e0e6df9d3d69")))
+                (commit "efe15d4fab549d7d41100cf64e61e0e6df9d3d69-fast")))
             (sha256
             (base32
-                "0cs2qlhpksy146zxfysi1q2qlln1p3hlpjyd7iwwmx11fxmnl1b8"))
+                "0cs2qlhpksy146zxfysi1q2qlln1p3hlpjyd7iwwmx11fxmnl1b8-fast"))
             (modules '((guix build utils)))
             (snippet '(begin
                 (for-each delete-file-recursively '(".egup.stat" ".stagel-cache" "built"))
@@ -268,6 +268,14 @@
         ; For packages that should update slowly (bootstrap)
         ; Only update ddc-slow pseudo-package (generateGuixPackaging ddc-slow) when necessary, to avoid costly rebuilds
         (version "0-efe15d4fab549d7d41100cf64e61e0e6df9d3d69-slow")
+        (source (origin (inherit (package-source ddc-common-attributes)
+            (uri (git-reference
+                (url "https://github.com/ethus3h/ember-information-technology-environment.git")
+                (commit "efe15d4fab549d7d41100cf64e61e0e6df9d3d69-slow")))
+            (sha256
+            (base32
+                "0cs2qlhpksy146zxfysi1q2qlln1p3hlpjyd7iwwmx11fxmnl1b8-slow"))
+        )))
     )
 )
 
