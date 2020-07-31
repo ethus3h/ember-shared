@@ -268,6 +268,7 @@
         ; For packages that should update slowly (bootstrap)
         ; Only update ddc-slow pseudo-package (generateGuixPackaging ddc-slow) when necessary, to avoid costly rebuilds
         (version "TEMPLATE-PLACEHOLDER-VERSION:ddc-slow")
+        (source (origin (inherit (package-source ddc-common-attributes) ())))
     )
 )
 
