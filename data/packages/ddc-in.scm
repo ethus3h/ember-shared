@@ -12,7 +12,7 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 ; generateGuixPackaging ddc-fast
-; generateGuixPackaging ddc-slow
+; generateGuixPackaging ddc-slow;
 ; generateAndTestGuixPackaging ddc-fast
 ; generateAndTestGuixPackaging ddc-slow
 
