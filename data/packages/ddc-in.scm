@@ -260,8 +260,8 @@
 
 (define-public ddc-common-attributes-slow
     (package
-            ; Only update ddc-slow pseudo-package (generateGuixPackaging ddc-slow) when necessary, to avoid costly rebuilds
-            (version "TEMPLATE-PLACEHOLDER-VERSION:ddc-slow")
+        ; Only update ddc-slow pseudo-package (generateGuixPackaging ddc-slow) when necessary, to avoid costly rebuilds
+        (version "TEMPLATE-PLACEHOLDER-VERSION:ddc-slow")
     )
 )
 
