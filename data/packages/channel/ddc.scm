@@ -14,7 +14,7 @@
 ; generateGuixPackaging ddc-fast
 ; generateGuixPackaging ddc-slow; generateGuixPackaging ddc-fast
 ; generateAndTestGuixPackaging ddc-fast
-; generateAndTestGuixPackaging ddc-slow; generateAndTestGuixPackaging ddc-fast
+; generateGuixPackaging ddc-slow; generateAndTestGuixPackaging ddc-fast
 
 ; If the build fails: ./pre-inst-env guix build -K ember-shared-main
 ; cd /tmp/guix-build-ember-shared-main-1.1.4.497-1e1d27a9115b400d1580705bc4a223e98afdb791.drv-1
@@ -74,15 +74,15 @@
 (define-public ember-shared-error-notify
   (package
     (name "ember-shared-error-notify")
-    (version "1.1.4.584-52bdbeb7bcbe1667d6805e4318d82aa58ea08a51")
+    (version "1.1.4.585-89215ddc03ef453c6110472e9b285e759d463f56")
     (source (origin
               (method git-fetch)
               (uri (git-reference
                 (url "https://github.com/ethus3h/ember-shared.git")
-                (commit "52bdbeb7bcbe1667d6805e4318d82aa58ea08a51")))
+                (commit "89215ddc03ef453c6110472e9b285e759d463f56")))
               (sha256
                (base32
-                "1vpzsajy7jr4aqd4yrv0s39r9l5brrblrp2fnjjj26v6p5y7ga0q"))))
+                "0ipib5li7y9jhs7b76ashkhc6h89ivhl6328lypydzqrxsg04ndb"))))
     (build-system gnu-build-system)
     (arguments '(#:configure-flags '("--module=error-notify") #:phases (modify-phases %standard-phases (delete 'check))))
     (propagated-inputs `(
