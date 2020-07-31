@@ -14,7 +14,7 @@
 ; generateGuixPackaging ddc-fast
 ; generateGuixPackaging ddc-slow; generateGuixPackaging ddc-fast
 ; generateAndTestGuixPackaging ddc-fast
-; generateAndTestGuixPackaging ddc-slow; generateAndTestGuixPackaging ddc-fast
+; generateGuixPackaging ddc-slow; generateAndTestGuixPackaging ddc-fast
 
 ; If the build fails: ./pre-inst-env guix build -K ember-shared-main
 ; cd /tmp/guix-build-ember-shared-main-1.1.4.497-1e1d27a9115b400d1580705bc4a223e98afdb791.drv-1
