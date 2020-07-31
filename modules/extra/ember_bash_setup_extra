@@ -1016,6 +1016,10 @@ testGuixPackaging() (
 generateGuixPackaging() (
     emberPath="$(ember-getconf EmberLibrary)"
     if [[ -n "$1" ]]; then
+        pn="$1"
+        if [[ "ddc-fast" == "$pn" ]] || [[ "ddc-slow" == "$pn" ]]; then
+            pn="ddc"
+        fi
         if ! [[ -f "package-name" ]]; then
             cd "$emberPath/$1" || die "Please make sure you have a package directory at $emberPath/$1."
         fi
