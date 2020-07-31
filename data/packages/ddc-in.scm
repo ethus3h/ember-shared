@@ -274,7 +274,7 @@
                 (commit "TEMPLATE-PLACEHOLDER-COMMIT:ddc-slow")))
             (sha256
             (base32
-                "TEMPLATE-PLACEHOLDER-HASH:ddc"))
+                "TEMPLATE-PLACEHOLDER-HASH:ddc-slow"))
         )))
     )
 )
