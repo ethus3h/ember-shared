@@ -224,46 +224,47 @@
     (license (list agpl3+ bsd-2))))
 
 (define-public ddc-common-attributes
-        (package
-            ; do-nothing package to hold common aspects of ddc packages
-            (name "ddc-common-attributes")
-            (version "0-efe15d4fab549d7d41100cf64e61e0e6df9d3d69-fast")
-            (build-system trivial-build-system)
-            (source (origin
-                (method git-fetch)
-                (uri (git-reference
-                    (url "https://github.com/ethus3h/ember-information-technology-environment.git")
-                    (commit "efe15d4fab549d7d41100cf64e61e0e6df9d3d69")))
-                (sha256
-                (base32
-                    "0cs2qlhpksy146zxfysi1q2qlln1p3hlpjyd7iwwmx11fxmnl1b8"))
-                (modules '((guix build utils)))
-                (snippet '(begin
-                    (for-each delete-file-recursively '(".egup.stat" ".stagel-cache" "built"))
-                    (for-each delete-file-recursively (find-files "tests" "^run$" #:directories? #t)) ; "run" folders hold the generated output, while "out" folders hold the expected output
-                    #t
-                ))
+    (package
+        ; do-nothing package to hold common aspects of ddc packages
+        (name "ddc-common-attributes")
+        (version "0-efe15d4fab549d7d41100cf64e61e0e6df9d3d69-fast")
+        (build-system trivial-build-system)
+        (source (origin
+            (method git-fetch)
+            (uri (git-reference
+                (url "https://github.com/ethus3h/ember-information-technology-environment.git")
+                (commit "efe15d4fab549d7d41100cf64e61e0e6df9d3d69")))
+            (sha256
+            (base32
+                "0cs2qlhpksy146zxfysi1q2qlln1p3hlpjyd7iwwmx11fxmnl1b8"))
+            (modules '((guix build utils)))
+            (snippet '(begin
+                (for-each delete-file-recursively '(".egup.stat" ".stagel-cache" "built"))
+                (for-each delete-file-recursively (find-files "tests" "^run$" #:directories? #t)) ; "run" folders hold the generated output, while "out" folders hold the expected output
+                #t
             ))
-            (synopsis "Deterministic Document Computing")
-            (description "Document-centric software environment")
-            (home-page "http://futuramerlin.com/specification/engineering-and-tech/information-technology/software/")
-            (license (list
-                agpl3+
-                unicode
-                silofl1.1 ; soccer.otf
-                ; FIXME: papaparse
-                (x11-style "file://thirdparty-licenses/LICENSE.base16b.md")
-                (x11-style "file://thirdparty-licenses/LICENSE.kde-syntax-highlighting.md")
-                (x11-style "file://thirdparty-licenses/LICENSE.wtf8.md")
-            ))
-            (propagated-inputs `(
-                ("ember-shared-core" ,ember-shared-core)
-            ))
-        )
+        ))
+        (synopsis "Deterministic Document Computing")
+        (description "Document-centric software environment")
+        (home-page "http://futuramerlin.com/specification/engineering-and-tech/information-technology/software/")
+        (license (list
+            agpl3+
+            unicode
+            silofl1.1 ; soccer.otf
+            ; FIXME: papaparse
+            (x11-style "file://thirdparty-licenses/LICENSE.base16b.md")
+            (x11-style "file://thirdparty-licenses/LICENSE.kde-syntax-highlighting.md")
+            (x11-style "file://thirdparty-licenses/LICENSE.wtf8.md")
+        ))
+        (propagated-inputs `(
+            ("ember-shared-core" ,ember-shared-core)
+        ))
+    )
 )
 
 (define-public ddc-common-attributes-slow
     (package
+        (inherit ddc-common-attributes-slow)
         ; For packages that should update slowly (bootstrap)
         ; Only update ddc-slow pseudo-package (generateGuixPackaging ddc-slow) when necessary, to avoid costly rebuilds
         (version "0-efe15d4fab549d7d41100cf64e61e0e6df9d3d69-slow")
