@@ -259,17 +259,17 @@
 )
 
 (define-public ddc-common-attributes-slow
-        (package
-            (inherit ddc-common-attributes)
-            (name "ddc-data")
-            (build-system gnu-build-system)
-            (arguments '(
-                #:configure-flags '("--" "--build-type" "data")
-            ))
-            (inputs `(
-                ("ddc-dist" ,ddc-dist)
-            ))
-        )
+    (package
+        (inherit ddc-common-attributes)
+        (name "ddc-data")
+        (build-system gnu-build-system)
+        (arguments '(
+            #:configure-flags '("--" "--build-type" "data")
+        ))
+        (inputs `(
+            ("ddc-dist" ,ddc-dist)
+        ))
+    )
 )
 
 (define-public ddc-dist
