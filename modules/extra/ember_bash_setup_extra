@@ -995,6 +995,8 @@ testGuixPackaging() (
     printf '%b' '\033[1;31m'
     echo 'To build, run:'
     if [[ "ddc-fast" == "$pn" ]] || [[ "ddc-slow" == "$pn" ]]; then
+        pn="ddc"
+    fi
     echo './pre-inst-env guix build '"$pn"'; exit'
     if ! [[ -e "./pre-inst-env" ]]; then
         echo
