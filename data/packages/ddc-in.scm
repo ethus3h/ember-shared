@@ -11,9 +11,9 @@
 ;;; You should have received a copy of the GNU General Public License
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
-; generateGuixPackaging ddc
+; generateGuixPackaging ddc-fast
 ; generateGuixPackaging ddc-slow
-; generateAndTestGuixPackaging ddc
+; generateAndTestGuixPackaging ddc-fast
 ; generateAndTestGuixPackaging ddc-slow
 
 ; If the build fails: ./pre-inst-env guix build -K ember-shared-main
