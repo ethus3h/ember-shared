@@ -236,7 +236,7 @@
                 (commit "TEMPLATE-PLACEHOLDER-COMMIT:ddc")))
             (sha256
             (base32
-                "TEMPLATE-PLACEHOLDER-HASH:ddc"))
+                "TEMPLATE-PLACEHOLDER-HASH:ddc-fast"))
             (modules '((guix build utils)))
             (snippet '(begin
                 (for-each delete-file-recursively '(".egup.stat" ".stagel-cache" "built"))
