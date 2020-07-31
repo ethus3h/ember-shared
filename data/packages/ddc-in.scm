@@ -258,7 +258,7 @@
         )
 )
 
-(define-public ddc-common-attributes
+(define-public ddc-common-attributes-slow
         (package
             ; do-nothing package to hold common aspects of ddc packages
             (name "ddc-common-attributes")
