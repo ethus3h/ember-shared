@@ -268,7 +268,14 @@
         ; For packages that should update slowly (bootstrap)
         ; Only update ddc-slow pseudo-package (generateGuixPackaging ddc-slow) when necessary, to avoid costly rebuilds
         (version "TEMPLATE-PLACEHOLDER-VERSION:ddc-slow")
-        (source (origin (inherit (package-source ddc-common-attributes) ())))
+        (source (origin (inherit (package-source ddc-common-attributes)
+            (uri (git-reference
+                (url "https://github.com/ethus3h/ember-information-technology-environment.git")
+                (commit "TEMPLATE-PLACEHOLDER-COMMIT:ddc")))
+            (sha256
+            (base32
+                "TEMPLATE-PLACEHOLDER-HASH:ddc"))
+        )))
     )
 )
 
