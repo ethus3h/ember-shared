@@ -317,7 +317,7 @@
 (define-public ddc-bootstrap
     (hidden-package
         (package
-            (inherit ddc-common-attributes-slow)
+            (inherit ddc-common-attributes)
             (name "ddc-bootstrap")
             (build-system gnu-build-system)
             (arguments '(
