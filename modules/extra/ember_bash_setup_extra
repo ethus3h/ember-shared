@@ -979,7 +979,7 @@ testGuixPackaging() (
     emberPath="$(ember-getconf EmberLibrary)"
     if [[ -n "$1" ]]; then
         if [[ "ddc-fast" == "$pn" ]] || [[ "ddc-slow" == "$pn" ]]; then
-            pn="ddc (or ./pre-inst-env guix build -e '(@ (gnu packages ddc) ddc-dist)' for your ddc module of choice)"
+            pn="ddc"
         fi
         if ! [[ -f "package-name" ]]; then
             cd "$emberPath/$1" || die "Please make sure you have a package directory at $emberPath/$1."
