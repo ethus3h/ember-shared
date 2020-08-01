@@ -1,1 +1,1 @@
-rsync -av --checksum data/packages/ddc.scm data/packages/channel/
+rsync -av --checksum data/packages/ddc.scm data/packages/channel/gnu/packages/
