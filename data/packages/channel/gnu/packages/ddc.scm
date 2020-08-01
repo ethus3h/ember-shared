@@ -267,14 +267,14 @@
         (inherit ddc-common-attributes)
         ; For packages that should update slowly (bootstrap)
         ; Only update ddc-slow pseudo-package (generateGuixPackaging ddc-slow) when necessary, to avoid costly rebuilds
-        (version "1.1.4.585-71cba4edd92a0b10cffe30afd10f707ae3b8166f")
+        (version "1.1.4.585-d9783c5ce5694a848ad1aa7d04b7a91f0e53cfa6")
         (source (origin (inherit (package-source ddc-common-attributes))
             (uri (git-reference
                 (url "https://github.com/ethus3h/ember-information-technology-environment.git")
-                (commit "71cba4edd92a0b10cffe30afd10f707ae3b8166f")))
+                (commit "d9783c5ce5694a848ad1aa7d04b7a91f0e53cfa6")))
             (sha256
             (base32
-                "1wnpz8yfajpw522iqnx5ghyjb04mncnx0xq8ia9cwznvp42ww72g"))
+                "12xzr6cxrvy9198b7khbrvby0xpa9bm0npnksqjzwmsn5k62az6n"))
         ))
     )
 )
