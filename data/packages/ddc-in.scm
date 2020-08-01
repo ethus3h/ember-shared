@@ -35,7 +35,7 @@
 !#
 
 
-(define-module (gnu packages ddc)
+(define-module (ddc)
   #:use-module (guix gexp)
   #:use-module (guix packages)
   #:use-module (guix download)
