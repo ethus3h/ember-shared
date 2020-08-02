@@ -202,15 +202,15 @@
 (define-public crystallize
   (package
     (name "crystallize")
-    (version "3.1.2.5.14.399-1cc4d30a25a1e7656bedaf761e0592f777c4aaed")
+    (version "3.1.2.5.14.400-3a5f1a8774a6f1e6da70749bfe4759028d9a307c")
     (source (origin
               (method git-fetch)
               (uri (git-reference
                 (url "https://github.com/ethus3h/crystallize.git")
-                (commit "1cc4d30a25a1e7656bedaf761e0592f777c4aaed")))
+                (commit "3a5f1a8774a6f1e6da70749bfe4759028d9a307c")))
               (sha256
                (base32
-                "18q9ki209rqanxcxhg4bbc2b8sng419w84226cmbiyw805c2mvmj"))))
+                "1hhipqkkrhxllqjhpw48fzvwq3yq1c48kw4r3p47na74pdap0dkv"))))
     (build-system gnu-build-system)
     (propagated-inputs `(
         ("ember-shared-extra" ,ember-shared-extra)
