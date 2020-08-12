@@ -70,6 +70,10 @@ save)
     if [[ -z "$1" ]]; then
         tempD="$referenceLibrary"
     fi
+    if [[ "--small" == "$1" ]]; then
+        chunker="10,14,16,4095"
+    else
+        chunker=""
     # FIXME hardcoded username
     borg create --stats --progress --noatime --list --filter=AME --compression 'lzma,6' --files-cache disabled "$borgLocation"'::'"$(emdate)" "$tempA" "$tempB" "$tempC" "$tempD" ~/.bash_history /home/kyan/.bash_history "$@"
     chown -R root:root "$borgLocation"
