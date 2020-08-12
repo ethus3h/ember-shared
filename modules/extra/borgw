@@ -52,6 +52,7 @@ savequick|saveq)
     emdate > "$tempC"
     tempD="$(tempFile)" # fake file saved if the library is not going to be (to avoid needing complicated code to remove the referenceLibrary argument)
     if [[ "--small" == "$1" ]]; then
+        shift
         chunker="10,14,16,4095"
     else
         chunker="19,23,21,4095"
