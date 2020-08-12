@@ -51,6 +51,11 @@ savequick|saveq)
     printf '%s\0' "$@" > "$tempB"
     emdate > "$tempC"
     tempD="$(tempFile)" # fake file saved if the library is not going to be (to avoid needing complicated code to remove the referenceLibrary argument)
+    if [[ "--small" == "$1" ]]; then
+        chunker="10,14,16,4095"
+    else
+        chunker="19,23,21,4095"
+    fi
     if [[ -z "$1" ]]; then
         tempD="$referenceLibrary"
     fi
