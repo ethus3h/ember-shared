@@ -465,6 +465,10 @@ bulkstat() {
     find "$@" -printf "$statPrintFormatString"
 }
 
+open() {
+    xdg-open "$@"
+}
+
 crystallize-getconf() {
     [[ -n "$EmberWorkdirOverride54ae685dc782437c99bc46c7a1211377" ]] && export EmberWorkdirOverride54ae685dc782437c99bc46c7a1211377
     command crystallize-getconf "$@"
