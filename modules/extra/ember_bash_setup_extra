@@ -767,7 +767,7 @@ ytdl-quick() {
         printf '%s\n' "$@"
         youtube-dl --version
         ember_bash_setup --version
-        youtube-dl -i --geo-bypass --write-description --write-info-json --write-annotations --write-thumbnail --write-all-thumbnails --write-sub --write-auto-sub --all-subs -k "$@"
+        youtube-dl --fixup never -i --geo-bypass --write-description --write-info-json --write-annotations --write-thumbnail --write-all-thumbnails --write-sub --write-auto-sub --all-subs -k "$@"
     } 2>&1 | tee -a "$logFile"
 }
 
