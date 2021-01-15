@@ -227,16 +227,16 @@
     (package
         ; do-nothing package to hold common aspects of ddc packages
         (name "ddc-common-attributes")
-        (version "1.1.4.587-ceebe749588dae1afc579e8b23bea6e2e4c3fb18")
+        (version "0-12e66a8adfb243b22500fcf8b44fc64f4399ac85")
         (build-system trivial-build-system)
         (source (origin
             (method git-fetch)
             (uri (git-reference
                 (url "https://github.com/ethus3h/ember-information-technology-environment.git")
-                (commit "ceebe749588dae1afc579e8b23bea6e2e4c3fb18")))
+                (commit "12e66a8adfb243b22500fcf8b44fc64f4399ac85")))
             (sha256
             (base32
-                "0jilvim1lr15ih59bfyz8x3wsfsncc5gr3siflvrldbhd5fnqwn1"))
+                "0c5n91dp2kj6y5yzvxh0vv2amjl3cp1sc2gwbxw1bpa3zxgkfgr4"))
             (modules '((guix build utils)))
             (snippet '(begin
                 (for-each delete-file-recursively '(".egup.stat" ".stagel-cache" "built"))
