@@ -61,7 +61,7 @@ savequick|saveq)
         tempD="$referenceLibrary"
     fi
     # FIXME hardcoded username
-    borg create --stats --progress --noatime --list --filter=AME --compression 'lzma,6' "$borgLocation"'::'"$(emdate)" "$tempA" "$tempB" "$tempC" "$tempD" ~/.bash_history /home/kyan/.bash_history "$@"
+    borg create --checkpoint-interval 14400 --stats --progress --noatime --list --filter=AME --compression 'lzma,6' "$borgLocation"'::'"$(emdate)" "$tempA" "$tempB" "$tempC" "$tempD" ~/.bash_history /home/kyan/.bash_history "$@"
     chown -R root:root "$borgLocation"
     chmod -R +r,go-w,+X "$borgLocation"
     ;;
