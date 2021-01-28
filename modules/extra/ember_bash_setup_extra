@@ -288,7 +288,7 @@ ia() (
                     fi
                 done
                 [[ "$succeeded" == "true" ]] || die
-                [[ ! -e emdate > "$ident.ia-checkeddled"
+                touch "$ident.ia-checkeddled"
             done
         ) || die
         set +x
