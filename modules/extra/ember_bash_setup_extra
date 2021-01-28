@@ -288,6 +288,7 @@ ia() (
                     fi
                 done
                 [[ "$succeeded" == "true" ]] || die
+                emdate > "$ident.ia-checkeddled"
             done
         ) || die
         set +x
